@@ -454,7 +454,7 @@ input:focus{border-color:var(--red)}
 <div class="card"><h2>🎲 النرد</h2><p class="muted">تكلفة 25 🧧</p><br><button class="btn" onclick="dice()">رمي النرد</button></div>
 <div class="card"><h2>🎁 صندوق سريع</h2><p class="muted">تكلفة 50 🧧</p><br><button class="btn gold" onclick="quickBox()">فتح</button></div>
 <div class="card"><h2>🎡 العجلة</h2><p class="muted">تكلفة 100 🧧</p><br><button class="btn" onclick="spin()">تدوير</button></div>
-<div class="card"><h2>🎁 اليومية</h2><p class="muted">مكافأة يومية</p><br><button class="btn green" onclick="daily()">استلام</button></div>
+<div class="card"><h2>🎁 اليومية</h2><p class="muted">مكافأة التسجيل اليومي</p><br><button class="btn green" onclick="daily()">استلام</button></div>
 </div>
 
 <div class="card" style="text-align:center">
@@ -504,13 +504,13 @@ input:focus{border-color:var(--red)}
 </div>
 </section>
 
-<!-- المحفظة (الإيداع والتحويل) -->
+<!-- المحفظة (الإيداع والتحويل والسجل) -->
 <section id="wallet" class="page hidden">
-<div class="hero"><h1>💰 المحفظة</h1><p>تحكم في رصيدك، قم بالإيداع وحول الأموال للأعضاء.</p></div>
+<div class="hero"><h1>💰 المحفظة</h1><p>تحكم في رصيدك، قم بالإيداع، وحول الأموال مع سجل العمليات المفصل.</p></div>
 
 <div class="grid">
-<div class="card">💰 الرصيد<h2 class="gold" id="walletBalance">0</h2></div>
-<div class="card">📜 العمليات<h2 id="txCount">0</h2></div>
+<div class="card">💰 الرصيد الحالي<h2 class="gold" id="walletBalance">0</h2></div>
+<div class="card">📜 العمليات المنجزة<h2 id="txCount">0</h2></div>
 </div>
 
 <div class="card" style="margin-bottom: 20px;">
@@ -519,11 +519,18 @@ input:focus{border-color:var(--red)}
 <button class="btn green full" onclick="makeDeposit()">إيداع فوري 💳</button>
 </div>
 
-<div class="card">
+<div class="card" style="margin-bottom: 20px;">
 <h3>💸 تحويل الأموال للأعضاء</h3>
 <input id="transferUser" placeholder="اسم العضو المُحوَّل إليه">
 <input id="transferAmount" type="number" placeholder="المبلغ">
 <button class="btn gold full" onclick="makeTransfer()">تحويل الأموال 🚀</button>
+</div>
+
+<div class="card">
+<h3>📜 سجل المعاملات الحديثة</h3>
+<div style="margin-top: 10px; max-height: 200px; overflow-y: auto;" id="txHistoryBox">
+<p class="muted">لا توجد عمليات سابقة حتى الآن.</p>
+</div>
 </div>
 </section>
 
@@ -582,7 +589,7 @@ input:focus{border-color:var(--red)}
    DATABASE
 ========================= */
 
-const KEY="SUN_TOKYO_ONE_HTML_V6";
+const KEY="SUN_TOKYO_ONE_HTML_V7";
 
 let db=JSON.parse(localStorage.getItem(KEY)||"null");
 
@@ -760,7 +767,7 @@ function makeDeposit(){
  if(isNaN(amt)||amt<=0)return toast("❌ أدخل مبلغاً صحيحاً");
 
  u.money+=amt;
- u.tx.unshift("إيداع رصيد بقيمة: " + amt);
+ u.tx.unshift("إيداع رصيد بقيمة: +" + amt + " 🧧");
  save(); renderAll();
  document.getElementById("depositAmount").value="";
  
@@ -783,8 +790,8 @@ function makeTransfer(){
  u.money-=amt;
  targetUser.money+=amt;
 
- u.tx.unshift("تحويل " + amt + " إلى " + targetUser.name);
- targetUser.tx.unshift("استلام " + amt + " من " + u.name);
+ u.tx.unshift("تحويل -" + amt + " إلى " + targetUser.name);
+ targetUser.tx.unshift("استلام +" + amt + " من " + u.name);
 
  save(); renderAll();
  document.getElementById("transferUser").value="";
@@ -792,6 +799,19 @@ function makeTransfer(){
 
  confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
  toast("✅ تم تحويل " + amt + " إلى " + targetUser.name + " بنجاح!");
+}
+
+function renderWalletHistory(){
+ let u=me();
+ let box=document.getElementById("txHistoryBox");
+ if(!u.tx || u.tx.length === 0){
+  box.innerHTML=`<p class="muted">لا توجد عمليات سابقة حتى الآن.</p>`;
+  return;
+ }
+ box.innerHTML=u.tx.map(t=>`
+ <div style="padding: 8px; margin: 4px 0; background: rgba(255,255,255,.04); border-radius: 8px; font-size: 13px;">
+  🔹 ${t}
+ </div>`).join("");
 }
 
 /* =========================
@@ -1037,6 +1057,7 @@ function daily(){
  if(u.daily==today)return toast("❌ استلمت مكافأتك اليومية مسبقاً");
  u.daily=today;
  u.money+=500;
+ u.tx.unshift("🎁 مكافأة تسجيل يومية: +500 🧧");
  save();renderAll();
  confetti({particleCount:80});
  toast("🎁 تم استلام مكافأة اليوم +500 🧧");
@@ -1111,6 +1132,7 @@ function adminAddMoney(id){
  let target=db.users.find(x=>x.id==id);
  if(target){
   target.money+=1000;
+  target.tx.unshift("👑 إضافة من الإدارة: +1000 🧧");
   save();renderAll();
   toast("✅ تمت الإضافة لـ "+target.name);
  }
@@ -1183,6 +1205,7 @@ function renderAll(){
  renderPlayers();
  renderRank();
  renderAdmin();
+ renderWalletHistory();
 }
 
 if(db.current){
