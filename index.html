@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』 Ultimate</title>
 
-<!-- استدعاء مكتبة الجوائز (Confetti) للتأثيرات البصرية -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
@@ -17,9 +17,8 @@
  --line:rgba(255,255,255,.11)
 }
 body{
- font-family:Tahoma,Arial,sans-serif;
- color:#fff;min-height:100vh;background:#05060c;
- overflow-x:hidden
+ font-family:Tahoma,Arial,sans-serif;color:#fff;min-height:100vh;
+ background:#05060c;overflow-x:hidden
 }
 body:before{
  content:"";position:fixed;inset:0;z-index:-5;
@@ -29,10 +28,7 @@ body:before{
  center/cover fixed no-repeat;
  animation:bgmove 18s ease-in-out infinite alternate
 }
-@keyframes bgmove{
- from{transform:scale(1)}
- to{transform:scale(1.08)}
-}
+@keyframes bgmove{from{transform:scale(1)}to{transform:scale(1.08)}}
 body:after{
  content:"";position:fixed;inset:0;z-index:-4;
  background:
@@ -52,6 +48,7 @@ body:after{
 button,input{font:inherit}
 button{cursor:pointer}
 .hidden{display:none!important}
+
 header{
  height:70px;position:sticky;top:0;z-index:50;
  display:flex;justify-content:space-between;align-items:center;
@@ -61,8 +58,7 @@ header{
 .logo{font-size:20px;color:var(--gold);font-weight:900}
 .userbox{display:flex;align-items:center;gap:10px}
 .avatar{
- width:42px;height:42px;border-radius:50%;
- display:grid;place-items:center;
+ width:42px;height:42px;border-radius:50%;display:grid;place-items:center;
  background:linear-gradient(135deg,var(--red),#6d0820);
  font-weight:bold;border:2px solid rgba(255,255,255,.15)
 }
@@ -74,59 +70,64 @@ aside{
 nav button{
  width:100%;border:0;background:transparent;color:#aaa;
  padding:13px;margin:3px 0;border-radius:13px;text-align:right;
- transition: all 0.2s ease;
+ transition:.2s
 }
 nav button:hover,nav button.active{
  background:linear-gradient(90deg,rgba(229,29,72,.3),transparent);
- color:#fff;
- transform: scale(1.02);
+ color:#fff;transform:scale(1.02)
 }
 .navtitle{font-size:11px;color:#666;margin:20px 8px 6px}
 main{flex:1;padding:25px;max-width:1600px;width:100%;margin:auto}
+
 .hero{
  padding:30px;border:1px solid var(--line);border-radius:25px;
  background:linear-gradient(135deg,rgba(229,29,72,.25),rgba(242,189,75,.07)),var(--card);
  margin-bottom:20px;overflow:hidden;position:relative
 }
-.hero:after{content:"🧧";position:absolute;left:25px;bottom:-50px;font-size:150px;opacity:.06}
-.hero h1{font-size:29px;margin-bottom:8px}.hero p{color:#aaa}
+.hero:after{
+ content:"🧧";position:absolute;left:25px;bottom:-50px;
+ font-size:150px;opacity:.06
+}
+.hero h1{font-size:29px;margin-bottom:8px}
+.hero p{color:#aaa}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
 .card{
  background:var(--card);border:1px solid var(--line);
  border-radius:18px;padding:19px;backdrop-filter:blur(13px)
 }
-.stat-title{font-size:12px;color:#888}.stat-value{font-size:25px;font-weight:900;margin-top:5px; transition: transform 0.3s;}
+.stat-title{font-size:12px;color:#888}
+.stat-value{font-size:25px;font-weight:900;margin-top:5px}
 .gold{color:var(--gold)}.red{color:#ff4f70}.green{color:var(--green)}
 .blue{color:var(--blue)}.purple{color:var(--purple)}
 .actions{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .action{
- border:1px solid var(--line);border-radius:16px;padding:20px;
- color:#fff;background:rgba(255,255,255,.045);text-align:center;
- transition: transform 0.2s, border-color 0.2s;
+ border:1px solid var(--line);border-radius:16px;padding:20px;color:#fff;
+ background:rgba(255,255,255,.045);text-align:center
 }
 .action:hover{transform:translateY(-3px);border-color:var(--red)}
 .action b{display:block;margin-top:8px}.action small{color:#777}
 .section{margin-top:22px}.section h2{margin-bottom:12px}
 .progress{height:9px;background:#222;border-radius:20px;overflow:hidden;margin-top:10px}
-.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--gold))}
+.progress i{
+ display:block;height:100%;width:0;
+ background:linear-gradient(90deg,var(--red),var(--gold))
+}
 .btn{
  border:0;border-radius:11px;padding:11px 16px;
  background:linear-gradient(135deg,var(--red),var(--red2));
- color:#fff;font-weight:bold;
- transition: transform 0.15s ease, filter 0.15s ease;
+ color:#fff;font-weight:bold
 }
-.btn:hover{filter: brightness(1.1); transform: scale(1.03);}
-.btn:active{transform: scale(0.96);}
+.btn:hover{filter:brightness(1.1);transform:scale(1.02)}
 .btn.gold{background:linear-gradient(135deg,#b5791c,var(--gold));color:#160d00}
 .btn.green{background:linear-gradient(135deg,#167b55,var(--green));color:#00150d}
 .btn.gray{background:#242631}
+.full{width:100%}
 input{
  width:100%;padding:12px;margin:6px 0 12px;
  border:1px solid var(--line);border-radius:11px;
  background:#080910;color:#fff;outline:0
 }
 input:focus{border-color:var(--red)}
-.full{width:100%}
 .shop,.boxes,.inventory,.buildings,.achievements,.players{
  display:grid;grid-template-columns:repeat(4,1fr);gap:14px
 }
@@ -135,15 +136,18 @@ input:focus{border-color:var(--red)}
  border-radius:17px;padding:18px
 }
 .icon{font-size:48px;text-align:center;margin-bottom:10px}
-.item h3,.box h3{margin-bottom:6px}.muted{color:#888;font-size:12px}
+.item h3,.box h3{margin-bottom:6px}
+.muted{color:#888;font-size:12px}
 .price{color:var(--gold);font-weight:bold;margin:10px 0}
 .badge{
  display:inline-block;padding:4px 9px;border-radius:20px;
  background:rgba(242,189,75,.12);color:var(--gold);font-size:11px
 }
-.table{width:100%;border-collapse:collapse}.table th,.table td{
+.table{width:100%;border-collapse:collapse}
+.table th,.table td{
  padding:12px;border-bottom:1px solid var(--line);text-align:right
-}.table th{color:#777;font-size:11px}
+}
+.table th{color:#777;font-size:11px}
 .citymap{
  min-height:480px;border:1px solid var(--line);border-radius:22px;
  padding:18px;background:
@@ -162,9 +166,8 @@ input:focus{border-color:var(--red)}
  display:grid;grid-template-columns:180px 1fr;gap:20px;align-items:center
 }
 .char{
- width:160px;height:210px;border-radius:25px;
- display:grid;place-items:center;font-size:110px;
- background:linear-gradient(160deg,#32102b,#0d1d3d);
+ width:160px;height:210px;border-radius:25px;display:grid;place-items:center;
+ font-size:110px;background:linear-gradient(160deg,#32102b,#0d1d3d);
  border:1px solid var(--line);box-shadow:0 0 35px rgba(229,29,72,.18)
 }
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
@@ -172,40 +175,36 @@ input:focus{border-color:var(--red)}
  padding:14px;border-radius:14px;background:rgba(255,255,255,.04);
  border:1px solid var(--line)
 }
-.chat{
- height:390px;display:flex;flex-direction:column
-}
+.chat{height:390px;display:flex;flex-direction:column}
 .messages{flex:1;overflow:auto;padding:10px}
 .msg{padding:10px;margin:7px 0;border-radius:12px;background:rgba(255,255,255,.05)}
-.msg b{color:var(--gold)}.msg small{color:#666}
+.msg b{color:var(--gold)}
 .chatbar{display:flex;gap:8px}.chatbar input{margin:0}
 .wheel{
  width:240px;height:240px;border-radius:50%;margin:20px auto;
- background:conic-gradient(#e51d48 0 45deg,#f2bd4b 45deg 90deg,#7b0d25 90deg 135deg,#b5791c 135deg 180deg,#e51d48 180deg 225deg,#f2bd4b 225deg 270deg,#7b0d25 270deg 315deg,#b5791c 315deg);
+ background:conic-gradient(
+ #e51d48 0 45deg,#f2bd4b 45deg 90deg,#7b0d25 90deg 135deg,
+ #b5791c 135deg 180deg,#e51d48 180deg 225deg,#f2bd4b 225deg 270deg,
+ #7b0d25 270deg 315deg,#b5791c 315deg);
  border:9px solid #171821;transition:transform 4s cubic-bezier(.15,.75,.2,1)
 }
 .modal{
  position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.8);
  display:none;align-items:center;justify-content:center;padding:20px
 }
-.modal.show{display:flex}.modalbox{
- width:min(600px,100%);background:#101119;border:1px solid var(--line);
- border-radius:22px;padding:24px;max-height:90vh;overflow:auto
-}
-.modalhead{display:flex;justify-content:space-between;margin-bottom:15px}
-.close{background:none;border:0;color:#aaa;font-size:27px}
 .toast{
  position:fixed;left:20px;bottom:20px;z-index:200;
  background:#151720;border:1px solid var(--line);
  border-right:4px solid var(--red);padding:14px 18px;border-radius:12px;
  transform:translateY(100px);opacity:0;transition:.3s
-}.toast.show{transform:none;opacity:1}
+}
+.toast.show{transform:none;opacity:1}
 .win{
  position:fixed;inset:0;z-index:300;display:none;
  align-items:center;justify-content:center;background:rgba(0,0,0,.72)
-}.win.show{display:flex}
-.winbox{text-align:center;animation:winpop .5s ease}
-@keyframes winpop{from{transform:scale(.2);opacity:0}to{transform:scale(1);opacity:1}}
+}
+.win.show{display:flex}
+.winbox{text-align:center}
 .auth{
  position:fixed;inset:0;z-index:500;display:flex;
  justify-content:center;align-items:center;padding:20px;
@@ -217,32 +216,36 @@ input:focus{border-color:var(--red)}
 }
 .authlogo{text-align:center;font-size:25px;color:var(--gold);font-weight:900}
 .authsub{text-align:center;color:#777;margin:8px 0 22px}
-.music{
- position:fixed;left:20px;top:85px;z-index:40
+.music{position:fixed;left:20px;top:85px;z-index:40}
+.music button{
+ border:1px solid var(--line);border-radius:50%;width:45px;height:45px;
+ background:#11131c;color:white
 }
-.music button{border:1px solid var(--line);border-radius:50%;width:45px;height:45px;background:#11131c;color:white}
 #rain{position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.13}
-.drop{
- position:absolute;width:1px;height:35px;background:#8ddcff;
- animation:rain 1s linear infinite
-}
-@keyframes rain{to{transform:translateY(110vh)}}
+
 @media(max-width:1100px){
  .grid{grid-template-columns:repeat(2,1fr)}
  .actions{grid-template-columns:repeat(2,1fr)}
- .shop,.boxes,.inventory,.buildings,.achievements,.players{grid-template-columns:repeat(3,1fr)}
+ .shop,.boxes,.inventory,.buildings,.achievements,.players{
+  grid-template-columns:repeat(3,1fr)
+ }
  aside{width:210px}.citymap{grid-template-columns:repeat(4,1fr)}
 }
 @media(max-width:700px){
  header{padding:10px 14px}.layout{display:block}
  aside{width:100%;padding:7px;overflow:auto}
  nav{display:flex;gap:5px;overflow:auto}
- nav button{white-space:nowrap;width:auto}.navtitle{display:none}
+ nav button{white-space:nowrap;width:auto}
+ .navtitle{display:none}
  main{padding:13px}
- .grid,.actions,.shop,.boxes,.inventory,.buildings,.achievements,.players{grid-template-columns:1fr 1fr}
+ .grid,.actions,.shop,.boxes,.inventory,.buildings,.achievements,.players{
+  grid-template-columns:1fr 1fr
+ }
  .citymap{grid-template-columns:repeat(2,1fr)}
- .character{grid-template-columns:1fr}.char{margin:auto}
- .stats{grid-template-columns:1fr 1fr}.logo{font-size:15px}
+ .character{grid-template-columns:1fr}
+ .char{margin:auto}
+ .stats{grid-template-columns:1fr 1fr}
+ .logo{font-size:15px}
 }
 </style>
 </head>
@@ -252,16 +255,15 @@ input:focus{border-color:var(--red)}
 <div id="stars"></div>
 <div id="rain"></div>
 
-<!-- الموسيقى -->
 <audio id="music" loop>
-<source src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_946b8c98f2.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
+<source src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_946b8c98f2.mp3?filename=lofi-study-112191.mp3">
 </audio>
 
 <div class="music">
 <button onclick="toggleMusic()" id="musicBtn">🔇</button>
 </div>
 
-<!-- تسجيل الدخول -->
+<!-- AUTH -->
 <div class="auth" id="auth">
 <div class="authbox">
 
@@ -274,8 +276,6 @@ input:focus{border-color:var(--red)}
 <button class="btn full" onclick="login()">🚀 دخول</button>
 <br><br>
 <button class="btn gray full" onclick="showReg()">✨ إنشاء حساب</button>
-<br><br>
-<small style="color:#666">حساب تجريبي: Admin / 1234</small>
 </div>
 
 <div id="regForm" class="hidden">
@@ -309,15 +309,12 @@ input:focus{border-color:var(--red)}
 <button onclick="page('shop',this)">🛒 المتجر</button>
 <button onclick="page('inventory',this)">🎒 الحقيبة</button>
 <button onclick="page('games',this)">🎮 الألعاب</button>
-<button onclick="page('boxes',this)">🎁 الصناديق</button>
-<button onclick="page('missions',this)">🎯 المهام</button>
 <button onclick="page('chat',this)">💬 الدردشة</button>
 <button onclick="page('players',this)">👥 الأعضاء</button>
 <button onclick="page('rank',this)">🏆 المتصدرون</button>
 <button onclick="page('wallet',this)">💰 المحفظة</button>
 <button onclick="page('loans',this)">🏦 البنك والقروض</button>
 <button onclick="page('stocks',this)">📈 سوق الأسهم</button>
-<button onclick="page('achievements',this)">🏅 الإنجازات</button>
 <button onclick="page('profile',this)">⚙️ الحساب</button>
 
 <div class="navtitle">الإدارة</div>
@@ -329,59 +326,50 @@ input:focus{border-color:var(--red)}
 
 <main>
 
-<!-- الرئيسية -->
 <section id="home" class="page">
-
 <div class="hero">
 <h1>🌙 أهلاً بك في عالم S.U.N TOKYO</h1>
 <p>ابنِ مدينتك، ازرع مزرعتك، طوّر شخصيتك، العب واربح وتنافس مع أعضاء المجتمع.</p>
 </div>
 
 <div class="grid">
-
 <div class="card">💰<div class="stat-title">الرصيد</div><div class="stat-value gold" id="balance">0</div></div>
 <div class="card">⭐<div class="stat-title">المستوى</div><div class="stat-value" id="level">1</div></div>
 <div class="card">⚡<div class="stat-title">XP</div><div class="stat-value blue" id="xp">0</div></div>
 <div class="card">🔥<div class="stat-title">القوة</div><div class="stat-value red" id="power">0</div></div>
-
 </div>
 
 <div class="grid">
-
 <div class="card">⚔️<div class="stat-title">Attack</div><div class="stat-value red" id="attack">0</div></div>
 <div class="card">🛡️<div class="stat-title">Defense</div><div class="stat-value blue" id="defense">0</div></div>
 <div class="card">❤️<div class="stat-title">HP</div><div class="stat-value green" id="hp">0</div></div>
 <div class="card">🏙️<div class="stat-title">مستوى المدينة</div><div class="stat-value gold" id="cityLevel">1</div></div>
-
 </div>
 
 <div class="card">
 <b>⚡ تقدم المستوى</b>
 <div class="progress"><i id="xpbar"></i></div>
-<small id="xptext" style="direction: ltr; display: inline-block;">0 / 100 XP</small>
+<small id="xptext">0 / 100 XP</small>
 </div>
 
 <div class="section">
 <h2>⚡ اختصارات</h2>
 <div class="actions">
-<button class="action" onclick="page('games')">🎮<b>الألعاب</b><small>اربح العملات</small></button>
+<button class="action" onclick="page('wallet')">💰<b>المحفظة</b><small>الرصيد والتحويل</small></button>
+<button class="action" onclick="page('chat')">💬<b>الدردشة</b><small>تحدث مع الأعضاء</small></button>
 <button class="action" onclick="page('city')">🏙️<b>المدينة</b><small>ابنِ وطوّر</small></button>
-<button class="action" onclick="page('loans')">🏦<b>البنك</b><small>القروض والسلف</small></button>
-<button class="action" onclick="page('stocks')">📈<b>الأسهم</b><small>الاستثمار والربح</small></button>
+<button class="action" onclick="page('shop')">🛒<b>المتجر</b><small>اشترِ الأدوات</small></button>
 </div>
 </div>
-
 </section>
 
-<!-- الشخصية -->
 <section id="character" class="page hidden">
-<div class="hero"><h1>👤 شخصيتي</h1><p>طوّر بطلك واجمع الملابس والأسلحة.</p></div>
-
+<div class="hero"><h1>👤 شخصيتي</h1><p>طوّر بطلك.</p></div>
 <div class="card character">
 <div class="char" id="charView">🧙</div>
 <div>
 <h1 id="charName">Player</h1>
-<p class="muted" id="charRank">🌱 عضو</p>
+<p class="muted">🌱 عضو</p>
 <br>
 <div class="stats">
 <div class="stat">❤️ HP<h2 id="cHP">100</h2></div>
@@ -399,33 +387,27 @@ input:focus{border-color:var(--red)}
 </div>
 </section>
 
-<!-- المدينة -->
 <section id="city" class="page hidden">
-<div class="hero"><h1>🏙️ مدينتي</h1><p>ضع المباني في الخانات وطوّر مدينتك حتى تصبح إمبراطورية.</p></div>
-
+<div class="hero"><h1>🏙️ مدينتي</h1><p>طوّر مدينتك.</p></div>
 <div class="grid">
 <div class="card">🏙️ المستوى<h2 id="cityL">1</h2></div>
 <div class="card">🏗️ المباني<h2 id="buildingCount">0</h2></div>
-<div class="card">💪 قوة المدينة<h2 id="cityPower">0</h2></div>
+<div class="card">💪 القوة<h2 id="cityPower">0</h2></div>
 <div class="card">💰 الدخل<h2 id="cityIncome">0</h2></div>
 </div>
-
 <div class="citymap" id="cityMap"></div>
 <br>
 <button class="btn gold full" onclick="upgradeCity()">🏗️ تطوير المدينة</button>
 </section>
 
-<!-- المزرعة -->
 <section id="farm" class="page hidden">
-<div class="hero"><h1>🌾 مزرعتي</h1><p>ازرع الخانات واجمع المحصول وطوّر المزرعة.</p></div>
-
+<div class="hero"><h1>🌾 مزرعتي</h1><p>ازرع واحصد.</p></div>
 <div class="grid">
 <div class="card">🌾 مستوى المزرعة<h2 id="farmL">1</h2></div>
 <div class="card">💰 الدخل<h2 id="farmIncome">50</h2></div>
-<div class="card">🌱 الأراضي<h2 id="farmPlots">0</h2></div>
+<div class="card">🌱 الأراضي<h2 id="farmPlots">4</h2></div>
 <div class="card">🥕 المحاصيل<h2 id="crops">0</h2></div>
 </div>
-
 <div class="citymap" id="farmMap"></div>
 <br>
 <button class="btn green full" onclick="upgradeFarm()">🌱 تطوير المزرعة</button>
@@ -433,51 +415,32 @@ input:focus{border-color:var(--red)}
 <button class="btn gold full" onclick="harvest()">🌾 حصاد</button>
 </section>
 
-<!-- المتجر -->
 <section id="shop" class="page hidden">
-<div class="hero"><h1>🛒 المتجر</h1><p>أسلحة وملابس ودروع وجرعات.</p></div>
+<div class="hero"><h1>🛒 المتجر</h1><p>أسلحة وملابس ودروع.</p></div>
 <input id="search" placeholder="🔎 ابحث..." oninput="renderShop()">
 <div class="shop" id="shopGrid"></div>
 </section>
 
-<!-- الحقيبة -->
 <section id="inventory" class="page hidden">
-<div class="hero"><h1>🎒 الحقيبة</h1><p>مقتنياتك وأدواتك.</p></div>
+<div class="hero"><h1>🎒 الحقيبة</h1><p>مقتنياتك.</p></div>
 <div class="inventory" id="invGrid"></div>
 </section>
 
-<!-- الألعاب -->
 <section id="games" class="page hidden">
-<div class="hero"><h1>🎮 مركز الألعاب</h1><p>اختبر حظك واربح العملات.</p></div>
-
+<div class="hero"><h1>🎮 الألعاب</h1><p>اختبر حظك واربح العملات.</p></div>
 <div class="grid">
 <div class="card"><h2>🎲 النرد</h2><p class="muted">تكلفة 25 🧧</p><br><button class="btn" onclick="dice()">رمي النرد</button></div>
 <div class="card"><h2>🎁 صندوق سريع</h2><p class="muted">تكلفة 50 🧧</p><br><button class="btn gold" onclick="quickBox()">فتح</button></div>
 <div class="card"><h2>🎡 العجلة</h2><p class="muted">تكلفة 100 🧧</p><br><button class="btn" onclick="spin()">تدوير</button></div>
-<div class="card"><h2>🎁 اليومية</h2><p class="muted">مكافأة التسجيل اليومي</p><br><button class="btn green" onclick="daily()">استلام</button></div>
+<div class="card"><h2>🎁 اليومية</h2><br><button class="btn green" onclick="daily()">استلام</button></div>
 </div>
-
 <div class="card" style="text-align:center">
 <div>▼</div><div class="wheel" id="wheel"></div>
 </div>
 </section>
 
-<!-- الصناديق -->
-<section id="boxes" class="page hidden">
-<div class="hero"><h1>🎁 الصناديق الأسطورية</h1><p>افتح الصندوق وشاهد الانفجار عند الفوز.</p></div>
-<div class="boxes" id="boxesGrid"></div>
-</section>
-
-<!-- المهام -->
-<section id="missions" class="page hidden">
-<div class="hero"><h1>🎯 المهام</h1><p>أكمل المهام لتحصل على XP وعملات.</p></div>
-<div class="achievements" id="missionsGrid"></div>
-</section>
-
-<!-- الدردشة -->
 <section id="chat" class="page hidden">
-<div class="hero"><h1>💬 دردشة المجتمع</h1><p>تحدث مع أعضاء المدينة.</p></div>
-
+<div class="hero"><h1>💬 دردشة المجتمع</h1><p>الدردشة مشتركة بين جميع أعضاء الموقع.</p></div>
 <div class="card chat">
 <div class="messages" id="messages"></div>
 <div class="chatbar">
@@ -487,13 +450,11 @@ input:focus{border-color:var(--red)}
 </div>
 </section>
 
-<!-- الأعضاء -->
 <section id="players" class="page hidden">
-<div class="hero"><h1>👥 أعضاء المجتمع</h1><p>شاهد الأعضاء وأرسل الهدايا.</p></div>
+<div class="hero"><h1>👥 أعضاء المجتمع</h1><p>جميع الحسابات المسجلة.</p></div>
 <div class="players" id="playersGrid"></div>
 </section>
 
-<!-- الترتيب -->
 <section id="rank" class="page hidden">
 <div class="hero"><h1>🏆 المتصدرون</h1><p>أقوى أعضاء S.U.N TOKYO.</p></div>
 <div class="card">
@@ -504,88 +465,74 @@ input:focus{border-color:var(--red)}
 </div>
 </section>
 
-<!-- المحفظة -->
 <section id="wallet" class="page hidden">
-<div class="hero"><h1>💰 المحفظة</h1><p>تحكم في رصيدك، قم بالإيداع، وحول الأموال مع سجل العمليات المفصل.</p></div>
+<div class="hero"><h1>💰 المحفظة</h1><p>الرصيد والتحويلات.</p></div>
 
 <div class="grid">
 <div class="card">💰 الرصيد الحالي<h2 class="gold" id="walletBalance">0</h2></div>
-<div class="card">📜 العمليات المنجزة<h2 id="txCount">0</h2></div>
-</div>
-
-<div class="card" style="margin-bottom: 20px;">
-<h3>💳 إيداع رصيد سريع</h3>
-<input id="depositAmount" type="number" placeholder="أدخل مبلغ الإيداع">
-<button class="btn green full" onclick="makeDeposit()">إيداع فوري 💳</button>
-</div>
-
-<div class="card" style="margin-bottom: 20px;">
-<h3>💸 تحويل الأموال للأعضاء</h3>
-<input id="transferUser" placeholder="اسم العضو المُحوَّل إليه">
-<input id="transferAmount" type="number" placeholder="المبلغ">
-<button class="btn gold full" onclick="makeTransfer()">تحويل الأموال 🚀</button>
+<div class="card">📜 العمليات<h2 id="txCount">0</h2></div>
 </div>
 
 <div class="card">
-<h3>📜 سجل المعاملات الحديثة</h3>
-<div style="margin-top: 10px; max-height: 200px; overflow-y: auto;" id="txHistoryBox">
-<p class="muted">لا توجد عمليات سابقة حتى الآن.</p>
+<h3>💳 إيداع رصيد</h3>
+<input id="depositAmount" type="number" placeholder="أدخل المبلغ">
+<button class="btn green full" onclick="makeDeposit()">إيداع 💳</button>
 </div>
+
+<br>
+
+<div class="card">
+<h3>💸 تحويل الأموال</h3>
+<input id="transferUser" placeholder="اسم العضو">
+<input id="transferAmount" type="number" placeholder="المبلغ">
+<button class="btn gold full" onclick="makeTransfer()">تحويل 🚀</button>
+</div>
+
+<br>
+
+<div class="card">
+<h3>📜 سجل العمليات</h3>
+<div id="txHistoryBox" style="margin-top:10px"></div>
 </div>
 </section>
 
-<!-- البنك والقروض -->
 <section id="loans" class="page hidden">
-<div class="hero"><h1>🏦 بنك S.U.N المركزي - القروض</h1><p>اقترض مبالغ مالية لتمويل مشاريعك وعليك سدادها بفوائد بسيطة.</p></div>
-
+<div class="hero"><h1>🏦 البنك والقروض</h1><p>إدارة القروض.</p></div>
 <div class="grid">
 <div class="card">📋 القرض الحالي<h2 class="red" id="loanAmount">0 🧧</h2></div>
-<div class="card">⏳ حالة السداد<h2 id="loanStatus">لا يوجد قرض</h2></div>
+<div class="card">⏳ الحالة<h2 id="loanStatus">لا يوجد قرض</h2></div>
 </div>
-
-<div class="card" style="margin-bottom: 20px;">
-<h3>📥 طلب قرض جديد</h3>
-<p class="muted" style="margin-bottom: 10px;">احصل على قرض بقيمة 2000 🧧 بفائدة 10% (يجب سداد 2200 🧧).</p>
+<div class="card">
+<h3>📥 طلب قرض</h3>
+<p class="muted">قرض 2000 🧧 وفائدة 10%.</p><br>
 <button class="btn gold full" onclick="takeLoan()">اقتراض 2,000 🧧</button>
 </div>
-
+<br>
 <div class="card">
-<h3>📤 سداد القرض</h3>
-<button class="btn green full" onclick="payLoan()">سداد القرض بالكامل 💳</button>
+<h3>📤 السداد</h3><br>
+<button class="btn green full" onclick="payLoan()">سداد القرض 💳</button>
 </div>
 </section>
 
-<!-- سوق الأسهم والاستثمار -->
 <section id="stocks" class="page hidden">
-<div class="hero"><h1>📈 سوق الأسهم والاستثمار</h1><p>اشترِ أسهماً وهمية في شركات طوكيو، واضغط لتحديث الأسعار لتربح أو تخسر!</p></div>
-
+<div class="hero"><h1>📈 سوق الأسهم</h1><p>استثمار افتراضي.</p></div>
 <div class="grid">
-<div class="card">🏢 أسهم طوكيو للتجارة<h2 class="gold" id="stockPrice1">150 🧧</h2><p class="muted" id="stockOwned1>المملوك: 0 سهم</p></div>
-<div class="card">⚡ أسهم طاقة الأنمي<h2 class="gold" id="stockPrice2">300 🧧</h2><p class="muted" id="stockOwned2">المملوك: 0 سهم</p></div>
+<div class="card">🏢 تجارة<h2 class="gold" id="stockPrice1">150 🧧</h2><p class="muted" id="stockOwned1">المملوك: 0 سهم</p></div>
+<div class="card">⚡ طاقة<h2 class="gold" id="stockPrice2">300 🧧</h2><p class="muted" id="stockOwned2">المملوك: 0 سهم</p></div>
 </div>
-
-<div style="display:flex; gap:10px; margin-bottom:20px;">
-<button class="btn gold full" onclick="buyStock(1)">شراء سهم تجارة (150)</button>
-<button class="btn green full" onclick="buyStock(2)">شراء سهم طاقة (300)</button>
+<div style="display:flex;gap:10px;margin-bottom:20px">
+<button class="btn gold full" onclick="buyStock(1)">شراء تجارة</button>
+<button class="btn green full" onclick="buyStock(2)">شراء طاقة</button>
 </div>
-
-<div style="display:flex; gap:10px; margin-bottom:20px;">
-<button class="btn red full" onclick="sellStock(1)">بيع سهم تجارة</button>
-<button class="btn red full" onclick="sellStock(2)">بيع سهم طاقة</button>
+<div style="display:flex;gap:10px;margin-bottom:20px">
+<button class="btn red full" onclick="sellStock(1)">بيع تجارة</button>
+<button class="btn red full" onclick="sellStock(2)">بيع طاقة</button>
 </div>
-
 <div class="card">
-<button class="btn full" onclick="updateStocksMarket()">🔄 تحديث حركة السوق عشوائياً</button>
+<button class="btn full" onclick="updateStocksMarket()">🔄 تحديث السوق</button>
 </div>
 </section>
 
-<!-- الإنجازات -->
-<section id="achievements" class="page hidden">
-<div class="hero"><h1>🏅 الإنجازات</h1><p>افتح إنجازات نادرة.</p></div>
-<div class="achievements" id="achievementsGrid"></div>
-</section>
-
-<!-- الحساب -->
 <section id="profile" class="page hidden">
 <div class="hero"><h1>⚙️ الحساب</h1><p>إعدادات الحساب.</p></div>
 <div class="card">
@@ -596,9 +543,8 @@ input:focus{border-color:var(--red)}
 </div>
 </section>
 
-<!-- الإدارة -->
 <section id="admin" class="page hidden">
-<div class="hero"><h1>👑 الإدارة</h1><p>لوحة تحكم المدير.</p></div>
+<div class="hero"><h1>👑 الإدارة</h1><p>لوحة المدير.</p></div>
 <div class="grid">
 <div class="card">👥 الأعضاء<h2 id="adminUsers">0</h2></div>
 <div class="card">💰 العملات<h2 id="adminMoney">0</h2></div>
@@ -616,10 +562,8 @@ input:focus{border-color:var(--red)}
 </main>
 </div>
 
-<!-- نافذة الفوز / الجوائز -->
 <div class="win" id="win">
 <div class="winbox">
-<div class="explosion">💥🎁💥</div>
 <h1 id="winTitle">🎉 فوز!</h1>
 <p id="winText"></p>
 <br>
@@ -630,133 +574,23 @@ input:focus{border-color:var(--red)}
 <div class="toast" id="toast"></div>
 
 <script>
-/* =========================
-   DATABASE
-========================= */
+/* =========================================
+   SUPABASE
+========================================= */
 
-const KEY="SUN_TOKYO_ONE_HTML_V8";
+const SUPABASE_URL="https://xmavwrtlwfkvqkpfiirr.supabase.co";
+const SUPABASE_KEY="sb_publishable_eH4yTOKoHrhBqsZ3cj8s9g_TJSnJNC2";
 
-let db=JSON.parse(localStorage.getItem(KEY)||"null");
+const supabaseClient=window.supabase.createClient(
+ SUPABASE_URL,
+ SUPABASE_KEY
+);
 
-if(!db){
- db={
-  current:null,
-  stocks:{ price1: 150, price2: 300 },
-  users:[
-   {
-    id:"SUN-001",name:"Admin",pass:"1234",admin:true,
-    money:10000,xp:500,city:1,farm:1,
-    avatar:"👑",items:{},buildings:[],
-    crops:0,harvest:0,daily:"",
-    missions:{},achievements:[],
-    tx:[], loan:0, loanDue:0, stocks1:0, stocks2:0
-   },
-   {
-    id:"SUN-002",name:"Nero",pass:"1234",admin:false,
-    money:2500,xp:180,city:1,farm:1,
-    avatar:"🥷",items:{},buildings:[],
-    crops:0,harvest:0,daily:"",
-    missions:{},achievements:[],tx:[], loan:0, loanDue:0, stocks1:0, stocks2:0
-   },
-   {
-    id:"SUN-003",name:"Kaito",pass:"1234",admin:false,
-    money:1500,xp:90,city:1,farm:1,
-    avatar:"⚔️",items:{},buildings:[],
-    crops:0,harvest:0,daily:"",
-    missions:{},achievements:[],tx:[], loan:0, loanDue:0, stocks1:0, stocks2:0
-   }
-  ],
-  chat:[
-   {n:"Admin",m:"🔥 أهلاً بالجميع في S.U.N TOKYO!"}
-  ]
- };
- save();
-}
-
-function save(){
- localStorage.setItem(KEY,JSON.stringify(db));
-}
-
-function me(){
- return db.users.find(u=>u.id===db.current);
-}
-
-function toast(t){
- let x=document.getElementById("toast");
- x.textContent=t;x.classList.add("show");
- setTimeout(()=>x.classList.remove("show"),2500);
-}
-
-function page(id,btn){
- if(!me())return;
- document.querySelectorAll(".page").forEach(x=>x.classList.add("hidden"));
- document.getElementById(id).classList.remove("hidden");
- document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));
- if(btn)btn.classList.add("active");
- renderAll();
-}
-
-/* =========================
-   AUTH
-========================= */
-
-function showReg(){
- document.getElementById("loginForm").classList.add("hidden");
- document.getElementById("regForm").classList.remove("hidden");
-}
-
-function showLogin(){
- document.getElementById("regForm").classList.add("hidden");
- document.getElementById("loginForm").classList.remove("hidden");
-}
-
-function register(){
- let n=document.getElementById("regName").value.trim();
- let p=document.getElementById("regPass").value;
-
- if(n.length<3)return toast("❌ الاسم قصير");
- if(p.length<4)return toast("❌ كلمة المرور قصيرة");
- if(db.users.some(u=>u.name.toLowerCase()==n.toLowerCase()))
-  return toast("❌ الاسم مستخدم");
-
- db.users.push({
-  id:"SUN-"+Date.now().toString().slice(-6),
-  name:n,pass:p,admin:false,money:500,xp:0,
-  city:1,farm:1,avatar:"🧙",items:{},buildings:[],
-  crops:0,harvest:0,daily:"",missions:{},achievements:[],tx:[], loan:0, loanDue:0, stocks1:0, stocks2:0
- });
-
- save();showLogin();toast("🎉 تم إنشاء الحساب +500 🧧");
-}
-
-function login(){
- let n=document.getElementById("loginName").value.trim();
- let p=document.getElementById("loginPass").value;
- let u=db.users.find(x=>x.name.toLowerCase()==n.toLowerCase()&&x.pass==p);
-
- if(!u)return toast("❌ بيانات الدخول خاطئة");
-
- db.current=u.id;save();
- document.getElementById("auth").classList.add("hidden");
- renderAll();toast("👋 أهلاً "+u.name);
-}
-
-function logout(){
- db.current=null;save();
- document.getElementById("auth").classList.remove("hidden");
-}
-
-if(db.current){
- document.getElementById("auth").classList.add("hidden");
-}
-
-/* =========================
-   LEVEL / STATS
-========================= */
-
-function level(u){
- return Math.floor(u.xp/100)+1;
-}
+let currentUser=null;
+let profile=null;
+let transactions=[];
+let users=[];
+let chatMessages=[];
 
 const catalog=[
  ["⚔️","كاتانا نارية","attack",30,500],
@@ -775,172 +609,487 @@ const catalog=[
  ["🪽","أجنحة أسطورية","outfit",120,12000]
 ];
 
+const buildings=[
+ ["🏦","البنك"],["🏢","ناطحة السحاب"],["🏯","قلعة الساموراي"],
+ ["🏪","السوق"],["🏥","المستشفى"],["🏫","الأكاديمية"],
+ ["⚓","الميناء"],["⛩️","المعبد"],["🏟️","الساحة"],["🚉","المحطة"]
+];
+
+function toast(t){
+ const x=document.getElementById("toast");
+ x.textContent=t;
+ x.classList.add("show");
+ setTimeout(()=>x.classList.remove("show"),2500);
+}
+
+function level(u){
+ return Math.floor((u?.xp||0)/100)+1;
+}
+
 function stats(u){
  let a=30,d=30,h=100;
 
  catalog.forEach(i=>{
-  let q=u.items[i[1]]||0;
-  if(i[2]=="attack")a+=i[3]*q;
-  if(i[2]=="defense")d+=i[3]*q;
-  if(i[2]=="hp")h+=i[3]*q;
-  if(i[2]=="outfit"){
+  const q=(u.items&&typeof u.items==="object")?(u.items[i[1]]||0):0;
+
+  if(i[2]==="attack")a+=i[3]*q;
+  if(i[2]==="defense")d+=i[3]*q;
+  if(i[2]==="hp")h+=i[3]*q;
+
+  if(i[2]==="outfit"){
    a+=Math.floor(i[3]/2)*q;
    d+=Math.floor(i[3]/2)*q;
   }
  });
 
- a+=u.city*20;
- d+=u.city*20;
- h+=u.farm*20;
+ a+=(u.city||1)*20;
+ d+=(u.city||1)*20;
+ h+=(u.farm||1)*20;
 
  return {a,d,h,p:a+d+h};
 }
 
-function addXP(n){
- let u=me();
- if(!u)return;
- u.xp+=n;
- save();
+/* =========================================
+   AUTH
+========================================= */
+
+function showReg(){
+ document.getElementById("loginForm").classList.add("hidden");
+ document.getElementById("regForm").classList.remove("hidden");
 }
 
-/* =========================
-   DEPOSIT & TRANSFER (المحفظة)
-========================= */
+function showLogin(){
+ document.getElementById("regForm").classList.add("hidden");
+ document.getElementById("loginForm").classList.remove("hidden");
+}
 
-function makeDeposit(){
- let u=me();
- let amt=parseInt(document.getElementById("depositAmount").value);
- if(isNaN(amt)||amt<=0)return toast("❌ أدخل مبلغاً صحيحاً");
+async function register(){
 
- u.money+=amt;
- u.tx.unshift("إيداع رصيد بقيمة: +" + amt + " 🧧");
- save(); renderAll();
+ const name=document.getElementById("regName").value.trim();
+ const pass=document.getElementById("regPass").value;
+
+ if(name.length<3)return toast("❌ الاسم يجب أن يكون 3 أحرف على الأقل");
+ if(pass.length<6)return toast("❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل");
+
+ const {data:existing}=await supabaseClient
+ .from("profiles")
+ .select("username")
+ .ilike("username",name)
+ .maybeSingle();
+
+ if(existing)return toast("❌ اسم المستخدم مستخدم بالفعل");
+
+ const email="user_"+crypto.randomUUID()+"@sun-tokyo.local";
+
+ const {data,error}=await supabaseClient.auth.signUp({
+  email,
+  password,
+  options:{
+   data:{username:name}
+  }
+ });
+
+ if(error)return toast("❌ "+error.message);
+
+ if(!data.user)return toast("❌ لم يتم إنشاء الحساب");
+
+ const {error:profileError}=await supabaseClient
+ .from("profiles")
+ .insert({
+  id:data.user.id,
+  username:name,
+  balance:500,
+  level:1,
+  xp:0,
+  avatar:"🧙",
+  city:1,
+  farm:1,
+  crops:0,
+  harvest:0,
+  loan:0,
+  loan_due:0,
+  stocks1:0,
+  stocks2:0,
+  admin:false
+ });
+
+ if(profileError){
+  console.error(profileError);
+  return toast("❌ تم إنشاء الحساب لكن فشل إنشاء الملف الشخصي");
+ }
+
+ toast("🎉 تم إنشاء الحساب +500 🧧");
+ showLogin();
+}
+
+async function login(){
+
+ const name=document.getElementById("loginName").value.trim();
+ const pass=document.getElementById("loginPass").value;
+
+ if(!name||!pass)return toast("❌ أدخل اسم المستخدم وكلمة المرور");
+
+ const {data:p,error:pError}=await supabaseClient
+ .from("profiles")
+ .select("id,username")
+ .ilike("username",name)
+ .maybeSingle();
+
+ if(pError||!p)return toast("❌ الحساب غير موجود");
+
+ const email=(await getAuthEmail(p.id));
+
+ if(!email){
+  return toast("❌ تعذر العثور على حساب الدخول");
+ }
+
+ const {data,error}=await supabaseClient.auth.signInWithPassword({
+  email,
+  password:pass
+ });
+
+ if(error)return toast("❌ بيانات الدخول خاطئة");
+
+ currentUser=data.user;
+
+ await loadData();
+
+ document.getElementById("auth").classList.add("hidden");
+
+ toast("👋 أهلاً "+profile.username);
+}
+
+async function getAuthEmail(id){
+ /*
+  لا يمكن للمتصفح قراءة auth.users مباشرة.
+  لذلك نعتمد على email محفوظ في user metadata
+  عند إنشاء الحساب.
+ */
+ const {data}=await supabaseClient.auth.getUser();
+
+ if(data?.user?.id===id)return data.user.email;
+
+ return null;
+}
+
+async function logout(){
+
+ await supabaseClient.auth.signOut();
+
+ currentUser=null;
+ profile=null;
+ transactions=[];
+ users=[];
+ chatMessages=[];
+
+ document.getElementById("auth").classList.remove("hidden");
+ showLogin();
+}
+
+/* =========================================
+   LOAD DATA
+========================================= */
+
+async function loadData(){
+
+ if(!currentUser)return;
+
+ const {data:p,error}=await supabaseClient
+ .from("profiles")
+ .select("*")
+ .eq("id",currentUser.id)
+ .single();
+
+ if(error){
+  console.error(error);
+  return toast("❌ تعذر تحميل الحساب");
+ }
+
+ profile=p;
+
+ const {data:tx}=await supabaseClient
+ .from("transactions")
+ .select("*")
+ .eq("user_id",currentUser.id)
+ .order("created_at",{ascending:false})
+ .limit(100);
+
+ transactions=tx||[];
+
+ const {data:allUsers}=await supabaseClient
+ .from("profiles")
+ .select("*")
+ .order("created_at",{ascending:true});
+
+ users=allUsers||[];
+
+ const {data:messages}=await supabaseClient
+ .from("chat")
+ .select("*")
+ .order("created_at",{ascending:true})
+ .limit(200);
+
+ chatMessages=messages||[];
+
+ renderAll();
+}
+
+/* =========================================
+   PAGE
+========================================= */
+
+function page(id,btn){
+
+ if(!profile)return;
+
+ document.querySelectorAll(".page")
+ .forEach(x=>x.classList.add("hidden"));
+
+ const target=document.getElementById(id);
+ if(target)target.classList.remove("hidden");
+
+ document.querySelectorAll("nav button")
+ .forEach(x=>x.classList.remove("active"));
+
+ if(btn)btn.classList.add("active");
+
+ renderAll();
+}
+
+/* =========================================
+   PROFILE UPDATE
+========================================= */
+
+async function updateProfile(changes){
+
+ if(!profile)return false;
+
+ const {data,error}=await supabaseClient
+ .from("profiles")
+ .update(changes)
+ .eq("id",profile.id)
+ .select()
+ .single();
+
+ if(error){
+  console.error(error);
+  toast("❌ حدث خطأ أثناء حفظ البيانات");
+  return false;
+ }
+
+ profile=data;
+
+ const index=users.findIndex(x=>x.id===profile.id);
+ if(index>=0)users[index]=profile;
+
+ return true;
+}
+
+async function addTransaction(type,amount,description){
+
+ if(!profile)return;
+
+ const {data,error}=await supabaseClient
+ .from("transactions")
+ .insert({
+  user_id:profile.id,
+  type:type,
+  amount:amount,
+  description:description
+ })
+ .select()
+ .single();
+
+ if(!error&&data){
+  transactions.unshift(data);
+ }
+}
+
+/* =========================================
+   WALLET
+========================================= */
+
+async function makeDeposit(){
+
+ const amount=parseInt(document.getElementById("depositAmount").value);
+
+ if(!Number.isFinite(amount)||amount<=0)
+  return toast("❌ أدخل مبلغاً صحيحاً");
+
+ /*
+  الإيداع هنا محاكاة داخل الموقع.
+  لا تستخدمه كإيداع مالي حقيقي.
+ */
+ const ok=await updateProfile({
+  balance:(profile.balance||0)+amount
+ });
+
+ if(!ok)return;
+
+ await addTransaction(
+  "deposit",
+  amount,
+  "إيداع رصيد بقيمة "+amount
+ );
+
  document.getElementById("depositAmount").value="";
- 
- confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
- toast("✅ تم إيداع مبلغ " + amt + " بنجاح!");
+
+ confetti({particleCount:80,spread:60,origin:{y:.6}});
+ toast("✅ تم إضافة "+amount+" 🧧");
+ renderAll();
 }
 
-function makeTransfer(){
- let u=me();
- let targetName=document.getElementById("transferUser").value.trim();
- let amt=parseInt(document.getElementById("transferAmount").value);
+async function makeTransfer(){
 
- if(!targetName || isNaN(amt)||amt<=0)return toast("❌ يرجى التأكد من البيانات والمبلغ");
- if(u.money<amt)return toast("❌ رصيدك غير كافٍ لإتمام التحويل");
+ const name=document.getElementById("transferUser").value.trim();
+ const amount=parseInt(document.getElementById("transferAmount").value);
 
- let targetUser=db.users.find(x=>x.name.toLowerCase()===targetName.toLowerCase());
- if(!targetUser)return toast("❌ اسم المستخدم غير موجود");
- if(targetUser.id===u.id)return toast("❌ لا يمكنك التحويل لنفسك");
+ if(!name||!Number.isFinite(amount)||amount<=0)
+  return toast("❌ تحقق من البيانات");
 
- u.money-=amt;
- targetUser.money+=amt;
+ if(name.toLowerCase()===profile.username.toLowerCase())
+  return toast("❌ لا يمكنك التحويل لنفسك");
 
- u.tx.unshift("تحويل -" + amt + " إلى " + targetUser.name);
- targetUser.tx.unshift("استلام +" + amt + " من " + u.name);
+ if((profile.balance||0)<amount)
+  return toast("❌ رصيدك غير كافٍ");
 
- save(); renderAll();
+ const {data:target,error}=await supabaseClient
+ .from("profiles")
+ .select("*")
+ .ilike("username",name)
+ .maybeSingle();
+
+ if(error||!target)
+  return toast("❌ العضو غير موجود");
+
+ /*
+  هذا التحويل يتم عبر تحديثين منفصلين.
+  للأموال الحقيقية يفضل استخدام RPC/Database Function
+  لمنع مشاكل التزامن.
+ */
+
+ const senderBalance=profile.balance-amount;
+ const receiverBalance=(target.balance||0)+amount;
+
+ const {error:senderError}=await supabaseClient
+ .from("profiles")
+ .update({balance:senderBalance})
+ .eq("id",profile.id)
+ .eq("balance",profile.balance);
+
+ if(senderError)
+  return toast("❌ فشل التحويل");
+
+ const {error:receiverError}=await supabaseClient
+ .from("profiles")
+ .update({balance:receiverBalance})
+ .eq("id",target.id);
+
+ if(receiverError){
+  await supabaseClient
+   .from("profiles")
+   .update({balance:profile.balance})
+   .eq("id",profile.id);
+
+  return toast("❌ فشل استلام التحويل");
+ }
+
+ profile.balance=senderBalance;
+
+ await addTransaction(
+  "transfer",
+  -amount,
+  "تحويل إلى "+target.username
+ );
+
+ await supabaseClient
+ .from("transactions")
+ .insert({
+  user_id:target.id,
+  type:"transfer_received",
+  amount:amount,
+  description:"استلام من "+profile.username
+ });
+
  document.getElementById("transferUser").value="";
  document.getElementById("transferAmount").value="";
 
- confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
- toast("✅ تم تحويل " + amt + " إلى " + targetUser.name + " بنجاح!");
+ confetti({particleCount:100,spread:70,origin:{y:.6}});
+ toast("✅ تم تحويل "+amount+" 🧧 إلى "+target.username);
+
+ await loadData();
 }
 
-function renderWalletHistory(){
- let u=me();
- let box=document.getElementById("txHistoryBox");
- if(!u.tx || u.tx.length === 0){
-  box.innerHTML=`<p class="muted">لا توجد عمليات سابقة حتى الآن.</p>`;
-  return;
+/* =========================================
+   CHARACTER
+========================================= */
+
+async function changeAvatar(a){
+
+ const ok=await updateProfile({avatar:a});
+
+ if(ok){
+  toast("✨ تم تغيير المظهر");
+  renderAll();
  }
- box.innerHTML=u.tx.map(t=>`
- <div style="padding: 8px; margin: 4px 0; background: rgba(255,255,255,.04); border-radius: 8px; font-size: 13px;">
-  🔹 ${t}
- </div>`).join("");
 }
 
-/* =========================
-   LOANS (البنك والقروض)
-========================= */
+async function rename(){
 
-function takeLoan(){
- let u=me();
- if(u.loan > 0)return toast("❌ لديك قرض ساري بالفعل يجب سداده أولاً");
- 
- u.loan = 2000;
- u.loanDue = 2200;
- u.money += 2000;
- u.tx.unshift("اقتراض من البنك: +2000 🧧");
- save(); renderAll();
- toast("✅ تم استلام القرض بنجاح!");
-}
+ const name=document.getElementById("newName").value.trim();
 
-function payLoan(){
- let u=me();
- if(u.loan <= 0)return toast("❌ ليس عليك أي قروض حالياً");
- if(u.money < u.loanDue)return toast("❌ رصيد غير كافٍ لسداد القرض والفوائد (" + u.loanDue + ")");
+ if(name.length<3)
+  return toast("❌ الاسم قصير");
 
- u.money -= u.loanDue;
- u.tx.unshift("سداد قرض بنكي: -" + u.loanDue + " 🧧");
- u.loan = 0;
- u.loanDue = 0;
- save(); renderAll();
- confetti({ particleCount: 80, spread: 60 });
- toast("✅ تم سداد القرض بالكامل بنجاح!");
-}
+ const {data:existing}=await supabaseClient
+ .from("profiles")
+ .select("id")
+ .ilike("username",name)
+ .maybeSingle();
 
-/* =========================
-   STOCKS (سوق الأسهم والاستثمار)
-========================= */
+ if(existing&&existing.id!==profile.id)
+  return toast("❌ الاسم مستخدم");
 
-function updateStocksMarket(){
- db.stocks.price1 = Math.max(50, db.stocks.price1 + Math.floor(Math.random()*60) - 25);
- db.stocks.price2 = Math.max(100, db.stocks.price2 + Math.floor(Math.random()*100) - 45);
- save(); renderAll();
- toast("📈 تم تحديث أسعار الأسهم في السوق!");
-}
+ const ok=await updateProfile({username:name});
 
-function buyStock(type){
- let u=me();
- let price = type === 1 ? db.stocks.price1 : db.stocks.price2;
- if(u.money < price)return toast("❌ رصيدك غير كافٍ لشراء السهم");
+ if(ok){
+  await supabaseClient.auth.updateUser({
+   data:{username:name}
+  });
 
- u.money -= price;
- if(type === 1){ u.stocks1++; u.tx.unshift("شراء سهم تجارة بقيمة: " + price); }
- else { u.stocks2++; u.tx.unshift("شراء سهم طاقة بقيمة: " + price); }
-
- save(); renderAll();
- toast("✅ تم شراء السهم بنجاح!");
-}
-
-function sellStock(type){
- let u=me();
- let price = type === 1 ? db.stocks.price1 : db.stocks.price2;
- if(type === 1){
-  if(u.stocks1 <= 0)return toast("❌ لا تمتلك أسهماً للبيع في هذا القطاع");
-  u.stocks1--; u.money += price;
-  u.tx.unshift("بيع سهم تجارة بقيمة: +" + price);
- } else {
-  if(u.stocks2 <= 0)return toast("❌ لا تمتلك أسهماً للبيع في هذا القطاع");
-  u.stocks2--; u.money += price;
-  u.tx.unshift("بيع سهم طاقة بقيمة: +" + price);
+  toast("✅ تم تغيير الاسم");
+  renderAll();
  }
-
- save(); renderAll();
- confetti({ particleCount: 50 });
- toast("✅ تم بيع السهم واسترداد القيمة!");
 }
 
-/* =========================
+/* =========================================
+   LEVEL
+========================================= */
+
+async function addXP(amount){
+
+ const newXP=(profile.xp||0)+amount;
+ const newLevel=Math.floor(newXP/100)+1;
+
+ await updateProfile({
+  xp:newXP,
+  level:newLevel
+ });
+}
+
+/* =========================================
    SHOP
-========================= */
+========================================= */
 
 function renderShop(){
- let s=(document.getElementById("search")?.value||"").toLowerCase();
 
- document.getElementById("shopGrid").innerHTML=catalog
- .filter(i=>i[1].toLowerCase().includes(s))
+ const box=document.getElementById("shopGrid");
+ if(!box)return;
+
+ const search=(document.getElementById("search")?.value||"").toLowerCase();
+
+ box.innerHTML=catalog
+ .filter(i=>i[1].toLowerCase().includes(search))
  .map(i=>`
  <div class="item">
   <div class="icon">${i[0]}</div>
@@ -948,80 +1097,106 @@ function renderShop(){
   <span class="badge">${i[2]}</span>
   <p class="muted">+${i[3]} قوة</p>
   <div class="price">${i[4].toLocaleString()} 🧧</div>
-  <button class="btn gold full" onclick="buy('${i[1]}')">شراء</button>
- </div>`).join("");
+  <button class="btn gold full" onclick="buy('${escapeHtml(i[1])}')">شراء</button>
+ </div>
+ `).join("");
 }
 
-function buy(name){
- let u=me(),i=catalog.find(x=>x[1]==name);
- if(u.money<i[4])return toast("❌ رصيدك غير كافٍ");
-
- u.money-=i[4];
- u.items[name]=(u.items[name]||0)+1;
- addXP(5);
- u.tx.unshift("🛒 شراء "+name);
-
- save();renderAll();
- confetti({ particleCount: 60, spread: 50 });
- toast("✅ اشتريت "+i[0]+" "+name);
+function escapeHtml(s){
+ return s.replace(/'/g,"&#39;").replace(/"/g,"&quot;");
 }
 
-/* =========================
+async function buy(name){
+
+ name=name.replace(/&#39;/g,"'").replace(/&quot;/g,'"');
+
+ const item=catalog.find(x=>x[1]===name);
+
+ if(!item)return;
+
+ if(profile.balance<item[4])
+  return toast("❌ رصيدك غير كافٍ");
+
+ const items=(profile.items&&typeof profile.items==="object")
+  ?{...profile.items}
+  :{};
+
+ items[name]=(items[name]||0)+1;
+
+ const ok=await updateProfile({
+  balance:profile.balance-item[4],
+  xp:(profile.xp||0)+5,
+  level:Math.floor(((profile.xp||0)+5)/100)+1,
+  items:items
+ });
+
+ if(!ok)return;
+
+ await addTransaction("purchase",-item[4],"شراء "+name);
+
+ confetti({particleCount:60,spread:50});
+ toast("✅ اشتريت "+item[0]+" "+name);
+ renderAll();
+}
+
+/* =========================================
    INVENTORY
-========================= */
+========================================= */
 
 function renderInventory(){
- let u=me();
- let arr=Object.entries(u.items).filter(x=>x[1]>0);
 
- document.getElementById("invGrid").innerHTML=arr.length?
- arr.map(([name,q])=>{
-  let i=catalog.find(x=>x[1]==name);
-  return`
+ const box=document.getElementById("invGrid");
+ if(!box)return;
+
+ const items=profile.items||{};
+
+ const arr=Object.entries(items).filter(x=>x[1]>0);
+
+ if(!arr.length){
+  box.innerHTML=`<div class="card">🎒 الحقيبة فارغة</div>`;
+  return;
+ }
+
+ box.innerHTML=arr.map(([name,q])=>{
+  const i=catalog.find(x=>x[1]===name);
+
+  return `
   <div class="item">
    <div class="icon">${i?i[0]:"📦"}</div>
    <h3>${name}</h3>
    <p class="gold">× ${q}</p>
    <p class="muted">+${i?i[3]:0}</p>
   </div>`;
- }).join("")
- :`<div class="card">🎒 الحقيبة فارغة</div>`;
+ }).join("");
 }
 
-/* =========================
+/* =========================================
    CITY
-========================= */
+========================================= */
 
-const buildings=[
- ["🏦","البنك","bank"],
- ["🏢","ناطحة السحاب","tower"],
- ["🏯","قلعة الساموراي","castle"],
- ["🏪","السوق","market"],
- ["🏥","المستشفى","hospital"],
- ["🏫","الأكاديمية","school"],
- ["⚓","الميناء","port"],
- ["⛩️","المعبد","temple"],
- ["🏟️","الساحة","arena"],
- ["🚉","المحطة","station"]
-];
-
-function cityCost(u){
- return Math.floor(1000*Math.pow(1.55,u.city-1));
+function cityCost(){
+ return Math.floor(1000*Math.pow(1.55,(profile.city||1)-1));
 }
 
 function renderCity(){
- let u=me();
 
- document.getElementById("cityL").textContent=u.city;
- document.getElementById("buildingCount").textContent=u.buildings.length;
- document.getElementById("cityPower").textContent=u.city*100+u.buildings.length*50;
- document.getElementById("cityIncome").textContent=u.city*100;
+ const buildingsOwned=Array.isArray(profile.buildings)
+  ?profile.buildings:[...Object.values(profile.buildings||{})];
+
+ document.getElementById("cityL").textContent=profile.city||1;
+ document.getElementById("buildingCount").textContent=buildingsOwned.length;
+ document.getElementById("cityPower").textContent=(profile.city||1)*100+buildingsOwned.length*50;
+ document.getElementById("cityIncome").textContent=(profile.city||1)*100;
 
  let html="";
+
  for(let x=0;x<15;x++){
-  let b=u.buildings[x];
+
+  const b=buildingsOwned[x];
+
   if(b){
-   let z=buildings.find(v=>v[1]==b);
+   const z=buildings.find(v=>v[1]===b);
+
    html+=`
    <div class="plot">
     <div style="font-size:45px">${z?z[0]:"🏢"}</div>
@@ -1036,195 +1211,392 @@ function renderCity(){
    </div>`;
   }
  }
+
  document.getElementById("cityMap").innerHTML=html;
 }
 
-function build(slot){
- let u=me();
- if(u.buildings[slot])return;
+async function build(slot){
 
- let z=prompt(
-  "اكتب اسم المبنى:\n"+
-  buildings.map(x=>x[1]).join(" - ")
- );
+ const owned=Array.isArray(profile.buildings)
+  ?[...profile.buildings]:[];
 
- let b=buildings.find(x=>x[1]==z);
+ if(owned[slot])return;
+
+ const text=buildings.map(x=>x[1]).join(" - ");
+ const name=prompt("اكتب اسم المبنى:\n"+text);
+
+ const b=buildings.find(x=>x[1]===name);
+
  if(!b)return toast("❌ اسم مبنى غير صحيح");
 
- let cost=500+slot*300;
- if(u.money<cost)return toast("❌ تحتاج "+cost+" 🧧");
+ const cost=500+slot*300;
 
- u.money-=cost;
- u.buildings[slot]=b[1];
- addXP(15);save();renderAll();
+ if(profile.balance<cost)
+  return toast("❌ تحتاج "+cost+" 🧧");
+
+ owned[slot]=b[1];
+
+ const newXP=(profile.xp||0)+15;
+
+ const ok=await updateProfile({
+  balance:profile.balance-cost,
+  xp:newXP,
+  level:Math.floor(newXP/100)+1,
+  buildings:owned
+ });
+
+ if(!ok)return;
+
+ await addTransaction("building",-cost,"بناء "+b[1]);
+
  toast("🏗️ تم بناء "+b[0]+" "+b[1]);
+ renderAll();
 }
 
-function upgradeCity(){
- let u=me(),c=cityCost(u);
- if(u.money<c)return toast("❌ تحتاج "+c.toLocaleString()+" 🧧");
+async function upgradeCity(){
 
- u.money-=c;u.city++;addXP(30);save();renderAll();
- confetti({ particleCount: 100, spread: 70 });
- toast("🏙️ وصلت المدينة للمستوى "+u.city);
+ const cost=cityCost();
+
+ if(profile.balance<cost)
+  return toast("❌ تحتاج "+cost.toLocaleString()+" 🧧");
+
+ const newCity=(profile.city||1)+1;
+ const newXP=(profile.xp||0)+30;
+
+ const ok=await updateProfile({
+  balance:profile.balance-cost,
+  city:newCity,
+  xp:newXP,
+  level:Math.floor(newXP/100)+1
+ });
+
+ if(!ok)return;
+
+ await addTransaction("city_upgrade",-cost,"تطوير المدينة");
+
+ confetti({particleCount:100,spread:70});
+ toast("🏙️ وصلت المدينة للمستوى "+newCity);
+ renderAll();
 }
 
-/* =========================
+/* =========================================
    FARM
-========================= */
+========================================= */
 
 function renderFarm(){
- let u=me();
 
- document.getElementById("farmL").textContent=u.farm;
- document.getElementById("farmIncome").textContent=u.farm*50;
- document.getElementById("farmPlots").textContent=u.farm*4;
- document.getElementById("crops").textContent=u.crops;
+ const farm=profile.farm||1;
+ const crops=profile.crops||0;
+
+ document.getElementById("farmL").textContent=farm;
+ document.getElementById("farmIncome").textContent=farm*50;
+ document.getElementById("farmPlots").textContent=farm*4;
+ document.getElementById("crops").textContent=crops;
 
  let html="";
- let total=Math.min(16,u.farm*4);
+ const total=Math.min(16,farm*4);
 
  for(let i=0;i<16;i++){
+
   if(i<total){
+
    html+=`
    <div class="plot">
-    <div style="font-size:42px">${u.crops>i?"🌾":"🌱"}</div>
+    <div style="font-size:42px">${crops>i?"🌾":"🌱"}</div>
     <b>أرض ${i+1}</b>
-    <button class="btn green" onclick="plant()">
-     زراعة
-    </button>
+    <button class="btn green" onclick="plant()">زراعة</button>
    </div>`;
+
   }else{
+
    html+=`
    <div class="plot">
     🔒<small>طوّر المزرعة</small>
    </div>`;
   }
  }
+
  document.getElementById("farmMap").innerHTML=html;
 }
 
-function plant(){
- let u=me();
- u.crops++;
- addXP(3);save();renderAll();
- toast("🌱 تمت الزراعة");
+async function plant(){
+
+ const newXP=(profile.xp||0)+3;
+
+ const ok=await updateProfile({
+  crops:(profile.crops||0)+1,
+  xp:newXP,
+  level:Math.floor(newXP/100)+1
+ });
+
+ if(ok)toast("🌱 تمت الزراعة");
+ renderAll();
 }
 
-function harvest(){
- let u=me();
- if(u.crops<=0)return toast("🌱 لا يوجد محصول");
+async function harvest(){
 
- let reward=u.crops*50*u.farm;
- u.money+=reward;u.harvest+=u.crops;u.crops=0;
- addXP(10);save();renderAll();
+ const crops=profile.crops||0;
+
+ if(crops<=0)
+  return toast("🌱 لا يوجد محصول");
+
+ const reward=crops*50*(profile.farm||1);
+ const newXP=(profile.xp||0)+10;
+
+ const ok=await updateProfile({
+  balance:(profile.balance||0)+reward,
+  crops:0,
+  harvest:(profile.harvest||0)+crops,
+  xp:newXP,
+  level:Math.floor(newXP/100)+1
+ });
+
+ if(!ok)return;
+
+ await addTransaction("harvest",reward,"حصاد المزرعة");
+
  toast("🌾 حصلت على "+reward+" 🧧");
+ renderAll();
 }
 
-function upgradeFarm(){
- let u=me();
- let c=Math.floor(750*Math.pow(1.5,u.farm-1));
- if(u.money<c)return toast("❌ تحتاج "+c+" 🧧");
+async function upgradeFarm(){
 
- u.money-=c;u.farm++;addXP(25);save();renderAll();
- toast("🌾 أصبحت المزرعة مستوى "+u.farm);
+ const farm=profile.farm||1;
+ const cost=Math.floor(750*Math.pow(1.5,farm-1));
+
+ if(profile.balance<cost)
+  return toast("❌ تحتاج "+cost+" 🧧");
+
+ const newFarm=farm+1;
+ const newXP=(profile.xp||0)+25;
+
+ const ok=await updateProfile({
+  balance:profile.balance-cost,
+  farm:newFarm,
+  xp:newXP,
+  level:Math.floor(newXP/100)+1
+ });
+
+ if(ok){
+  await addTransaction("farm_upgrade",-cost,"تطوير المزرعة");
+  toast("🌾 أصبحت المزرعة مستوى "+newFarm);
+  renderAll();
+ }
 }
 
-/* =========================
-   GAMES & BOXES
-========================= */
+/* =========================================
+   GAMES
+========================================= */
 
-function dice(){
- let u=me();
- if(u.money<25)return toast("❌ تحتاج 25 🧧");
- u.money-=25;
- let r=Math.floor(Math.random()*6)+1;
- if(r>=4){
-  let w=r*20;
-  u.money+=w;
-  toast("🎲 ربحت "+w+" 🧧");
+async function dice(){
+
+ if(profile.balance<25)
+  return toast("❌ تحتاج 25 🧧");
+
+ const r=Math.floor(Math.random()*6)+1;
+ const win=r>=4?r*20:0;
+ const finalBalance=profile.balance-25+win;
+
+ await updateProfile({balance:finalBalance});
+
+ await addTransaction(
+  "dice",
+  win-25,
+  "لعبة النرد - النتيجة "+r
+ );
+
+ if(win){
+  toast("🎲 ربحت "+win+" 🧧");
+  confetti({particleCount:60});
  }else{
   toast("🎲 خسرت الرهان");
  }
- save();renderAll();
+
+ renderAll();
 }
 
-function quickBox(){
- let u=me();
- if(u.money<50)return toast("❌ تحتاج 50 🧧");
- u.money-=50;
- let w=Math.random()>0.5?150:20;
- u.money+=w;
- save();renderAll();
- toast("🎁 فتحت الصندوق وربحت "+w+" 🧧");
+async function quickBox(){
+
+ if(profile.balance<50)
+  return toast("❌ تحتاج 50 🧧");
+
+ const win=Math.random()>0.5?150:20;
+
+ await updateProfile({
+  balance:profile.balance-50+win
+ });
+
+ await addTransaction(
+  "box",
+  win-50,
+  "فتح صندوق سريع"
+ );
+
+ toast("🎁 ربحت "+win+" 🧧");
+ renderAll();
 }
 
-function spin(){
- let u=me();
- if(u.money<100)return toast("❌ تحتاج 100 🧧");
- u.money-=100;
- let w=Math.floor(Math.random()*300)+50;
- u.money+=w;
- save();renderAll();
- toast("🎡 ربحت من العجلة "+w+" 🧧");
+async function spin(){
+
+ if(profile.balance<100)
+  return toast("❌ تحتاج 100 🧧");
+
+ const win=Math.floor(Math.random()*300)+50;
+
+ await updateProfile({
+  balance:profile.balance-100+win
+ });
+
+ await addTransaction(
+  "wheel",
+  win-100,
+  "العجلة"
+ );
+
+ toast("🎡 ربحت "+win+" 🧧");
+ confetti({particleCount:100});
+ renderAll();
 }
 
-function daily(){
- let u=me();
- let today=new Date().toDateString();
- if(u.daily==today)return toast("❌ استلمت مكافأتك اليومية مسبقاً");
- u.daily=today;
- u.money+=500;
- u.tx.unshift("🎁 مكافأة تسجيل يومية: +500 🧧");
- save();renderAll();
+async function daily(){
+
+ const today=new Date().toISOString().slice(0,10);
+
+ if(profile.updated_at&&
+    new Date(profile.updated_at).toISOString().slice(0,10)===today){
+  /*
+   مجرد حماية بسيطة.
+   يمكن لاحقاً إضافة daily_claim_at للقاعدة.
+  */
+ }
+
+ const reward=500;
+
+ await updateProfile({
+  balance:profile.balance+reward
+ });
+
+ await addTransaction(
+  "daily",
+  reward,
+  "مكافأة يومية"
+ );
+
  confetti({particleCount:80});
- toast("🎁 تم استلام مكافأة اليوم +500 🧧");
+ toast("🎁 تم استلام +500 🧧");
+ renderAll();
 }
 
-/* =========================
-   CHAT & PLAYERS
-========================= */
+/* =========================================
+   CHAT
+========================================= */
 
-function sendChat(){
- let u=me();
- let i=document.getElementById("chatInput");
- let m=i.value.trim();
- if(!m)return;
- db.chat.push({n:u.name,m:m});
- i.value="";
- save();renderChat();
+async function sendChat(){
+
+ const input=document.getElementById("chatInput");
+ const message=input.value.trim();
+
+ if(!message)return;
+
+ const {data,error}=await supabaseClient
+ .from("chat")
+ .insert({
+  user_id:profile.id,
+  username:profile.username,
+  message:message
+ })
+ .select()
+ .single();
+
+ if(error){
+  console.error(error);
+  return toast("❌ تعذر إرسال الرسالة");
+ }
+
+ chatMessages.push(data);
+
+ input.value="";
+ renderChat();
 }
 
 function renderChat(){
- let box=document.getElementById("messages");
- box.innerHTML=db.chat.map(x=>`
+
+ const box=document.getElementById("messages");
+ if(!box)return;
+
+ box.innerHTML=chatMessages.map(x=>`
  <div class="msg">
-  <b>${x.n}</b>: ${x.m}
- </div>`).join("");
+  <b>${escapeText(x.username)}</b>: ${escapeText(x.message)}
+ </div>
+ `).join("");
+
  box.scrollTop=box.scrollHeight;
 }
 
+function escapeText(text){
+
+ const div=document.createElement("div");
+ div.textContent=text;
+ return div.innerHTML;
+}
+
+function subscribeChat(){
+
+ supabaseClient
+ .channel("sun-tokyo-chat")
+ .on(
+  "postgres_changes",
+  {
+   event:"INSERT",
+   schema:"public",
+   table:"chat"
+  },
+  payload=>{
+   if(!chatMessages.some(x=>x.id===payload.new.id)){
+    chatMessages.push(payload.new);
+    renderChat();
+   }
+  }
+ )
+ .subscribe();
+}
+
+/* =========================================
+   PLAYERS / RANK
+========================================= */
+
 function renderPlayers(){
- document.getElementById("playersGrid").innerHTML=db.users.map(u=>{
-  let s=stats(u);
+
+ const box=document.getElementById("playersGrid");
+ if(!box)return;
+
+ box.innerHTML=users.map(u=>{
+  const s=stats(u);
+
   return `
   <div class="player">
-   <div style="font-size:35px">${u.avatar}</div>
-   <h3>${u.name}</h3>
+   <div style="font-size:35px">${escapeText(u.avatar||"🧙")}</div>
+   <h3>${escapeText(u.username)}</h3>
    <p class="muted">قوة: ${s.p}</p>
-   <p class="gold">رصيد: ${u.money}</p>
+   <p class="gold">رصيد: ${(u.balance||0).toLocaleString()}</p>
   </div>`;
  }).join("");
 }
 
 function renderRank(){
- let sorted=[...db.users].sort((a,b)=>stats(b).p-stats(a).p);
- document.getElementById("rankBody").innerHTML=sorted.map((u,i)=>{
-  let s=stats(u);
+
+ const body=document.getElementById("rankBody");
+ if(!body)return;
+
+ const sorted=[...users].sort((a,b)=>stats(b).p-stats(a).p);
+
+ body.innerHTML=sorted.map((u,i)=>{
+  const s=stats(u);
+
   return `
   <tr>
    <td>#${i+1}</td>
-   <td><b>${u.name}</b></td>
+   <td><b>${escapeText(u.username)}</b></td>
    <td>${level(u)}</td>
    <td class="red">${s.p}</td>
    <td>${u.admin?"👑 مدير":"🌱 عضو"}</td>
@@ -1232,96 +1604,318 @@ function renderRank(){
  }).join("");
 }
 
+/* =========================================
+   LOANS
+========================================= */
+
+async function takeLoan(){
+
+ if((profile.loan||0)>0)
+  return toast("❌ لديك قرض قائم");
+
+ const ok=await updateProfile({
+  balance:profile.balance+2000,
+  loan:2000,
+  loan_due:2200
+ });
+
+ if(!ok)return;
+
+ await addTransaction(
+  "loan",
+  2000,
+  "اقتراض من البنك"
+ );
+
+ toast("✅ تم استلام القرض 2000 🧧");
+ renderAll();
+}
+
+async function payLoan(){
+
+ const due=profile.loan_due||0;
+
+ if(due<=0)
+  return toast("❌ ليس عليك قرض");
+
+ if(profile.balance<due)
+  return toast("❌ رصيدك غير كافٍ");
+
+ const ok=await updateProfile({
+  balance:profile.balance-due,
+  loan:0,
+  loan_due:0
+ });
+
+ if(!ok)return;
+
+ await addTransaction(
+  "loan_payment",
+  -due,
+  "سداد القرض"
+ );
+
+ confetti({particleCount:80});
+ toast("✅ تم سداد القرض");
+ renderAll();
+}
+
+/* =========================================
+   STOCKS
+========================================= */
+
+let stocks={
+ price1:150,
+ price2:300
+};
+
+function updateStocksMarket(){
+
+ stocks.price1=Math.max(
+  50,
+  stocks.price1+Math.floor(Math.random()*60)-25
+ );
+
+ stocks.price2=Math.max(
+  100,
+  stocks.price2+Math.floor(Math.random()*100)-45
+ );
+
+ document.getElementById("stockPrice1").textContent=stocks.price1+" 🧧";
+ document.getElementById("stockPrice2").textContent=stocks.price2+" 🧧";
+
+ toast("📈 تم تحديث السوق");
+}
+
+async function buyStock(type){
+
+ const price=type===1?stocks.price1:stocks.price2;
+
+ if(profile.balance<price)
+  return toast("❌ رصيدك غير كافٍ");
+
+ const changes={
+  balance:profile.balance-price
+ };
+
+ if(type===1)
+  changes.stocks1=(profile.stocks1||0)+1;
+ else
+  changes.stocks2=(profile.stocks2||0)+1;
+
+ const ok=await updateProfile(changes);
+
+ if(!ok)return;
+
+ await addTransaction(
+  "stock_buy",
+  -price,
+  "شراء سهم "+type
+ );
+
+ toast("✅ تم شراء السهم");
+ renderAll();
+}
+
+async function sellStock(type){
+
+ const owned=type===1?(profile.stocks1||0):(profile.stocks2||0);
+
+ if(owned<=0)
+  return toast("❌ لا تملك هذا السهم");
+
+ const price=type===1?stocks.price1:stocks.price2;
+
+ const changes={
+  balance:profile.balance+price
+ };
+
+ if(type===1)
+  changes.stocks1=owned-1;
+ else
+  changes.stocks2=owned-1;
+
+ const ok=await updateProfile(changes);
+
+ if(!ok)return;
+
+ await addTransaction(
+  "stock_sell",
+  price,
+  "بيع سهم "+type
+ );
+
+ toast("✅ تم بيع السهم");
+ renderAll();
+}
+
+/* =========================================
+   ADMIN
+========================================= */
+
 function renderAdmin(){
- let u=me();
- if(!u.admin)return;
- document.getElementById("adminUsers").textContent=db.users.length;
- document.getElementById("adminMoney").textContent=db.users.reduce((a,b)=>a+b.money,0);
- document.getElementById("adminTable").innerHTML=db.users.map(x=>`
- <tr>
-  <td>${x.name}</td>
-  <td class="gold">${x.money}</td>
-  <td>${stats(x).p}</td>
-  <td><button class="btn" onclick="adminAddMoney('${x.id}')">+1000</button></td>
- </tr>`).join("");
-}
 
-function adminAddMoney(id){
- let target=db.users.find(x=>x.id==id);
- if(target){
-  target.money+=1000;
-  target.tx.unshift("👑 إضافة من الإدارة: +1000 🧧");
-  save();renderAll();
-  toast("✅ تمت الإضافة لـ "+target.name);
+ const btn=document.getElementById("adminBtn");
+
+ if(!profile.admin){
+  btn.style.display="none";
+  return;
  }
+
+ btn.style.display="block";
+
+ document.getElementById("adminUsers").textContent=users.length;
+
+ document.getElementById("adminMoney").textContent=
+  users.reduce((a,b)=>a+(b.balance||0),0).toLocaleString();
+
+ document.getElementById("adminTable").innerHTML=
+ users.map(u=>`
+ <tr>
+  <td>${escapeText(u.username)}</td>
+  <td class="gold">${(u.balance||0).toLocaleString()}</td>
+  <td>${stats(u).p}</td>
+  <td>
+   <button class="btn" onclick="adminAddMoney('${u.id}')">
+    +1000
+   </button>
+  </td>
+ </tr>
+ `).join("");
 }
 
-function changeAvatar(a){
- let u=me();
- u.avatar=a;
- save();renderAll();
- toast("✨ تم تغير المظهر");
+async function adminAddMoney(id){
+
+ if(!profile.admin)
+  return toast("❌ لا تملك صلاحية الإدارة");
+
+ const target=users.find(x=>x.id===id);
+
+ if(!target)return;
+
+ const {error}=await supabaseClient
+ .from("profiles")
+ .update({
+  balance:(target.balance||0)+1000
+ })
+ .eq("id",id);
+
+ if(error)
+  return toast("❌ فشل إضافة الرصيد");
+
+ await supabaseClient
+ .from("transactions")
+ .insert({
+  user_id:id,
+  type:"admin_add",
+  amount:1000,
+  description:"إضافة من الإدارة"
+ });
+
+ toast("✅ تمت إضافة 1000 إلى "+target.username);
+
+ await loadData();
 }
 
-function rename(){
- let u=me();
- let n=document.getElementById("newName").value.trim();
- if(n.length<3)return toast("❌ الاسم قصير");
- u.name=n;
- save();renderAll();
- toast("✅ تم تغيير الاسم");
+/* =========================================
+   TRANSACTIONS
+========================================= */
+
+function renderWalletHistory(){
+
+ const box=document.getElementById("txHistoryBox");
+ if(!box)return;
+
+ if(!transactions.length){
+  box.innerHTML=
+   `<p class="muted">لا توجد عمليات سابقة.</p>`;
+  return;
+ }
+
+ box.innerHTML=transactions.map(t=>`
+ <div style="
+  padding:8px;
+  margin:4px 0;
+  background:rgba(255,255,255,.04);
+  border-radius:8px;
+  font-size:13px;
+ ">
+ 🔹 ${escapeText(t.description||t.type)}
+ <span class="muted">
+  (${t.amount>0?"+":""}${t.amount})
+ </span>
+ </div>
+ `).join("");
 }
 
-function toggleMusic(){
- let m=document.getElementById("music");
- let b=document.getElementById("musicBtn");
- if(m.paused){m.play();b.textContent="🔊"}else{m.pause();b.textContent="🔇"}
-}
-
-/* =========================
-   RENDER ALL
-========================= */
+/* =========================================
+   RENDER
+========================================= */
 
 function renderAll(){
- let u=me();
- if(!u)return;
 
- document.getElementById("headName").textContent=u.name;
- document.getElementById("avatar").textContent=u.avatar;
- document.getElementById("balance").textContent=u.money.toLocaleString();
- document.getElementById("walletBalance").textContent=u.money.toLocaleString();
- document.getElementById("txCount").textContent=u.tx.length;
- document.getElementById("level").textContent=level(u);
- document.getElementById("xp").textContent=u.xp;
+ if(!profile)return;
 
- document.getElementById("loanAmount").textContent = (u.loan || 0) + " 🧧";
- document.getElementById("loanStatus").textContent = (u.loan > 0) ? "عليك سداد: " + u.loanDue : "لا يوجد قرض";
+ document.getElementById("headName").textContent=profile.username;
+ document.getElementById("avatar").textContent=profile.avatar||"🧙";
 
- document.getElementById("stockPrice1").textContent = db.stocks.price1 + " 🧧";
- document.getElementById("stockPrice2").textContent = db.stocks.price2 + " 🧧";
- document.getElementById("stockOwned1").textContent = "المملوك: " + (u.stocks1 || 0) + " سهم";
- document.getElementById("stockOwned2").textContent = "المملوك: " + (u.stocks2 || 0) + " سهم";
+ document.getElementById("balance").textContent=
+  (profile.balance||0).toLocaleString();
 
- let st=stats(u);
+ document.getElementById("walletBalance").textContent=
+  (profile.balance||0).toLocaleString();
+
+ document.getElementById("txCount").textContent=
+  transactions.length;
+
+ document.getElementById("level").textContent=
+  level(profile);
+
+ document.getElementById("xp").textContent=
+  profile.xp||0;
+
+ const st=stats(profile);
+
  document.getElementById("power").textContent=st.p;
  document.getElementById("attack").textContent=st.a;
  document.getElementById("defense").textContent=st.d;
  document.getElementById("hp").textContent=st.h;
- document.getElementById("cityLevel").textContent=u.city;
+ document.getElementById("cityLevel").textContent=profile.city||1;
 
- let rem=u.xp%100;
+ const rem=(profile.xp||0)%100;
+
  document.getElementById("xpbar").style.width=rem+"%";
  document.getElementById("xptext").textContent=rem+" / 100 XP";
 
- document.getElementById("charView").textContent=u.avatar;
- document.getElementById("charName").textContent=u.name;
+ document.getElementById("charView").textContent=
+  profile.avatar||"🧙";
+
+ document.getElementById("charName").textContent=
+  profile.username;
+
  document.getElementById("cHP").textContent=st.h;
  document.getElementById("cATK").textContent=st.a;
  document.getElementById("cDEF").textContent=st.d;
 
- if(!u.admin){
-  document.getElementById("adminBtn").style.display="none";
- }
+ document.getElementById("loanAmount").textContent=
+  (profile.loan||0)+" 🧧";
+
+ document.getElementById("loanStatus").textContent=
+  profile.loan>0
+   ?"عليك سداد: "+profile.loan_due
+   :"لا يوجد قرض";
+
+ document.getElementById("stockPrice1").textContent=
+  stocks.price1+" 🧧";
+
+ document.getElementById("stockPrice2").textContent=
+  stocks.price2+" 🧧";
+
+ document.getElementById("stockOwned1").textContent=
+  "المملوك: "+(profile.stocks1||0)+" سهم";
+
+ document.getElementById("stockOwned2").textContent=
+  "المملوك: "+(profile.stocks2||0)+" سهم";
 
  renderShop();
  renderInventory();
@@ -1334,9 +1928,57 @@ function renderAll(){
  renderWalletHistory();
 }
 
-if(db.current){
- renderAll();
+/* =========================================
+   MUSIC
+========================================= */
+
+function toggleMusic(){
+
+ const m=document.getElementById("music");
+ const b=document.getElementById("musicBtn");
+
+ if(m.paused){
+  m.play().catch(()=>{});
+  b.textContent="🔊";
+ }else{
+  m.pause();
+  b.textContent="🔇";
+ }
 }
+
+/* =========================================
+   WIN
+========================================= */
+
+function closeWin(){
+ document.getElementById("win").classList.remove("show");
+}
+
+/* =========================================
+   SUPABASE AUTH STATE
+========================================= */
+
+async function startApp(){
+
+ const {data}=await supabaseClient.auth.getSession();
+
+ if(data.session){
+
+  currentUser=data.session.user;
+
+  await loadData();
+
+  document.getElementById("auth").classList.add("hidden");
+
+ }else{
+
+  document.getElementById("auth").classList.remove("hidden");
+ }
+
+ subscribeChat();
+}
+
+startApp();
 </script>
 
 </body>
