@@ -206,8 +206,6 @@ input:focus{border-color:var(--red)}
 }.win.show{display:flex}
 .winbox{text-align:center;animation:winpop .5s ease}
 @keyframes winpop{from{transform:scale(.2);opacity:0}to{transform:scale(1);opacity:1}}
-.explosion{font-size:100px;animation:boom .8s infinite alternate}
-@keyframes boom{to{transform:scale(1.2) rotate(8deg)}}
 .auth{
  position:fixed;inset:0;z-index:500;display:flex;
  justify-content:center;align-items:center;padding:20px;
@@ -317,6 +315,8 @@ input:focus{border-color:var(--red)}
 <button onclick="page('players',this)">👥 الأعضاء</button>
 <button onclick="page('rank',this)">🏆 المتصدرون</button>
 <button onclick="page('wallet',this)">💰 المحفظة</button>
+<button onclick="page('loans',this)">🏦 البنك والقروض</button>
+<button onclick="page('stocks',this)">📈 سوق الأسهم</button>
 <button onclick="page('achievements',this)">🏅 الإنجازات</button>
 <button onclick="page('profile',this)">⚙️ الحساب</button>
 
@@ -366,8 +366,8 @@ input:focus{border-color:var(--red)}
 <div class="actions">
 <button class="action" onclick="page('games')">🎮<b>الألعاب</b><small>اربح العملات</small></button>
 <button class="action" onclick="page('city')">🏙️<b>المدينة</b><small>ابنِ وطوّر</small></button>
-<button class="action" onclick="page('farm')">🌾<b>المزرعة</b><small>ازرع واحصد</small></button>
-<button class="action" onclick="page('chat')">💬<b>الدردشة</b><small>تحدث مع الأعضاء</small></button>
+<button class="action" onclick="page('loans')">🏦<b>البنك</b><small>القروض والسلف</small></button>
+<button class="action" onclick="page('stocks')">📈<b>الأسهم</b><small>الاستثمار والربح</small></button>
 </div>
 </div>
 
@@ -504,7 +504,7 @@ input:focus{border-color:var(--red)}
 </div>
 </section>
 
-<!-- المحفظة (الإيداع والتحويل والسجل) -->
+<!-- المحفظة -->
 <section id="wallet" class="page hidden">
 <div class="hero"><h1>💰 المحفظة</h1><p>تحكم في رصيدك، قم بالإيداع، وحول الأموال مع سجل العمليات المفصل.</p></div>
 
@@ -531,6 +531,51 @@ input:focus{border-color:var(--red)}
 <div style="margin-top: 10px; max-height: 200px; overflow-y: auto;" id="txHistoryBox">
 <p class="muted">لا توجد عمليات سابقة حتى الآن.</p>
 </div>
+</div>
+</section>
+
+<!-- البنك والقروض -->
+<section id="loans" class="page hidden">
+<div class="hero"><h1>🏦 بنك S.U.N المركزي - القروض</h1><p>اقترض مبالغ مالية لتمويل مشاريعك وعليك سدادها بفوائد بسيطة.</p></div>
+
+<div class="grid">
+<div class="card">📋 القرض الحالي<h2 class="red" id="loanAmount">0 🧧</h2></div>
+<div class="card">⏳ حالة السداد<h2 id="loanStatus">لا يوجد قرض</h2></div>
+</div>
+
+<div class="card" style="margin-bottom: 20px;">
+<h3>📥 طلب قرض جديد</h3>
+<p class="muted" style="margin-bottom: 10px;">احصل على قرض بقيمة 2000 🧧 بفائدة 10% (يجب سداد 2200 🧧).</p>
+<button class="btn gold full" onclick="takeLoan()">اقتراض 2,000 🧧</button>
+</div>
+
+<div class="card">
+<h3>📤 سداد القرض</h3>
+<button class="btn green full" onclick="payLoan()">سداد القرض بالكامل 💳</button>
+</div>
+</section>
+
+<!-- سوق الأسهم والاستثمار -->
+<section id="stocks" class="page hidden">
+<div class="hero"><h1>📈 سوق الأسهم والاستثمار</h1><p>اشترِ أسهماً وهمية في شركات طوكيو، واضغط لتحديث الأسعار لتربح أو تخسر!</p></div>
+
+<div class="grid">
+<div class="card">🏢 أسهم طوكيو للتجارة<h2 class="gold" id="stockPrice1">150 🧧</h2><p class="muted" id="stockOwned1>المملوك: 0 سهم</p></div>
+<div class="card">⚡ أسهم طاقة الأنمي<h2 class="gold" id="stockPrice2">300 🧧</h2><p class="muted" id="stockOwned2">المملوك: 0 سهم</p></div>
+</div>
+
+<div style="display:flex; gap:10px; margin-bottom:20px;">
+<button class="btn gold full" onclick="buyStock(1)">شراء سهم تجارة (150)</button>
+<button class="btn green full" onclick="buyStock(2)">شراء سهم طاقة (300)</button>
+</div>
+
+<div style="display:flex; gap:10px; margin-bottom:20px;">
+<button class="btn red full" onclick="sellStock(1)">بيع سهم تجارة</button>
+<button class="btn red full" onclick="sellStock(2)">بيع سهم طاقة</button>
+</div>
+
+<div class="card">
+<button class="btn full" onclick="updateStocksMarket()">🔄 تحديث حركة السوق عشوائياً</button>
 </div>
 </section>
 
@@ -589,13 +634,14 @@ input:focus{border-color:var(--red)}
    DATABASE
 ========================= */
 
-const KEY="SUN_TOKYO_ONE_HTML_V7";
+const KEY="SUN_TOKYO_ONE_HTML_V8";
 
 let db=JSON.parse(localStorage.getItem(KEY)||"null");
 
 if(!db){
  db={
   current:null,
+  stocks:{ price1: 150, price2: 300 },
   users:[
    {
     id:"SUN-001",name:"Admin",pass:"1234",admin:true,
@@ -603,21 +649,21 @@ if(!db){
     avatar:"👑",items:{},buildings:[],
     crops:0,harvest:0,daily:"",
     missions:{},achievements:[],
-    tx:[]
+    tx:[], loan:0, loanDue:0, stocks1:0, stocks2:0
    },
    {
     id:"SUN-002",name:"Nero",pass:"1234",admin:false,
     money:2500,xp:180,city:1,farm:1,
     avatar:"🥷",items:{},buildings:[],
     crops:0,harvest:0,daily:"",
-    missions:{},achievements:[],tx:[]
+    missions:{},achievements:[],tx:[], loan:0, loanDue:0, stocks1:0, stocks2:0
    },
    {
     id:"SUN-003",name:"Kaito",pass:"1234",admin:false,
     money:1500,xp:90,city:1,farm:1,
     avatar:"⚔️",items:{},buildings:[],
     crops:0,harvest:0,daily:"",
-    missions:{},achievements:[],tx:[]
+    missions:{},achievements:[],tx:[], loan:0, loanDue:0, stocks1:0, stocks2:0
    }
   ],
   chat:[
@@ -677,7 +723,7 @@ function register(){
   id:"SUN-"+Date.now().toString().slice(-6),
   name:n,pass:p,admin:false,money:500,xp:0,
   city:1,farm:1,avatar:"🧙",items:{},buildings:[],
-  crops:0,harvest:0,daily:"",missions:{},achievements:[],tx:[]
+  crops:0,harvest:0,daily:"",missions:{},achievements:[],tx:[], loan:0, loanDue:0, stocks1:0, stocks2:0
  });
 
  save();showLogin();toast("🎉 تم إنشاء الحساب +500 🧧");
@@ -812,6 +858,78 @@ function renderWalletHistory(){
  <div style="padding: 8px; margin: 4px 0; background: rgba(255,255,255,.04); border-radius: 8px; font-size: 13px;">
   🔹 ${t}
  </div>`).join("");
+}
+
+/* =========================
+   LOANS (البنك والقروض)
+========================= */
+
+function takeLoan(){
+ let u=me();
+ if(u.loan > 0)return toast("❌ لديك قرض ساري بالفعل يجب سداده أولاً");
+ 
+ u.loan = 2000;
+ u.loanDue = 2200;
+ u.money += 2000;
+ u.tx.unshift("اقتراض من البنك: +2000 🧧");
+ save(); renderAll();
+ toast("✅ تم استلام القرض بنجاح!");
+}
+
+function payLoan(){
+ let u=me();
+ if(u.loan <= 0)return toast("❌ ليس عليك أي قروض حالياً");
+ if(u.money < u.loanDue)return toast("❌ رصيد غير كافٍ لسداد القرض والفوائد (" + u.loanDue + ")");
+
+ u.money -= u.loanDue;
+ u.tx.unshift("سداد قرض بنكي: -" + u.loanDue + " 🧧");
+ u.loan = 0;
+ u.loanDue = 0;
+ save(); renderAll();
+ confetti({ particleCount: 80, spread: 60 });
+ toast("✅ تم سداد القرض بالكامل بنجاح!");
+}
+
+/* =========================
+   STOCKS (سوق الأسهم والاستثمار)
+========================= */
+
+function updateStocksMarket(){
+ db.stocks.price1 = Math.max(50, db.stocks.price1 + Math.floor(Math.random()*60) - 25);
+ db.stocks.price2 = Math.max(100, db.stocks.price2 + Math.floor(Math.random()*100) - 45);
+ save(); renderAll();
+ toast("📈 تم تحديث أسعار الأسهم في السوق!");
+}
+
+function buyStock(type){
+ let u=me();
+ let price = type === 1 ? db.stocks.price1 : db.stocks.price2;
+ if(u.money < price)return toast("❌ رصيدك غير كافٍ لشراء السهم");
+
+ u.money -= price;
+ if(type === 1){ u.stocks1++; u.tx.unshift("شراء سهم تجارة بقيمة: " + price); }
+ else { u.stocks2++; u.tx.unshift("شراء سهم طاقة بقيمة: " + price); }
+
+ save(); renderAll();
+ toast("✅ تم شراء السهم بنجاح!");
+}
+
+function sellStock(type){
+ let u=me();
+ let price = type === 1 ? db.stocks.price1 : db.stocks.price2;
+ if(type === 1){
+  if(u.stocks1 <= 0)return toast("❌ لا تمتلك أسهماً للبيع في هذا القطاع");
+  u.stocks1--; u.money += price;
+  u.tx.unshift("بيع سهم تجارة بقيمة: +" + price);
+ } else {
+  if(u.stocks2 <= 0)return toast("❌ لا تمتلك أسهماً للبيع في هذا القطاع");
+  u.stocks2--; u.money += price;
+  u.tx.unshift("بيع سهم طاقة بقيمة: +" + price);
+ }
+
+ save(); renderAll();
+ confetti({ particleCount: 50 });
+ toast("✅ تم بيع السهم واسترداد القيمة!");
 }
 
 /* =========================
@@ -1175,6 +1293,14 @@ function renderAll(){
  document.getElementById("txCount").textContent=u.tx.length;
  document.getElementById("level").textContent=level(u);
  document.getElementById("xp").textContent=u.xp;
+
+ document.getElementById("loanAmount").textContent = (u.loan || 0) + " 🧧";
+ document.getElementById("loanStatus").textContent = (u.loan > 0) ? "عليك سداد: " + u.loanDue : "لا يوجد قرض";
+
+ document.getElementById("stockPrice1").textContent = db.stocks.price1 + " 🧧";
+ document.getElementById("stockPrice2").textContent = db.stocks.price2 + " 🧧";
+ document.getElementById("stockOwned1").textContent = "المملوك: " + (u.stocks1 || 0) + " سهم";
+ document.getElementById("stockOwned2").textContent = "المملوك: " + (u.stocks2 || 0) + " سهم";
 
  let st=stats(u);
  document.getElementById("power").textContent=st.p;
