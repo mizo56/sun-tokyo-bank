@@ -1,10 +1,12 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』 Ultimate</title>
+
+<!-- استدعاء مكتبة الجوائز (Confetti) للتأثيرات البصرية -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -71,11 +73,13 @@ aside{
 }
 nav button{
  width:100%;border:0;background:transparent;color:#aaa;
- padding:13px;margin:3px 0;border-radius:13px;text-align:right
+ padding:13px;margin:3px 0;border-radius:13px;text-align:right;
+ transition: all 0.2s ease;
 }
 nav button:hover,nav button.active{
  background:linear-gradient(90deg,rgba(229,29,72,.3),transparent);
- color:#fff
+ color:#fff;
+ transform: scale(1.02);
 }
 .navtitle{font-size:11px;color:#666;margin:20px 8px 6px}
 main{flex:1;padding:25px;max-width:1600px;width:100%;margin:auto}
@@ -91,13 +95,14 @@ main{flex:1;padding:25px;max-width:1600px;width:100%;margin:auto}
  background:var(--card);border:1px solid var(--line);
  border-radius:18px;padding:19px;backdrop-filter:blur(13px)
 }
-.stat-title{font-size:12px;color:#888}.stat-value{font-size:25px;font-weight:900;margin-top:5px}
+.stat-title{font-size:12px;color:#888}.stat-value{font-size:25px;font-weight:900;margin-top:5px; transition: transform 0.3s;}
 .gold{color:var(--gold)}.red{color:#ff4f70}.green{color:var(--green)}
 .blue{color:var(--blue)}.purple{color:var(--purple)}
 .actions{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .action{
  border:1px solid var(--line);border-radius:16px;padding:20px;
- color:#fff;background:rgba(255,255,255,.045);text-align:center
+ color:#fff;background:rgba(255,255,255,.045);text-align:center;
+ transition: transform 0.2s, border-color 0.2s;
 }
 .action:hover{transform:translateY(-3px);border-color:var(--red)}
 .action b{display:block;margin-top:8px}.action small{color:#777}
@@ -107,8 +112,11 @@ main{flex:1;padding:25px;max-width:1600px;width:100%;margin:auto}
 .btn{
  border:0;border-radius:11px;padding:11px 16px;
  background:linear-gradient(135deg,var(--red),var(--red2));
- color:#fff;font-weight:bold
+ color:#fff;font-weight:bold;
+ transition: transform 0.15s ease, filter 0.15s ease;
 }
+.btn:hover{filter: brightness(1.1); transform: scale(1.03);}
+.btn:active{transform: scale(0.96);}
 .btn.gold{background:linear-gradient(135deg,#b5791c,var(--gold));color:#160d00}
 .btn.green{background:linear-gradient(135deg,#167b55,var(--green));color:#00150d}
 .btn.gray{background:#242631}
@@ -496,19 +504,26 @@ input:focus{border-color:var(--red)}
 </div>
 </section>
 
-<!-- المحفظة -->
+<!-- المحفظة (الإيداع والتحويل) -->
 <section id="wallet" class="page hidden">
-<div class="hero"><h1>💰 المحفظة</h1><p>تحكم في رصيدك وأرسل الهدايا.</p></div>
+<div class="hero"><h1>💰 المحفظة</h1><p>تحكم في رصيدك، قم بالإيداع وحول الأموال للأعضاء.</p></div>
 
 <div class="grid">
 <div class="card">💰 الرصيد<h2 class="gold" id="walletBalance">0</h2></div>
 <div class="card">📜 العمليات<h2 id="txCount">0</h2></div>
 </div>
 
+<div class="card" style="margin-bottom: 20px;">
+<h3>💳 إيداع رصيد سريع</h3>
+<input id="depositAmount" type="number" placeholder="أدخل مبلغ الإيداع">
+<button class="btn green full" onclick="makeDeposit()">إيداع فوري 💳</button>
+</div>
+
 <div class="card">
-<input id="giftName" placeholder="اسم العضو">
-<input id="giftAmount" type="number" placeholder="المبلغ">
-<button class="btn gold full" onclick="sendGift()">🎁 إرسال هدية</button>
+<h3>💸 تحويل الأموال للأعضاء</h3>
+<input id="transferUser" placeholder="اسم العضو المُحوَّل إليه">
+<input id="transferAmount" type="number" placeholder="المبلغ">
+<button class="btn gold full" onclick="makeTransfer()">تحويل الأموال 🚀</button>
 </div>
 </section>
 
@@ -549,7 +564,7 @@ input:focus{border-color:var(--red)}
 </main>
 </div>
 
-<!-- نافذة الفوز -->
+<!-- نافذة الفوز / الجوائز -->
 <div class="win" id="win">
 <div class="winbox">
 <div class="explosion">💥🎁💥</div>
@@ -567,7 +582,7 @@ input:focus{border-color:var(--red)}
    DATABASE
 ========================= */
 
-const KEY="SUN_TOKYO_ONE_HTML_V5";
+const KEY="SUN_TOKYO_ONE_HTML_V6";
 
 let db=JSON.parse(localStorage.getItem(KEY)||"null");
 
@@ -736,6 +751,51 @@ function addXP(n){
 }
 
 /* =========================
+   DEPOSIT & TRANSFER
+========================= */
+
+function makeDeposit(){
+ let u=me();
+ let amt=parseInt(document.getElementById("depositAmount").value);
+ if(isNaN(amt)||amt<=0)return toast("❌ أدخل مبلغاً صحيحاً");
+
+ u.money+=amt;
+ u.tx.unshift("إيداع رصيد بقيمة: " + amt);
+ save(); renderAll();
+ document.getElementById("depositAmount").value="";
+ 
+ // تأثير احتفالي عند الإيداع الناجح
+ confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
+ toast("✅ تم إيداع مبلغ " + amt + " بنجاح!");
+}
+
+function makeTransfer(){
+ let u=me();
+ let targetName=document.getElementById("transferUser").value.trim();
+ let amt=parseInt(document.getElementById("transferAmount").value);
+
+ if(!targetName || isNaN(amt)||amt<=0)return toast("❌ يرجى التأكد من البيانات والمبلغ");
+ if(u.money<amt)return toast("❌ رصيدك غير كافٍ لإتمام التحويل");
+
+ let targetUser=db.users.find(x=>x.name.toLowerCase()===targetName.toLowerCase());
+ if(!targetUser)return toast("❌ اسم المستخدم غير موجود");
+ if(targetUser.id===u.id)return toast("❌ لا يمكنك التحويل لنفسك");
+
+ u.money-=amt;
+ targetUser.money+=amt;
+
+ u.tx.unshift("تحويل " + amt + " إلى " + targetUser.name);
+ targetUser.tx.unshift("استلام " + amt + " من " + u.name);
+
+ save(); renderAll();
+ document.getElementById("transferUser").value="";
+ document.getElementById("transferAmount").value="";
+
+ confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+ toast("✅ تم تحويل " + amt + " إلى " + targetUser.name + " بنجاح!");
+}
+
+/* =========================
    SHOP
 ========================= */
 
@@ -764,7 +824,9 @@ function buy(name){
  addXP(5);
  u.tx.unshift("🛒 شراء "+name);
 
- save();renderAll();toast("✅ اشتريت "+i[0]+" "+name);
+ save();renderAll();
+ confetti({ particleCount: 60, spread: 50 });
+ toast("✅ اشتريت "+i[0]+" "+name);
 }
 
 /* =========================
@@ -773,7 +835,6 @@ function buy(name){
 
 function renderInventory(){
  let u=me();
-
  let arr=Object.entries(u.items).filter(x=>x[1]>0);
 
  document.getElementById("invGrid").innerHTML=arr.length?
@@ -867,6 +928,7 @@ function upgradeCity(){
  if(u.money<c)return toast("❌ تحتاج "+c.toLocaleString()+" 🧧");
 
  u.money-=c;u.city++;addXP(30);save();renderAll();
+ confetti({ particleCount: 100, spread: 70 });
  toast("🏙️ وصلت المدينة للمستوى "+u.city);
 }
 
@@ -932,7 +994,7 @@ function upgradeFarm(){
 }
 
 /* =========================
-   BOXES
+   BOXES & GAMES
 ========================= */
 
 const boxData=[
@@ -958,11 +1020,9 @@ function renderBoxes(){
 
 function openBox(id){
  let u=me(),b=boxData[id];
-
  if(u.money<b[2])return toast("❌ تحتاج "+b[2].toLocaleString()+" 🧧");
 
  u.money-=b[2];
-
  let reward=Math.floor(b[2]*(.2+Math.random()*1.4)*b[3]/2);
  u.money+=reward;
 
@@ -970,9 +1030,11 @@ function openBox(id){
  u.items[item[1]]=(u.items[item[1]]||0)+1;
 
  addXP(b[3]*10);
- u.tx.unshift("🎁 "+b[1]);
-
+ u.tx.unshift("🎁 فتح "+b[1]);
  save();renderAll();
+
+ // تأثير تفاعلي قوي عند فتح الصناديق
+ confetti({ particleCount: 150, spread: 90, origin: { y: 0.5 } });
 
  document.getElementById("winTitle").textContent="🎉 فتحت "+b[1];
  document.getElementById("winText").innerHTML=
@@ -985,10 +1047,6 @@ function closeWin(){
  document.getElementById("win").classList.remove("show");
 }
 
-/* =========================
-   GAMES
-========================= */
-
 let rotation=0;
 
 function dice(){
@@ -999,7 +1057,7 @@ function dice(){
  let n=Math.floor(Math.random()*6)+1;
  let reward=n==6?400:n==5?200:n>=3?60:0;
  u.money+=reward;addXP(5);save();renderAll();
-
+ if(reward > 0) confetti({ particleCount: 50 });
  toast("🎲 النرد: "+n+(reward?" — ربحت "+reward+" 🧧":" — لم تربح"));
 }
 
@@ -1011,6 +1069,7 @@ function quickBox(){
  let r=[20,50,100,200,500][Math.floor(Math.random()*5)];
  u.money+=r;addXP(8);save();renderAll();
 
+ confetti({ particleCount: 70 });
  document.getElementById("winTitle").textContent="🎁 مكافأة";
  document.getElementById("winText").innerHTML="💰 ربحت "+r+" 🧧";
  document.getElementById("win").classList.add("show");
@@ -1029,351 +1088,216 @@ function spin(){
 
  setTimeout(()=>{
   u.money+=r;addXP(10);save();renderAll();
-  toast(r?"🎡 ربحت "+r+" 🧧":"😢 لم تربح");
+  if(r > 0) confetti({ particleCount: 100 });
+  toast(r?"🎡 ربحت "+r+" 🧧":"🎡 لم تربح شيئاً");
  },4000);
 }
 
 function daily(){
- let u=me(),today=new Date().toDateString();
-
- if(u.daily==today)return toast("⏳ أخذت مكافأتك اليوم");
-
- u.daily=today;u.money+=500;addXP(15);save();renderAll();
- toast("🎁 اليومية +500 🧧");
-}
-
-/* =========================
-   MISSIONS
-========================= */
-
-const missions=[
- ["💰","اجمع 1000 🧧",1000,100],
- ["🌾","احصد 10 محاصيل",10,150],
- ["🏗️","ابنِ 3 مبانٍ",3,200],
- ["🎮","العب الألعاب",5,250]
-];
-
-function renderMissions(){
  let u=me();
+ let today=new Date().toDateString();
+ if(u.daily==today)return toast("⏳ استلمت مكافأتك اليومية مسبقاً");
 
- document.getElementById("missionsGrid").innerHTML=missions.map((m,i)=>{
-  let progress=i==0?Math.min(u.money,m[2]):
-  i==1?Math.min(u.harvest,m[2]):
-  i==2?Math.min(u.buildings.length,m[2]):
-  0;
-
-  let done=u.missions[i];
-
-  return`
-  <div class="achievement">
-   <div class="icon">${m[0]}</div>
-   <h3>${m[1]}</h3>
-   <p class="muted">${progress} / ${m[2]}</p><br>
-   <button class="btn ${done?"gray":"gold"}" onclick="claimMission(${i})">
-    ${done?"تم الاستلام":"استلام "+m[3]+" XP"}
-   </button>
-  </div>`;
- }).join("");
-}
-
-function claimMission(i){
- let u=me(),m=missions[i];
-
- if(u.missions[i])return toast("✅ تم استلام المهمة");
-
- let p=i==0?u.money:i==1?u.harvest:i==2?u.buildings.length:0;
-
- if(p<m[2])return toast("⏳ المهمة لم تكتمل");
-
- u.missions[i]=true;addXP(m[3]);u.money+=100;save();renderAll();
- toast("🎯 تمت المهمة +"+m[3]+" XP");
+ u.daily=today;
+ u.money+=500;addXP(20);save();renderAll();
+ confetti({ particleCount: 120, spread: 80 });
+ toast("🎁 حصلت على المكافأة اليومية +500 🧧");
 }
 
 /* =========================
-   CHAT
+   CHAT & PLAYERS & OTHER
 ========================= */
+
+function sendChat(){
+ let i=document.getElementById("chatInput");
+ let m=i.value.trim();
+ if(!m)return;
+
+ db.chat.push({n:me().name,m:m});
+ if(db.chat.length>50)db.chat.shift();
+ i.value="";
+ save();renderChat();
+}
 
 function renderChat(){
- document.getElementById("messages").innerHTML=db.chat.map(x=>`
- <div class="msg">
-  <b>👤 ${x.n}</b>
-  <p>${escapeHtml(x.m)}</p>
- </div>`).join("");
-
  let box=document.getElementById("messages");
+ box.innerHTML=db.chat.map(c=>`
+ <div class="msg">
+  <b>${c.n}:</b> ${c.m}
+ </div>`).join("");
  box.scrollTop=box.scrollHeight;
 }
 
-function sendChat(){
- let u=me(),x=document.getElementById("chatInput");
- let m=x.value.trim();
- if(!m)return;
-
- db.chat.push({n:u.name,m});
- db.chat=db.chat.slice(-60);
- x.value="";save();renderChat();
-}
-
-function escapeHtml(s){
- return s.replace(/[&<>"']/g,m=>({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
- }[m]));
-}
-
-/* =========================
-   PLAYERS / GIFTS
-========================= */
-
 function renderPlayers(){
+ document.getElementById("playersGrid").innerHTML=db.users.map(u=>`
+ <div class="player">
+  <div class="icon">${u.avatar}</div>
+  <h3>${u.name}</h3>
+  <p class="muted">مستوى ${level(u)}</p>
+  <div class="price">قوة: ${stats(u).p}</div>
+  <button class="btn gold full" onclick="sendGiftDirect('${u.name}')">🎁 إرسال هدية</button>
+ </div>`).join("");
+}
+
+function sendGiftDirect(name){
  let u=me();
+ if(name===u.name)return toast("❌ لا يمكنك إرسال هدية لنفسك");
+ let amt=parseInt(prompt("أدخل مبلغ الهدية لـ " + name + ":"));
+ if(isNaN(amt)||amt<=0)return;
+ if(u.money<amt)return toast("❌ رصيدك غير كافٍ");
 
- document.getElementById("playersGrid").innerHTML=db.users.map(x=>{
-  let s=stats(x);
-  return`
-  <div class="player">
-   <div class="icon">${x.avatar}</div>
-   <h3>${x.name}</h3>
-   <p class="muted">LV ${level(x)} • 💪 ${s.p}</p>
-   <br>
-   <button class="btn gold full" onclick="giftTo('${x.id}')">
-    🎁 هدية
-   </button>
-  </div>`;
- }).join("");
-}
-
-function giftTo(id){
- let amount=Number(prompt("قيمة الهدية 🧧"));
- let u=me(),x=db.users.find(a=>a.id==id);
-
- if(!x||x.id==u.id)return;
- if(!amount||amount<=0||u.money<amount)return toast("❌ مبلغ غير صالح");
-
- u.money-=amount;x.money+=amount;
- u.tx.unshift("🎁 هدية إلى "+x.name);
- x.tx.unshift("🎁 هدية من "+u.name);
+ let t=db.users.find(x=>x.name===name);
+ u.money-=amt;t.money+=amt;
+ u.tx.unshift("إرسال هدية لـ "+name);
+ t.tx.unshift("استلام هدية من "+u.name);
  save();renderAll();
-
- toast("🎁 أرسلت "+amount+" 🧧 إلى "+x.name);
-}
-
-function sendGift(){
- let name=document.getElementById("giftName").value.trim();
- let amount=Number(document.getElementById("giftAmount").value);
- let u=me(),x=db.users.find(a=>a.name.toLowerCase()==name.toLowerCase());
-
- if(!x)return toast("❌ العضو غير موجود");
- if(!amount||amount<=0||u.money<amount)return toast("❌ بيانات غير صحيحة");
-
- u.money-=amount;x.money+=amount;
- u.tx.unshift("🎁 هدية إلى "+x.name);
- x.tx.unshift("🎁 هدية من "+u.name);
- save();renderAll();
- toast("🎁 تم إرسال الهدية");
-}
-
-/* =========================
-   RANK
-========================= */
-
-function rankName(u){
- if(u.admin)return"👑 المدير";
- if(level(u)>=20)return"🐉 إمبراطور";
- if(level(u)>=15)return"⚔️ شوغون";
- if(level(u)>=10)return"🔥 ساموراي";
- if(level(u)>=5)return"🛡️ محارب";
- return"🌱 عضو";
+ confetti({ particleCount: 80 });
+ toast("🎁 تم إرسال الهدية بنجاح!");
 }
 
 function renderRank(){
- let arr=[...db.users].sort((a,b)=>stats(b).p-stats(a).p);
-
- document.getElementById("rankBody").innerHTML=arr.map((u,i)=>`
+ let sorted=[...db.users].sort((a,b)=>stats(b).p-stats(a).p);
+ document.getElementById("rankBody").innerHTML=sorted.map((u,i)=>`
  <tr>
-  <td>${i==0?"🥇":i==1?"🥈":i==2?"🥉":i+1}</td>
-  <td>${u.avatar} ${u.name}</td>
+  <td>#${i+1}</td>
+  <td><b>${u.avatar} ${u.name}</b></td>
   <td>${level(u)}</td>
-  <td class="red">${stats(u).p}</td>
-  <td><span class="badge">${rankName(u)}</span></td>
+  <td class="gold">${stats(u).p}</td>
+  <td>${u.admin?"👑 مدير":"🌱 عضو"}</td>
  </tr>`).join("");
 }
 
-/* =========================
-   ACHIEVEMENTS
-========================= */
-
-const ach=[
- ["🌟","أول تسجيل دخول","سجل دخولك"],
- ["💰","ثري","امتلك 5000 🧧"],
- ["🏙️","مهندس المدينة","ابنِ مبنى"],
- ["🌾","مزارع","احصد محصولاً"],
- ["⚔️","محارب","تجاوز قوة 500"]
-];
-
 function renderAchievements(){
- let u=me(),s=stats(u);
+ let list=[
+  ["الأثر الأول","سجل الدخول للموقع",true],
+  ["المليونير","اجمع أكثر من 5000 رصيد",me().money>=5000],
+  ["الباني","ابنِ 5 مباني في مدينتك",me().buildings.length>=5],
+  ["المزارع","طوّر مزرعتك للمستوى 3",me().farm>=3],
+  ["المقاتل","صل إلى قوة إجمالية 300",stats(me()).p>=300]
+ ];
 
- document.getElementById("achievementsGrid").innerHTML=ach.map((a,i)=>{
-  let ok=
-   i==0||
-   i==1&&u.money>=5000||
-   i==2&&u.buildings.length>=1||
-   i==3&&u.harvest>=1||
-   i==4&&s.p>=500;
-
-  return`
-  <div class="achievement">
-   <div class="icon">${a[0]}</div>
-   <h3>${a[1]}</h3>
-   <p class="muted">${a[2]}</p>
-   <br>
-   <span class="badge">${ok?"✅ مكتمل":"🔒 مغلق"}</span>
-  </div>`;
- }).join("");
+ document.getElementById("achievementsGrid").innerHTML=list.map(a=>`
+ <div class="achievement" style="opacity:${a[2]?1:0.5}">
+  <div class="icon">🏅</div>
+  <h3>${a[0]}</h3>
+  <p class="muted">${a[1]}</p>
+  <br>
+  <span class="badge" style="background:${a[2]?'rgba(49,214,149,.2)':'rgba(255,255,255,.05)'};color:${a[2]?'var(--green)':'#777'}">
+   ${a[2]?'مكتمل ✨':'قيد الإنجاز'}
+  </span>
+ </div>`).join("");
 }
 
-/* =========================
-   PROFILE
-========================= */
-
-function rename(){
- let u=me(),n=document.getElementById("newName").value.trim();
-
- if(n.length<3)return toast("❌ الاسم قصير");
- if(db.users.some(x=>x.id!=u.id&&x.name.toLowerCase()==n.toLowerCase()))
-  return toast("❌ الاسم مستخدم");
-
- u.name=n;save();renderAll();toast("✅ تم تغيير الاسم");
-}
-
-function changeAvatar(a){
- let u=me();u.avatar=a;save();renderAll();toast("✨ تم تغيير الشخصية");
-}
-
-/* =========================
-   ADMIN
-========================= */
-
-function adminRender(){
+function renderAdmin(){
  let u=me();
- if(!u||!u.admin)return;
-
+ if(!u.admin)return;
  document.getElementById("adminUsers").textContent=db.users.length;
- document.getElementById("adminMoney").textContent=
- db.users.reduce((a,x)=>a+x.money,0).toLocaleString();
+ document.getElementById("adminMoney").textContent=db.users.reduce((a,b)=>a+b.money,0);
 
  document.getElementById("adminTable").innerHTML=db.users.map(x=>`
  <tr>
   <td>${x.avatar} ${x.name}</td>
-  <td class="gold">${x.money.toLocaleString()}</td>
-  <td class="red">${stats(x).p}</td>
-  <td><button class="btn" onclick="adminAdd('${x.id}')">+1000</button></td>
+  <td class="gold">${x.money}</td>
+  <td>${stats(x).p}</td>
+  <td><button class="btn gold" onclick="adminAdd('${x.id}')">+1000 🧧</button></td>
  </tr>`).join("");
 }
 
 function adminAdd(id){
- let u=me(),x=db.users.find(a=>a.id==id);
- if(!u.admin)return toast("❌ ممنوع");
- x.money+=1000;save();renderAll();toast("👑 تمت إضافة 1000 🧧");
+ let u=db.users.find(x=>x.id==id);
+ if(u){
+  u.money+=1000;
+  save();renderAll();
+  toast("👑 تمت إضافة 1000 🧧 لـ "+u.name);
+ }
+}
+
+function changeAvatar(a){
+ let u=me();
+ u.avatar=a;
+ save();renderAll();
+ toast("👕 تم تغيير المظهر بنجاح");
+}
+
+function rename(){
+ let u=me();
+ let n=document.getElementById("newName").value.trim();
+ if(n.length<3)return toast("❌ الاسم قصير");
+ u.name=n;
+ save();renderAll();
+ toast("✨ تم تغيير اسمك بنجاح");
+}
+
+function toggleMusic(){
+ let m=document.getElementById("music");
+ let b=document.getElementById("musicBtn");
+ if(m.paused){m.play();b.textContent="🔊";}
+ else{m.pause();b.textContent="🔇";}
 }
 
 /* =========================
-   MAIN RENDER
+   RENDER ALL
 ========================= */
 
 function renderAll(){
  let u=me();
  if(!u)return;
 
- let s=stats(u),l=level(u);
-
  document.getElementById("headName").textContent=u.name;
  document.getElementById("avatar").textContent=u.avatar;
-
- document.getElementById("balance").textContent=u.money.toLocaleString();
- document.getElementById("level").textContent=l;
- document.getElementById("xp").textContent=u.xp;
- document.getElementById("power").textContent=s.p;
- document.getElementById("attack").textContent=s.a;
- document.getElementById("defense").textContent=s.d;
- document.getElementById("hp").textContent=s.h;
- document.getElementById("cityLevel").textContent=u.city;
-
- document.getElementById("xpbar").style.width=(u.xp%100)+"%";
- document.getElementById("xptext").textContent=(u.xp%100)+" / 100 XP";
-
- document.getElementById("cHP").textContent=s.h;
- document.getElementById("cATK").textContent=s.a;
- document.getElementById("cDEF").textContent=s.d;
  document.getElementById("charName").textContent=u.name;
- document.getElementById("charRank").textContent=rankName(u);
  document.getElementById("charView").textContent=u.avatar;
 
- document.getElementById("walletBalance").textContent=u.money.toLocaleString()+" 🧧";
+ document.getElementById("balance").textContent=u.money.toLocaleString();
+ document.getElementById("walletBalance").textContent=u.money.toLocaleString();
+ document.getElementById("level").textContent=level(u);
+ document.getElementById("xp").textContent=u.xp;
+
+ let st=stats(u);
+ document.getElementById("power").textContent=st.p;
+ document.getElementById("attack").textContent=st.a;
+ document.getElementById("defense").textContent=st.d;
+ document.getElementById("hp").textContent=st.h;
+
+ document.getElementById("cHP").textContent=st.h;
+ document.getElementById("cATK").textContent=st.a;
+ document.getElementById("cDEF").textContent=st.d;
+
+ let xpRem=u.xp%100;
+ document.getElementById("xpbar").style.width=xpRem+"%";
+ document.getElementById("xptext").textContent=xpRem+" / 100 XP";
+
  document.getElementById("txCount").textContent=u.tx.length;
 
- document.getElementById("adminBtn").style.display=u.admin?"block":"none";
+ if(!u.admin){
+  document.getElementById("adminBtn").style.display="none";
+ }
 
  renderShop();
  renderInventory();
  renderCity();
  renderFarm();
  renderBoxes();
- renderMissions();
  renderChat();
  renderPlayers();
  renderRank();
  renderAchievements();
- adminRender();
+ if(u.admin)renderAdmin();
 }
 
-/* =========================
-   MUSIC
-========================= */
-
-let playing=false;
-
-function toggleMusic(){
- let m=document.getElementById("music");
-
- if(!playing){
-  m.volume=.18;
-  m.play().then(()=>{
-   playing=true;
-   document.getElementById("musicBtn").textContent="🔊";
-  }).catch(()=>{
-   toast("🎵 اضغط مرة أخرى لتشغيل الموسيقى");
-  });
- }else{
-  m.pause();playing=false;
-  document.getElementById("musicBtn").textContent="🔇";
- }
-}
-
-/* =========================
-   RAIN
-========================= */
-
-for(let i=0;i<90;i++){
- let d=document.createElement("i");
+// تشغيل المطر بالخلفية
+let rain=document.getElementById("rain");
+for(let i=0;i<30;i++){
+ let d=document.createElement("div");
  d.className="drop";
- d.style.left=Math.random()*100+"%";
+ d.style.left=Math.random()*100+"vw";
+ d.style.top=Math.random()*-100+"vh";
+ d.style.animationDuration=(0.8+Math.random()*0.8)+"s";
  d.style.animationDelay=Math.random()*2+"s";
- d.style.animationDuration=(.6+Math.random()*1)+"s";
- document.getElementById("rain").appendChild(d);
+ rain.appendChild(d);
 }
 
-/* =========================
-   START
-========================= */
-
-if(db.current){
- document.getElementById("auth").classList.add("hidden");
- renderAll();
-}else{
- document.getElementById("auth").classList.remove("hidden");
-}
+if(db.current)renderAll();
 </script>
-
 </body>
 </html>
