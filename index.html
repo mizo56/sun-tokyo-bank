@@ -1,1 +1,1379 @@
 
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』 Ultimate</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+ --red:#e51d48;--red2:#700b23;--gold:#f2bd4b;
+ --green:#31d695;--blue:#4ba7ff;--purple:#a855f7;
+ --bg:#05060c;--card:rgba(12,13,22,.78);
+ --line:rgba(255,255,255,.11)
+}
+body{
+ font-family:Tahoma,Arial,sans-serif;
+ color:#fff;min-height:100vh;background:#05060c;
+ overflow-x:hidden
+}
+body:before{
+ content:"";position:fixed;inset:0;z-index:-5;
+ background:
+ linear-gradient(135deg,rgba(2,4,15,.55),rgba(55,5,30,.65)),
+ url("https://cdn.pixabay.com/photo/2024/05/29/17/52/anime-8790430_1280.jpg")
+ center/cover fixed no-repeat;
+ animation:bgmove 18s ease-in-out infinite alternate
+}
+@keyframes bgmove{
+ from{transform:scale(1)}
+ to{transform:scale(1.08)}
+}
+body:after{
+ content:"";position:fixed;inset:0;z-index:-4;
+ background:
+ radial-gradient(circle at 20% 20%,rgba(255,0,80,.18),transparent 25%),
+ radial-gradient(circle at 80% 70%,rgba(80,100,255,.16),transparent 25%)
+}
+#stars{
+ position:fixed;inset:0;pointer-events:none;z-index:-2;
+ background-image:
+ radial-gradient(#fff 1px,transparent 1px),
+ radial-gradient(#fff 1px,transparent 1px);
+ background-size:90px 90px,130px 130px;
+ background-position:0 0,40px 50px;
+ opacity:.18;animation:stars 15s linear infinite
+}
+@keyframes stars{to{background-position:90px 90px,170px 180px}}
+button,input{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+header{
+ height:70px;position:sticky;top:0;z-index:50;
+ display:flex;justify-content:space-between;align-items:center;
+ padding:10px 25px;background:rgba(3,4,9,.86);
+ backdrop-filter:blur(18px);border-bottom:1px solid var(--line)
+}
+.logo{font-size:20px;color:var(--gold);font-weight:900}
+.userbox{display:flex;align-items:center;gap:10px}
+.avatar{
+ width:42px;height:42px;border-radius:50%;
+ display:grid;place-items:center;
+ background:linear-gradient(135deg,var(--red),#6d0820);
+ font-weight:bold;border:2px solid rgba(255,255,255,.15)
+}
+.layout{display:flex;min-height:calc(100vh - 70px)}
+aside{
+ width:245px;padding:18px;background:rgba(4,5,10,.72);
+ border-left:1px solid var(--line);backdrop-filter:blur(15px)
+}
+nav button{
+ width:100%;border:0;background:transparent;color:#aaa;
+ padding:13px;margin:3px 0;border-radius:13px;text-align:right
+}
+nav button:hover,nav button.active{
+ background:linear-gradient(90deg,rgba(229,29,72,.3),transparent);
+ color:#fff
+}
+.navtitle{font-size:11px;color:#666;margin:20px 8px 6px}
+main{flex:1;padding:25px;max-width:1600px;width:100%;margin:auto}
+.hero{
+ padding:30px;border:1px solid var(--line);border-radius:25px;
+ background:linear-gradient(135deg,rgba(229,29,72,.25),rgba(242,189,75,.07)),var(--card);
+ margin-bottom:20px;overflow:hidden;position:relative
+}
+.hero:after{content:"🧧";position:absolute;left:25px;bottom:-50px;font-size:150px;opacity:.06}
+.hero h1{font-size:29px;margin-bottom:8px}.hero p{color:#aaa}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+.card{
+ background:var(--card);border:1px solid var(--line);
+ border-radius:18px;padding:19px;backdrop-filter:blur(13px)
+}
+.stat-title{font-size:12px;color:#888}.stat-value{font-size:25px;font-weight:900;margin-top:5px}
+.gold{color:var(--gold)}.red{color:#ff4f70}.green{color:var(--green)}
+.blue{color:var(--blue)}.purple{color:var(--purple)}
+.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.action{
+ border:1px solid var(--line);border-radius:16px;padding:20px;
+ color:#fff;background:rgba(255,255,255,.045);text-align:center
+}
+.action:hover{transform:translateY(-3px);border-color:var(--red)}
+.action b{display:block;margin-top:8px}.action small{color:#777}
+.section{margin-top:22px}.section h2{margin-bottom:12px}
+.progress{height:9px;background:#222;border-radius:20px;overflow:hidden;margin-top:10px}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--gold))}
+.btn{
+ border:0;border-radius:11px;padding:11px 16px;
+ background:linear-gradient(135deg,var(--red),var(--red2));
+ color:#fff;font-weight:bold
+}
+.btn.gold{background:linear-gradient(135deg,#b5791c,var(--gold));color:#160d00}
+.btn.green{background:linear-gradient(135deg,#167b55,var(--green));color:#00150d}
+.btn.gray{background:#242631}
+input{
+ width:100%;padding:12px;margin:6px 0 12px;
+ border:1px solid var(--line);border-radius:11px;
+ background:#080910;color:#fff;outline:0
+}
+input:focus{border-color:var(--red)}
+.full{width:100%}
+.shop,.boxes,.inventory,.buildings,.achievements,.players{
+ display:grid;grid-template-columns:repeat(4,1fr);gap:14px
+}
+.item,.box,.building,.achievement,.player{
+ background:var(--card);border:1px solid var(--line);
+ border-radius:17px;padding:18px
+}
+.icon{font-size:48px;text-align:center;margin-bottom:10px}
+.item h3,.box h3{margin-bottom:6px}.muted{color:#888;font-size:12px}
+.price{color:var(--gold);font-weight:bold;margin:10px 0}
+.badge{
+ display:inline-block;padding:4px 9px;border-radius:20px;
+ background:rgba(242,189,75,.12);color:var(--gold);font-size:11px
+}
+.table{width:100%;border-collapse:collapse}.table th,.table td{
+ padding:12px;border-bottom:1px solid var(--line);text-align:right
+}.table th{color:#777;font-size:11px}
+.citymap{
+ min-height:480px;border:1px solid var(--line);border-radius:22px;
+ padding:18px;background:
+ linear-gradient(rgba(7,20,25,.35),rgba(7,10,20,.6)),
+ repeating-linear-gradient(0deg,transparent 0 48px,rgba(255,255,255,.04) 49px 50px),
+ repeating-linear-gradient(90deg,transparent 0 48px,rgba(255,255,255,.04) 49px 50px);
+ display:grid;grid-template-columns:repeat(5,1fr);gap:12px
+}
+.plot{
+ min-height:120px;border:1px dashed rgba(255,255,255,.16);
+ border-radius:15px;display:flex;flex-direction:column;
+ justify-content:center;align-items:center;background:rgba(0,0,0,.18)
+}
+.plot b{margin-top:6px}.plot small{color:#777;margin:5px}
+.character{
+ display:grid;grid-template-columns:180px 1fr;gap:20px;align-items:center
+}
+.char{
+ width:160px;height:210px;border-radius:25px;
+ display:grid;place-items:center;font-size:110px;
+ background:linear-gradient(160deg,#32102b,#0d1d3d);
+ border:1px solid var(--line);box-shadow:0 0 35px rgba(229,29,72,.18)
+}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat{
+ padding:14px;border-radius:14px;background:rgba(255,255,255,.04);
+ border:1px solid var(--line)
+}
+.chat{
+ height:390px;display:flex;flex-direction:column
+}
+.messages{flex:1;overflow:auto;padding:10px}
+.msg{padding:10px;margin:7px 0;border-radius:12px;background:rgba(255,255,255,.05)}
+.msg b{color:var(--gold)}.msg small{color:#666}
+.chatbar{display:flex;gap:8px}.chatbar input{margin:0}
+.wheel{
+ width:240px;height:240px;border-radius:50%;margin:20px auto;
+ background:conic-gradient(#e51d48 0 45deg,#f2bd4b 45deg 90deg,#7b0d25 90deg 135deg,#b5791c 135deg 180deg,#e51d48 180deg 225deg,#f2bd4b 225deg 270deg,#7b0d25 270deg 315deg,#b5791c 315deg);
+ border:9px solid #171821;transition:transform 4s cubic-bezier(.15,.75,.2,1)
+}
+.modal{
+ position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.8);
+ display:none;align-items:center;justify-content:center;padding:20px
+}
+.modal.show{display:flex}.modalbox{
+ width:min(600px,100%);background:#101119;border:1px solid var(--line);
+ border-radius:22px;padding:24px;max-height:90vh;overflow:auto
+}
+.modalhead{display:flex;justify-content:space-between;margin-bottom:15px}
+.close{background:none;border:0;color:#aaa;font-size:27px}
+.toast{
+ position:fixed;left:20px;bottom:20px;z-index:200;
+ background:#151720;border:1px solid var(--line);
+ border-right:4px solid var(--red);padding:14px 18px;border-radius:12px;
+ transform:translateY(100px);opacity:0;transition:.3s
+}.toast.show{transform:none;opacity:1}
+.win{
+ position:fixed;inset:0;z-index:300;display:none;
+ align-items:center;justify-content:center;background:rgba(0,0,0,.72)
+}.win.show{display:flex}
+.winbox{text-align:center;animation:winpop .5s ease}
+@keyframes winpop{from{transform:scale(.2);opacity:0}to{transform:scale(1);opacity:1}}
+.explosion{font-size:100px;animation:boom .8s infinite alternate}
+@keyframes boom{to{transform:scale(1.2) rotate(8deg)}}
+.auth{
+ position:fixed;inset:0;z-index:500;display:flex;
+ justify-content:center;align-items:center;padding:20px;
+ background:linear-gradient(rgba(3,4,12,.7),rgba(20,3,15,.85))
+}
+.authbox{
+ width:min(430px,100%);padding:30px;border-radius:25px;
+ background:rgba(10,11,18,.93);border:1px solid var(--line)
+}
+.authlogo{text-align:center;font-size:25px;color:var(--gold);font-weight:900}
+.authsub{text-align:center;color:#777;margin:8px 0 22px}
+.music{
+ position:fixed;left:20px;top:85px;z-index:40
+}
+.music button{border:1px solid var(--line);border-radius:50%;width:45px;height:45px;background:#11131c;color:white}
+#rain{position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.13}
+.drop{
+ position:absolute;width:1px;height:35px;background:#8ddcff;
+ animation:rain 1s linear infinite
+}
+@keyframes rain{to{transform:translateY(110vh)}}
+@media(max-width:1100px){
+ .grid{grid-template-columns:repeat(2,1fr)}
+ .actions{grid-template-columns:repeat(2,1fr)}
+ .shop,.boxes,.inventory,.buildings,.achievements,.players{grid-template-columns:repeat(3,1fr)}
+ aside{width:210px}.citymap{grid-template-columns:repeat(4,1fr)}
+}
+@media(max-width:700px){
+ header{padding:10px 14px}.layout{display:block}
+ aside{width:100%;padding:7px;overflow:auto}
+ nav{display:flex;gap:5px;overflow:auto}
+ nav button{white-space:nowrap;width:auto}.navtitle{display:none}
+ main{padding:13px}
+ .grid,.actions,.shop,.boxes,.inventory,.buildings,.achievements,.players{grid-template-columns:1fr 1fr}
+ .citymap{grid-template-columns:repeat(2,1fr)}
+ .character{grid-template-columns:1fr}.char{margin:auto}
+ .stats{grid-template-columns:1fr 1fr}.logo{font-size:15px}
+}
+</style>
+</head>
+
+<body>
+
+<div id="stars"></div>
+<div id="rain"></div>
+
+<!-- الموسيقى -->
+<audio id="music" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_946b8c98f2.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
+</audio>
+
+<div class="music">
+<button onclick="toggleMusic()" id="musicBtn">🔇</button>
+</div>
+
+<!-- تسجيل الدخول -->
+<div class="auth" id="auth">
+<div class="authbox">
+
+<div class="authlogo">『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』</div>
+<div class="authsub">Ultimate Anime Community</div>
+
+<div id="loginForm">
+<input id="loginName" placeholder="اسم المستخدم">
+<input id="loginPass" type="password" placeholder="كلمة المرور">
+<button class="btn full" onclick="login()">🚀 دخول</button>
+<br><br>
+<button class="btn gray full" onclick="showReg()">✨ إنشاء حساب</button>
+<br><br>
+<small style="color:#666">حساب تجريبي: Admin / 1234</small>
+</div>
+
+<div id="regForm" class="hidden">
+<input id="regName" placeholder="اسم المستخدم">
+<input id="regPass" type="password" placeholder="كلمة المرور">
+<button class="btn gold full" onclick="register()">✨ إنشاء الحساب</button>
+<br><br>
+<button class="btn gray full" onclick="showLogin()">رجوع</button>
+</div>
+
+</div>
+</div>
+
+<header>
+<div class="logo">『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』</div>
+<div class="userbox">
+<span id="headName">Guest</span>
+<div class="avatar" id="avatar">?</div>
+</div>
+</header>
+
+<div class="layout">
+
+<aside>
+<nav>
+
+<button class="active" onclick="page('home',this)">🏠 الرئيسية</button>
+<button onclick="page('character',this)">👤 شخصيتي</button>
+<button onclick="page('city',this)">🏙️ مدينتي</button>
+<button onclick="page('farm',this)">🌾 مزرعتي</button>
+<button onclick="page('shop',this)">🛒 المتجر</button>
+<button onclick="page('inventory',this)">🎒 الحقيبة</button>
+<button onclick="page('games',this)">🎮 الألعاب</button>
+<button onclick="page('boxes',this)">🎁 الصناديق</button>
+<button onclick="page('missions',this)">🎯 المهام</button>
+<button onclick="page('chat',this)">💬 الدردشة</button>
+<button onclick="page('players',this)">👥 الأعضاء</button>
+<button onclick="page('rank',this)">🏆 المتصدرون</button>
+<button onclick="page('wallet',this)">💰 المحفظة</button>
+<button onclick="page('achievements',this)">🏅 الإنجازات</button>
+<button onclick="page('profile',this)">⚙️ الحساب</button>
+
+<div class="navtitle">الإدارة</div>
+<button id="adminBtn" onclick="page('admin',this)">👑 الإدارة</button>
+<button onclick="logout()">🚪 خروج</button>
+
+</nav>
+</aside>
+
+<main>
+
+<!-- الرئيسية -->
+<section id="home" class="page">
+
+<div class="hero">
+<h1>🌙 أهلاً بك في عالم S.U.N TOKYO</h1>
+<p>ابنِ مدينتك، ازرع مزرعتك، طوّر شخصيتك، العب واربح وتنافس مع أعضاء المجتمع.</p>
+</div>
+
+<div class="grid">
+
+<div class="card">💰<div class="stat-title">الرصيد</div><div class="stat-value gold" id="balance">0</div></div>
+<div class="card">⭐<div class="stat-title">المستوى</div><div class="stat-value" id="level">1</div></div>
+<div class="card">⚡<div class="stat-title">XP</div><div class="stat-value blue" id="xp">0</div></div>
+<div class="card">🔥<div class="stat-title">القوة</div><div class="stat-value red" id="power">0</div></div>
+
+</div>
+
+<div class="grid">
+
+<div class="card">⚔️<div class="stat-title">Attack</div><div class="stat-value red" id="attack">0</div></div>
+<div class="card">🛡️<div class="stat-title">Defense</div><div class="stat-value blue" id="defense">0</div></div>
+<div class="card">❤️<div class="stat-title">HP</div><div class="stat-value green" id="hp">0</div></div>
+<div class="card">🏙️<div class="stat-title">مستوى المدينة</div><div class="stat-value gold" id="cityLevel">1</div></div>
+
+</div>
+
+<div class="card">
+<b>⚡ تقدم المستوى</b>
+<div class="progress"><i id="xpbar"></i></div>
+<small id="xptext">0 / 100 XP</small>
+</div>
+
+<div class="section">
+<h2>⚡ اختصارات</h2>
+<div class="actions">
+<button class="action" onclick="page('games')">🎮<b>الألعاب</b><small>اربح العملات</small></button>
+<button class="action" onclick="page('city')">🏙️<b>المدينة</b><small>ابنِ وطوّر</small></button>
+<button class="action" onclick="page('farm')">🌾<b>المزرعة</b><small>ازرع واحصد</small></button>
+<button class="action" onclick="page('chat')">💬<b>الدردشة</b><small>تحدث مع الأعضاء</small></button>
+</div>
+</div>
+
+</section>
+
+<!-- الشخصية -->
+<section id="character" class="page hidden">
+<div class="hero"><h1>👤 شخصيتي</h1><p>طوّر بطلك واجمع الملابس والأسلحة.</p></div>
+
+<div class="card character">
+<div class="char" id="charView">🧙</div>
+<div>
+<h1 id="charName">Player</h1>
+<p class="muted" id="charRank">🌱 عضو</p>
+<br>
+<div class="stats">
+<div class="stat">❤️ HP<h2 id="cHP">100</h2></div>
+<div class="stat">⚔️ Attack<h2 id="cATK">30</h2></div>
+<div class="stat">🛡️ Defense<h2 id="cDEF">30</h2></div>
+</div>
+<br>
+<h3>👕 المظهر</h3><br>
+<button class="btn" onclick="changeAvatar('🧙')">🧙</button>
+<button class="btn" onclick="changeAvatar('🥷')">🥷</button>
+<button class="btn" onclick="changeAvatar('👑')">👑</button>
+<button class="btn" onclick="changeAvatar('⚔️')">⚔️</button>
+<button class="btn" onclick="changeAvatar('🦸')">🦸</button>
+</div>
+</div>
+</section>
+
+<!-- المدينة -->
+<section id="city" class="page hidden">
+<div class="hero"><h1>🏙️ مدينتي</h1><p>ضع المباني في الخانات وطوّر مدينتك حتى تصبح إمبراطورية.</p></div>
+
+<div class="grid">
+<div class="card">🏙️ المستوى<h2 id="cityL">1</h2></div>
+<div class="card">🏗️ المباني<h2 id="buildingCount">0</h2></div>
+<div class="card">💪 قوة المدينة<h2 id="cityPower">0</h2></div>
+<div class="card">💰 الدخل<h2 id="cityIncome">0</h2></div>
+</div>
+
+<div class="citymap" id="cityMap"></div>
+<br>
+<button class="btn gold full" onclick="upgradeCity()">🏗️ تطوير المدينة</button>
+</section>
+
+<!-- المزرعة -->
+<section id="farm" class="page hidden">
+<div class="hero"><h1>🌾 مزرعتي</h1><p>ازرع الخانات واجمع المحصول وطوّر المزرعة.</p></div>
+
+<div class="grid">
+<div class="card">🌾 مستوى المزرعة<h2 id="farmL">1</h2></div>
+<div class="card">💰 الدخل<h2 id="farmIncome">50</h2></div>
+<div class="card">🌱 الأراضي<h2 id="farmPlots">0</h2></div>
+<div class="card">🥕 المحاصيل<h2 id="crops">0</h2></div>
+</div>
+
+<div class="citymap" id="farmMap"></div>
+<br>
+<button class="btn green full" onclick="upgradeFarm()">🌱 تطوير المزرعة</button>
+<br><br>
+<button class="btn gold full" onclick="harvest()">🌾 حصاد</button>
+</section>
+
+<!-- المتجر -->
+<section id="shop" class="page hidden">
+<div class="hero"><h1>🛒 المتجر</h1><p>أسلحة وملابس ودروع وجرعات.</p></div>
+<input id="search" placeholder="🔎 ابحث..." oninput="renderShop()">
+<div class="shop" id="shopGrid"></div>
+</section>
+
+<!-- الحقيبة -->
+<section id="inventory" class="page hidden">
+<div class="hero"><h1>🎒 الحقيبة</h1><p>مقتنياتك وأدواتك.</p></div>
+<div class="inventory" id="invGrid"></div>
+</section>
+
+<!-- الألعاب -->
+<section id="games" class="page hidden">
+<div class="hero"><h1>🎮 مركز الألعاب</h1><p>اختبر حظك واربح العملات.</p></div>
+
+<div class="grid">
+<div class="card"><h2>🎲 النرد</h2><p class="muted">تكلفة 25 🧧</p><br><button class="btn" onclick="dice()">رمي النرد</button></div>
+<div class="card"><h2>🎁 صندوق سريع</h2><p class="muted">تكلفة 50 🧧</p><br><button class="btn gold" onclick="quickBox()">فتح</button></div>
+<div class="card"><h2>🎡 العجلة</h2><p class="muted">تكلفة 100 🧧</p><br><button class="btn" onclick="spin()">تدوير</button></div>
+<div class="card"><h2>🎁 اليومية</h2><p class="muted">مكافأة يومية</p><br><button class="btn green" onclick="daily()">استلام</button></div>
+</div>
+
+<div class="card" style="text-align:center">
+<div>▼</div><div class="wheel" id="wheel"></div>
+</div>
+</section>
+
+<!-- الصناديق -->
+<section id="boxes" class="page hidden">
+<div class="hero"><h1>🎁 الصناديق الأسطورية</h1><p>افتح الصندوق وشاهد الانفجار عند الفوز.</p></div>
+<div class="boxes" id="boxesGrid"></div>
+</section>
+
+<!-- المهام -->
+<section id="missions" class="page hidden">
+<div class="hero"><h1>🎯 المهام</h1><p>أكمل المهام لتحصل على XP وعملات.</p></div>
+<div class="achievements" id="missionsGrid"></div>
+</section>
+
+<!-- الدردشة -->
+<section id="chat" class="page hidden">
+<div class="hero"><h1>💬 دردشة المجتمع</h1><p>تحدث مع أعضاء المدينة.</p></div>
+
+<div class="card chat">
+<div class="messages" id="messages"></div>
+<div class="chatbar">
+<input id="chatInput" placeholder="اكتب رسالتك..." onkeydown="if(event.key==='Enter')sendChat()">
+<button class="btn" onclick="sendChat()">إرسال</button>
+</div>
+</div>
+</section>
+
+<!-- الأعضاء -->
+<section id="players" class="page hidden">
+<div class="hero"><h1>👥 أعضاء المجتمع</h1><p>شاهد الأعضاء وأرسل الهدايا.</p></div>
+<div class="players" id="playersGrid"></div>
+</section>
+
+<!-- الترتيب -->
+<section id="rank" class="page hidden">
+<div class="hero"><h1>🏆 المتصدرون</h1><p>أقوى أعضاء S.U.N TOKYO.</p></div>
+<div class="card">
+<table class="table">
+<thead><tr><th>#</th><th>العضو</th><th>LV</th><th>القوة</th><th>الرتبة</th></tr></thead>
+<tbody id="rankBody"></tbody>
+</table>
+</div>
+</section>
+
+<!-- المحفظة -->
+<section id="wallet" class="page hidden">
+<div class="hero"><h1>💰 المحفظة</h1><p>تحكم في رصيدك وأرسل الهدايا.</p></div>
+
+<div class="grid">
+<div class="card">💰 الرصيد<h2 class="gold" id="walletBalance">0</h2></div>
+<div class="card">📜 العمليات<h2 id="txCount">0</h2></div>
+</div>
+
+<div class="card">
+<input id="giftName" placeholder="اسم العضو">
+<input id="giftAmount" type="number" placeholder="المبلغ">
+<button class="btn gold full" onclick="sendGift()">🎁 إرسال هدية</button>
+</div>
+</section>
+
+<!-- الإنجازات -->
+<section id="achievements" class="page hidden">
+<div class="hero"><h1>🏅 الإنجازات</h1><p>افتح إنجازات نادرة.</p></div>
+<div class="achievements" id="achievementsGrid"></div>
+</section>
+
+<!-- الحساب -->
+<section id="profile" class="page hidden">
+<div class="hero"><h1>⚙️ الحساب</h1><p>إعدادات الحساب.</p></div>
+<div class="card">
+<input id="newName" placeholder="اسم جديد">
+<button class="btn" onclick="rename()">تغيير الاسم</button>
+<br><br>
+<button class="btn gray" onclick="logout()">🚪 تسجيل الخروج</button>
+</div>
+</section>
+
+<!-- الإدارة -->
+<section id="admin" class="page hidden">
+<div class="hero"><h1>👑 الإدارة</h1><p>لوحة تحكم المدير.</p></div>
+<div class="grid">
+<div class="card">👥 الأعضاء<h2 id="adminUsers">0</h2></div>
+<div class="card">💰 العملات<h2 id="adminMoney">0</h2></div>
+<div class="card">⚡ الحالة<h2 class="green">ONLINE</h2></div>
+<div class="card">🛡️ الصلاحية<h2>ADMIN</h2></div>
+</div>
+<div class="card">
+<table class="table">
+<thead><tr><th>العضو</th><th>الرصيد</th><th>القوة</th><th>إضافة</th></tr></thead>
+<tbody id="adminTable"></tbody>
+</table>
+</div>
+</section>
+
+</main>
+</div>
+
+<!-- نافذة الفوز -->
+<div class="win" id="win">
+<div class="winbox">
+<div class="explosion">💥🎁💥</div>
+<h1 id="winTitle">🎉 فوز!</h1>
+<p id="winText"></p>
+<br>
+<button class="btn gold" onclick="closeWin()">استمرار</button>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================
+   DATABASE
+========================= */
+
+const KEY="SUN_TOKYO_ONE_HTML_V5";
+
+let db=JSON.parse(localStorage.getItem(KEY)||"null");
+
+if(!db){
+ db={
+  current:null,
+  users:[
+   {
+    id:"SUN-001",name:"Admin",pass:"1234",admin:true,
+    money:10000,xp:500,city:1,farm:1,
+    avatar:"👑",items:{},buildings:[],
+    crops:0,harvest:0,daily:"",
+    missions:{},achievements:[],
+    tx:[]
+   },
+   {
+    id:"SUN-002",name:"Nero",pass:"1234",admin:false,
+    money:2500,xp:180,city:1,farm:1,
+    avatar:"🥷",items:{},buildings:[],
+    crops:0,harvest:0,daily:"",
+    missions:{},achievements:[],tx:[]
+   },
+   {
+    id:"SUN-003",name:"Kaito",pass:"1234",admin:false,
+    money:1500,xp:90,city:1,farm:1,
+    avatar:"⚔️",items:{},buildings:[],
+    crops:0,harvest:0,daily:"",
+    missions:{},achievements:[],tx:[]
+   }
+  ],
+  chat:[
+   {n:"Admin",m:"🔥 أهلاً بالجميع في S.U.N TOKYO!"}
+  ]
+ };
+ save();
+}
+
+function save(){
+ localStorage.setItem(KEY,JSON.stringify(db));
+}
+
+function me(){
+ return db.users.find(u=>u.id===db.current);
+}
+
+function toast(t){
+ let x=document.getElementById("toast");
+ x.textContent=t;x.classList.add("show");
+ setTimeout(()=>x.classList.remove("show"),2500);
+}
+
+function page(id,btn){
+ if(!me())return;
+ document.querySelectorAll(".page").forEach(x=>x.classList.add("hidden"));
+ document.getElementById(id).classList.remove("hidden");
+ document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));
+ if(btn)btn.classList.add("active");
+ renderAll();
+}
+
+/* =========================
+   AUTH
+========================= */
+
+function showReg(){
+ document.getElementById("loginForm").classList.add("hidden");
+ document.getElementById("regForm").classList.remove("hidden");
+}
+
+function showLogin(){
+ document.getElementById("regForm").classList.add("hidden");
+ document.getElementById("loginForm").classList.remove("hidden");
+}
+
+function register(){
+ let n=document.getElementById("regName").value.trim();
+ let p=document.getElementById("regPass").value;
+
+ if(n.length<3)return toast("❌ الاسم قصير");
+ if(p.length<4)return toast("❌ كلمة المرور قصيرة");
+ if(db.users.some(u=>u.name.toLowerCase()==n.toLowerCase()))
+  return toast("❌ الاسم مستخدم");
+
+ db.users.push({
+  id:"SUN-"+Date.now().toString().slice(-6),
+  name:n,pass:p,admin:false,money:500,xp:0,
+  city:1,farm:1,avatar:"🧙",items:{},buildings:[],
+  crops:0,harvest:0,daily:"",missions:{},achievements:[],tx:[]
+ });
+
+ save();showLogin();toast("🎉 تم إنشاء الحساب +500 🧧");
+}
+
+function login(){
+ let n=document.getElementById("loginName").value.trim();
+ let p=document.getElementById("loginPass").value;
+ let u=db.users.find(x=>x.name.toLowerCase()==n.toLowerCase()&&x.pass==p);
+
+ if(!u)return toast("❌ بيانات الدخول خاطئة");
+
+ db.current=u.id;save();
+ document.getElementById("auth").classList.add("hidden");
+ renderAll();toast("👋 أهلاً "+u.name);
+}
+
+function logout(){
+ db.current=null;save();
+ document.getElementById("auth").classList.remove("hidden");
+}
+
+if(db.current){
+ document.getElementById("auth").classList.add("hidden");
+}
+
+/* =========================
+   LEVEL / STATS
+========================= */
+
+function level(u){
+ return Math.floor(u.xp/100)+1;
+}
+
+const catalog=[
+ ["⚔️","كاتانا نارية","attack",30,500],
+ ["🗡️","نصل الظلام","attack",60,1200],
+ ["🔱","رمح التنين","attack",100,3000],
+ ["🏹","قوس القمر","attack",140,6000],
+ ["🛡️","درع ساموراي","defense",30,500],
+ ["🛡️","درع التنين","defense",70,1600],
+ ["🔰","حاجز الإمبراطور","defense",130,5000],
+ ["❤️","جرعة الحياة","hp",50,400],
+ ["🧪","إكسير نادر","hp",120,1200],
+ ["💎","بلورة الحياة","hp",250,5000],
+ ["👕","زي الساموراي","outfit",20,800],
+ ["🥷","زي النينجا","outfit",35,1500],
+ ["👑","تاج الإمبراطور","outfit",80,7000],
+ ["🪽","أجنحة أسطورية","outfit",120,12000]
+];
+
+function stats(u){
+ let a=30,d=30,h=100;
+
+ catalog.forEach(i=>{
+  let q=u.items[i[1]]||0;
+  if(i[2]=="attack")a+=i[3]*q;
+  if(i[2]=="defense")d+=i[3]*q;
+  if(i[2]=="hp")h+=i[3]*q;
+  if(i[2]=="outfit"){
+   a+=Math.floor(i[3]/2)*q;
+   d+=Math.floor(i[3]/2)*q;
+  }
+ });
+
+ a+=u.city*20;
+ d+=u.city*20;
+ h+=u.farm*20;
+
+ return {a,d,h,p:a+d+h};
+}
+
+function addXP(n){
+ let u=me();
+ if(!u)return;
+ u.xp+=n;
+ save();
+}
+
+/* =========================
+   SHOP
+========================= */
+
+function renderShop(){
+ let s=(document.getElementById("search")?.value||"").toLowerCase();
+
+ document.getElementById("shopGrid").innerHTML=catalog
+ .filter(i=>i[1].toLowerCase().includes(s))
+ .map(i=>`
+ <div class="item">
+  <div class="icon">${i[0]}</div>
+  <h3>${i[1]}</h3>
+  <span class="badge">${i[2]}</span>
+  <p class="muted">+${i[3]} قوة</p>
+  <div class="price">${i[4].toLocaleString()} 🧧</div>
+  <button class="btn gold full" onclick="buy('${i[1]}')">شراء</button>
+ </div>`).join("");
+}
+
+function buy(name){
+ let u=me(),i=catalog.find(x=>x[1]==name);
+ if(u.money<i[4])return toast("❌ رصيدك غير كافٍ");
+
+ u.money-=i[4];
+ u.items[name]=(u.items[name]||0)+1;
+ addXP(5);
+ u.tx.unshift("🛒 شراء "+name);
+
+ save();renderAll();toast("✅ اشتريت "+i[0]+" "+name);
+}
+
+/* =========================
+   INVENTORY
+========================= */
+
+function renderInventory(){
+ let u=me();
+
+ let arr=Object.entries(u.items).filter(x=>x[1]>0);
+
+ document.getElementById("invGrid").innerHTML=arr.length?
+ arr.map(([name,q])=>{
+  let i=catalog.find(x=>x[1]==name);
+  return`
+  <div class="item">
+   <div class="icon">${i?i[0]:"📦"}</div>
+   <h3>${name}</h3>
+   <p class="gold">× ${q}</p>
+   <p class="muted">+${i?i[3]:0}</p>
+  </div>`;
+ }).join("")
+ :`<div class="card">🎒 الحقيبة فارغة</div>`;
+}
+
+/* =========================
+   CITY
+========================= */
+
+const buildings=[
+ ["🏦","البنك","bank"],
+ ["🏢","ناطحة السحاب","tower"],
+ ["🏯","قلعة الساموراي","castle"],
+ ["🏪","السوق","market"],
+ ["🏥","المستشفى","hospital"],
+ ["🏫","الأكاديمية","school"],
+ ["⚓","الميناء","port"],
+ ["⛩️","المعبد","temple"],
+ ["🏟️","الساحة","arena"],
+ ["🚉","المحطة","station"]
+];
+
+function cityCost(u){
+ return Math.floor(1000*Math.pow(1.55,u.city-1));
+}
+
+function renderCity(){
+ let u=me();
+
+ document.getElementById("cityL").textContent=u.city;
+ document.getElementById("buildingCount").textContent=u.buildings.length;
+ document.getElementById("cityPower").textContent=u.city*100+u.buildings.length*50;
+ document.getElementById("cityIncome").textContent=u.city*100;
+
+ let html="";
+ for(let x=0;x<15;x++){
+  let b=u.buildings[x];
+  if(b){
+   let z=buildings.find(v=>v[1]==b);
+   html+=`
+   <div class="plot">
+    <div style="font-size:45px">${z?z[0]:"🏢"}</div>
+    <b>${b}</b>
+    <small>مبنى مكتمل</small>
+   </div>`;
+  }else{
+   html+=`
+   <div class="plot">
+    <div style="font-size:38px">🏗️</div>
+    <button class="btn" onclick="build(${x})">بناء</button>
+   </div>`;
+  }
+ }
+ document.getElementById("cityMap").innerHTML=html;
+}
+
+function build(slot){
+ let u=me();
+ if(u.buildings[slot])return;
+
+ let z=prompt(
+  "اكتب اسم المبنى:\n"+
+  buildings.map(x=>x[1]).join(" - ")
+ );
+
+ let b=buildings.find(x=>x[1]==z);
+ if(!b)return toast("❌ اسم مبنى غير صحيح");
+
+ let cost=500+slot*300;
+ if(u.money<cost)return toast("❌ تحتاج "+cost+" 🧧");
+
+ u.money-=cost;
+ u.buildings[slot]=b[1];
+ addXP(15);save();renderAll();
+ toast("🏗️ تم بناء "+b[0]+" "+b[1]);
+}
+
+function upgradeCity(){
+ let u=me(),c=cityCost(u);
+ if(u.money<c)return toast("❌ تحتاج "+c.toLocaleString()+" 🧧");
+
+ u.money-=c;u.city++;addXP(30);save();renderAll();
+ toast("🏙️ وصلت المدينة للمستوى "+u.city);
+}
+
+/* =========================
+   FARM
+========================= */
+
+function renderFarm(){
+ let u=me();
+
+ document.getElementById("farmL").textContent=u.farm;
+ document.getElementById("farmIncome").textContent=u.farm*50;
+ document.getElementById("farmPlots").textContent=u.farm*4;
+ document.getElementById("crops").textContent=u.crops;
+
+ let html="";
+ let total=Math.min(16,u.farm*4);
+
+ for(let i=0;i<16;i++){
+  if(i<total){
+   html+=`
+   <div class="plot">
+    <div style="font-size:42px">${u.crops>i?"🌾":"🌱"}</div>
+    <b>أرض ${i+1}</b>
+    <button class="btn green" onclick="plant(${i})">
+     ${u.crops>i?"محصول":"زراعة"}
+    </button>
+   </div>`;
+  }else{
+   html+=`
+   <div class="plot">
+    🔒<small>طوّر المزرعة</small>
+   </div>`;
+  }
+ }
+ document.getElementById("farmMap").innerHTML=html;
+}
+
+function plant(){
+ let u=me();
+ u.crops++;
+ addXP(3);save();renderAll();
+ toast("🌱 تمت الزراعة");
+}
+
+function harvest(){
+ let u=me();
+ if(u.crops<=0)return toast("🌱 لا يوجد محصول");
+
+ let reward=u.crops*50*u.farm;
+ u.money+=reward;u.harvest+=u.crops;u.crops=0;
+ addXP(10);save();renderAll();
+ toast("🌾 حصلت على "+reward+" 🧧");
+}
+
+function upgradeFarm(){
+ let u=me();
+ let c=Math.floor(750*Math.pow(1.5,u.farm-1));
+ if(u.money<c)return toast("❌ تحتاج "+c+" 🧧");
+
+ u.money-=c;u.farm++;addXP(25);save();renderAll();
+ toast("🌾 أصبحت المزرعة مستوى "+u.farm);
+}
+
+/* =========================
+   BOXES
+========================= */
+
+const boxData=[
+ ["🎁","الصندوق البرونزي",250,1],
+ ["📦","الصندوق الفضي",750,2],
+ ["🧰","الصندوق الذهبي",2000,3],
+ ["⚔️","صندوق الساموراي",5000,4],
+ ["👑","صندوق الإمبراطور",12000,6],
+ ["🐉","صندوق التنين",30000,9],
+ ["💎","الصندوق الأسطوري",75000,15]
+];
+
+function renderBoxes(){
+ document.getElementById("boxesGrid").innerHTML=boxData.map((b,i)=>`
+ <div class="box">
+  <div class="icon">${b[0]}</div>
+  <h3>${b[1]}</h3>
+  <p class="muted">مكافآت ×${b[3]}</p>
+  <div class="price">${b[2].toLocaleString()} 🧧</div>
+  <button class="btn gold full" onclick="openBox(${i})">فتح 🎁</button>
+ </div>`).join("");
+}
+
+function openBox(id){
+ let u=me(),b=boxData[id];
+
+ if(u.money<b[2])return toast("❌ تحتاج "+b[2].toLocaleString()+" 🧧");
+
+ u.money-=b[2];
+
+ let reward=Math.floor(b[2]*(.2+Math.random()*1.4)*b[3]/2);
+ u.money+=reward;
+
+ let item=catalog[Math.floor(Math.random()*catalog.length)];
+ u.items[item[1]]=(u.items[item[1]]||0)+1;
+
+ addXP(b[3]*10);
+ u.tx.unshift("🎁 "+b[1]);
+
+ save();renderAll();
+
+ document.getElementById("winTitle").textContent="🎉 فتحت "+b[1];
+ document.getElementById("winText").innerHTML=
+ "💰 +"+reward.toLocaleString()+" 🧧<br>"+
+ item[0]+" "+item[1];
+ document.getElementById("win").classList.add("show");
+}
+
+function closeWin(){
+ document.getElementById("win").classList.remove("show");
+}
+
+/* =========================
+   GAMES
+========================= */
+
+let rotation=0;
+
+function dice(){
+ let u=me(),cost=25;
+ if(u.money<cost)return toast("❌ تحتاج 25 🧧");
+
+ u.money-=cost;
+ let n=Math.floor(Math.random()*6)+1;
+ let reward=n==6?400:n==5?200:n>=3?60:0;
+ u.money+=reward;addXP(5);save();renderAll();
+
+ toast("🎲 النرد: "+n+(reward?" — ربحت "+reward+" 🧧":" — لم تربح"));
+}
+
+function quickBox(){
+ let u=me(),cost=50;
+ if(u.money<cost)return toast("❌ تحتاج 50 🧧");
+
+ u.money-=cost;
+ let r=[20,50,100,200,500][Math.floor(Math.random()*5)];
+ u.money+=r;addXP(8);save();renderAll();
+
+ document.getElementById("winTitle").textContent="🎁 مكافأة";
+ document.getElementById("winText").innerHTML="💰 ربحت "+r+" 🧧";
+ document.getElementById("win").classList.add("show");
+}
+
+function spin(){
+ let u=me();
+ if(u.money<100)return toast("❌ تحتاج 100 🧧");
+
+ u.money-=100;
+ let rewards=[0,50,100,200,300,500,1000,2500];
+ let r=rewards[Math.floor(Math.random()*rewards.length)];
+
+ rotation+=1440+Math.random()*360;
+ document.getElementById("wheel").style.transform="rotate("+rotation+"deg)";
+
+ setTimeout(()=>{
+  u.money+=r;addXP(10);save();renderAll();
+  toast(r?"🎡 ربحت "+r+" 🧧":"😢 لم تربح");
+ },4000);
+}
+
+function daily(){
+ let u=me(),today=new Date().toDateString();
+
+ if(u.daily==today)return toast("⏳ أخذت مكافأتك اليوم");
+
+ u.daily=today;u.money+=500;addXP(15);save();renderAll();
+ toast("🎁 اليومية +500 🧧");
+}
+
+/* =========================
+   MISSIONS
+========================= */
+
+const missions=[
+ ["💰","اجمع 1000 🧧",1000,100],
+ ["🌾","احصد 10 محاصيل",10,150],
+ ["🏗️","ابنِ 3 مبانٍ",3,200],
+ ["🎮","العب الألعاب",5,250]
+];
+
+function renderMissions(){
+ let u=me();
+
+ document.getElementById("missionsGrid").innerHTML=missions.map((m,i)=>{
+  let progress=i==0?Math.min(u.money,m[2]):
+  i==1?Math.min(u.harvest,m[2]):
+  i==2?Math.min(u.buildings.length,m[2]):
+  0;
+
+  let done=u.missions[i];
+
+  return`
+  <div class="achievement">
+   <div class="icon">${m[0]}</div>
+   <h3>${m[1]}</h3>
+   <p class="muted">${progress} / ${m[2]}</p><br>
+   <button class="btn ${done?"gray":"gold"}" onclick="claimMission(${i})">
+    ${done?"تم الاستلام":"استلام "+m[3]+" XP"}
+   </button>
+  </div>`;
+ }).join("");
+}
+
+function claimMission(i){
+ let u=me(),m=missions[i];
+
+ if(u.missions[i])return toast("✅ تم استلام المهمة");
+
+ let p=i==0?u.money:i==1?u.harvest:i==2?u.buildings.length:0;
+
+ if(p<m[2])return toast("⏳ المهمة لم تكتمل");
+
+ u.missions[i]=true;addXP(m[3]);u.money+=100;save();renderAll();
+ toast("🎯 تمت المهمة +"+m[3]+" XP");
+}
+
+/* =========================
+   CHAT
+========================= */
+
+function renderChat(){
+ document.getElementById("messages").innerHTML=db.chat.map(x=>`
+ <div class="msg">
+  <b>👤 ${x.n}</b>
+  <p>${escapeHtml(x.m)}</p>
+ </div>`).join("");
+
+ let box=document.getElementById("messages");
+ box.scrollTop=box.scrollHeight;
+}
+
+function sendChat(){
+ let u=me(),x=document.getElementById("chatInput");
+ let m=x.value.trim();
+ if(!m)return;
+
+ db.chat.push({n:u.name,m});
+ db.chat=db.chat.slice(-60);
+ x.value="";save();renderChat();
+}
+
+function escapeHtml(s){
+ return s.replace(/[&<>"']/g,m=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+ }[m]));
+}
+
+/* =========================
+   PLAYERS / GIFTS
+========================= */
+
+function renderPlayers(){
+ let u=me();
+
+ document.getElementById("playersGrid").innerHTML=db.users.map(x=>{
+  let s=stats(x);
+  return`
+  <div class="player">
+   <div class="icon">${x.avatar}</div>
+   <h3>${x.name}</h3>
+   <p class="muted">LV ${level(x)} • 💪 ${s.p}</p>
+   <br>
+   <button class="btn gold full" onclick="giftTo('${x.id}')">
+    🎁 هدية
+   </button>
+  </div>`;
+ }).join("");
+}
+
+function giftTo(id){
+ let amount=Number(prompt("قيمة الهدية 🧧"));
+ let u=me(),x=db.users.find(a=>a.id==id);
+
+ if(!x||x.id==u.id)return;
+ if(!amount||amount<=0||u.money<amount)return toast("❌ مبلغ غير صالح");
+
+ u.money-=amount;x.money+=amount;
+ u.tx.unshift("🎁 هدية إلى "+x.name);
+ x.tx.unshift("🎁 هدية من "+u.name);
+ save();renderAll();
+
+ toast("🎁 أرسلت "+amount+" 🧧 إلى "+x.name);
+}
+
+function sendGift(){
+ let name=document.getElementById("giftName").value.trim();
+ let amount=Number(document.getElementById("giftAmount").value);
+ let u=me(),x=db.users.find(a=>a.name.toLowerCase()==name.toLowerCase());
+
+ if(!x)return toast("❌ العضو غير موجود");
+ if(!amount||amount<=0||u.money<amount)return toast("❌ بيانات غير صحيحة");
+
+ u.money-=amount;x.money+=amount;
+ u.tx.unshift("🎁 هدية إلى "+x.name);
+ x.tx.unshift("🎁 هدية من "+u.name);
+ save();renderAll();
+ toast("🎁 تم إرسال الهدية");
+}
+
+/* =========================
+   RANK
+========================= */
+
+function rankName(u){
+ if(u.admin)return"👑 المدير";
+ if(level(u)>=20)return"🐉 إمبراطور";
+ if(level(u)>=15)return"⚔️ شوغون";
+ if(level(u)>=10)return"🔥 ساموراي";
+ if(level(u)>=5)return"🛡️ محارب";
+ return"🌱 عضو";
+}
+
+function renderRank(){
+ let arr=[...db.users].sort((a,b)=>stats(b).p-stats(a).p);
+
+ document.getElementById("rankBody").innerHTML=arr.map((u,i)=>`
+ <tr>
+  <td>${i==0?"🥇":i==1?"🥈":i==2?"🥉":i+1}</td>
+  <td>${u.avatar} ${u.name}</td>
+  <td>${level(u)}</td>
+  <td class="red">${stats(u).p}</td>
+  <td><span class="badge">${rankName(u)}</span></td>
+ </tr>`).join("");
+}
+
+/* =========================
+   ACHIEVEMENTS
+========================= */
+
+const ach=[
+ ["🌟","أول تسجيل دخول","سجل دخولك"],
+ ["💰","ثري","امتلك 5000 🧧"],
+ ["🏙️","مهندس المدينة","ابنِ مبنى"],
+ ["🌾","مزارع","احصد محصولاً"],
+ ["⚔️","محارب","تجاوز قوة 500"]
+];
+
+function renderAchievements(){
+ let u=me(),s=stats(u);
+
+ document.getElementById("achievementsGrid").innerHTML=ach.map((a,i)=>{
+  let ok=
+   i==0||
+   i==1&&u.money>=5000||
+   i==2&&u.buildings.length>=1||
+   i==3&&u.harvest>=1||
+   i==4&&s.p>=500;
+
+  return`
+  <div class="achievement">
+   <div class="icon">${a[0]}</div>
+   <h3>${a[1]}</h3>
+   <p class="muted">${a[2]}</p>
+   <br>
+   <span class="badge">${ok?"✅ مكتمل":"🔒 مغلق"}</span>
+  </div>`;
+ }).join("");
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+function rename(){
+ let u=me(),n=document.getElementById("newName").value.trim();
+
+ if(n.length<3)return toast("❌ الاسم قصير");
+ if(db.users.some(x=>x.id!=u.id&&x.name.toLowerCase()==n.toLowerCase()))
+  return toast("❌ الاسم مستخدم");
+
+ u.name=n;save();renderAll();toast("✅ تم تغيير الاسم");
+}
+
+function changeAvatar(a){
+ let u=me();u.avatar=a;save();renderAll();toast("✨ تم تغيير الشخصية");
+}
+
+/* =========================
+   ADMIN
+========================= */
+
+function adminRender(){
+ let u=me();
+ if(!u||!u.admin)return;
+
+ document.getElementById("adminUsers").textContent=db.users.length;
+ document.getElementById("adminMoney").textContent=
+ db.users.reduce((a,x)=>a+x.money,0).toLocaleString();
+
+ document.getElementById("adminTable").innerHTML=db.users.map(x=>`
+ <tr>
+  <td>${x.avatar} ${x.name}</td>
+  <td class="gold">${x.money.toLocaleString()}</td>
+  <td class="red">${stats(x).p}</td>
+  <td><button class="btn" onclick="adminAdd('${x.id}')">+1000</button></td>
+ </tr>`).join("");
+}
+
+function adminAdd(id){
+ let u=me(),x=db.users.find(a=>a.id==id);
+ if(!u.admin)return toast("❌ ممنوع");
+ x.money+=1000;save();renderAll();toast("👑 تمت إضافة 1000 🧧");
+}
+
+/* =========================
+   MAIN RENDER
+========================= */
+
+function renderAll(){
+ let u=me();
+ if(!u)return;
+
+ let s=stats(u),l=level(u);
+
+ document.getElementById("headName").textContent=u.name;
+ document.getElementById("avatar").textContent=u.avatar;
+
+ document.getElementById("balance").textContent=u.money.toLocaleString();
+ document.getElementById("level").textContent=l;
+ document.getElementById("xp").textContent=u.xp;
+ document.getElementById("power").textContent=s.p;
+ document.getElementById("attack").textContent=s.a;
+ document.getElementById("defense").textContent=s.d;
+ document.getElementById("hp").textContent=s.h;
+ document.getElementById("cityLevel").textContent=u.city;
+
+ document.getElementById("xpbar").style.width=(u.xp%100)+"%";
+ document.getElementById("xptext").textContent=(u.xp%100)+" / 100 XP";
+
+ document.getElementById("cHP").textContent=s.h;
+ document.getElementById("cATK").textContent=s.a;
+ document.getElementById("cDEF").textContent=s.d;
+ document.getElementById("charName").textContent=u.name;
+ document.getElementById("charRank").textContent=rankName(u);
+ document.getElementById("charView").textContent=u.avatar;
+
+ document.getElementById("walletBalance").textContent=u.money.toLocaleString()+" 🧧";
+ document.getElementById("txCount").textContent=u.tx.length;
+
+ document.getElementById("adminBtn").style.display=u.admin?"block":"none";
+
+ renderShop();
+ renderInventory();
+ renderCity();
+ renderFarm();
+ renderBoxes();
+ renderMissions();
+ renderChat();
+ renderPlayers();
+ renderRank();
+ renderAchievements();
+ adminRender();
+}
+
+/* =========================
+   MUSIC
+========================= */
+
+let playing=false;
+
+function toggleMusic(){
+ let m=document.getElementById("music");
+
+ if(!playing){
+  m.volume=.18;
+  m.play().then(()=>{
+   playing=true;
+   document.getElementById("musicBtn").textContent="🔊";
+  }).catch(()=>{
+   toast("🎵 اضغط مرة أخرى لتشغيل الموسيقى");
+  });
+ }else{
+  m.pause();playing=false;
+  document.getElementById("musicBtn").textContent="🔇";
+ }
+}
+
+/* =========================
+   RAIN
+========================= */
+
+for(let i=0;i<90;i++){
+ let d=document.createElement("i");
+ d.className="drop";
+ d.style.left=Math.random()*100+"%";
+ d.style.animationDelay=Math.random()*2+"s";
+ d.style.animationDuration=(.6+Math.random()*1)+"s";
+ document.getElementById("rain").appendChild(d);
+}
+
+/* =========================
+   START
+========================= */
+
+if(db.current){
+ document.getElementById("auth").classList.add("hidden");
+ renderAll();
+}else{
+ document.getElementById("auth").classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>
