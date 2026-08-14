@@ -358,7 +358,7 @@ input:focus{border-color:var(--red)}
 <div class="card">
 <b>⚡ تقدم المستوى</b>
 <div class="progress"><i id="xpbar"></i></div>
-<small id="xptext">0 / 100 XP</small>
+<small id="xptext" style="direction: ltr; display: inline-block;">0 / 100 XP</small>
 </div>
 
 <div class="section">
@@ -521,7 +521,7 @@ input:focus{border-color:var(--red)}
 
 <div class="card">
 <h3>💸 تحويل الأموال للأعضاء</h3>
-<input id="transferUser" placeholder="اسم العضو المُحوَّل إليه">
+<input id="transferUser" placeholder="اسم العضو المُحوَّل إليه">
 <input id="transferAmount" type="number" placeholder="المبلغ">
 <button class="btn gold full" onclick="makeTransfer()">تحويل الأموال 🚀</button>
 </div>
@@ -751,7 +751,7 @@ function addXP(n){
 }
 
 /* =========================
-   DEPOSIT & TRANSFER
+   DEPOSIT & TRANSFER (المحفظة)
 ========================= */
 
 function makeDeposit(){
@@ -764,7 +764,6 @@ function makeDeposit(){
  save(); renderAll();
  document.getElementById("depositAmount").value="";
  
- // تأثير احتفالي عند الإيداع الناجح
  confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
  toast("✅ تم إيداع مبلغ " + amt + " بنجاح!");
 }
@@ -953,8 +952,8 @@ function renderFarm(){
    <div class="plot">
     <div style="font-size:42px">${u.crops>i?"🌾":"🌱"}</div>
     <b>أرض ${i+1}</b>
-    <button class="btn green" onclick="plant(${i})">
-     ${u.crops>i?"محصول":"زراعة"}
+    <button class="btn green" onclick="plant()">
+     زراعة
     </button>
    </div>`;
   }else{
@@ -994,198 +993,104 @@ function upgradeFarm(){
 }
 
 /* =========================
-   BOXES & GAMES
+   GAMES & BOXES
 ========================= */
 
-const boxData=[
- ["🎁","الصندوق البرونزي",250,1],
- ["📦","الصندوق الفضي",750,2],
- ["🧰","الصندوق الذهبي",2000,3],
- ["⚔️","صندوق الساموراي",5000,4],
- ["👑","صندوق الإمبراطور",12000,6],
- ["🐉","صندوق التنين",30000,9],
- ["💎","الصندوق الأسطوري",75000,15]
-];
-
-function renderBoxes(){
- document.getElementById("boxesGrid").innerHTML=boxData.map((b,i)=>`
- <div class="box">
-  <div class="icon">${b[0]}</div>
-  <h3>${b[1]}</h3>
-  <p class="muted">مكافآت ×${b[3]}</p>
-  <div class="price">${b[2].toLocaleString()} 🧧</div>
-  <button class="btn gold full" onclick="openBox(${i})">فتح 🎁</button>
- </div>`).join("");
-}
-
-function openBox(id){
- let u=me(),b=boxData[id];
- if(u.money<b[2])return toast("❌ تحتاج "+b[2].toLocaleString()+" 🧧");
-
- u.money-=b[2];
- let reward=Math.floor(b[2]*(.2+Math.random()*1.4)*b[3]/2);
- u.money+=reward;
-
- let item=catalog[Math.floor(Math.random()*catalog.length)];
- u.items[item[1]]=(u.items[item[1]]||0)+1;
-
- addXP(b[3]*10);
- u.tx.unshift("🎁 فتح "+b[1]);
- save();renderAll();
-
- // تأثير تفاعلي قوي عند فتح الصناديق
- confetti({ particleCount: 150, spread: 90, origin: { y: 0.5 } });
-
- document.getElementById("winTitle").textContent="🎉 فتحت "+b[1];
- document.getElementById("winText").innerHTML=
- "💰 +"+reward.toLocaleString()+" 🧧<br>"+
- item[0]+" "+item[1];
- document.getElementById("win").classList.add("show");
-}
-
-function closeWin(){
- document.getElementById("win").classList.remove("show");
-}
-
-let rotation=0;
-
 function dice(){
- let u=me(),cost=25;
- if(u.money<cost)return toast("❌ تحتاج 25 🧧");
-
- u.money-=cost;
- let n=Math.floor(Math.random()*6)+1;
- let reward=n==6?400:n==5?200:n>=3?60:0;
- u.money+=reward;addXP(5);save();renderAll();
- if(reward > 0) confetti({ particleCount: 50 });
- toast("🎲 النرد: "+n+(reward?" — ربحت "+reward+" 🧧":" — لم تربح"));
+ let u=me();
+ if(u.money<25)return toast("❌ تحتاج 25 🧧");
+ u.money-=25;
+ let r=Math.floor(Math.random()*6)+1;
+ if(r>=4){
+  let w=r*20;
+  u.money+=w;
+  toast("🎲 ربحت "+w+" 🧧");
+ }else{
+  toast("🎲 خسرت الرهان");
+ }
+ save();renderAll();
 }
 
 function quickBox(){
- let u=me(),cost=50;
- if(u.money<cost)return toast("❌ تحتاج 50 🧧");
-
- u.money-=cost;
- let r=[20,50,100,200,500][Math.floor(Math.random()*5)];
- u.money+=r;addXP(8);save();renderAll();
-
- confetti({ particleCount: 70 });
- document.getElementById("winTitle").textContent="🎁 مكافأة";
- document.getElementById("winText").innerHTML="💰 ربحت "+r+" 🧧";
- document.getElementById("win").classList.add("show");
+ let u=me();
+ if(u.money<50)return toast("❌ تحتاج 50 🧧");
+ u.money-=50;
+ let w=Math.random()>0.5?150:20;
+ u.money+=w;
+ save();renderAll();
+ toast("🎁 فتحت الصندوق وربحت "+w+" 🧧");
 }
 
 function spin(){
  let u=me();
  if(u.money<100)return toast("❌ تحتاج 100 🧧");
-
  u.money-=100;
- let rewards=[0,50,100,200,300,500,1000,2500];
- let r=rewards[Math.floor(Math.random()*rewards.length)];
-
- rotation+=1440+Math.random()*360;
- document.getElementById("wheel").style.transform="rotate("+rotation+"deg)";
-
- setTimeout(()=>{
-  u.money+=r;addXP(10);save();renderAll();
-  if(r > 0) confetti({ particleCount: 100 });
-  toast(r?"🎡 ربحت "+r+" 🧧":"🎡 لم تربح شيئاً");
- },4000);
+ let w=Math.floor(Math.random()*300)+50;
+ u.money+=w;
+ save();renderAll();
+ toast("🎡 ربحت من العجلة "+w+" 🧧");
 }
 
 function daily(){
  let u=me();
  let today=new Date().toDateString();
- if(u.daily==today)return toast("⏳ استلمت مكافأتك اليومية مسبقاً");
-
+ if(u.daily==today)return toast("❌ استلمت مكافأتك اليومية مسبقاً");
  u.daily=today;
- u.money+=500;addXP(20);save();renderAll();
- confetti({ particleCount: 120, spread: 80 });
- toast("🎁 حصلت على المكافأة اليومية +500 🧧");
+ u.money+=500;
+ save();renderAll();
+ confetti({particleCount:80});
+ toast("🎁 تم استلام مكافأة اليوم +500 🧧");
 }
 
 /* =========================
-   CHAT & PLAYERS & OTHER
+   CHAT & PLAYERS
 ========================= */
 
 function sendChat(){
+ let u=me();
  let i=document.getElementById("chatInput");
  let m=i.value.trim();
  if(!m)return;
-
- db.chat.push({n:me().name,m:m});
- if(db.chat.length>50)db.chat.shift();
+ db.chat.push({n:u.name,m:m});
  i.value="";
  save();renderChat();
 }
 
 function renderChat(){
  let box=document.getElementById("messages");
- box.innerHTML=db.chat.map(c=>`
+ box.innerHTML=db.chat.map(x=>`
  <div class="msg">
-  <b>${c.n}:</b> ${c.m}
+  <b>${x.n}</b>: ${x.m}
  </div>`).join("");
  box.scrollTop=box.scrollHeight;
 }
 
 function renderPlayers(){
- document.getElementById("playersGrid").innerHTML=db.users.map(u=>`
- <div class="player">
-  <div class="icon">${u.avatar}</div>
-  <h3>${u.name}</h3>
-  <p class="muted">مستوى ${level(u)}</p>
-  <div class="price">قوة: ${stats(u).p}</div>
-  <button class="btn gold full" onclick="sendGiftDirect('${u.name}')">🎁 إرسال هدية</button>
- </div>`).join("");
-}
-
-function sendGiftDirect(name){
- let u=me();
- if(name===u.name)return toast("❌ لا يمكنك إرسال هدية لنفسك");
- let amt=parseInt(prompt("أدخل مبلغ الهدية لـ " + name + ":"));
- if(isNaN(amt)||amt<=0)return;
- if(u.money<amt)return toast("❌ رصيدك غير كافٍ");
-
- let t=db.users.find(x=>x.name===name);
- u.money-=amt;t.money+=amt;
- u.tx.unshift("إرسال هدية لـ "+name);
- t.tx.unshift("استلام هدية من "+u.name);
- save();renderAll();
- confetti({ particleCount: 80 });
- toast("🎁 تم إرسال الهدية بنجاح!");
+ document.getElementById("playersGrid").innerHTML=db.users.map(u=>{
+  let s=stats(u);
+  return `
+  <div class="player">
+   <div style="font-size:35px">${u.avatar}</div>
+   <h3>${u.name}</h3>
+   <p class="muted">قوة: ${s.p}</p>
+   <p class="gold">رصيد: ${u.money}</p>
+  </div>`;
+ }).join("");
 }
 
 function renderRank(){
  let sorted=[...db.users].sort((a,b)=>stats(b).p-stats(a).p);
- document.getElementById("rankBody").innerHTML=sorted.map((u,i)=>`
- <tr>
-  <td>#${i+1}</td>
-  <td><b>${u.avatar} ${u.name}</b></td>
-  <td>${level(u)}</td>
-  <td class="gold">${stats(u).p}</td>
-  <td>${u.admin?"👑 مدير":"🌱 عضو"}</td>
- </tr>`).join("");
-}
-
-function renderAchievements(){
- let list=[
-  ["الأثر الأول","سجل الدخول للموقع",true],
-  ["المليونير","اجمع أكثر من 5000 رصيد",me().money>=5000],
-  ["الباني","ابنِ 5 مباني في مدينتك",me().buildings.length>=5],
-  ["المزارع","طوّر مزرعتك للمستوى 3",me().farm>=3],
-  ["المقاتل","صل إلى قوة إجمالية 300",stats(me()).p>=300]
- ];
-
- document.getElementById("achievementsGrid").innerHTML=list.map(a=>`
- <div class="achievement" style="opacity:${a[2]?1:0.5}">
-  <div class="icon">🏅</div>
-  <h3>${a[0]}</h3>
-  <p class="muted">${a[1]}</p>
-  <br>
-  <span class="badge" style="background:${a[2]?'rgba(49,214,149,.2)':'rgba(255,255,255,.05)'};color:${a[2]?'var(--green)':'#777'}">
-   ${a[2]?'مكتمل ✨':'قيد الإنجاز'}
-  </span>
- </div>`).join("");
+ document.getElementById("rankBody").innerHTML=sorted.map((u,i)=>{
+  let s=stats(u);
+  return `
+  <tr>
+   <td>#${i+1}</td>
+   <td><b>${u.name}</b></td>
+   <td>${level(u)}</td>
+   <td class="red">${s.p}</td>
+   <td>${u.admin?"👑 مدير":"🌱 عضو"}</td>
+  </tr>`;
+ }).join("");
 }
 
 function renderAdmin(){
@@ -1193,22 +1098,21 @@ function renderAdmin(){
  if(!u.admin)return;
  document.getElementById("adminUsers").textContent=db.users.length;
  document.getElementById("adminMoney").textContent=db.users.reduce((a,b)=>a+b.money,0);
-
  document.getElementById("adminTable").innerHTML=db.users.map(x=>`
  <tr>
-  <td>${x.avatar} ${x.name}</td>
+  <td>${x.name}</td>
   <td class="gold">${x.money}</td>
   <td>${stats(x).p}</td>
-  <td><button class="btn gold" onclick="adminAdd('${x.id}')">+1000 🧧</button></td>
+  <td><button class="btn" onclick="adminAddMoney('${x.id}')">+1000</button></td>
  </tr>`).join("");
 }
 
-function adminAdd(id){
- let u=db.users.find(x=>x.id==id);
- if(u){
-  u.money+=1000;
+function adminAddMoney(id){
+ let target=db.users.find(x=>x.id==id);
+ if(target){
+  target.money+=1000;
   save();renderAll();
-  toast("👑 تمت إضافة 1000 🧧 لـ "+u.name);
+  toast("✅ تمت الإضافة لـ "+target.name);
  }
 }
 
@@ -1216,7 +1120,7 @@ function changeAvatar(a){
  let u=me();
  u.avatar=a;
  save();renderAll();
- toast("👕 تم تغيير المظهر بنجاح");
+ toast("✨ تم تغير المظهر");
 }
 
 function rename(){
@@ -1225,14 +1129,13 @@ function rename(){
  if(n.length<3)return toast("❌ الاسم قصير");
  u.name=n;
  save();renderAll();
- toast("✨ تم تغيير اسمك بنجاح");
+ toast("✅ تم تغيير الاسم");
 }
 
 function toggleMusic(){
  let m=document.getElementById("music");
  let b=document.getElementById("musicBtn");
- if(m.paused){m.play();b.textContent="🔊";}
- else{m.pause();b.textContent="🔇";}
+ if(m.paused){m.play();b.textContent="🔊"}else{m.pause();b.textContent="🔇"}
 }
 
 /* =========================
@@ -1245,11 +1148,9 @@ function renderAll(){
 
  document.getElementById("headName").textContent=u.name;
  document.getElementById("avatar").textContent=u.avatar;
- document.getElementById("charName").textContent=u.name;
- document.getElementById("charView").textContent=u.avatar;
-
  document.getElementById("balance").textContent=u.money.toLocaleString();
  document.getElementById("walletBalance").textContent=u.money.toLocaleString();
+ document.getElementById("txCount").textContent=u.tx.length;
  document.getElementById("level").textContent=level(u);
  document.getElementById("xp").textContent=u.xp;
 
@@ -1258,16 +1159,17 @@ function renderAll(){
  document.getElementById("attack").textContent=st.a;
  document.getElementById("defense").textContent=st.d;
  document.getElementById("hp").textContent=st.h;
+ document.getElementById("cityLevel").textContent=u.city;
 
+ let rem=u.xp%100;
+ document.getElementById("xpbar").style.width=rem+"%";
+ document.getElementById("xptext").textContent=rem+" / 100 XP";
+
+ document.getElementById("charView").textContent=u.avatar;
+ document.getElementById("charName").textContent=u.name;
  document.getElementById("cHP").textContent=st.h;
  document.getElementById("cATK").textContent=st.a;
  document.getElementById("cDEF").textContent=st.d;
-
- let xpRem=u.xp%100;
- document.getElementById("xpbar").style.width=xpRem+"%";
- document.getElementById("xptext").textContent=xpRem+" / 100 XP";
-
- document.getElementById("txCount").textContent=u.tx.length;
 
  if(!u.admin){
   document.getElementById("adminBtn").style.display="none";
@@ -1277,27 +1179,16 @@ function renderAll(){
  renderInventory();
  renderCity();
  renderFarm();
- renderBoxes();
  renderChat();
  renderPlayers();
  renderRank();
- renderAchievements();
- if(u.admin)renderAdmin();
+ renderAdmin();
 }
 
-// تشغيل المطر بالخلفية
-let rain=document.getElementById("rain");
-for(let i=0;i<30;i++){
- let d=document.createElement("div");
- d.className="drop";
- d.style.left=Math.random()*100+"vw";
- d.style.top=Math.random()*-100+"vh";
- d.style.animationDuration=(0.8+Math.random()*0.8)+"s";
- d.style.animationDelay=Math.random()*2+"s";
- rain.appendChild(d);
+if(db.current){
+ renderAll();
 }
-
-if(db.current)renderAll();
 </script>
+
 </body>
 </html>
