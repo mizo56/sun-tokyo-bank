@@ -164,7 +164,6 @@ border:1px solid var(--line)
 .msg{padding:10px;margin:7px 0;border-radius:12px;background:rgba(255,255,255,.05)}
 .msg b{color:var(--gold)}
 .chatbar{display:flex;gap:8px}.chatbar input{margin:0}
-.modal{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;padding:20px}
 .toast{
 position:fixed;left:20px;bottom:20px;z-index:200;
 background:#151720;border:1px solid var(--line);
@@ -236,19 +235,44 @@ main{padding:13px}
 <div class="authsub">Ultimate Anime Community</div>
 
 <div id="loginForm">
-<input id="loginName" placeholder="اسم المستخدم">
-<input id="loginPass" type="password" placeholder="كلمة المرور">
+
+<input id="loginPhone"
+type="tel"
+inputmode="tel"
+placeholder="📱 رقم الهاتف">
+
+<input id="loginPass"
+type="password"
+placeholder="🔐 كلمة المرور">
+
 <button class="btn full" onclick="login()">🚀 دخول</button>
+
 <br><br>
+
 <button class="btn gray full" onclick="showReg()">✨ إنشاء حساب</button>
+
 </div>
 
 <div id="regForm" class="hidden">
-<input id="regName" placeholder="اسم المستخدم">
-<input id="regPass" type="password" placeholder="كلمة المرور">
+
+<input id="regName"
+placeholder="👤 اسم المستخدم">
+
+<input id="regPhone"
+type="tel"
+inputmode="tel"
+placeholder="📱 رقم الهاتف">
+
+<input id="regPass"
+type="password"
+placeholder="🔐 كلمة المرور">
+
 <button class="btn gold full" onclick="register()">✨ إنشاء الحساب</button>
+
 <br><br>
+
 <button class="btn gray full" onclick="showLogin()">رجوع</button>
+
 </div>
 
 </div>
@@ -266,6 +290,7 @@ main{padding:13px}
 
 <aside>
 <nav>
+
 <button class="active" onclick="page('home',this)">🏠 الرئيسية</button>
 <button onclick="page('character',this)">👤 شخصيتي</button>
 <button onclick="page('city',this)">🏙️ مدينتي</button>
@@ -280,272 +305,695 @@ main{padding:13px}
 <button onclick="page('loans',this)">🏦 البنك والقروض</button>
 <button onclick="page('stocks',this)">📈 سوق الأسهم</button>
 <button onclick="page('profile',this)">⚙️ الحساب</button>
+
 <div class="navtitle">الإدارة</div>
+
 <button id="adminBtn" onclick="page('admin',this)">👑 الإدارة</button>
+
 <button onclick="logout()">🚪 خروج</button>
+
 </nav>
 </aside>
 
 <main>
 
 <section id="home" class="page">
+
 <div class="hero">
 <h1>🌙 أهلاً بك في عالم S.U.N TOKYO</h1>
 <p>ابنِ مدينتك، ازرع مزرعتك، طوّر شخصيتك، العب واربح وتنافس مع أعضاء المجتمع.</p>
 </div>
 
 <div class="grid">
-<div class="card">💰<div class="stat-title">الرصيد</div><div class="stat-value gold" id="balance">0</div></div>
-<div class="card">⭐<div class="stat-title">المستوى</div><div class="stat-value" id="level">1</div></div>
-<div class="card">⚡<div class="stat-title">XP</div><div class="stat-value blue" id="xp">0</div></div>
-<div class="card">🔥<div class="stat-title">القوة</div><div class="stat-value red" id="power">0</div></div>
-</div>
 
-<div class="grid">
-<div class="card">⚔️<div class="stat-title">Attack</div><div class="stat-value red" id="attack">0</div></div>
-<div class="card">🛡️<div class="stat-title">Defense</div><div class="stat-value blue" id="defense">0</div></div>
-<div class="card">❤️<div class="stat-title">HP</div><div class="stat-value green" id="hp">0</div></div>
-<div class="card">🏙️<div class="stat-title">مستوى المدينة</div><div class="stat-value gold" id="cityLevel">1</div></div>
+<div class="card">
+💰
+<div class="stat-title">الرصيد</div>
+<div class="stat-value gold" id="balance">0</div>
 </div>
 
 <div class="card">
+⭐
+<div class="stat-title">المستوى</div>
+<div class="stat-value" id="level">1</div>
+</div>
+
+<div class="card">
+⚡
+<div class="stat-title">XP</div>
+<div class="stat-value blue" id="xp">0</div>
+</div>
+
+<div class="card">
+🔥
+<div class="stat-title">القوة</div>
+<div class="stat-value red" id="power">0</div>
+</div>
+
+</div>
+
+<div class="grid">
+
+<div class="card">
+⚔️
+<div class="stat-title">Attack</div>
+<div class="stat-value red" id="attack">0</div>
+</div>
+
+<div class="card">
+🛡️
+<div class="stat-title">Defense</div>
+<div class="stat-value blue" id="defense">0</div>
+</div>
+
+<div class="card">
+❤️
+<div class="stat-title">HP</div>
+<div class="stat-value green" id="hp">0</div>
+</div>
+
+<div class="card">
+🏙️
+<div class="stat-title">مستوى المدينة</div>
+<div class="stat-value gold" id="cityLevel">1</div>
+</div>
+
+</div>
+
+<div class="card">
+
 <b>⚡ تقدم المستوى</b>
-<div class="progress"><i id="xpbar"></i></div>
+
+<div class="progress">
+<i id="xpbar"></i>
+</div>
+
 <small id="xptext">0 / 100 XP</small>
+
 </div>
 
 <div class="section">
+
 <h2>⚡ اختصارات</h2>
+
 <div class="actions">
-<button class="action" onclick="page('wallet')">💰<b>المحفظة</b><small>الرصيد والتحويل</small></button>
-<button class="action" onclick="page('chat')">💬<b>الدردشة</b><small>تحدث مع الأعضاء</small></button>
-<button class="action" onclick="page('city')">🏙️<b>المدينة</b><small>ابنِ وطوّر</small></button>
-<button class="action" onclick="page('shop')">🛒<b>المتجر</b><small>اشترِ الأدوات</small></button>
+
+<button class="action" onclick="page('wallet')">
+💰
+<b>المحفظة</b>
+<small>الرصيد والتحويل</small>
+</button>
+
+<button class="action" onclick="page('chat')">
+💬
+<b>الدردشة</b>
+<small>تحدث مع الأعضاء</small>
+</button>
+
+<button class="action" onclick="page('city')">
+🏙️
+<b>المدينة</b>
+<small>ابنِ وطوّر</small>
+</button>
+
+<button class="action" onclick="page('shop')">
+🛒
+<b>المتجر</b>
+<small>اشترِ الأدوات</small>
+</button>
+
 </div>
 </div>
+
 </section>
 
 <section id="character" class="page hidden">
-<div class="hero"><h1>👤 شخصيتي</h1><p>طوّر بطلك.</p></div>
-<div class="card character">
-<div class="char" id="charView">🧙</div>
-<div>
-<h1 id="charName">Player</h1>
-<p class="muted">🌱 عضو</p>
-<br>
-<div class="stats">
-<div class="stat">❤️ HP<h2 id="cHP">100</h2></div>
-<div class="stat">⚔️ Attack<h2 id="cATK">30</h2></div>
-<div class="stat">🛡️ Defense<h2 id="cDEF">30</h2></div>
+
+<div class="hero">
+<h1>👤 شخصيتي</h1>
+<p>طوّر بطلك.</p>
 </div>
+
+<div class="card character">
+
+<div class="char" id="charView">🧙</div>
+
+<div>
+
+<h1 id="charName">Player</h1>
+
+<p class="muted">🌱 عضو</p>
+
 <br>
-<h3>👕 المظهر</h3><br>
+
+<div class="stats">
+
+<div class="stat">
+❤️ HP
+<h2 id="cHP">100</h2>
+</div>
+
+<div class="stat">
+⚔️ Attack
+<h2 id="cATK">30</h2>
+</div>
+
+<div class="stat">
+🛡️ Defense
+<h2 id="cDEF">30</h2>
+</div>
+
+</div>
+
+<br>
+
+<h3>👕 المظهر</h3>
+
+<br>
+
 <button class="btn" onclick="changeAvatar('🧙')">🧙</button>
 <button class="btn" onclick="changeAvatar('🥷')">🥷</button>
 <button class="btn" onclick="changeAvatar('👑')">👑</button>
 <button class="btn" onclick="changeAvatar('⚔️')">⚔️</button>
 <button class="btn" onclick="changeAvatar('🦸')">🦸</button>
+
 </div>
+
 </div>
+
 </section>
 
 <section id="city" class="page hidden">
-<div class="hero"><h1>🏙️ مدينتي</h1><p>طوّر مدينتك.</p></div>
-<div class="grid">
-<div class="card">🏙️ المستوى<h2 id="cityL">1</h2></div>
-<div class="card">🏗️ المباني<h2 id="buildingCount">0</h2></div>
-<div class="card">💪 القوة<h2 id="cityPower">0</h2></div>
-<div class="card">💰 الدخل<h2 id="cityIncome">0</h2></div>
+
+<div class="hero">
+<h1>🏙️ مدينتي</h1>
+<p>طوّر مدينتك.</p>
 </div>
+
+<div class="grid">
+
+<div class="card">
+🏙️ المستوى
+<h2 id="cityL">1</h2>
+</div>
+
+<div class="card">
+🏗️ المباني
+<h2 id="buildingCount">0</h2>
+</div>
+
+<div class="card">
+💪 القوة
+<h2 id="cityPower">0</h2>
+</div>
+
+<div class="card">
+💰 الدخل
+<h2 id="cityIncome">0</h2>
+</div>
+
+</div>
+
 <div class="citymap" id="cityMap"></div>
+
 <br>
-<button class="btn gold full" onclick="upgradeCity()">🏗️ تطوير المدينة</button>
+
+<button class="btn gold full" onclick="upgradeCity()">
+🏗️ تطوير المدينة
+</button>
+
 </section>
 
 <section id="farm" class="page hidden">
-<div class="hero"><h1>🌾 مزرعتي</h1><p>ازرع واحصد.</p></div>
-<div class="grid">
-<div class="card">🌾 مستوى المزرعة<h2 id="farmL">1</h2></div>
-<div class="card">💰 الدخل<h2 id="farmIncome">50</h2></div>
-<div class="card">🌱 الأراضي<h2 id="farmPlots">4</h2></div>
-<div class="card">🥕 المحاصيل<h2 id="crops">0</h2></div>
+
+<div class="hero">
+<h1>🌾 مزرعتي</h1>
+<p>ازرع واحصد.</p>
 </div>
+
+<div class="grid">
+
+<div class="card">
+🌾 مستوى المزرعة
+<h2 id="farmL">1</h2>
+</div>
+
+<div class="card">
+💰 الدخل
+<h2 id="farmIncome">50</h2>
+</div>
+
+<div class="card">
+🌱 الأراضي
+<h2 id="farmPlots">4</h2>
+</div>
+
+<div class="card">
+🥕 المحاصيل
+<h2 id="crops">0</h2>
+</div>
+
+</div>
+
 <div class="citymap" id="farmMap"></div>
+
 <br>
-<button class="btn green full" onclick="upgradeFarm()">🌱 تطوير المزرعة</button>
+
+<button class="btn green full" onclick="upgradeFarm()">
+🌱 تطوير المزرعة
+</button>
+
 <br><br>
-<button class="btn gold full" onclick="harvest()">🌾 حصاد</button>
+
+<button class="btn gold full" onclick="harvest()">
+🌾 حصاد
+</button>
+
 </section>
 
 <section id="shop" class="page hidden">
-<div class="hero"><h1>🛒 المتجر</h1><p>أسلحة وملابس ودروع.</p></div>
+
+<div class="hero">
+<h1>🛒 المتجر</h1>
+<p>أسلحة وملابس ودروع.</p>
+</div>
+
 <input id="search" placeholder="🔎 ابحث..." oninput="renderShop()">
+
 <div class="shop" id="shopGrid"></div>
+
 </section>
 
 <section id="inventory" class="page hidden">
-<div class="hero"><h1>🎒 الحقيبة</h1><p>مقتنياتك.</p></div>
+
+<div class="hero">
+<h1>🎒 الحقيبة</h1>
+<p>مقتنياتك.</p>
+</div>
+
 <div class="inventory" id="invGrid"></div>
+
 </section>
 
 <section id="games" class="page hidden">
-<div class="hero"><h1>🎮 الألعاب</h1><p>اختبر حظك واربح العملات.</p></div>
+
+<div class="hero">
+<h1>🎮 الألعاب</h1>
+<p>اختبر حظك واربح العملات.</p>
+</div>
+
 <div class="grid">
-<div class="card"><h2>🎲 النرد</h2><p class="muted">تكلفة 25 🧧</p><br><button class="btn" onclick="dice()">رمي النرد</button></div>
-<div class="card"><h2>🎁 صندوق سريع</h2><p class="muted">تكلفة 50 🧧</p><br><button class="btn gold" onclick="quickBox()">فتح</button></div>
-<div class="card"><h2>🎡 العجلة</h2><p class="muted">تكلفة 100 🧧</p><br><button class="btn" onclick="spin()">تدوير</button></div>
-<div class="card"><h2>🎁 اليومية</h2><br><button class="btn green" onclick="daily()">استلام</button></div>
+
+<div class="card">
+<h2>🎲 النرد</h2>
+<p class="muted">تكلفة 25 🧧</p>
+<br>
+<button class="btn" onclick="dice()">رمي النرد</button>
 </div>
-<div class="card" style="text-align:center">
-<div>▼</div><div class="wheel" id="wheel"></div>
+
+<div class="card">
+<h2>🎁 صندوق سريع</h2>
+<p class="muted">تكلفة 50 🧧</p>
+<br>
+<button class="btn gold" onclick="quickBox()">فتح</button>
 </div>
+
+<div class="card">
+<h2>🎡 العجلة</h2>
+<p class="muted">تكلفة 100 🧧</p>
+<br>
+<button class="btn" onclick="spin()">تدوير</button>
+</div>
+
+<div class="card">
+<h2>🎁 اليومية</h2>
+<br>
+<button class="btn green" onclick="daily()">استلام</button>
+</div>
+
+</div>
+
 </section>
 
 <section id="chat" class="page hidden">
-<div class="hero"><h1>💬 دردشة المجتمع</h1><p>الدردشة مشتركة بين جميع أعضاء الموقع.</p></div>
+
+<div class="hero">
+<h1>💬 دردشة المجتمع</h1>
+<p>الدردشة مشتركة بين جميع أعضاء الموقع.</p>
+</div>
+
 <div class="card chat">
+
 <div class="messages" id="messages"></div>
+
 <div class="chatbar">
-<input id="chatInput" placeholder="اكتب رسالتك..." onkeydown="if(event.key==='Enter')sendChat()">
+
+<input
+id="chatInput"
+placeholder="اكتب رسالتك..."
+onkeydown="if(event.key==='Enter')sendChat()">
+
 <button class="btn" onclick="sendChat()">إرسال</button>
+
 </div>
+
 </div>
+
 </section>
 
 <section id="players" class="page hidden">
-<div class="hero"><h1>👥 أعضاء المجتمع</h1><p>جميع الحسابات المسجلة.</p></div>
+
+<div class="hero">
+<h1>👥 أعضاء المجتمع</h1>
+<p>جميع الحسابات المسجلة.</p>
+</div>
+
 <div class="players" id="playersGrid"></div>
+
 </section>
 
 <section id="rank" class="page hidden">
-<div class="hero"><h1>🏆 المتصدرون</h1><p>أقوى أعضاء S.U.N TOKYO.</p></div>
-<div class="card">
-<table class="table">
-<thead><tr><th>#</th><th>العضو</th><th>LV</th><th>القوة</th><th>الرتبة</th></tr></thead>
-<tbody id="rankBody"></tbody>
-</table>
+
+<div class="hero">
+<h1>🏆 المتصدرون</h1>
+<p>أقوى أعضاء S.U.N TOKYO.</p>
 </div>
+
+<div class="card">
+
+<table class="table">
+
+<thead>
+<tr>
+<th>#</th>
+<th>العضو</th>
+<th>LV</th>
+<th>القوة</th>
+<th>الرتبة</th>
+</tr>
+</thead>
+
+<tbody id="rankBody"></tbody>
+
+</table>
+
+</div>
+
 </section>
 
 <section id="wallet" class="page hidden">
-<div class="hero"><h1>💰 المحفظة</h1><p>الرصيد والتحويلات.</p></div>
+
+<div class="hero">
+<h1>💰 المحفظة</h1>
+<p>الرصيد والتحويلات.</p>
+</div>
 
 <div class="grid">
-<div class="card">💰 الرصيد الحالي<h2 class="gold" id="walletBalance">0</h2></div>
-<div class="card">📜 العمليات<h2 id="txCount">0</h2></div>
+
+<div class="card">
+💰 الرصيد الحالي
+<h2 class="gold" id="walletBalance">0</h2>
 </div>
 
 <div class="card">
+📜 العمليات
+<h2 id="txCount">0</h2>
+</div>
+
+</div>
+
+<div class="card">
+
 <h3>💳 إيداع رصيد</h3>
+
 <input id="depositAmount" type="number" placeholder="أدخل المبلغ">
-<button class="btn green full" onclick="makeDeposit()">إيداع 💳</button>
+
+<button class="btn green full" onclick="makeDeposit()">
+إيداع 💳
+</button>
+
 </div>
 
 <br>
 
 <div class="card">
+
 <h3>💸 تحويل الأموال</h3>
+
 <input id="transferUser" placeholder="اسم العضو">
+
 <input id="transferAmount" type="number" placeholder="المبلغ">
-<button class="btn gold full" onclick="makeTransfer()">تحويل 🚀</button>
+
+<button class="btn gold full" onclick="makeTransfer()">
+تحويل 🚀
+</button>
+
 </div>
 
 <br>
 
 <div class="card">
+
 <h3>📜 سجل العمليات</h3>
+
 <div id="txHistoryBox" style="margin-top:10px"></div>
+
 </div>
+
 </section>
 
 <section id="loans" class="page hidden">
-<div class="hero"><h1>🏦 البنك والقروض</h1><p>إدارة القروض.</p></div>
+
+<div class="hero">
+<h1>🏦 البنك والقروض</h1>
+<p>إدارة القروض.</p>
+</div>
+
 <div class="grid">
-<div class="card">📋 القرض الحالي<h2 class="red" id="loanAmount">0 🧧</h2></div>
-<div class="card">⏳ الحالة<h2 id="loanStatus">لا يوجد قرض</h2></div>
-</div>
+
 <div class="card">
+📋 القرض الحالي
+<h2 class="red" id="loanAmount">0 🧧</h2>
+</div>
+
+<div class="card">
+⏳ الحالة
+<h2 id="loanStatus">لا يوجد قرض</h2>
+</div>
+
+</div>
+
+<div class="card">
+
 <h3>📥 طلب قرض</h3>
-<p class="muted">قرض 2000 🧧 وفائدة 10%.</p><br>
-<button class="btn gold full" onclick="takeLoan()">اقتراض 2,000 🧧</button>
-</div>
+
+<p class="muted">
+قرض 2000 🧧 وفائدة 10%.
+</p>
+
 <br>
-<div class="card">
-<h3>📤 السداد</h3><br>
-<button class="btn green full" onclick="payLoan()">سداد القرض 💳</button>
+
+<button class="btn gold full" onclick="takeLoan()">
+اقتراض 2,000 🧧
+</button>
+
 </div>
+
+<br>
+
+<div class="card">
+
+<h3>📤 السداد</h3>
+
+<br>
+
+<button class="btn green full" onclick="payLoan()">
+سداد القرض 💳
+</button>
+
+</div>
+
 </section>
 
 <section id="stocks" class="page hidden">
-<div class="hero"><h1>📈 سوق الأسهم</h1><p>استثمار افتراضي.</p></div>
+
+<div class="hero">
+<h1>📈 سوق الأسهم</h1>
+<p>استثمار افتراضي.</p>
+</div>
+
 <div class="grid">
-<div class="card">🏢 تجارة<h2 class="gold" id="stockPrice1">150 🧧</h2><p class="muted" id="stockOwned1">المملوك: 0 سهم</p></div>
-<div class="card">⚡ طاقة<h2 class="gold" id="stockPrice2">300 🧧</h2><p class="muted" id="stockOwned2">المملوك: 0 سهم</p></div>
-</div>
-<div style="display:flex;gap:10px;margin-bottom:20px">
-<button class="btn gold full" onclick="buyStock(1)">شراء تجارة</button>
-<button class="btn green full" onclick="buyStock(2)">شراء طاقة</button>
-</div>
-<div style="display:flex;gap:10px;margin-bottom:20px">
-<button class="btn red full" onclick="sellStock(1)">بيع تجارة</button>
-<button class="btn red full" onclick="sellStock(2)">بيع طاقة</button>
-</div>
+
 <div class="card">
-<button class="btn full" onclick="updateStocksMarket()">🔄 تحديث السوق</button>
+🏢 تجارة
+<h2 class="gold" id="stockPrice1">150 🧧</h2>
+<p class="muted" id="stockOwned1">المملوك: 0 سهم</p>
 </div>
+
+<div class="card">
+⚡ طاقة
+<h2 class="gold" id="stockPrice2">300 🧧</h2>
+<p class="muted" id="stockOwned2">المملوك: 0 سهم</p>
+</div>
+
+</div>
+
+<div style="display:flex;gap:10px;margin-bottom:20px">
+
+<button class="btn gold full" onclick="buyStock(1)">
+شراء تجارة
+</button>
+
+<button class="btn green full" onclick="buyStock(2)">
+شراء طاقة
+</button>
+
+</div>
+
+<div style="display:flex;gap:10px;margin-bottom:20px">
+
+<button class="btn red full" onclick="sellStock(1)">
+بيع تجارة
+</button>
+
+<button class="btn red full" onclick="sellStock(2)">
+بيع طاقة
+</button>
+
+</div>
+
+<div class="card">
+
+<button class="btn full" onclick="updateStocksMarket()">
+🔄 تحديث السوق
+</button>
+
+</div>
+
 </section>
 
 <section id="profile" class="page hidden">
-<div class="hero"><h1>⚙️ الحساب</h1><p>إعدادات الحساب.</p></div>
-<div class="card">
-<input id="newName" placeholder="اسم جديد">
-<button class="btn" onclick="rename()">تغيير الاسم</button>
-<br><br>
-<button class="btn gray" onclick="logout()">🚪 تسجيل الخروج</button>
+
+<div class="hero">
+<h1>⚙️ الحساب</h1>
+<p>إعدادات الحساب.</p>
 </div>
+
+<div class="card">
+
+<input id="newName" placeholder="اسم جديد">
+
+<button class="btn" onclick="rename()">
+تغيير الاسم
+</button>
+
+<br><br>
+
+<button class="btn gray" onclick="logout()">
+🚪 تسجيل الخروج
+</button>
+
+</div>
+
 </section>
 
 <section id="admin" class="page hidden">
-<div class="hero"><h1>👑 الإدارة</h1><p>لوحة المدير.</p></div>
+
+<div class="hero">
+<h1>👑 الإدارة</h1>
+<p>لوحة المدير.</p>
+</div>
+
 <div class="grid">
-<div class="card">👥 الأعضاء<h2 id="adminUsers">0</h2></div>
-<div class="card">💰 العملات<h2 id="adminMoney">0</h2></div>
-<div class="card">⚡ الحالة<h2 class="green">ONLINE</h2></div>
-<div class="card">🛡️ الصلاحية<h2>ADMIN</h2></div>
-</div>
+
 <div class="card">
-<table class="table">
-<thead><tr><th>العضو</th><th>الرصيد</th><th>القوة</th><th>إضافة</th></tr></thead>
-<tbody id="adminTable"></tbody>
-</table>
+👥 الأعضاء
+<h2 id="adminUsers">0</h2>
 </div>
+
+<div class="card">
+💰 العملات
+<h2 id="adminMoney">0</h2>
+</div>
+
+<div class="card">
+⚡ الحالة
+<h2 class="green">ONLINE</h2>
+</div>
+
+<div class="card">
+🛡️ الصلاحية
+<h2>ADMIN</h2>
+</div>
+
+</div>
+
+<div class="card">
+
+<table class="table">
+
+<thead>
+<tr>
+<th>العضو</th>
+<th>الرصيد</th>
+<th>القوة</th>
+<th>إضافة</th>
+</tr>
+</thead>
+
+<tbody id="adminTable"></tbody>
+
+</table>
+
+</div>
+
 </section>
 
 </main>
 </div>
 
 <div class="win" id="win">
+
 <div class="winbox">
+
 <h1 id="winTitle">🎉 فوز!</h1>
+
 <p id="winText"></p>
+
 <br>
-<button class="btn gold" onclick="closeWin()">استمرار</button>
+
+<button class="btn gold" onclick="closeWin()">
+استمرار
+</button>
+
 </div>
+
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
+
 const SUPABASE_URL="https://xmavwrtlwfkvqkpfiirr.supabase.co";
+
 const SUPABASE_KEY="sb_publishable_eH4yTOKoHrhBqsZ3cj8s9g_TJSnJNC2";
-const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+const supabaseClient=
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
 
 let currentUser=null;
 let profile=null;
 let transactions=[];
 let users=[];
 let chatMessages=[];
-let stocks={price1:150,price2:300};
+
+let stocks={
+price1:150,
+price2:300
+};
 
 const catalog=[
 ["⚔️","كاتانا نارية","attack",30,500],
@@ -565,48 +1013,96 @@ const catalog=[
 ];
 
 const buildings=[
-["🏦","البنك"],["🏢","ناطحة السحاب"],["🏯","قلعة الساموراي"],
-["🏪","السوق"],["🏥","المستشفى"],["🏫","الأكاديمية"],
-["⚓","الميناء"],["⛩️","المعبد"],["🏟️","الساحة"],["🚉","المحطة"]
+["🏦","البنك"],
+["🏢","ناطحة السحاب"],
+["🏯","قلعة الساموراي"],
+["🏪","السوق"],
+["🏥","المستشفى"],
+["🏫","الأكاديمية"],
+["⚓","الميناء"],
+["⛩️","المعبد"],
+["🏟️","الساحة"],
+["🚉","المحطة"]
 ];
 
+/* =========================
+GENERAL
+========================= */
+
 function toast(t){
+
 const x=document.getElementById("toast");
+
 x.textContent=t;
+
 x.classList.add("show");
-setTimeout(()=>x.classList.remove("show"),2500);
+
+setTimeout(()=>{
+x.classList.remove("show");
+},2500);
+
 }
 
 function escapeText(text){
+
 const div=document.createElement("div");
+
 div.textContent=text??"";
+
 return div.innerHTML;
+
 }
 
 function level(u){
+
 return Math.floor((u?.xp||0)/100)+1;
+
 }
 
 function stats(u){
-let a=30,d=30,h=100;
-const items=u?.items&&typeof u.items==="object"?u.items:{};
+
+let a=30;
+let d=30;
+let h=100;
+
+const items=
+u?.items&&typeof u.items==="object"
+?u.items
+:{};
 
 catalog.forEach(i=>{
+
 const q=items[i[1]]||0;
-if(i[2]==="attack")a+=i[3]*q;
-if(i[2]==="defense")d+=i[3]*q;
-if(i[2]==="hp")h+=i[3]*q;
+
+if(i[2]==="attack")
+a+=i[3]*q;
+
+if(i[2]==="defense")
+d+=i[3]*q;
+
+if(i[2]==="hp")
+h+=i[3]*q;
+
 if(i[2]==="outfit"){
+
 a+=Math.floor(i[3]/2)*q;
 d+=Math.floor(i[3]/2)*q;
+
 }
+
 });
 
 a+=(u?.city||1)*20;
 d+=(u?.city||1)*20;
 h+=(u?.farm||1)*20;
 
-return{a,d,h,p:a+d+h};
+return{
+a,
+d,
+h,
+p:a+d+h
+};
+
 }
 
 /* =========================
@@ -614,87 +1110,210 @@ AUTH
 ========================= */
 
 function showReg(){
-document.getElementById("loginForm").classList.add("hidden");
-document.getElementById("regForm").classList.remove("hidden");
+
+document
+.getElementById("loginForm")
+.classList.add("hidden");
+
+document
+.getElementById("regForm")
+.classList.remove("hidden");
+
 }
 
 function showLogin(){
-document.getElementById("regForm").classList.add("hidden");
-document.getElementById("loginForm").classList.remove("hidden");
+
+document
+.getElementById("regForm")
+.classList.add("hidden");
+
+document
+.getElementById("loginForm")
+.classList.remove("hidden");
+
 }
 
 /*
-الحل الجديد:
-نحن لا نفحص profiles قبل إنشاء الحساب.
-نستخدم البريد الداخلي المرتبط باسم المستخدم.
+نحن نستخدم رقم الهاتف كبيانات دخول للمستخدم.
+لعدم استخدام SMS/Twilio، يتم إنشاء معرف داخلي
+غير ظاهر للمستخدم لاستخدام Supabase Auth.
 */
 
-function makeEmail(username){
-return "sun_"+username.toLowerCase().replace(/[^a-z0-9_-]/g,"")+
-"_"+btoa(unescape(encodeURIComponent(username)))
-.replace(/[^a-zA-Z0-9]/g,"").slice(0,15)+
-"@sun-tokyo.local";
+function normalizePhone(phone){
+
+return phone
+.replace(/[^\d+]/g,"")
+.trim();
+
 }
+
+function makeInternalEmail(phone){
+
+const clean=normalizePhone(phone);
+
+let encoded="";
+
+try{
+
+encoded=btoa(
+unescape(
+encodeURIComponent(clean)
+)
+);
+
+}catch(e){
+
+encoded=clean;
+
+}
+
+encoded=
+encoded
+.replace(/[^a-zA-Z0-9]/g,"")
+.slice(0,40);
+
+return "phone_"+encoded+"@sun-tokyo.local";
+
+}
+
+/* =========================
+REGISTER
+========================= */
 
 async function register(){
 
-const name=document.getElementById("regName").value.trim();
-const pass=document.getElementById("regPass").value;
+const name=
+document
+.getElementById("regName")
+.value
+.trim();
+
+const phone=
+normalizePhone(
+document
+.getElementById("regPhone")
+.value
+);
+
+const pass=
+document
+.getElementById("regPass")
+.value;
 
 if(name.length<3)
-return toast("❌ الاسم يجب أن يكون 3 أحرف على الأقل");
+return toast("❌ اسم المستخدم يجب أن يكون 3 أحرف على الأقل");
+
+if(phone.length<8)
+return toast("❌ أدخل رقم هاتف صحيح");
 
 if(pass.length<6)
 return toast("❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل");
 
-const email=makeEmail(name);
+/*
+منع تكرار الاسم من profiles
+*/
 
-const {data,error}=await supabaseClient.auth.signUp({
-email:email,
+const {data:nameExists,error:nameCheckError}=
+await supabaseClient
+.from("profiles")
+.select("id")
+.ilike("username",name)
+.maybeSingle();
+
+if(nameCheckError)
+console.error(nameCheckError);
+
+if(nameExists)
+return toast("❌ اسم المستخدم مستخدم بالفعل");
+
+/*
+الإيميل الداخلي لا يظهر للمستخدم.
+*/
+
+const internalEmail=
+makeInternalEmail(phone);
+
+const {data,error}=
+await supabaseClient.auth.signUp({
+
+email:internalEmail,
+
 password:pass,
+
 options:{
-data:{username:name}
+data:{
+username:name,
+phone:phone
 }
+}
+
 });
 
 if(error){
 
-if(error.message.toLowerCase().includes("already registered"))
-return toast("❌ الحساب موجود بالفعل");
+console.error(error);
+
+if(
+error.message
+.toLowerCase()
+.includes("already")
+){
+
+return toast("❌ رقم الهاتف مستخدم بالفعل");
+
+}
 
 return toast("❌ "+error.message);
+
 }
 
 if(!data.user)
-return toast("❌ لم يتم إنشاء الحساب");
+return toast("❌ تعذر إنشاء الحساب");
 
 /*
-إذا كان تأكيد البريد الإلكتروني مفعلاً
-سيظهر للمستخدم طلب تأكيد البريد.
-لكن البريد الوهمي لا يمكن فتحه.
-لذلك يجب تعطيل Confirm email في Supabase.
+إنشاء ملف اللاعب.
+الرصيد الابتدائي = 9999
 */
 
-const {error:profileError}=await supabaseClient
+const {error:profileError}=
+await supabaseClient
 .from("profiles")
 .insert({
+
 id:data.user.id,
+
 username:name,
-balance:500,
+
+balance:9999,
+
 level:1,
+
 xp:0,
+
 avatar:"🧙",
+
 city:1,
+
 farm:1,
+
 crops:0,
+
 harvest:0,
+
 loan:0,
+
 loan_due:0,
+
 stocks1:0,
+
 stocks2:0,
+
 admin:false,
+
 items:{},
+
 buildings:[]
+
 });
 
 if(profileError){
@@ -702,72 +1321,106 @@ if(profileError){
 console.error(profileError);
 
 return toast(
-"⚠️ تم إنشاء الحساب لكن لم يتم إنشاء الملف الشخصي. تحقق من إعدادات Supabase."
+"⚠️ تم إنشاء الحساب لكن تعذر إنشاء بيانات اللاعب: "+
+profileError.message
 );
+
 }
 
-toast("🎉 تم إنشاء الحساب +500 🧧");
+toast("🎉 تم إنشاء الحساب بنجاح — رصيدك 9999 🧧");
+
+document
+.getElementById("regName")
+.value="";
+
+document
+.getElementById("regPhone")
+.value="";
+
+document
+.getElementById("regPass")
+.value="";
 
 showLogin();
 
-document.getElementById("loginName").value=name;
+document
+.getElementById("loginPhone")
+.value=phone;
+
 }
 
-async function findUserByName(name){
-
-const {data,error}=await supabaseClient
-.from("profiles")
-.select("id,username")
-.ilike("username",name)
-.maybeSingle();
-
-if(error){
-console.error(error);
-return null;
-}
-
-return data;
-}
+/* =========================
+LOGIN
+========================= */
 
 async function login(){
 
-const name=document.getElementById("loginName").value.trim();
-const pass=document.getElementById("loginPass").value;
+const phone=
+normalizePhone(
+document
+.getElementById("loginPhone")
+.value
+);
 
-if(!name||!pass)
-return toast("❌ أدخل اسم المستخدم وكلمة المرور");
+const pass=
+document
+.getElementById("loginPass")
+.value;
 
-const user=findUserByName(name);
+if(!phone||!pass)
+return toast("❌ أدخل رقم الهاتف وكلمة المرور");
 
-if(!user)
-return toast("❌ اسم المستخدم غير موجود");
+if(phone.length<8)
+return toast("❌ رقم الهاتف غير صحيح");
 
-/*
-لا يمكن قراءة auth.users من المتصفح.
-لذلك تسجيل الدخول باسم المستخدم مباشرة يحتاج
-وجود بريد مرتبط بالحساب.
+const internalEmail=
+makeInternalEmail(phone);
 
-نستخرج البريد بنفس الطريقة المستخدمة عند التسجيل.
-*/
+const {data,error}=
+await supabaseClient.auth.signInWithPassword({
 
-const email=makeEmail(name);
+email:internalEmail,
 
-const {data,error}=await supabaseClient.auth.signInWithPassword({
-email,
 password:pass
+
 });
 
-if(error)
-return toast("❌ اسم المستخدم أو كلمة المرور خاطئة");
+if(error){
+
+console.error(error);
+
+return toast("❌ رقم الهاتف أو كلمة المرور خاطئة");
+
+}
+
+if(!data.user)
+return toast("❌ تعذر تسجيل الدخول");
 
 currentUser=data.user;
 
 await loadData();
 
-document.getElementById("auth").classList.add("hidden");
+if(!profile){
+
+await supabaseClient.auth.signOut();
+
+currentUser=null;
+
+return toast("❌ لم يتم العثور على ملف الحساب");
+
+}
+
+document
+.getElementById("auth")
+.classList.add("hidden");
 
 toast("👋 أهلاً بك "+profile.username);
+
 }
+
+/* =========================
+LOGOUT
+========================= */
 
 async function logout(){
 
@@ -779,9 +1432,12 @@ transactions=[];
 users=[];
 chatMessages=[];
 
-document.getElementById("auth").classList.remove("hidden");
+document
+.getElementById("auth")
+.classList.remove("hidden");
 
 showLogin();
+
 }
 
 /* =========================
@@ -790,7 +1446,8 @@ LOAD
 
 async function loadData(){
 
-if(!currentUser)return;
+if(!currentUser)
+return;
 
 const {data:p,error}=await supabaseClient
 .from("profiles")
@@ -801,7 +1458,9 @@ const {data:p,error}=await supabaseClient
 if(error){
 
 console.error(error);
+
 return toast("❌ تعذر تحميل بيانات الحساب");
+
 }
 
 profile=p;
@@ -831,6 +1490,7 @@ const {data:messages}=await supabaseClient
 chatMessages=messages||[];
 
 renderAll();
+
 }
 
 /* =========================
@@ -839,32 +1499,41 @@ PAGES
 
 function page(id,btn){
 
-if(!profile)return;
+if(!profile)
+return;
 
-document.querySelectorAll(".page")
+document
+.querySelectorAll(".page")
 .forEach(x=>x.classList.add("hidden"));
 
-const target=document.getElementById(id);
+const target=
+document.getElementById(id);
 
-if(target)target.classList.remove("hidden");
+if(target)
+target.classList.remove("hidden");
 
-document.querySelectorAll("nav button")
+document
+.querySelectorAll("nav button")
 .forEach(x=>x.classList.remove("active"));
 
-if(btn)btn.classList.add("active");
+if(btn)
+btn.classList.add("active");
 
 renderAll();
+
 }
 
 /* =========================
-UPDATE PROFILE
+PROFILE
 ========================= */
 
 async function updateProfile(changes){
 
-if(!profile)return false;
+if(!profile)
+return false;
 
-const {data,error}=await supabaseClient
+const {data,error}=
+await supabaseClient
 .from("profiles")
 .update(changes)
 .eq("id",profile.id)
@@ -874,37 +1543,54 @@ const {data,error}=await supabaseClient
 if(error){
 
 console.error(error);
+
 toast("❌ حدث خطأ أثناء حفظ البيانات");
 
 return false;
+
 }
 
 profile=data;
 
-const index=users.findIndex(x=>x.id===profile.id);
+const index=
+users.findIndex(x=>x.id===profile.id);
 
-if(index>=0)users[index]=profile;
+if(index>=0)
+users[index]=profile;
 
 return true;
+
 }
 
-async function addTransaction(type,amount,description){
-
-if(!profile)return;
-
-const {data,error}=await supabaseClient
-.from("transactions")
-.insert({
-user_id:profile.id,
+async function addTransaction(
 type,
 amount,
 description
+){
+
+if(!profile)
+return;
+
+const {data,error}=
+await supabaseClient
+.from("transactions")
+.insert({
+
+user_id:profile.id,
+
+type,
+
+amount,
+
+description
+
 })
 .select()
 .single();
 
 if(!error&&data)
 transactions.unshift(data);
+
 }
 
 /* =========================
@@ -913,41 +1599,78 @@ WALLET
 
 async function makeDeposit(){
 
-const amount=parseInt(document.getElementById("depositAmount").value);
+const amount=
+parseInt(
+document
+.getElementById("depositAmount")
+.value
+);
 
 if(!Number.isFinite(amount)||amount<=0)
 return toast("❌ أدخل مبلغاً صحيحاً");
 
-const ok=await updateProfile({
-balance:(profile.balance||0)+amount
+const ok=
+await updateProfile({
+
+balance:
+(profile.balance||0)+amount
+
 });
 
-if(!ok)return;
+if(!ok)
+return;
 
-await addTransaction("deposit",amount,"إيداع رصيد");
+await addTransaction(
+"deposit",
+amount,
+"إيداع رصيد"
+);
 
-document.getElementById("depositAmount").value="";
+document
+.getElementById("depositAmount")
+.value="";
 
 toast("✅ تم إضافة "+amount+" 🧧");
 
 renderAll();
+
 }
 
 async function makeTransfer(){
 
-const name=document.getElementById("transferUser").value.trim();
-const amount=parseInt(document.getElementById("transferAmount").value);
+const name=
+document
+.getElementById("transferUser")
+.value
+.trim();
 
-if(!name||!Number.isFinite(amount)||amount<=0)
+const amount=
+parseInt(
+document
+.getElementById("transferAmount")
+.value
+);
+
+if(
+!name||
+!Number.isFinite(amount)||
+amount<=0
+)
 return toast("❌ تحقق من البيانات");
 
-if(name.toLowerCase()===profile.username.toLowerCase())
+if(
+name.toLowerCase()===
+profile.username.toLowerCase()
+)
 return toast("❌ لا يمكنك التحويل لنفسك");
 
-if((profile.balance||0)<amount)
+if(
+(profile.balance||0)<amount
+)
 return toast("❌ رصيدك غير كافٍ");
 
-const {data:target,error}=await supabaseClient
+const {data:target,error}=
+await supabaseClient
 .from("profiles")
 .select("*")
 .ilike("username",name)
@@ -956,30 +1679,42 @@ const {data:target,error}=await supabaseClient
 if(error||!target)
 return toast("❌ العضو غير موجود");
 
-const senderBalance=profile.balance-amount;
-const receiverBalance=(target.balance||0)+amount;
+const senderBalance=
+profile.balance-amount;
 
-const {error:senderError}=await supabaseClient
+const receiverBalance=
+(target.balance||0)+amount;
+
+const {error:senderError}=
+await supabaseClient
 .from("profiles")
-.update({balance:senderBalance})
+.update({
+balance:senderBalance
+})
 .eq("id",profile.id);
 
 if(senderError)
 return toast("❌ فشل التحويل");
 
-const {error:receiverError}=await supabaseClient
+const {error:receiverError}=
+await supabaseClient
 .from("profiles")
-.update({balance:receiverBalance})
+.update({
+balance:receiverBalance
+})
 .eq("id",target.id);
 
 if(receiverError){
 
 await supabaseClient
 .from("profiles")
-.update({balance:profile.balance})
+.update({
+balance:profile.balance
+})
 .eq("id",profile.id);
 
 return toast("❌ فشل استلام التحويل");
+
 }
 
 profile.balance=senderBalance;
@@ -993,18 +1728,29 @@ await addTransaction(
 await supabaseClient
 .from("transactions")
 .insert({
+
 user_id:target.id,
+
 type:"transfer_received",
+
 amount,
+
 description:"استلام من "+profile.username
+
 });
 
 toast("✅ تم تحويل "+amount+" 🧧");
 
-document.getElementById("transferUser").value="";
-document.getElementById("transferAmount").value="";
+document
+.getElementById("transferUser")
+.value="";
+
+document
+.getElementById("transferAmount")
+.value="";
 
 await loadData();
+
 }
 
 /* =========================
@@ -1013,22 +1759,34 @@ CHARACTER
 
 async function changeAvatar(a){
 
-const ok=await updateProfile({avatar:a});
+const ok=
+await updateProfile({
+avatar:a
+});
 
 if(ok){
+
 toast("✨ تم تغيير المظهر");
+
 renderAll();
+
 }
+
 }
 
 async function rename(){
 
-const name=document.getElementById("newName").value.trim();
+const name=
+document
+.getElementById("newName")
+.value
+.trim();
 
 if(name.length<3)
 return toast("❌ الاسم قصير");
 
-const {data:existing}=await supabaseClient
+const {data:existing}=
+await supabaseClient
 .from("profiles")
 .select("id")
 .ilike("username",name)
@@ -1037,14 +1795,19 @@ const {data:existing}=await supabaseClient
 if(existing&&existing.id!==profile.id)
 return toast("❌ الاسم مستخدم");
 
-const ok=await updateProfile({username:name});
+const ok=
+await updateProfile({
+username:name
+});
 
 if(ok){
 
 toast("✅ تم تغيير الاسم");
 
 renderAll();
+
 }
+
 }
 
 /* =========================
@@ -1053,59 +1816,108 @@ SHOP
 
 function renderShop(){
 
-const box=document.getElementById("shopGrid");
+const box=
+document.getElementById("shopGrid");
 
-if(!box)return;
+if(!box)
+return;
 
-const search=(document.getElementById("search")?.value||"").toLowerCase();
+const search=
+(
+document
+.getElementById("search")
+?.value||""
+)
+.toLowerCase();
 
-box.innerHTML=catalog
-.filter(i=>i[1].toLowerCase().includes(search))
+box.innerHTML=
+catalog
+.filter(i=>
+i[1]
+.toLowerCase()
+.includes(search)
+)
 .map(i=>`
+
 <div class="item">
+
 <div class="icon">${i[0]}</div>
+
 <h3>${escapeText(i[1])}</h3>
+
 <span class="badge">${i[2]}</span>
-<p class="muted">+${i[3]} قوة</p>
-<div class="price">${i[4].toLocaleString()} 🧧</div>
-<button class="btn gold full"
+
+<p class="muted">
++${i[3]} قوة
+</p>
+
+<div class="price">
+${i[4].toLocaleString()} 🧧
+</div>
+
+<button
+class="btn gold full"
 onclick="buy('${i[1].replace(/'/g,"\\'")}')">
 شراء
 </button>
+
 </div>
-`).join("");
+
+`)
+.join("");
+
 }
 
 async function buy(name){
 
-const item=catalog.find(x=>x[1]===name);
+const item=
+catalog.find(x=>x[1]===name);
 
-if(!item)return;
+if(!item)
+return;
 
 if(profile.balance<item[4])
 return toast("❌ رصيدك غير كافٍ");
 
-const items=profile.items&&typeof profile.items==="object"
-?{...profile.items}:{};
+const items=
+profile.items&&
+typeof profile.items==="object"
+?{...profile.items}
+:{};
 
 items[name]=(items[name]||0)+1;
 
-const newXP=(profile.xp||0)+5;
+const newXP=
+(profile.xp||0)+5;
 
-const ok=await updateProfile({
-balance:profile.balance-item[4],
+const ok=
+await updateProfile({
+
+balance:
+profile.balance-item[4],
+
 xp:newXP,
-level:Math.floor(newXP/100)+1,
+
+level:
+Math.floor(newXP/100)+1,
+
 items
+
 });
 
-if(!ok)return;
+if(!ok)
+return;
 
-await addTransaction("purchase",-item[4],"شراء "+name);
+await addTransaction(
+"purchase",
+-item[4],
+"شراء "+name
+);
 
 toast("✅ اشتريت "+name);
 
 renderAll();
+
 }
 
 /* =========================
@@ -1114,32 +1926,63 @@ INVENTORY
 
 function renderInventory(){
 
-const box=document.getElementById("invGrid");
+const box=
+document.getElementById("invGrid");
 
-if(!box)return;
+if(!box)
+return;
 
-const items=profile.items||{};
+const items=
+profile.items||{};
 
-const arr=Object.entries(items).filter(x=>x[1]>0);
+const arr=
+Object.entries(items)
+.filter(x=>x[1]>0);
 
 if(!arr.length){
-box.innerHTML=`<div class="card">🎒 الحقيبة فارغة</div>`;
-return;
-}
 
-box.innerHTML=arr.map(([name,q])=>{
-
-const i=catalog.find(x=>x[1]===name);
-
-return`
-<div class="item">
-<div class="icon">${i?i[0]:"📦"}</div>
-<h3>${escapeText(name)}</h3>
-<p class="gold">× ${q}</p>
-<p class="muted">+${i?i[3]:0}</p>
+box.innerHTML=
+`<div class="card">
+🎒 الحقيبة فارغة
 </div>`;
 
-}).join("");
+return;
+
+}
+
+box.innerHTML=
+arr.map(([name,q])=>{
+
+const i=
+catalog.find(x=>x[1]===name);
+
+return`
+
+<div class="item">
+
+<div class="icon">
+${i?i[0]:"📦"}
+</div>
+
+<h3>
+${escapeText(name)}
+</h3>
+
+<p class="gold">
+× ${q}
+</p>
+
+<p class="muted">
++${i?i[3]:0}
+</p>
+
+</div>
+
+`;
+
+})
+.join("");
+
 }
 
 /* =========================
@@ -1147,18 +1990,44 @@ CITY
 ========================= */
 
 function cityCost(){
-return Math.floor(1000*Math.pow(1.55,(profile.city||1)-1));
+
+return Math.floor(
+1000*
+Math.pow(
+1.55,
+(profile.city||1)-1
+)
+);
+
 }
 
 function renderCity(){
 
-const owned=Array.isArray(profile.buildings)
-?[...profile.buildings]:[];
+const owned=
+Array.isArray(profile.buildings)
+?[...profile.buildings]
+:[];
 
-document.getElementById("cityL").textContent=profile.city||1;
-document.getElementById("buildingCount").textContent=owned.length;
-document.getElementById("cityPower").textContent=(profile.city||1)*100+owned.length*50;
-document.getElementById("cityIncome").textContent=(profile.city||1)*100;
+document
+.getElementById("cityL")
+.textContent=
+profile.city||1;
+
+document
+.getElementById("buildingCount")
+.textContent=
+owned.length;
+
+document
+.getElementById("cityPower")
+.textContent=
+(profile.city||1)*100+
+owned.length*50;
+
+document
+.getElementById("cityIncome")
+.textContent=
+(profile.city||1)*100;
 
 let html="";
 
@@ -1166,95 +2035,179 @@ for(let x=0;x<15;x++){
 
 if(owned[x]){
 
-const b=buildings.find(v=>v[1]===owned[x]);
+const b=
+buildings.find(
+v=>v[1]===owned[x]
+);
 
 html+=`
+
 <div class="plot">
-<div style="font-size:45px">${b?b[0]:"🏢"}</div>
-<b>${escapeText(owned[x])}</b>
-<small>مبنى مكتمل</small>
-</div>`;
+
+<div style="font-size:45px">
+${b?b[0]:"🏢"}
+</div>
+
+<b>
+${escapeText(owned[x])}
+</b>
+
+<small>
+مبنى مكتمل
+</small>
+
+</div>
+
+`;
 
 }else{
 
 html+=`
+
 <div class="plot">
-<div style="font-size:38px">🏗️</div>
-<button class="btn" onclick="build(${x})">بناء</button>
-</div>`;
-}
+
+<div style="font-size:38px">
+🏗️
+</div>
+
+<button
+class="btn"
+onclick="build(${x})">
+بناء
+</button>
+
+</div>
+
+`;
+
 }
 
-document.getElementById("cityMap").innerHTML=html;
+}
+
+document
+.getElementById("cityMap")
+.innerHTML=html;
+
 }
 
 async function build(slot){
 
-const owned=Array.isArray(profile.buildings)
-?[...profile.buildings]:[];
+const owned=
+Array.isArray(profile.buildings)
+?[...profile.buildings]
+:[];
 
 if(owned[slot])
 return;
 
-const name=prompt(
+const name=
+prompt(
 "اكتب اسم المبنى:\n"+
-buildings.map(x=>x[1]).join(" - ")
+buildings
+.map(x=>x[1])
+.join(" - ")
 );
 
-const b=buildings.find(x=>x[1]===name);
+const b=
+buildings.find(
+x=>x[1]===name
+);
 
 if(!b)
 return toast("❌ اسم مبنى غير صحيح");
 
-const cost=500+slot*300;
+const cost=
+500+slot*300;
 
 if(profile.balance<cost)
-return toast("❌ تحتاج "+cost+" 🧧");
+return toast(
+"❌ تحتاج "+cost+" 🧧"
+);
 
 owned[slot]=b[1];
 
-const newXP=(profile.xp||0)+15;
+const newXP=
+(profile.xp||0)+15;
 
-const ok=await updateProfile({
-balance:profile.balance-cost,
+const ok=
+await updateProfile({
+
+balance:
+profile.balance-cost,
+
 xp:newXP,
-level:Math.floor(newXP/100)+1,
+
+level:
+Math.floor(newXP/100)+1,
+
 buildings:owned
+
 });
 
-if(!ok)return;
+if(!ok)
+return;
 
-await addTransaction("building",-cost,"بناء "+b[1]);
+await addTransaction(
+"building",
+-cost,
+"بناء "+b[1]
+);
 
 toast("🏗️ تم بناء "+b[1]);
 
 renderAll();
+
 }
 
 async function upgradeCity(){
 
-const cost=cityCost();
+const cost=
+cityCost();
 
 if(profile.balance<cost)
-return toast("❌ تحتاج "+cost.toLocaleString()+" 🧧");
+return toast(
+"❌ تحتاج "+
+cost.toLocaleString()+
+" 🧧"
+);
 
-const newCity=(profile.city||1)+1;
-const newXP=(profile.xp||0)+30;
+const newCity=
+(profile.city||1)+1;
 
-const ok=await updateProfile({
-balance:profile.balance-cost,
+const newXP=
+(profile.xp||0)+30;
+
+const ok=
+await updateProfile({
+
+balance:
+profile.balance-cost,
+
 city:newCity,
+
 xp:newXP,
-level:Math.floor(newXP/100)+1
+
+level:
+Math.floor(newXP/100)+1
+
 });
 
-if(!ok)return;
+if(!ok)
+return;
 
-await addTransaction("city_upgrade",-cost,"تطوير المدينة");
+await addTransaction(
+"city_upgrade",
+-cost,
+"تطوير المدينة"
+);
 
-toast("🏙️ وصلت المدينة للمستوى "+newCity);
+toast(
+"🏙️ وصلت المدينة للمستوى "+
+newCity
+);
 
 renderAll();
+
 }
 
 /* =========================
@@ -1263,107 +2216,214 @@ FARM
 
 function renderFarm(){
 
-const farm=profile.farm||1;
-const crops=profile.crops||0;
+const farm=
+profile.farm||1;
 
-document.getElementById("farmL").textContent=farm;
-document.getElementById("farmIncome").textContent=farm*50;
-document.getElementById("farmPlots").textContent=farm*4;
-document.getElementById("crops").textContent=crops;
+const crops=
+profile.crops||0;
+
+document
+.getElementById("farmL")
+.textContent=farm;
+
+document
+.getElementById("farmIncome")
+.textContent=farm*50;
+
+document
+.getElementById("farmPlots")
+.textContent=farm*4;
+
+document
+.getElementById("crops")
+.textContent=crops;
 
 let html="";
-const total=Math.min(16,farm*4);
+
+const total=
+Math.min(16,farm*4);
 
 for(let i=0;i<16;i++){
 
 if(i<total){
 
 html+=`
+
 <div class="plot">
-<div style="font-size:42px">${crops>i?"🌾":"🌱"}</div>
-<b>أرض ${i+1}</b>
-<button class="btn green" onclick="plant()">زراعة</button>
-</div>`;
+
+<div style="font-size:42px">
+${crops>i?"🌾":"🌱"}
+</div>
+
+<b>
+أرض ${i+1}
+</b>
+
+<button
+class="btn green"
+onclick="plant()">
+زراعة
+</button>
+
+</div>
+
+`;
 
 }else{
 
 html+=`
+
 <div class="plot">
-🔒<small>طوّر المزرعة</small>
-</div>`;
-}
+
+🔒
+
+<small>
+طوّر المزرعة
+</small>
+
+</div>
+
+`;
+
 }
 
-document.getElementById("farmMap").innerHTML=html;
+}
+
+document
+.getElementById("farmMap")
+.innerHTML=html;
+
 }
 
 async function plant(){
 
-const newXP=(profile.xp||0)+3;
+const newXP=
+(profile.xp||0)+3;
 
-const ok=await updateProfile({
-crops:(profile.crops||0)+1,
+const ok=
+await updateProfile({
+
+crops:
+(profile.crops||0)+1,
+
 xp:newXP,
-level:Math.floor(newXP/100)+1
+
+level:
+Math.floor(newXP/100)+1
+
 });
 
-if(ok)toast("🌱 تمت الزراعة");
+if(ok)
+toast("🌱 تمت الزراعة");
 
 renderAll();
+
 }
 
 async function harvest(){
 
-const crops=profile.crops||0;
+const crops=
+profile.crops||0;
 
 if(crops<=0)
 return toast("🌱 لا يوجد محصول");
 
-const reward=crops*50*(profile.farm||1);
-const newXP=(profile.xp||0)+10;
+const reward=
+crops*50*(profile.farm||1);
 
-const ok=await updateProfile({
-balance:(profile.balance||0)+reward,
+const newXP=
+(profile.xp||0)+10;
+
+const ok=
+await updateProfile({
+
+balance:
+(profile.balance||0)+reward,
+
 crops:0,
-harvest:(profile.harvest||0)+crops,
+
+harvest:
+(profile.harvest||0)+crops,
+
 xp:newXP,
-level:Math.floor(newXP/100)+1
+
+level:
+Math.floor(newXP/100)+1
+
 });
 
-if(!ok)return;
+if(!ok)
+return;
 
-await addTransaction("harvest",reward,"حصاد المزرعة");
+await addTransaction(
+"harvest",
+reward,
+"حصاد المزرعة"
+);
 
-toast("🌾 حصلت على "+reward+" 🧧");
+toast(
+"🌾 حصلت على "+
+reward+
+" 🧧"
+);
 
 renderAll();
+
 }
 
 async function upgradeFarm(){
 
-const farm=profile.farm||1;
-const cost=Math.floor(750*Math.pow(1.5,farm-1));
+const farm=
+profile.farm||1;
+
+const cost=
+Math.floor(
+750*
+Math.pow(1.5,farm-1)
+);
 
 if(profile.balance<cost)
-return toast("❌ تحتاج "+cost+" 🧧");
+return toast(
+"❌ تحتاج "+cost+" 🧧"
+);
 
-const newFarm=farm+1;
-const newXP=(profile.xp||0)+25;
+const newFarm=
+farm+1;
 
-const ok=await updateProfile({
-balance:profile.balance-cost,
+const newXP=
+(profile.xp||0)+25;
+
+const ok=
+await updateProfile({
+
+balance:
+profile.balance-cost,
+
 farm:newFarm,
+
 xp:newXP,
-level:Math.floor(newXP/100)+1
+
+level:
+Math.floor(newXP/100)+1
+
 });
 
-if(!ok)return;
+if(!ok)
+return;
 
-await addTransaction("farm_upgrade",-cost,"تطوير المزرعة");
+await addTransaction(
+"farm_upgrade",
+-cost,
+"تطوير المزرعة"
+);
 
-toast("🌾 أصبحت المزرعة مستوى "+newFarm);
+toast(
+"🌾 أصبحت المزرعة مستوى "+
+newFarm
+);
 
 renderAll();
+
 }
 
 /* =========================
@@ -1375,18 +2435,35 @@ async function dice(){
 if(profile.balance<25)
 return toast("❌ تحتاج 25 🧧");
 
-const r=Math.floor(Math.random()*6)+1;
-const win=r>=4?r*20:0;
+const r=
+Math.floor(
+Math.random()*6
+)+1;
+
+const win=
+r>=4?r*20:0;
 
 await updateProfile({
-balance:profile.balance-25+win
+
+balance:
+profile.balance-25+win
+
 });
 
-await addTransaction("dice",win-25,"لعبة النرد");
+await addTransaction(
+"dice",
+win-25,
+"لعبة النرد"
+);
 
-toast(win?"🎲 ربحت "+win+" 🧧":"🎲 خسرت الرهان");
+toast(
+win?
+"🎲 ربحت "+win+" 🧧":
+"🎲 خسرت الرهان"
+);
 
 renderAll();
+
 }
 
 async function quickBox(){
@@ -1394,17 +2471,30 @@ async function quickBox(){
 if(profile.balance<50)
 return toast("❌ تحتاج 50 🧧");
 
-const win=Math.random()>0.5?150:20;
+const win=
+Math.random()>0.5?
+150:
+20;
 
 await updateProfile({
-balance:profile.balance-50+win
+
+balance:
+profile.balance-50+win
+
 });
 
-await addTransaction("box",win-50,"فتح صندوق");
+await addTransaction(
+"box",
+win-50,
+"فتح صندوق"
+);
 
-toast("🎁 ربحت "+win+" 🧧");
+toast(
+"🎁 ربحت "+win+" 🧧"
+);
 
 renderAll();
+
 }
 
 async function spin(){
@@ -1412,17 +2502,30 @@ async function spin(){
 if(profile.balance<100)
 return toast("❌ تحتاج 100 🧧");
 
-const win=Math.floor(Math.random()*300)+50;
+const win=
+Math.floor(
+Math.random()*300
+)+50;
 
 await updateProfile({
-balance:profile.balance-100+win
+
+balance:
+profile.balance-100+win
+
 });
 
-await addTransaction("wheel",win-100,"العجلة");
+await addTransaction(
+"wheel",
+win-100,
+"العجلة"
+);
 
-toast("🎡 ربحت "+win+" 🧧");
+toast(
+"🎡 ربحت "+win+" 🧧"
+);
 
 renderAll();
+
 }
 
 async function daily(){
@@ -1430,14 +2533,24 @@ async function daily(){
 const reward=500;
 
 await updateProfile({
-balance:profile.balance+reward
+
+balance:
+profile.balance+reward
+
 });
 
-await addTransaction("daily",reward,"مكافأة يومية");
+await addTransaction(
+"daily",
+reward,
+"مكافأة يومية"
+);
 
-toast("🎁 تم استلام +500 🧧");
+toast(
+"🎁 تم استلام +500 🧧"
+);
 
 renderAll();
+
 }
 
 /* =========================
@@ -1446,17 +2559,26 @@ CHAT
 
 async function sendChat(){
 
-const input=document.getElementById("chatInput");
-const message=input.value.trim();
+const input=
+document.getElementById("chatInput");
 
-if(!message)return;
+const message=
+input.value.trim();
 
-const {data,error}=await supabaseClient
+if(!message)
+return;
+
+const {data,error}=
+await supabaseClient
 .from("chat")
 .insert({
+
 user_id:profile.id,
+
 username:profile.username,
+
 message
+
 })
 .select()
 .single();
@@ -1469,22 +2591,36 @@ chatMessages.push(data);
 input.value="";
 
 renderChat();
+
 }
 
 function renderChat(){
 
-const box=document.getElementById("messages");
+const box=
+document.getElementById("messages");
 
-if(!box)return;
+if(!box)
+return;
 
-box.innerHTML=chatMessages.map(x=>`
+box.innerHTML=
+chatMessages.map(x=>`
+
 <div class="msg">
-<b>${escapeText(x.username)}</b>:
-${escapeText(x.message)}
-</div>
-`).join("");
 
-box.scrollTop=box.scrollHeight;
+<b>
+${escapeText(x.username)}
+</b>:
+
+${escapeText(x.message)}
+
+</div>
+
+`)
+.join("");
+
+box.scrollTop=
+box.scrollHeight;
+
 }
 
 function subscribeChat(){
@@ -1500,15 +2636,24 @@ table:"chat"
 },
 payload=>{
 
-if(!chatMessages.some(x=>x.id===payload.new.id)){
+if(
+!chatMessages.some(
+x=>x.id===payload.new.id
+)
+){
 
-chatMessages.push(payload.new);
+chatMessages.push(
+payload.new
+);
 
 renderChat();
+
 }
+
 }
 )
 .subscribe();
+
 }
 
 /* =========================
@@ -1517,47 +2662,100 @@ PLAYERS
 
 function renderPlayers(){
 
-const box=document.getElementById("playersGrid");
+const box=
+document.getElementById("playersGrid");
 
-if(!box)return;
+if(!box)
+return;
 
-box.innerHTML=users.map(u=>{
+box.innerHTML=
+users.map(u=>{
 
-const s=stats(u);
+const s=
+stats(u);
 
 return`
-<div class="player">
-<div style="font-size:35px">${escapeText(u.avatar||"🧙")}</div>
-<h3>${escapeText(u.username)}</h3>
-<p class="muted">القوة: ${s.p}</p>
-<p class="gold">الرصيد: ${(u.balance||0).toLocaleString()}</p>
-</div>`;
 
-}).join("");
+<div class="player">
+
+<div style="font-size:35px">
+${escapeText(u.avatar||"🧙")}
+</div>
+
+<h3>
+${escapeText(u.username)}
+</h3>
+
+<p class="muted">
+القوة: ${s.p}
+</p>
+
+<p class="gold">
+الرصيد:
+${(u.balance||0).toLocaleString()}
+</p>
+
+</div>
+
+`;
+
+})
+.join("");
+
 }
 
 function renderRank(){
 
-const body=document.getElementById("rankBody");
+const body=
+document.getElementById("rankBody");
 
-if(!body)return;
+if(!body)
+return;
 
-const sorted=[...users].sort((a,b)=>stats(b).p-stats(a).p);
+const sorted=
+[...users]
+.sort(
+(a,b)=>
+stats(b).p-stats(a).p
+);
 
-body.innerHTML=sorted.map((u,i)=>{
+body.innerHTML=
+sorted.map((u,i)=>{
 
-const s=stats(u);
+const s=
+stats(u);
 
 return`
-<tr>
-<td>#${i+1}</td>
-<td><b>${escapeText(u.username)}</b></td>
-<td>${level(u)}</td>
-<td class="red">${s.p}</td>
-<td>${u.admin?"👑 مدير":"🌱 عضو"}</td>
-</tr>`;
 
-}).join("");
+<tr>
+
+<td>#${i+1}</td>
+
+<td>
+<b>
+${escapeText(u.username)}
+</b>
+</td>
+
+<td>
+${level(u)}
+</td>
+
+<td class="red">
+${s.p}
+</td>
+
+<td>
+${u.admin?"👑 مدير":"🌱 عضو"}
+</td>
+
+</tr>
+
+`;
+
+})
+.join("");
+
 }
 
 /* =========================
@@ -1569,24 +2767,37 @@ async function takeLoan(){
 if((profile.loan||0)>0)
 return toast("❌ لديك قرض قائم");
 
-const ok=await updateProfile({
-balance:profile.balance+2000,
+const ok=
+await updateProfile({
+
+balance:
+profile.balance+2000,
+
 loan:2000,
+
 loan_due:2200
+
 });
 
-if(!ok)return;
+if(!ok)
+return;
 
-await addTransaction("loan",2000,"اقتراض من البنك");
+await addTransaction(
+"loan",
+2000,
+"اقتراض من البنك"
+);
 
 toast("✅ تم استلام القرض");
 
 renderAll();
+
 }
 
 async function payLoan(){
 
-const due=profile.loan_due||0;
+const due=
+profile.loan_due||0;
 
 if(due<=0)
 return toast("❌ ليس عليك قرض");
@@ -1594,19 +2805,31 @@ return toast("❌ ليس عليك قرض");
 if(profile.balance<due)
 return toast("❌ رصيدك غير كافٍ");
 
-const ok=await updateProfile({
-balance:profile.balance-due,
+const ok=
+await updateProfile({
+
+balance:
+profile.balance-due,
+
 loan:0,
+
 loan_due:0
+
 });
 
-if(!ok)return;
+if(!ok)
+return;
 
-await addTransaction("loan_payment",-due,"سداد القرض");
+await addTransaction(
+"loan_payment",
+-due,
+"سداد القرض"
+);
 
 toast("✅ تم سداد القرض");
 
 renderAll();
+
 }
 
 /* =========================
@@ -1615,65 +2838,96 @@ STOCKS
 
 function updateStocksMarket(){
 
-stocks.price1=Math.max(
+stocks.price1=
+Math.max(
 50,
-stocks.price1+Math.floor(Math.random()*60)-25
+stocks.price1+
+Math.floor(Math.random()*60)-25
 );
 
-stocks.price2=Math.max(
+stocks.price2=
+Math.max(
 100,
-stocks.price2+Math.floor(Math.random()*100)-45
+stocks.price2+
+Math.floor(Math.random()*100)-45
 );
 
-document.getElementById("stockPrice1").textContent=
+document
+.getElementById("stockPrice1")
+.textContent=
 stocks.price1+" 🧧";
 
-document.getElementById("stockPrice2").textContent=
+document
+.getElementById("stockPrice2")
+.textContent=
 stocks.price2+" 🧧";
 
 toast("📈 تم تحديث السوق");
+
 }
 
 async function buyStock(type){
 
-const price=type===1?stocks.price1:stocks.price2;
+const price=
+type===1?
+stocks.price1:
+stocks.price2;
 
 if(profile.balance<price)
 return toast("❌ رصيدك غير كافٍ");
 
 const changes={
-balance:profile.balance-price
+
+balance:
+profile.balance-price
+
 };
 
 if(type===1)
-changes.stocks1=(profile.stocks1||0)+1;
+changes.stocks1=
+(profile.stocks1||0)+1;
 else
-changes.stocks2=(profile.stocks2||0)+1;
+changes.stocks2=
+(profile.stocks2||0)+1;
 
-const ok=await updateProfile(changes);
+const ok=
+await updateProfile(changes);
 
-if(!ok)return;
+if(!ok)
+return;
 
-await addTransaction("stock_buy",-price,"شراء سهم");
+await addTransaction(
+"stock_buy",
+-price,
+"شراء سهم"
+);
 
 toast("✅ تم شراء السهم");
 
 renderAll();
+
 }
 
 async function sellStock(type){
 
-const owned=type===1?
+const owned=
+type===1?
 (profile.stocks1||0):
 (profile.stocks2||0);
 
 if(owned<=0)
 return toast("❌ لا تملك هذا السهم");
 
-const price=type===1?stocks.price1:stocks.price2;
+const price=
+type===1?
+stocks.price1:
+stocks.price2;
 
 const changes={
-balance:profile.balance+price
+
+balance:
+profile.balance+price
+
 };
 
 if(type===1)
@@ -1681,15 +2935,22 @@ changes.stocks1=owned-1;
 else
 changes.stocks2=owned-1;
 
-const ok=await updateProfile(changes);
+const ok=
+await updateProfile(changes);
 
-if(!ok)return;
+if(!ok)
+return;
 
-await addTransaction("stock_sell",price,"بيع سهم");
+await addTransaction(
+"stock_sell",
+price,
+"بيع سهم"
+);
 
 toast("✅ تم بيع السهم");
 
 renderAll();
+
 }
 
 /* =========================
@@ -1698,34 +2959,69 @@ ADMIN
 
 function renderAdmin(){
 
-const btn=document.getElementById("adminBtn");
+const btn=
+document.getElementById("adminBtn");
 
 if(!profile.admin){
 
 btn.style.display="none";
+
 return;
+
 }
 
 btn.style.display="block";
 
-document.getElementById("adminUsers").textContent=users.length;
+document
+.getElementById("adminUsers")
+.textContent=
+users.length;
 
-document.getElementById("adminMoney").textContent=
-users.reduce((a,b)=>a+(b.balance||0),0).toLocaleString();
+document
+.getElementById("adminMoney")
+.textContent=
+users
+.reduce(
+(a,b)=>
+a+(b.balance||0),
+0
+)
+.toLocaleString();
 
-document.getElementById("adminTable").innerHTML=
+document
+.getElementById("adminTable")
+.innerHTML=
 users.map(u=>`
+
 <tr>
-<td>${escapeText(u.username)}</td>
-<td class="gold">${(u.balance||0).toLocaleString()}</td>
-<td>${stats(u).p}</td>
+
 <td>
-<button class="btn" onclick="adminAddMoney('${u.id}')">
+${escapeText(u.username)}
+</td>
+
+<td class="gold">
+${(u.balance||0).toLocaleString()}
+</td>
+
+<td>
+${stats(u).p}
+</td>
+
+<td>
+
+<button
+class="btn"
+onclick="adminAddMoney('${u.id}')">
 +1000
 </button>
+
 </td>
+
 </tr>
-`).join("");
+
+`)
+.join("");
+
 }
 
 async function adminAddMoney(id){
@@ -1733,14 +3029,22 @@ async function adminAddMoney(id){
 if(!profile.admin)
 return toast("❌ لا تملك صلاحية الإدارة");
 
-const target=users.find(x=>x.id===id);
+const target=
+users.find(
+x=>x.id===id
+);
 
-if(!target)return;
+if(!target)
+return;
 
-const {error}=await supabaseClient
+const {error}=
+await supabaseClient
 .from("profiles")
 .update({
-balance:(target.balance||0)+1000
+
+balance:
+(target.balance||0)+1000
+
 })
 .eq("id",id);
 
@@ -1750,15 +3054,21 @@ return toast("❌ فشل إضافة الرصيد");
 await supabaseClient
 .from("transactions")
 .insert({
+
 user_id:id,
+
 type:"admin_add",
+
 amount:1000,
+
 description:"إضافة من الإدارة"
+
 });
 
 toast("✅ تمت إضافة 1000");
 
 await loadData();
+
 }
 
 /* =========================
@@ -1767,19 +3077,26 @@ TRANSACTIONS
 
 function renderWalletHistory(){
 
-const box=document.getElementById("txHistoryBox");
+const box=
+document.getElementById("txHistoryBox");
 
-if(!box)return;
+if(!box)
+return;
 
 if(!transactions.length){
 
 box.innerHTML=
-`<p class="muted">لا توجد عمليات سابقة.</p>`;
+`<p class="muted">
+لا توجد عمليات سابقة.
+</p>`;
 
 return;
+
 }
 
-box.innerHTML=transactions.map(t=>`
+box.innerHTML=
+transactions.map(t=>`
+
 <div style="
 padding:8px;
 margin:4px 0;
@@ -1787,12 +3104,26 @@ background:rgba(255,255,255,.04);
 border-radius:8px;
 font-size:13px;
 ">
-🔹 ${escapeText(t.description||t.type)}
+
+🔹
+${escapeText(
+t.description||t.type
+)}
+
 <span class="muted">
-(${t.amount>0?"+":""}${t.amount})
+
+(
+${t.amount>0?"+":""}
+${t.amount}
+)
+
 </span>
+
 </div>
-`).join("");
+
+`)
+.join("");
+
 }
 
 /* =========================
@@ -1801,71 +3132,147 @@ RENDER
 
 function renderAll(){
 
-if(!profile)return;
+if(!profile)
+return;
 
-document.getElementById("headName").textContent=profile.username;
-
-document.getElementById("avatar").textContent=
-profile.avatar||"🧙";
-
-document.getElementById("balance").textContent=
-(profile.balance||0).toLocaleString();
-
-document.getElementById("walletBalance").textContent=
-(profile.balance||0).toLocaleString();
-
-document.getElementById("txCount").textContent=
-transactions.length;
-
-document.getElementById("level").textContent=
-level(profile);
-
-document.getElementById("xp").textContent=
-profile.xp||0;
-
-const st=stats(profile);
-
-document.getElementById("power").textContent=st.p;
-document.getElementById("attack").textContent=st.a;
-document.getElementById("defense").textContent=st.d;
-document.getElementById("hp").textContent=st.h;
-document.getElementById("cityLevel").textContent=profile.city||1;
-
-const rem=(profile.xp||0)%100;
-
-document.getElementById("xpbar").style.width=rem+"%";
-document.getElementById("xptext").textContent=
-rem+" / 100 XP";
-
-document.getElementById("charView").textContent=
-profile.avatar||"🧙";
-
-document.getElementById("charName").textContent=
+document
+.getElementById("headName")
+.textContent=
 profile.username;
 
-document.getElementById("cHP").textContent=st.h;
-document.getElementById("cATK").textContent=st.a;
-document.getElementById("cDEF").textContent=st.d;
+document
+.getElementById("avatar")
+.textContent=
+profile.avatar||"🧙";
 
-document.getElementById("loanAmount").textContent=
+document
+.getElementById("balance")
+.textContent=
+(profile.balance||0)
+.toLocaleString();
+
+document
+.getElementById("walletBalance")
+.textContent=
+(profile.balance||0)
+.toLocaleString();
+
+document
+.getElementById("txCount")
+.textContent=
+transactions.length;
+
+document
+.getElementById("level")
+.textContent=
+level(profile);
+
+document
+.getElementById("xp")
+.textContent=
+profile.xp||0;
+
+const st=
+stats(profile);
+
+document
+.getElementById("power")
+.textContent=
+st.p;
+
+document
+.getElementById("attack")
+.textContent=
+st.a;
+
+document
+.getElementById("defense")
+.textContent=
+st.d;
+
+document
+.getElementById("hp")
+.textContent=
+st.h;
+
+document
+.getElementById("cityLevel")
+.textContent=
+profile.city||1;
+
+const rem=
+(profile.xp||0)%100;
+
+document
+.getElementById("xpbar")
+.style.width=
+rem+"%";
+
+document
+.getElementById("xptext")
+.textContent=
+rem+" / 100 XP";
+
+document
+.getElementById("charView")
+.textContent=
+profile.avatar||"🧙";
+
+document
+.getElementById("charName")
+.textContent=
+profile.username;
+
+document
+.getElementById("cHP")
+.textContent=
+st.h;
+
+document
+.getElementById("cATK")
+.textContent=
+st.a;
+
+document
+.getElementById("cDEF")
+.textContent=
+st.d;
+
+document
+.getElementById("loanAmount")
+.textContent=
 (profile.loan||0)+" 🧧";
 
-document.getElementById("loanStatus").textContent=
+document
+.getElementById("loanStatus")
+.textContent=
 profile.loan>0?
 "عليك سداد: "+profile.loan_due:
 "لا يوجد قرض";
 
-document.getElementById("stockPrice1").textContent=
+document
+.getElementById("stockPrice1")
+.textContent=
 stocks.price1+" 🧧";
 
-document.getElementById("stockPrice2").textContent=
+document
+.getElementById("stockPrice2")
+.textContent=
 stocks.price2+" 🧧";
 
-document.getElementById("stockOwned1").textContent=
-"المملوك: "+(profile.stocks1||0)+" سهم";
+document
+.getElementById("stockOwned1")
+.textContent=
+"المملوك: "+
+(profile.stocks1||0)+
+" سهم";
 
-document.getElementById("stockOwned2").textContent=
-"المملوك: "+(profile.stocks2||0)+" سهم";
+document
+.getElementById("stockOwned2")
+.textContent=
+"المملوك: "+
+(profile.stocks2||0)+
+" سهم";
 
 renderShop();
 renderInventory();
@@ -1876,6 +3283,7 @@ renderPlayers();
 renderRank();
 renderAdmin();
 renderWalletHistory();
+
 }
 
 /* =========================
@@ -1884,8 +3292,11 @@ MUSIC
 
 function toggleMusic(){
 
-const m=document.getElementById("music");
-const b=document.getElementById("musicBtn");
+const m=
+document.getElementById("music");
+
+const b=
+document.getElementById("musicBtn");
 
 if(m.paused){
 
@@ -1898,11 +3309,22 @@ b.textContent="🔊";
 m.pause();
 
 b.textContent="🔇";
-}
+
 }
 
+}
+
+/* =========================
+WIN
+========================= */
+
 function closeWin(){
-document.getElementById("win").classList.remove("show");
+
+document
+.getElementById("win")
+.classList
+.remove("show");
+
 }
 
 /* =========================
@@ -1911,46 +3333,85 @@ START
 
 async function startApp(){
 
-const {data}=await supabaseClient.auth.getSession();
+const {data}=
+await supabaseClient
+.auth
+.getSession();
 
 if(data.session){
 
-currentUser=data.session.user;
+currentUser=
+data.session.user;
 
 await loadData();
 
-document.getElementById("auth").classList.add("hidden");
+if(profile){
+
+document
+.getElementById("auth")
+.classList
+.add("hidden");
+
+}
 
 }else{
 
-document.getElementById("auth").classList.remove("hidden");
+document
+.getElementById("auth")
+.classList
+.remove("hidden");
+
 }
 
 subscribeChat();
 
-supabaseClient.auth.onAuthStateChange(
+supabaseClient
+.auth
+.onAuthStateChange(
 async(event,session)=>{
 
 if(event==="SIGNED_OUT"){
 
-document.getElementById("auth").classList.remove("hidden");
+currentUser=null;
+profile=null;
+
+document
+.getElementById("auth")
+.classList
+.remove("hidden");
 
 return;
+
 }
 
-if(session&&!profile){
+if(
+session&&
+!profile
+){
 
-currentUser=session.user;
+currentUser=
+session.user;
 
 await loadData();
 
-document.getElementById("auth").classList.add("hidden");
+if(profile){
+
+document
+.getElementById("auth")
+.classList
+.add("hidden");
+
 }
+
+}
+
 }
 );
+
 }
 
 startApp();
+
 </script>
 
 </body>
