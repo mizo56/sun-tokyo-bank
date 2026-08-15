@@ -1,39 +1,73 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』 Ultimate</title>
+
+<title>『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0
+}
+
 :root{
---red:#e51d48;--red2:#700b23;--gold:#f2bd4b;
---green:#31d695;--blue:#4ba7ff;--purple:#a855f7;
---bg:#05060c;--card:rgba(12,13,22,.78);--line:rgba(255,255,255,.11)
+--red:#e51d48;
+--red2:#700b23;
+--gold:#f2bd4b;
+--green:#31d695;
+--blue:#4ba7ff;
+--purple:#a855f7;
+--bg:#05060c;
+--card:rgba(12,13,22,.82);
+--line:rgba(255,255,255,.11)
 }
+
+html{
+scroll-behavior:smooth
+}
+
 body{
-font-family:Tahoma,Arial,sans-serif;color:#fff;min-height:100vh;
-background:#05060c;overflow-x:hidden
+font-family:Tahoma,Arial,sans-serif;
+color:#fff;
+min-height:100vh;
+background:#05060c;
+overflow-x:hidden
 }
+
 body:before{
-content:"";position:fixed;inset:0;z-index:-5;
+content:"";
+position:fixed;
+inset:0;
+z-index:-5;
 background:
-linear-gradient(135deg,rgba(2,4,15,.55),rgba(55,5,30,.65)),
+linear-gradient(135deg,rgba(2,4,15,.65),rgba(55,5,30,.72)),
 url("https://cdn.pixabay.com/photo/2024/05/29/17/52/anime-8790430_1280.jpg")
 center/cover fixed no-repeat
 }
+
 body:after{
-content:"";position:fixed;inset:0;z-index:-4;
+content:"";
+position:fixed;
+inset:0;
+z-index:-4;
 background:
 radial-gradient(circle at 20% 20%,rgba(255,0,80,.18),transparent 25%),
 radial-gradient(circle at 80% 70%,rgba(80,100,255,.16),transparent 25%)
 }
+
 #stars{
-position:fixed;inset:0;pointer-events:none;z-index:-2;
+position:fixed;
+inset:0;
+pointer-events:none;
+z-index:-2;
 background-image:
 radial-gradient(#fff 1px,transparent 1px),
 radial-gradient(#fff 1px,transparent 1px);
@@ -41,178 +75,626 @@ background-size:90px 90px,130px 130px;
 background-position:0 0,40px 50px;
 opacity:.18
 }
-button,input{font:inherit}
-button{cursor:pointer}
-.hidden{display:none!important}
+
+button,input{
+font:inherit
+}
+
+button{
+cursor:pointer
+}
+
+.hidden{
+display:none!important
+}
 
 header{
-height:70px;position:sticky;top:0;z-index:50;
-display:flex;justify-content:space-between;align-items:center;
-padding:10px 25px;background:rgba(3,4,9,.86);
-backdrop-filter:blur(18px);border-bottom:1px solid var(--line)
+height:70px;
+position:sticky;
+top:0;
+z-index:50;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:10px 25px;
+background:rgba(3,4,9,.88);
+backdrop-filter:blur(18px);
+border-bottom:1px solid var(--line)
 }
-.logo{font-size:20px;color:var(--gold);font-weight:900}
-.userbox{display:flex;align-items:center;gap:10px}
+
+.logo{
+font-size:20px;
+color:var(--gold);
+font-weight:900
+}
+
+.userbox{
+display:flex;
+align-items:center;
+gap:10px
+}
+
 .avatar{
-width:42px;height:42px;border-radius:50%;display:grid;place-items:center;
+width:42px;
+height:42px;
+border-radius:50%;
+display:grid;
+place-items:center;
 background:linear-gradient(135deg,var(--red),#6d0820);
-font-weight:bold;border:2px solid rgba(255,255,255,.15)
+font-weight:bold;
+border:2px solid rgba(255,255,255,.15)
 }
-.layout{display:flex;min-height:calc(100vh - 70px)}
+
+.layout{
+display:flex;
+min-height:calc(100vh - 70px)
+}
+
 aside{
-width:245px;padding:18px;background:rgba(4,5,10,.72);
-border-left:1px solid var(--line);backdrop-filter:blur(15px)
+width:245px;
+padding:18px;
+background:rgba(4,5,10,.72);
+border-left:1px solid var(--line);
+backdrop-filter:blur(15px)
 }
+
 nav button{
-width:100%;border:0;background:transparent;color:#aaa;
-padding:13px;margin:3px 0;border-radius:13px;text-align:right;
+width:100%;
+border:0;
+background:transparent;
+color:#aaa;
+padding:13px;
+margin:3px 0;
+border-radius:13px;
+text-align:right;
 transition:.2s
 }
-nav button:hover,nav button.active{
-background:linear-gradient(90deg,rgba(229,29,72,.3),transparent);
-color:#fff;transform:scale(1.02)
+
+nav button:hover,
+nav button.active{
+background:linear-gradient(
+90deg,
+rgba(229,29,72,.3),
+transparent
+);
+color:#fff;
+transform:scale(1.02)
 }
-.navtitle{font-size:11px;color:#666;margin:20px 8px 6px}
-main{flex:1;padding:25px;max-width:1600px;width:100%;margin:auto}
+
+.navtitle{
+font-size:11px;
+color:#666;
+margin:20px 8px 6px
+}
+
+main{
+flex:1;
+padding:25px;
+max-width:1600px;
+width:100%;
+margin:auto
+}
 
 .hero{
-padding:30px;border:1px solid var(--line);border-radius:25px;
-background:linear-gradient(135deg,rgba(229,29,72,.25),rgba(242,189,75,.07)),var(--card);
-margin-bottom:20px;overflow:hidden;position:relative
+padding:30px;
+border:1px solid var(--line);
+border-radius:25px;
+background:
+linear-gradient(
+135deg,
+rgba(229,29,72,.25),
+rgba(242,189,75,.07)
+),
+var(--card);
+margin-bottom:20px;
+overflow:hidden;
+position:relative
 }
-.hero h1{font-size:29px;margin-bottom:8px}
-.hero p{color:#aaa}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+
+.hero h1{
+font-size:29px;
+margin-bottom:8px
+}
+
+.hero p{
+color:#aaa
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:14px;
+margin-bottom:18px
+}
+
 .card{
-background:var(--card);border:1px solid var(--line);
-border-radius:18px;padding:19px;backdrop-filter:blur(13px)
+background:var(--card);
+border:1px solid var(--line);
+border-radius:18px;
+padding:19px;
+backdrop-filter:blur(13px)
 }
-.stat-title{font-size:12px;color:#888}
-.stat-value{font-size:25px;font-weight:900;margin-top:5px}
-.gold{color:var(--gold)}.red{color:#ff4f70}.green{color:var(--green)}
-.blue{color:var(--blue)}.purple{color:var(--purple)}
-.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+
+.stat-title{
+font-size:12px;
+color:#888
+}
+
+.stat-value{
+font-size:25px;
+font-weight:900;
+margin-top:5px
+}
+
+.gold{
+color:var(--gold)
+}
+
+.red{
+color:#ff4f70
+}
+
+.green{
+color:var(--green)
+}
+
+.blue{
+color:var(--blue)
+}
+
+.purple{
+color:var(--purple)
+}
+
+.actions{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px
+}
+
 .action{
-border:1px solid var(--line);border-radius:16px;padding:20px;color:#fff;
-background:rgba(255,255,255,.045);text-align:center
+border:1px solid var(--line);
+border-radius:16px;
+padding:20px;
+color:#fff;
+background:rgba(255,255,255,.045);
+text-align:center
 }
-.action:hover{transform:translateY(-3px);border-color:var(--red)}
-.action b{display:block;margin-top:8px}.action small{color:#777}
-.section{margin-top:22px}.section h2{margin-bottom:12px}
-.progress{height:9px;background:#222;border-radius:20px;overflow:hidden;margin-top:10px}
+
+.action:hover{
+transform:translateY(-3px);
+border-color:var(--red)
+}
+
+.action b{
+display:block;
+margin-top:8px
+}
+
+.action small{
+color:#777
+}
+
+.section{
+margin-top:22px
+}
+
+.section h2{
+margin-bottom:12px
+}
+
+.progress{
+height:9px;
+background:#222;
+border-radius:20px;
+overflow:hidden;
+margin-top:10px
+}
+
 .progress i{
-display:block;height:100%;width:0;
-background:linear-gradient(90deg,var(--red),var(--gold))
+display:block;
+height:100%;
+width:0;
+background:linear-gradient(
+90deg,
+var(--red),
+var(--gold)
+)
 }
+
 .btn{
-border:0;border-radius:11px;padding:11px 16px;
-background:linear-gradient(135deg,var(--red),var(--red2));
-color:#fff;font-weight:bold
+border:0;
+border-radius:11px;
+padding:11px 16px;
+background:
+linear-gradient(
+135deg,
+var(--red),
+var(--red2)
+);
+color:#fff;
+font-weight:bold
 }
-.btn.gold{background:linear-gradient(135deg,#b5791c,var(--gold));color:#160d00}
-.btn.green{background:linear-gradient(135deg,#167b55,var(--green));color:#00150d}
-.btn.gray{background:#242631}
-.full{width:100%}
+
+.btn.gold{
+background:
+linear-gradient(
+135deg,
+#b5791c,
+var(--gold)
+);
+color:#160d00
+}
+
+.btn.green{
+background:
+linear-gradient(
+135deg,
+#167b55,
+var(--green)
+);
+color:#00150d
+}
+
+.btn.gray{
+background:#242631
+}
+
+.full{
+width:100%
+}
+
 input{
-width:100%;padding:12px;margin:6px 0 12px;
-border:1px solid var(--line);border-radius:11px;
-background:#080910;color:#fff;outline:0
+width:100%;
+padding:12px;
+margin:6px 0 12px;
+border:1px solid var(--line);
+border-radius:11px;
+background:#080910;
+color:#fff;
+outline:0
 }
-input:focus{border-color:var(--red)}
-.shop,.inventory,.players{
-display:grid;grid-template-columns:repeat(4,1fr);gap:14px
+
+input:focus{
+border-color:var(--red)
 }
-.item,.player{
-background:var(--card);border:1px solid var(--line);
-border-radius:17px;padding:18px
+
+.shop,
+.inventory,
+.players{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:14px
 }
-.icon{font-size:48px;text-align:center;margin-bottom:10px}
-.muted{color:#888;font-size:12px}
-.price{color:var(--gold);font-weight:bold;margin:10px 0}
+
+.item,
+.player{
+background:var(--card);
+border:1px solid var(--line);
+border-radius:17px;
+padding:18px
+}
+
+.icon{
+font-size:48px;
+text-align:center;
+margin-bottom:10px
+}
+
+.muted{
+color:#888;
+font-size:12px
+}
+
+.price{
+color:var(--gold);
+font-weight:bold;
+margin:10px 0
+}
+
 .badge{
-display:inline-block;padding:4px 9px;border-radius:20px;
-background:rgba(242,189,75,.12);color:var(--gold);font-size:11px
+display:inline-block;
+padding:4px 9px;
+border-radius:20px;
+background:rgba(242,189,75,.12);
+color:var(--gold);
+font-size:11px
 }
-.table{width:100%;border-collapse:collapse}
-.table th,.table td{
-padding:12px;border-bottom:1px solid var(--line);text-align:right
+
+.table{
+width:100%;
+border-collapse:collapse
 }
-.table th{color:#777;font-size:11px}
+
+.table th,
+.table td{
+padding:12px;
+border-bottom:1px solid var(--line);
+text-align:right
+}
+
+.table th{
+color:#777;
+font-size:11px
+}
+
 .citymap{
-min-height:480px;border:1px solid var(--line);border-radius:22px;
-padding:18px;background:
-linear-gradient(rgba(7,20,25,.35),rgba(7,10,20,.6)),
-repeating-linear-gradient(0deg,transparent 0 48px,rgba(255,255,255,.04) 49px 50px),
-repeating-linear-gradient(90deg,transparent 0 48px,rgba(255,255,255,.04) 49px 50px);
-display:grid;grid-template-columns:repeat(5,1fr);gap:12px
+min-height:480px;
+border:1px solid var(--line);
+border-radius:22px;
+padding:18px;
+background:
+linear-gradient(
+rgba(7,20,25,.35),
+rgba(7,10,20,.6)
+),
+repeating-linear-gradient(
+0deg,
+transparent 0 48px,
+rgba(255,255,255,.04) 49px 50px
+),
+repeating-linear-gradient(
+90deg,
+transparent 0 48px,
+rgba(255,255,255,.04) 49px 50px
+);
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:12px
 }
+
 .plot{
-min-height:120px;border:1px dashed rgba(255,255,255,.16);
-border-radius:15px;display:flex;flex-direction:column;
-justify-content:center;align-items:center;background:rgba(0,0,0,.18)
+min-height:120px;
+border:1px dashed rgba(255,255,255,.16);
+border-radius:15px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:rgba(0,0,0,.18);
+gap:7px
 }
-.character{display:grid;grid-template-columns:180px 1fr;gap:20px;align-items:center}
+
+.character{
+display:grid;
+grid-template-columns:180px 1fr;
+gap:20px;
+align-items:center
+}
+
 .char{
-width:160px;height:210px;border-radius:25px;display:grid;place-items:center;
-font-size:110px;background:linear-gradient(160deg,#32102b,#0d1d3d);
+width:160px;
+height:210px;
+border-radius:25px;
+display:grid;
+place-items:center;
+font-size:110px;
+background:
+linear-gradient(
+160deg,
+#32102b,
+#0d1d3d
+);
 border:1px solid var(--line)
 }
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.stat{padding:14px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
-.chat{height:390px;display:flex;flex-direction:column}
-.messages{flex:1;overflow:auto;padding:10px}
-.msg{padding:10px;margin:7px 0;border-radius:12px;background:rgba(255,255,255,.05)}
-.msg b{color:var(--gold)}
-.chatbar{display:flex;gap:8px}.chatbar input{margin:0}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px
+}
+
+.stat{
+padding:14px;
+border-radius:14px;
+background:rgba(255,255,255,.04);
+border:1px solid var(--line)
+}
+
+.chat{
+height:390px;
+display:flex;
+flex-direction:column
+}
+
+.messages{
+flex:1;
+overflow:auto;
+padding:10px
+}
+
+.msg{
+padding:10px;
+margin:7px 0;
+border-radius:12px;
+background:rgba(255,255,255,.05)
+}
+
+.msg b{
+color:var(--gold)
+}
+
+.chatbar{
+display:flex;
+gap:8px
+}
+
+.chatbar input{
+margin:0
+}
+
 .toast{
-position:fixed;left:20px;bottom:20px;z-index:200;
-background:#151720;border:1px solid var(--line);
-border-right:4px solid var(--red);padding:14px 18px;border-radius:12px;
-transform:translateY(100px);opacity:0;transition:.3s
+position:fixed;
+left:20px;
+bottom:20px;
+z-index:200;
+background:#151720;
+border:1px solid var(--line);
+border-right:4px solid var(--red);
+padding:14px 18px;
+border-radius:12px;
+transform:translateY(100px);
+opacity:0;
+transition:.3s
 }
-.toast.show{transform:none;opacity:1}
-.win{
-position:fixed;inset:0;z-index:300;display:none;
-align-items:center;justify-content:center;background:rgba(0,0,0,.72)
+
+.toast.show{
+transform:none;
+opacity:1
 }
-.win.show{display:flex}
-.winbox{text-align:center}
+
 .auth{
-position:fixed;inset:0;z-index:500;display:flex;
-justify-content:center;align-items:center;padding:20px;
-background:linear-gradient(rgba(3,4,12,.7),rgba(20,3,15,.85))
+position:fixed;
+inset:0;
+z-index:500;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+background:
+linear-gradient(
+rgba(3,4,12,.72),
+rgba(20,3,15,.88)
+)
 }
+
 .authbox{
-width:min(430px,100%);padding:30px;border-radius:25px;
-background:rgba(10,11,18,.93);border:1px solid var(--line)
+width:min(430px,100%);
+padding:30px;
+border-radius:25px;
+background:rgba(10,11,18,.95);
+border:1px solid var(--line);
+box-shadow:0 25px 80px rgba(0,0,0,.5)
 }
-.authlogo{text-align:center;font-size:25px;color:var(--gold);font-weight:900}
-.authsub{text-align:center;color:#777;margin:8px 0 22px}
-.music{position:fixed;left:20px;top:85px;z-index:40}
+
+.authlogo{
+text-align:center;
+font-size:25px;
+color:var(--gold);
+font-weight:900
+}
+
+.authsub{
+text-align:center;
+color:#777;
+margin:8px 0 22px
+}
+
+.authhint{
+text-align:center;
+font-size:11px;
+color:#666;
+margin-top:14px;
+line-height:1.8
+}
+
+.music{
+position:fixed;
+left:20px;
+top:85px;
+z-index:40
+}
+
 .music button{
-border:1px solid var(--line);border-radius:50%;width:45px;height:45px;
-background:#11131c;color:white
+border:1px solid var(--line);
+border-radius:50%;
+width:45px;
+height:45px;
+background:#11131c;
+color:white
 }
+
 @media(max-width:1100px){
-.grid{grid-template-columns:repeat(2,1fr)}
-.actions{grid-template-columns:repeat(2,1fr)}
-.shop,.inventory,.players{grid-template-columns:repeat(3,1fr)}
-aside{width:210px}.citymap{grid-template-columns:repeat(4,1fr)}
+
+.grid{
+grid-template-columns:repeat(2,1fr)
 }
+
+.actions{
+grid-template-columns:repeat(2,1fr)
+}
+
+.shop,
+.inventory,
+.players{
+grid-template-columns:repeat(3,1fr)
+}
+
+aside{
+width:210px
+}
+
+.citymap{
+grid-template-columns:repeat(4,1fr)
+}
+
+}
+
 @media(max-width:700px){
-header{padding:10px 14px}.layout{display:block}
-aside{width:100%;padding:7px;overflow:auto}
-nav{display:flex;gap:5px;overflow:auto}
-nav button{white-space:nowrap;width:auto}
-.navtitle{display:none}
-main{padding:13px}
-.grid,.actions,.shop,.inventory,.players{grid-template-columns:1fr 1fr}
-.citymap{grid-template-columns:repeat(2,1fr)}
-.character{grid-template-columns:1fr}
-.char{margin:auto}
-.stats{grid-template-columns:1fr 1fr}
-.logo{font-size:15px}
+
+header{
+padding:10px 14px
 }
+
+.layout{
+display:block
+}
+
+aside{
+width:100%;
+padding:7px;
+overflow:auto
+}
+
+nav{
+display:flex;
+gap:5px;
+overflow:auto
+}
+
+nav button{
+white-space:nowrap;
+width:auto
+}
+
+.navtitle{
+display:none
+}
+
+main{
+padding:13px
+}
+
+.grid,
+.actions,
+.shop,
+.inventory,
+.players{
+grid-template-columns:1fr 1fr
+}
+
+.citymap{
+grid-template-columns:repeat(2,1fr)
+}
+
+.character{
+grid-template-columns:1fr
+}
+
+.char{
+margin:auto
+}
+
+.stats{
+grid-template-columns:1fr 1fr
+}
+
+.logo{
+font-size:15px
+}
+
+}
+
 </style>
 </head>
 
@@ -228,126 +710,305 @@ main{padding:13px}
 <button onclick="toggleMusic()" id="musicBtn">🔇</button>
 </div>
 
+<!-- =====================================================
+AUTH
+===================================================== -->
+
 <div class="auth" id="auth">
+
 <div class="authbox">
 
-<div class="authlogo">『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』</div>
-<div class="authsub">Ultimate Anime Community</div>
+<div class="authlogo">
+『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』
+</div>
+
+<div class="authsub">
+Ultimate Anime Community
+</div>
 
 <div id="loginForm">
 
-<input id="loginPhone"
-type="tel"
-inputmode="tel"
-placeholder="📱 رقم الهاتف">
+<input
+id="loginName"
+autocomplete="username"
+placeholder="👤 اسم المستخدم">
 
-<input id="loginPass"
+<input
+id="loginPass"
 type="password"
+autocomplete="current-password"
 placeholder="🔐 كلمة المرور">
 
-<button class="btn full" onclick="login()">🚀 دخول</button>
+<button
+class="btn full"
+onclick="login()">
+🚀 تسجيل الدخول
+</button>
 
 <br><br>
 
-<button class="btn gray full" onclick="showReg()">✨ إنشاء حساب</button>
+<button
+class="btn gray full"
+onclick="showReg()">
+✨ إنشاء حساب جديد
+</button>
 
 </div>
 
 <div id="regForm" class="hidden">
 
-<input id="regName"
+<input
+id="regName"
+autocomplete="username"
 placeholder="👤 اسم المستخدم">
 
-<input id="regPhone"
-type="tel"
-inputmode="tel"
-placeholder="📱 رقم الهاتف">
-
-<input id="regPass"
+<input
+id="regPass"
 type="password"
+autocomplete="new-password"
 placeholder="🔐 كلمة المرور">
 
-<button class="btn gold full" onclick="register()">✨ إنشاء الحساب</button>
+<input
+id="regPass2"
+type="password"
+autocomplete="new-password"
+placeholder="🔐 تأكيد كلمة المرور">
+
+<button
+class="btn gold full"
+onclick="register()">
+✨ إنشاء الحساب
+</button>
 
 <br><br>
 
-<button class="btn gray full" onclick="showLogin()">رجوع</button>
+<button
+class="btn gray full"
+onclick="showLogin()">
+رجوع
+</button>
 
 </div>
 
+<div class="authhint">
+🔒 لا نطلب منك بريدًا إلكترونيًا أو رقم هاتف.<br>
+بيانات دخولك هي اسم المستخدم وكلمة المرور فقط.
+</div>
+
 </div>
 </div>
+
+<!-- =====================================================
+HEADER
+===================================================== -->
 
 <header>
-<div class="logo">『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』</div>
-<div class="userbox">
-<span id="headName">Guest</span>
-<div class="avatar" id="avatar">?</div>
+
+<div class="logo">
+『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』
 </div>
+
+<div class="userbox">
+
+<span id="headName">
+Guest
+</span>
+
+<div class="avatar" id="avatar">
+?
+</div>
+
+</div>
+
 </header>
 
 <div class="layout">
 
+<!-- =====================================================
+SIDEBAR
+===================================================== -->
+
 <aside>
+
 <nav>
 
-<button class="active" onclick="page('home',this)">🏠 الرئيسية</button>
-<button onclick="page('character',this)">👤 شخصيتي</button>
-<button onclick="page('city',this)">🏙️ مدينتي</button>
-<button onclick="page('farm',this)">🌾 مزرعتي</button>
-<button onclick="page('shop',this)">🛒 المتجر</button>
-<button onclick="page('inventory',this)">🎒 الحقيبة</button>
-<button onclick="page('games',this)">🎮 الألعاب</button>
-<button onclick="page('chat',this)">💬 الدردشة</button>
-<button onclick="page('players',this)">👥 الأعضاء</button>
-<button onclick="page('rank',this)">🏆 المتصدرون</button>
-<button onclick="page('wallet',this)">💰 المحفظة</button>
-<button onclick="page('loans',this)">🏦 البنك والقروض</button>
-<button onclick="page('stocks',this)">📈 سوق الأسهم</button>
-<button onclick="page('profile',this)">⚙️ الحساب</button>
+<button
+class="active"
+onclick="page('home',this)">
+🏠 الرئيسية
+</button>
 
-<div class="navtitle">الإدارة</div>
+<button
+onclick="page('character',this)">
+👤 شخصيتي
+</button>
 
-<button id="adminBtn" onclick="page('admin',this)">👑 الإدارة</button>
+<button
+onclick="page('city',this)">
+🏙️ مدينتي
+</button>
 
-<button onclick="logout()">🚪 خروج</button>
+<button
+onclick="page('farm',this)">
+🌾 مزرعتي
+</button>
+
+<button
+onclick="page('shop',this)">
+🛒 المتجر
+</button>
+
+<button
+onclick="page('inventory',this)">
+🎒 الحقيبة
+</button>
+
+<button
+onclick="page('games',this)">
+🎮 الألعاب
+</button>
+
+<button
+onclick="page('chat',this)">
+💬 الدردشة
+</button>
+
+<button
+onclick="page('players',this)">
+👥 الأعضاء
+</button>
+
+<button
+onclick="page('rank',this)">
+🏆 المتصدرون
+</button>
+
+<button
+onclick="page('wallet',this)">
+💰 المحفظة
+</button>
+
+<button
+onclick="page('loans',this)">
+🏦 البنك والقروض
+</button>
+
+<button
+onclick="page('stocks',this)">
+📈 سوق الأسهم
+</button>
+
+<button
+onclick="page('profile',this)">
+⚙️ الحساب
+</button>
+
+<div class="navtitle">
+الإدارة
+</div>
+
+<button
+id="adminBtn"
+onclick="page('admin',this)">
+👑 الإدارة
+</button>
+
+<button onclick="logout()">
+🚪 خروج
+</button>
 
 </nav>
+
 </aside>
+
+<!-- =====================================================
+MAIN
+===================================================== -->
 
 <main>
 
-<section id="home" class="page">
+<!-- HOME -->
+
+<section
+id="home"
+class="page">
 
 <div class="hero">
-<h1>🌙 أهلاً بك في عالم S.U.N TOKYO</h1>
-<p>ابنِ مدينتك، ازرع مزرعتك، طوّر شخصيتك، العب واربح وتنافس مع أعضاء المجتمع.</p>
+
+<h1>
+🌙 أهلاً بك في عالم S.U.N TOKYO
+</h1>
+
+<p>
+ابنِ مدينتك، ازرع مزرعتك، طوّر شخصيتك، العب واربح.
+</p>
+
 </div>
 
 <div class="grid">
 
 <div class="card">
+
 💰
-<div class="stat-title">الرصيد</div>
-<div class="stat-value gold" id="balance">0</div>
+
+<div class="stat-title">
+الرصيد
+</div>
+
+<div
+class="stat-value gold"
+id="balance">
+0
+</div>
+
 </div>
 
 <div class="card">
+
 ⭐
-<div class="stat-title">المستوى</div>
-<div class="stat-value" id="level">1</div>
+
+<div class="stat-title">
+المستوى
+</div>
+
+<div
+class="stat-value"
+id="level">
+1
+</div>
+
 </div>
 
 <div class="card">
+
 ⚡
-<div class="stat-title">XP</div>
-<div class="stat-value blue" id="xp">0</div>
+
+<div class="stat-title">
+XP
+</div>
+
+<div
+class="stat-value blue"
+id="xp">
+0
+</div>
+
 </div>
 
 <div class="card">
+
 🔥
-<div class="stat-title">القوة</div>
-<div class="stat-value red" id="power">0</div>
+
+<div class="stat-title">
+القوة
+</div>
+
+<div
+class="stat-value red"
+id="power">
+0
+</div>
+
 </div>
 
 </div>
@@ -355,94 +1016,200 @@ placeholder="🔐 كلمة المرور">
 <div class="grid">
 
 <div class="card">
+
 ⚔️
-<div class="stat-title">Attack</div>
-<div class="stat-value red" id="attack">0</div>
+
+<div class="stat-title">
+Attack
+</div>
+
+<div
+class="stat-value red"
+id="attack">
+0
+</div>
+
 </div>
 
 <div class="card">
+
 🛡️
-<div class="stat-title">Defense</div>
-<div class="stat-value blue" id="defense">0</div>
+
+<div class="stat-title">
+Defense
+</div>
+
+<div
+class="stat-value blue"
+id="defense">
+0
+</div>
+
 </div>
 
 <div class="card">
+
 ❤️
-<div class="stat-title">HP</div>
-<div class="stat-value green" id="hp">0</div>
+
+<div class="stat-title">
+HP
+</div>
+
+<div
+class="stat-value green"
+id="hp">
+0
+</div>
+
 </div>
 
 <div class="card">
+
 🏙️
-<div class="stat-title">مستوى المدينة</div>
-<div class="stat-value gold" id="cityLevel">1</div>
+
+<div class="stat-title">
+مستوى المدينة
+</div>
+
+<div
+class="stat-value gold"
+id="cityLevel">
+1
+</div>
+
 </div>
 
 </div>
 
 <div class="card">
 
-<b>⚡ تقدم المستوى</b>
+<b>
+⚡ تقدم المستوى
+</b>
 
 <div class="progress">
 <i id="xpbar"></i>
 </div>
 
-<small id="xptext">0 / 100 XP</small>
+<small id="xptext">
+0 / 100 XP
+</small>
 
 </div>
 
 <div class="section">
 
-<h2>⚡ اختصارات</h2>
+<h2>
+⚡ اختصارات
+</h2>
 
 <div class="actions">
 
-<button class="action" onclick="page('wallet')">
+<button
+class="action"
+onclick="page('wallet')">
+
 💰
-<b>المحفظة</b>
-<small>الرصيد والتحويل</small>
+
+<b>
+المحفظة
+</b>
+
+<small>
+الرصيد والتحويل
+</small>
+
 </button>
 
-<button class="action" onclick="page('chat')">
+<button
+class="action"
+onclick="page('chat')">
+
 💬
-<b>الدردشة</b>
-<small>تحدث مع الأعضاء</small>
+
+<b>
+الدردشة
+</b>
+
+<small>
+المجتمع
+</small>
+
 </button>
 
-<button class="action" onclick="page('city')">
+<button
+class="action"
+onclick="page('city')">
+
 🏙️
-<b>المدينة</b>
-<small>ابنِ وطوّر</small>
+
+<b>
+المدينة
+</b>
+
+<small>
+ابنِ وطوّر
+</small>
+
 </button>
 
-<button class="action" onclick="page('shop')">
+<button
+class="action"
+onclick="page('shop')">
+
 🛒
-<b>المتجر</b>
-<small>اشترِ الأدوات</small>
+
+<b>
+المتجر
+</b>
+
+<small>
+اشترِ الأدوات
+</small>
+
 </button>
 
 </div>
+
 </div>
 
 </section>
 
-<section id="character" class="page hidden">
+<!-- CHARACTER -->
+
+<section
+id="character"
+class="page hidden">
 
 <div class="hero">
-<h1>👤 شخصيتي</h1>
-<p>طوّر بطلك.</p>
+
+<h1>
+👤 شخصيتي
+</h1>
+
+<p>
+طوّر بطلك.
+</p>
+
 </div>
 
 <div class="card character">
 
-<div class="char" id="charView">🧙</div>
+<div
+class="char"
+id="charView">
+🧙
+</div>
 
 <div>
 
-<h1 id="charName">Player</h1>
+<h1 id="charName">
+Player
+</h1>
 
-<p class="muted">🌱 عضو</p>
+<p class="muted">
+🌱 عضو
+</p>
 
 <br>
 
@@ -467,15 +1234,41 @@ placeholder="🔐 كلمة المرور">
 
 <br>
 
-<h3>👕 المظهر</h3>
+<h3>
+👕 المظهر
+</h3>
 
 <br>
 
-<button class="btn" onclick="changeAvatar('🧙')">🧙</button>
-<button class="btn" onclick="changeAvatar('🥷')">🥷</button>
-<button class="btn" onclick="changeAvatar('👑')">👑</button>
-<button class="btn" onclick="changeAvatar('⚔️')">⚔️</button>
-<button class="btn" onclick="changeAvatar('🦸')">🦸</button>
+<button
+class="btn"
+onclick="changeAvatar('🧙')">
+🧙
+</button>
+
+<button
+class="btn"
+onclick="changeAvatar('🥷')">
+🥷
+</button>
+
+<button
+class="btn"
+onclick="changeAvatar('👑')">
+👑
+</button>
+
+<button
+class="btn"
+onclick="changeAvatar('⚔️')">
+⚔️
+</button>
+
+<button
+class="btn"
+onclick="changeAvatar('🦸')">
+🦸
+</button>
 
 </div>
 
@@ -483,11 +1276,22 @@ placeholder="🔐 كلمة المرور">
 
 </section>
 
-<section id="city" class="page hidden">
+<!-- CITY -->
+
+<section
+id="city"
+class="page hidden">
 
 <div class="hero">
-<h1>🏙️ مدينتي</h1>
-<p>طوّر مدينتك.</p>
+
+<h1>
+🏙️ مدينتي
+</h1>
+
+<p>
+طوّر مدينتك.
+</p>
+
 </div>
 
 <div class="grid">
@@ -514,21 +1318,37 @@ placeholder="🔐 كلمة المرور">
 
 </div>
 
-<div class="citymap" id="cityMap"></div>
+<div
+class="citymap"
+id="cityMap">
+</div>
 
 <br>
 
-<button class="btn gold full" onclick="upgradeCity()">
+<button
+class="btn gold full"
+onclick="upgradeCity()">
 🏗️ تطوير المدينة
 </button>
 
 </section>
 
-<section id="farm" class="page hidden">
+<!-- FARM -->
+
+<section
+id="farm"
+class="page hidden">
 
 <div class="hero">
-<h1>🌾 مزرعتي</h1>
-<p>ازرع واحصد.</p>
+
+<h1>
+🌾 مزرعتي
+</h1>
+
+<p>
+ازرع واحصد.
+</p>
+
 </div>
 
 <div class="grid">
@@ -555,96 +1375,208 @@ placeholder="🔐 كلمة المرور">
 
 </div>
 
-<div class="citymap" id="farmMap"></div>
+<div
+class="citymap"
+id="farmMap">
+</div>
 
 <br>
 
-<button class="btn green full" onclick="upgradeFarm()">
+<button
+class="btn green full"
+onclick="upgradeFarm()">
 🌱 تطوير المزرعة
 </button>
 
 <br><br>
 
-<button class="btn gold full" onclick="harvest()">
+<button
+class="btn gold full"
+onclick="harvest()">
 🌾 حصاد
 </button>
 
 </section>
 
-<section id="shop" class="page hidden">
+<!-- SHOP -->
+
+<section
+id="shop"
+class="page hidden">
 
 <div class="hero">
-<h1>🛒 المتجر</h1>
-<p>أسلحة وملابس ودروع.</p>
+
+<h1>
+🛒 المتجر
+</h1>
+
+<p>
+أسلحة وملابس ودروع.
+</p>
+
 </div>
 
-<input id="search" placeholder="🔎 ابحث..." oninput="renderShop()">
+<input
+id="search"
+placeholder="🔎 ابحث..."
+oninput="renderShop()">
 
-<div class="shop" id="shopGrid"></div>
+<div
+class="shop"
+id="shopGrid">
+</div>
 
 </section>
 
-<section id="inventory" class="page hidden">
+<!-- INVENTORY -->
+
+<section
+id="inventory"
+class="page hidden">
 
 <div class="hero">
-<h1>🎒 الحقيبة</h1>
-<p>مقتنياتك.</p>
+
+<h1>
+🎒 الحقيبة
+</h1>
+
+<p>
+مقتنياتك.
+</p>
+
 </div>
 
-<div class="inventory" id="invGrid"></div>
+<div
+class="inventory"
+id="invGrid">
+</div>
 
 </section>
 
-<section id="games" class="page hidden">
+<!-- GAMES -->
+
+<section
+id="games"
+class="page hidden">
 
 <div class="hero">
-<h1>🎮 الألعاب</h1>
-<p>اختبر حظك واربح العملات.</p>
+
+<h1>
+🎮 الألعاب
+</h1>
+
+<p>
+اختبر حظك واربح العملات.
+</p>
+
 </div>
 
 <div class="grid">
 
 <div class="card">
-<h2>🎲 النرد</h2>
-<p class="muted">تكلفة 25 🧧</p>
+
+<h2>
+🎲 النرد
+</h2>
+
+<p class="muted">
+تكلفة 25 🧧
+</p>
+
 <br>
-<button class="btn" onclick="dice()">رمي النرد</button>
+
+<button
+class="btn"
+onclick="dice()">
+رمي النرد
+</button>
+
 </div>
 
 <div class="card">
-<h2>🎁 صندوق سريع</h2>
-<p class="muted">تكلفة 50 🧧</p>
+
+<h2>
+🎁 صندوق سريع
+</h2>
+
+<p class="muted">
+تكلفة 50 🧧
+</p>
+
 <br>
-<button class="btn gold" onclick="quickBox()">فتح</button>
+
+<button
+class="btn gold"
+onclick="quickBox()">
+فتح
+</button>
+
 </div>
 
 <div class="card">
-<h2>🎡 العجلة</h2>
-<p class="muted">تكلفة 100 🧧</p>
+
+<h2>
+🎡 العجلة
+</h2>
+
+<p class="muted">
+تكلفة 100 🧧
+</p>
+
 <br>
-<button class="btn" onclick="spin()">تدوير</button>
+
+<button
+class="btn"
+onclick="spin()">
+تدوير
+</button>
+
 </div>
 
 <div class="card">
-<h2>🎁 اليومية</h2>
+
+<h2>
+🎁 اليومية
+</h2>
+
 <br>
-<button class="btn green" onclick="daily()">استلام</button>
+
+<button
+class="btn green"
+onclick="daily()">
+استلام
+</button>
+
 </div>
 
 </div>
 
 </section>
 
-<section id="chat" class="page hidden">
+<!-- CHAT -->
+
+<section
+id="chat"
+class="page hidden">
 
 <div class="hero">
-<h1>💬 دردشة المجتمع</h1>
-<p>الدردشة مشتركة بين جميع أعضاء الموقع.</p>
+
+<h1>
+💬 دردشة المجتمع
+</h1>
+
+<p>
+الدردشة مشتركة بين أعضاء الموقع.
+</p>
+
 </div>
 
 <div class="card chat">
 
-<div class="messages" id="messages"></div>
+<div
+class="messages"
+id="messages">
+</div>
 
 <div class="chatbar">
 
@@ -653,7 +1585,11 @@ id="chatInput"
 placeholder="اكتب رسالتك..."
 onkeydown="if(event.key==='Enter')sendChat()">
 
-<button class="btn" onclick="sendChat()">إرسال</button>
+<button
+class="btn"
+onclick="sendChat()">
+إرسال
+</button>
 
 </div>
 
@@ -661,74 +1597,125 @@ onkeydown="if(event.key==='Enter')sendChat()">
 
 </section>
 
-<section id="players" class="page hidden">
+<!-- PLAYERS -->
+
+<section
+id="players"
+class="page hidden">
 
 <div class="hero">
-<h1>👥 أعضاء المجتمع</h1>
-<p>جميع الحسابات المسجلة.</p>
-</div>
 
-<div class="players" id="playersGrid"></div>
+<h1>
+👥 الأعضاء
+</h1>
 
-</section>
+<p>
+معلومات الأعضاء العامة غير متاحة.
+</p>
 
-<section id="rank" class="page hidden">
-
-<div class="hero">
-<h1>🏆 المتصدرون</h1>
-<p>أقوى أعضاء S.U.N TOKYO.</p>
 </div>
 
 <div class="card">
 
-<table class="table">
+<p>
+🔒 للحفاظ على الخصوصية، لا يتم عرض أرصدة أو بيانات الحسابات الأخرى.
+</p>
 
-<thead>
-<tr>
-<th>#</th>
-<th>العضو</th>
-<th>LV</th>
-<th>القوة</th>
-<th>الرتبة</th>
-</tr>
-</thead>
+<br>
 
-<tbody id="rankBody"></tbody>
-
-</table>
+<p class="muted">
+حسابك ومعلوماتك محفوظة لك فقط.
+</p>
 
 </div>
 
 </section>
 
-<section id="wallet" class="page hidden">
+<!-- RANK -->
+
+<section
+id="rank"
+class="page hidden">
 
 <div class="hero">
-<h1>💰 المحفظة</h1>
-<p>الرصيد والتحويلات.</p>
+
+<h1>
+🏆 المتصدرون
+</h1>
+
+<p>
+نظام المتصدرين مغلق للحفاظ على خصوصية الحسابات.
+</p>
+
+</div>
+
+<div class="card">
+
+🔒 بيانات الحسابات الأخرى خاصة.
+
+</div>
+
+</section>
+
+<!-- WALLET -->
+
+<section
+id="wallet"
+class="page hidden">
+
+<div class="hero">
+
+<h1>
+💰 المحفظة
+</h1>
+
+<p>
+الرصيد والتحويلات.
+</p>
+
 </div>
 
 <div class="grid">
 
 <div class="card">
+
 💰 الرصيد الحالي
-<h2 class="gold" id="walletBalance">0</h2>
+
+<h2
+class="gold"
+id="walletBalance">
+0
+</h2>
+
 </div>
 
 <div class="card">
+
 📜 العمليات
-<h2 id="txCount">0</h2>
+
+<h2 id="txCount">
+0
+</h2>
+
 </div>
 
 </div>
 
 <div class="card">
 
-<h3>💳 إيداع رصيد</h3>
+<h3>
+💳 إيداع رصيد
+</h3>
 
-<input id="depositAmount" type="number" placeholder="أدخل المبلغ">
+<input
+id="depositAmount"
+type="number"
+min="1"
+placeholder="أدخل المبلغ">
 
-<button class="btn green full" onclick="makeDeposit()">
+<button
+class="btn green full"
+onclick="makeDeposit()">
 إيداع 💳
 </button>
 
@@ -738,13 +1725,23 @@ onkeydown="if(event.key==='Enter')sendChat()">
 
 <div class="card">
 
-<h3>💸 تحويل الأموال</h3>
+<h3>
+💸 تحويل الأموال
+</h3>
 
-<input id="transferUser" placeholder="اسم العضو">
+<input
+id="transferUser"
+placeholder="اسم العضو">
 
-<input id="transferAmount" type="number" placeholder="المبلغ">
+<input
+id="transferAmount"
+type="number"
+min="1"
+placeholder="المبلغ">
 
-<button class="btn gold full" onclick="makeTransfer()">
+<button
+class="btn gold full"
+onclick="makeTransfer()">
 تحويل 🚀
 </button>
 
@@ -754,38 +1751,68 @@ onkeydown="if(event.key==='Enter')sendChat()">
 
 <div class="card">
 
-<h3>📜 سجل العمليات</h3>
+<h3>
+📜 سجل العمليات
+</h3>
 
-<div id="txHistoryBox" style="margin-top:10px"></div>
+<div
+id="txHistoryBox"
+style="margin-top:10px">
+</div>
 
 </div>
 
 </section>
 
-<section id="loans" class="page hidden">
+<!-- LOANS -->
+
+<section
+id="loans"
+class="page hidden">
 
 <div class="hero">
-<h1>🏦 البنك والقروض</h1>
-<p>إدارة القروض.</p>
+
+<h1>
+🏦 البنك والقروض
+</h1>
+
+<p>
+إدارة القروض.
+</p>
+
 </div>
 
 <div class="grid">
 
 <div class="card">
+
 📋 القرض الحالي
-<h2 class="red" id="loanAmount">0 🧧</h2>
+
+<h2
+class="red"
+id="loanAmount">
+0 🧧
+</h2>
+
 </div>
 
 <div class="card">
+
 ⏳ الحالة
-<h2 id="loanStatus">لا يوجد قرض</h2>
+
+<h2 id="loanStatus">
+لا يوجد قرض
+</h2>
+
 </div>
 
 </div>
 
 <div class="card">
 
-<h3>📥 طلب قرض</h3>
+<h3>
+📥 طلب قرض
+</h3>
 
 <p class="muted">
 قرض 2000 🧧 وفائدة 10%.
@@ -793,7 +1820,9 @@ onkeydown="if(event.key==='Enter')sendChat()">
 
 <br>
 
-<button class="btn gold full" onclick="takeLoan()">
+<button
+class="btn gold full"
+onclick="takeLoan()">
 اقتراض 2,000 🧧
 </button>
 
@@ -803,11 +1832,15 @@ onkeydown="if(event.key==='Enter')sendChat()">
 
 <div class="card">
 
-<h3>📤 السداد</h3>
+<h3>
+📤 السداد
+</h3>
 
 <br>
 
-<button class="btn green full" onclick="payLoan()">
+<button
+class="btn green full"
+onclick="payLoan()">
 سداد القرض 💳
 </button>
 
@@ -815,48 +1848,93 @@ onkeydown="if(event.key==='Enter')sendChat()">
 
 </section>
 
-<section id="stocks" class="page hidden">
+<!-- STOCKS -->
+
+<section
+id="stocks"
+class="page hidden">
 
 <div class="hero">
-<h1>📈 سوق الأسهم</h1>
-<p>استثمار افتراضي.</p>
+
+<h1>
+📈 سوق الأسهم
+</h1>
+
+<p>
+استثمار افتراضي.
+</p>
+
 </div>
 
 <div class="grid">
 
 <div class="card">
+
 🏢 تجارة
-<h2 class="gold" id="stockPrice1">150 🧧</h2>
-<p class="muted" id="stockOwned1">المملوك: 0 سهم</p>
+
+<h2
+class="gold"
+id="stockPrice1">
+150 🧧
+</h2>
+
+<p
+class="muted"
+id="stockOwned1">
+المملوك: 0 سهم
+</p>
+
 </div>
 
 <div class="card">
+
 ⚡ طاقة
-<h2 class="gold" id="stockPrice2">300 🧧</h2>
-<p class="muted" id="stockOwned2">المملوك: 0 سهم</p>
-</div>
+
+<h2
+class="gold"
+id="stockPrice2">
+300 🧧
+</h2>
+
+<p
+class="muted"
+id="stockOwned2">
+المملوك: 0 سهم
+</p>
 
 </div>
 
-<div style="display:flex;gap:10px;margin-bottom:20px">
+</div>
 
-<button class="btn gold full" onclick="buyStock(1)">
+<div
+style="display:flex;gap:10px;margin-bottom:20px">
+
+<button
+class="btn gold full"
+onclick="buyStock(1)">
 شراء تجارة
 </button>
 
-<button class="btn green full" onclick="buyStock(2)">
+<button
+class="btn green full"
+onclick="buyStock(2)">
 شراء طاقة
 </button>
 
 </div>
 
-<div style="display:flex;gap:10px;margin-bottom:20px">
+<div
+style="display:flex;gap:10px;margin-bottom:20px">
 
-<button class="btn red full" onclick="sellStock(1)">
+<button
+class="btn red full"
+onclick="sellStock(1)">
 بيع تجارة
 </button>
 
-<button class="btn red full" onclick="sellStock(2)">
+<button
+class="btn red full"
+onclick="sellStock(2)">
 بيع طاقة
 </button>
 
@@ -864,7 +1942,9 @@ onkeydown="if(event.key==='Enter')sendChat()">
 
 <div class="card">
 
-<button class="btn full" onclick="updateStocksMarket()">
+<button
+class="btn full"
+onclick="updateStocksMarket()">
 🔄 تحديث السوق
 </button>
 
@@ -872,24 +1952,50 @@ onkeydown="if(event.key==='Enter')sendChat()">
 
 </section>
 
-<section id="profile" class="page hidden">
+<!-- PROFILE -->
+
+<section
+id="profile"
+class="page hidden">
 
 <div class="hero">
-<h1>⚙️ الحساب</h1>
-<p>إعدادات الحساب.</p>
+
+<h1>
+⚙️ الحساب
+</h1>
+
+<p>
+إعدادات الحساب.
+</p>
+
 </div>
 
 <div class="card">
 
-<input id="newName" placeholder="اسم جديد">
+<h3>
+👤 اسم المستخدم
+</h3>
 
-<button class="btn" onclick="rename()">
-تغيير الاسم
-</button>
+<br>
 
-<br><br>
+<div
+id="profileUsername"
+class="gold"
+style="font-size:20px">
+-
+</div>
 
-<button class="btn gray" onclick="logout()">
+<br>
+
+<p class="muted">
+اسم المستخدم لا يمكن تغييره.
+</p>
+
+<br>
+
+<button
+class="btn gray"
+onclick="logout()">
 🚪 تسجيل الخروج
 </button>
 
@@ -897,206 +2003,248 @@ onkeydown="if(event.key==='Enter')sendChat()">
 
 </section>
 
-<section id="admin" class="page hidden">
+<!-- ADMIN -->
+
+<section
+id="admin"
+class="page hidden">
 
 <div class="hero">
-<h1>👑 الإدارة</h1>
-<p>لوحة المدير.</p>
+
+<h1>
+👑 الإدارة
+</h1>
+
+<p>
+لوحة المدير.
+</p>
+
 </div>
 
 <div class="grid">
 
 <div class="card">
-👥 الأعضاء
-<h2 id="adminUsers">0</h2>
+
+👥 الحالة
+
+<h2 class="green">
+ADMIN
+</h2>
+
 </div>
 
 <div class="card">
-💰 العملات
-<h2 id="adminMoney">0</h2>
-</div>
 
-<div class="card">
-⚡ الحالة
-<h2 class="green">ONLINE</h2>
-</div>
-
-<div class="card">
 🛡️ الصلاحية
-<h2>ADMIN</h2>
+
+<h2>
+مدير
+</h2>
+
 </div>
 
 </div>
 
 <div class="card">
 
-<table class="table">
+<p>
+🔐 لوحة الإدارة تعمل فقط للحسابات التي تم تحديدها كمدير من قاعدة البيانات.
+</p>
 
-<thead>
-<tr>
-<th>العضو</th>
-<th>الرصيد</th>
-<th>القوة</th>
-<th>إضافة</th>
-</tr>
-</thead>
+<br>
 
-<tbody id="adminTable"></tbody>
-
-</table>
+<p class="muted">
+إدارة أرصدة المستخدمين الآخرين لا تتم من الواجهة العامة.
+</p>
 
 </div>
 
 </section>
 
 </main>
-</div>
-
-<div class="win" id="win">
-
-<div class="winbox">
-
-<h1 id="winTitle">🎉 فوز!</h1>
-
-<p id="winText"></p>
-
-<br>
-
-<button class="btn gold" onclick="closeWin()">
-استمرار
-</button>
 
 </div>
 
+<div
+class="toast"
+id="toast">
 </div>
-
-<div class="toast" id="toast"></div>
 
 <script>
 
-const SUPABASE_URL="https://xmavwrtlwfkvqkpfiirr.supabase.co";
+/* =====================================================
+SUPABASE
+===================================================== */
 
-const SUPABASE_KEY="sb_publishable_eH4yTOKoHrhBqsZ3cj8s9g_TJSnJNC2";
+const SUPABASE_URL =
+"https://xmavwrtlwfkvqkpfiirr.supabase.co";
 
-const supabaseClient=
+const SUPABASE_KEY =
+"sb_publishable_eH4yTOKoHrhBqsZ3cj8s9g_TJSnJNC2";
+
+const supabaseClient =
 window.supabase.createClient(
 SUPABASE_URL,
 SUPABASE_KEY
 );
 
-let currentUser=null;
-let profile=null;
-let transactions=[];
-let users=[];
-let chatMessages=[];
+let currentUser = null;
+let profile = null;
+let transactions = [];
+let chatMessages = [];
 
-let stocks={
+let stocks = {
 price1:150,
 price2:300
 };
 
-const catalog=[
+/* =====================================================
+CATALOG
+===================================================== */
+
+const catalog = [
+
 ["⚔️","كاتانا نارية","attack",30,500],
+
 ["🗡️","نصل الظلام","attack",60,1200],
+
 ["🔱","رمح التنين","attack",100,3000],
+
 ["🏹","قوس القمر","attack",140,6000],
+
 ["🛡️","درع ساموراي","defense",30,500],
+
 ["🛡️","درع التنين","defense",70,1600],
+
 ["🔰","حاجز الإمبراطور","defense",130,5000],
+
 ["❤️","جرعة الحياة","hp",50,400],
+
 ["🧪","إكسير نادر","hp",120,1200],
+
 ["💎","بلورة الحياة","hp",250,5000],
+
 ["👕","زي الساموراي","outfit",20,800],
+
 ["🥷","زي النينجا","outfit",35,1500],
+
 ["👑","تاج الإمبراطور","outfit",80,7000],
+
 ["🪽","أجنحة أسطورية","outfit",120,12000]
+
 ];
 
-const buildings=[
+const buildings = [
+
 ["🏦","البنك"],
+
 ["🏢","ناطحة السحاب"],
+
 ["🏯","قلعة الساموراي"],
+
 ["🏪","السوق"],
+
 ["🏥","المستشفى"],
+
 ["🏫","الأكاديمية"],
+
 ["⚓","الميناء"],
+
 ["⛩️","المعبد"],
+
 ["🏟️","الساحة"],
+
 ["🚉","المحطة"]
+
 ];
 
-/* =========================
-GENERAL
-========================= */
+/* =====================================================
+HELPERS
+===================================================== */
 
-function toast(t){
+function toast(text){
 
-const x=document.getElementById("toast");
+const x =
+document.getElementById("toast");
 
-x.textContent=t;
+x.textContent = text;
 
 x.classList.add("show");
 
-setTimeout(()=>{
+setTimeout(
+()=>{
 x.classList.remove("show");
-},2500);
+},
+2500
+);
 
 }
 
 function escapeText(text){
 
-const div=document.createElement("div");
+const div =
+document.createElement("div");
 
-div.textContent=text??"";
+div.textContent =
+text ?? "";
 
 return div.innerHTML;
 
 }
 
-function level(u){
+function level(){
 
-return Math.floor((u?.xp||0)/100)+1;
+return Math.floor(
+(profile?.xp || 0) / 100
+) + 1;
 
 }
 
-function stats(u){
+function stats(){
 
-let a=30;
-let d=30;
-let h=100;
+let a = 30;
+let d = 30;
+let h = 100;
 
-const items=
-u?.items&&typeof u.items==="object"
-?u.items
-:{};
+const items =
+profile?.items &&
+typeof profile.items === "object"
+?
+profile.items
+:
+{};
 
 catalog.forEach(i=>{
 
-const q=items[i[1]]||0;
+const q =
+Number(items[i[1]] || 0);
 
-if(i[2]==="attack")
-a+=i[3]*q;
+if(i[2] === "attack")
+a += i[3] * q;
 
-if(i[2]==="defense")
-d+=i[3]*q;
+if(i[2] === "defense")
+d += i[3] * q;
 
-if(i[2]==="hp")
-h+=i[3]*q;
+if(i[2] === "hp")
+h += i[3] * q;
 
-if(i[2]==="outfit"){
+if(i[2] === "outfit"){
 
-a+=Math.floor(i[3]/2)*q;
-d+=Math.floor(i[3]/2)*q;
+a += Math.floor(i[3]/2) * q;
+
+d += Math.floor(i[3]/2) * q;
 
 }
 
 });
 
-a+=(u?.city||1)*20;
-d+=(u?.city||1)*20;
-h+=(u?.farm||1)*20;
+a += (profile?.city || 1) * 20;
 
-return{
+d += (profile?.city || 1) * 20;
+
+h += (profile?.farm || 1) * 20;
+
+return {
 a,
 d,
 h,
@@ -1105,19 +2253,21 @@ p:a+d+h
 
 }
 
-/* =========================
-AUTH
-========================= */
+/* =====================================================
+AUTH UI
+===================================================== */
 
 function showReg(){
 
 document
 .getElementById("loginForm")
-.classList.add("hidden");
+.classList
+.add("hidden");
 
 document
 .getElementById("regForm")
-.classList.remove("hidden");
+.classList
+.remove("hidden");
 
 }
 
@@ -1125,115 +2275,189 @@ function showLogin(){
 
 document
 .getElementById("regForm")
-.classList.add("hidden");
+.classList
+.add("hidden");
 
 document
 .getElementById("loginForm")
-.classList.remove("hidden");
+.classList
+.remove("hidden");
 
 }
+
+/* =====================================================
+INTERNAL EMAIL
+===================================================== */
+
+function makeInternalEmail(username){
+
+const clean =
+username
+.trim()
+.toLowerCase();
+
+return "u_" +
+md5Simple(clean) +
+"@sun-tokyo.local";
+
+}
+
+function md5Simple(str){
 
 /*
-نحن نستخدم رقم الهاتف كبيانات دخول للمستخدم.
-لعدم استخدام SMS/Twilio، يتم إنشاء معرف داخلي
-غير ظاهر للمستخدم لاستخدام Supabase Auth.
+نستخدم Web Crypto SHA-256
+لكن signUp يحتاج البريد قبل async.
+لذلك هذه دالة hash بسيطة deterministic.
 */
 
-function normalizePhone(phone){
+let h1 = 0x811c9dc5;
 
-return phone
-.replace(/[^\d+]/g,"")
-.trim();
+for(let i=0;i<str.length;i++){
+
+h1 ^= str.charCodeAt(i);
+
+h1 +=
+(h1<<1) +
+(h1<<4) +
+(h1<<7) +
+(h1<<8) +
+(h1<<24);
 
 }
 
-function makeInternalEmail(phone){
+let n =
+(h1 >>> 0)
+.toString(16)
+.padStart(8,"0");
 
-const clean=normalizePhone(phone);
+let h2 = 0x01000193;
 
-let encoded="";
+for(let i=str.length-1;i>=0;i--){
 
-try{
+h2 ^= str.charCodeAt(i);
 
-encoded=btoa(
-unescape(
-encodeURIComponent(clean)
-)
+h2 =
+Math.imul(
+h2,
+16777619
 );
 
-}catch(e){
+}
 
-encoded=clean;
+n +=
+(h2>>>0)
+.toString(16)
+.padStart(8,"0");
+
+let h3 = 0x811c9dc5;
+
+for(let i=0;i<str.length;i+=2){
+
+h3 ^= str.charCodeAt(i);
+
+h3 =
+Math.imul(
+h3,
+16777619
+);
 
 }
 
-encoded=
-encoded
-.replace(/[^a-zA-Z0-9]/g,"")
-.slice(0,40);
+n +=
+(h3>>>0)
+.toString(16)
+.padStart(8,"0");
 
-return "phone_"+encoded+"@sun-tokyo.local";
+return n;
 
 }
 
-/* =========================
+/* =====================================================
 REGISTER
-========================= */
+===================================================== */
 
 async function register(){
 
-const name=
+const name =
 document
 .getElementById("regName")
 .value
 .trim();
 
-const phone=
-normalizePhone(
-document
-.getElementById("regPhone")
-.value
-);
-
-const pass=
+const pass =
 document
 .getElementById("regPass")
 .value;
 
-if(name.length<3)
-return toast("❌ اسم المستخدم يجب أن يكون 3 أحرف على الأقل");
+const pass2 =
+document
+.getElementById("regPass2")
+.value;
 
-if(phone.length<8)
-return toast("❌ أدخل رقم هاتف صحيح");
+if(name.length < 3)
+return toast(
+"❌ اسم المستخدم يجب أن يكون 3 أحرف على الأقل"
+);
 
-if(pass.length<6)
-return toast("❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل");
+if(name.length > 30)
+return toast(
+"❌ اسم المستخدم طويل جدًا"
+);
+
+if(!/^[\p{L}\p{N}_]+$/u.test(name))
+return toast(
+"❌ استخدم الحروف والأرقام و _ فقط"
+);
+
+if(pass.length < 6)
+return toast(
+"❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل"
+);
+
+if(pass !== pass2)
+return toast(
+"❌ كلمتا المرور غير متطابقتين"
+);
 
 /*
-منع تكرار الاسم من profiles
+نتحقق من اسم المستخدم من خلال RPC
+بدون كشف جدول profiles.
 */
 
-const {data:nameExists,error:nameCheckError}=
+const {
+data:loginEmail,
+error:emailError
+} =
 await supabaseClient
-.from("profiles")
-.select("id")
-.ilike("username",name)
-.maybeSingle();
+.rpc(
+"get_login_email",
+{
+p_username:name
+}
+);
 
-if(nameCheckError)
-console.error(nameCheckError);
+if(emailError){
 
-if(nameExists)
-return toast("❌ اسم المستخدم مستخدم بالفعل");
+console.error(emailError);
 
-/*
-الإيميل الداخلي لا يظهر للمستخدم.
-*/
+return toast(
+"❌ تعذر فحص اسم المستخدم"
+);
 
-const internalEmail=
-makeInternalEmail(phone);
+}
 
-const {data,error}=
+if(loginEmail)
+return toast(
+"❌ اسم المستخدم مستخدم بالفعل"
+);
+
+const internalEmail =
+makeInternalEmail(name);
+
+const {
+data,
+error
+} =
 await supabaseClient.auth.signUp({
 
 email:internalEmail,
@@ -1242,8 +2466,7 @@ password:pass,
 
 options:{
 data:{
-username:name,
-phone:phone
+username:name
 }
 }
 
@@ -1253,130 +2476,101 @@ if(error){
 
 console.error(error);
 
-if(
-error.message
-.toLowerCase()
-.includes("already")
-){
-
-return toast("❌ رقم الهاتف مستخدم بالفعل");
-
-}
-
-return toast("❌ "+error.message);
-
-}
-
-if(!data.user)
-return toast("❌ تعذر إنشاء الحساب");
-
-/*
-إنشاء ملف اللاعب.
-الرصيد الابتدائي = 9999
-*/
-
-const {error:profileError}=
-await supabaseClient
-.from("profiles")
-.insert({
-
-id:data.user.id,
-
-username:name,
-
-balance:9999,
-
-level:1,
-
-xp:0,
-
-avatar:"🧙",
-
-city:1,
-
-farm:1,
-
-crops:0,
-
-harvest:0,
-
-loan:0,
-
-loan_due:0,
-
-stocks1:0,
-
-stocks2:0,
-
-admin:false,
-
-items:{},
-
-buildings:[]
-
-});
-
-if(profileError){
-
-console.error(profileError);
-
 return toast(
-"⚠️ تم إنشاء الحساب لكن تعذر إنشاء بيانات اللاعب: "+
-profileError.message
+"❌ تعذر إنشاء الحساب"
 );
 
 }
 
-toast("🎉 تم إنشاء الحساب بنجاح — رصيدك 9999 🧧");
+if(!data.user)
+return toast(
+"❌ تعذر إنشاء الحساب"
+);
+
+/*
+إذا كان Confirm Email مفعلًا
+لن يحصل المستخدم على جلسة.
+*/
+
+if(!data.session){
+
+toast(
+"⚠️ عطّل Confirm email من Supabase ثم أعد إنشاء الحساب"
+);
+
+return;
+
+}
+
+toast(
+"🎉 تم إنشاء الحساب بنجاح! رصيدك 9999 🧧"
+);
 
 document
 .getElementById("regName")
 .value="";
 
 document
-.getElementById("regPhone")
+.getElementById("regPass")
 .value="";
 
 document
-.getElementById("regPass")
+.getElementById("regPass2")
 .value="";
 
 showLogin();
 
-document
-.getElementById("loginPhone")
-.value=phone;
-
 }
 
-/* =========================
+/* =====================================================
 LOGIN
-========================= */
+===================================================== */
 
 async function login(){
 
-const phone=
-normalizePhone(
+const name =
 document
-.getElementById("loginPhone")
+.getElementById("loginName")
 .value
-);
+.trim();
 
-const pass=
+const pass =
 document
 .getElementById("loginPass")
 .value;
 
-if(!phone||!pass)
-return toast("❌ أدخل رقم الهاتف وكلمة المرور");
+if(!name || !pass)
+return toast(
+"❌ أدخل اسم المستخدم وكلمة المرور"
+);
 
-if(phone.length<8)
-return toast("❌ رقم الهاتف غير صحيح");
+const {
+data:internalEmail,
+error:emailError
+} =
+await supabaseClient
+.rpc(
+"get_login_email",
+{
+p_username:name
+}
+);
 
-const internalEmail=
-makeInternalEmail(phone);
+if(
+emailError ||
+!internalEmail
+){
 
-const {data,error}=
+return toast(
+"❌ اسم المستخدم أو كلمة المرور خاطئة"
+);
+
+}
+
+const {
+data,
+error
+} =
 await supabaseClient.auth.signInWithPassword({
 
 email:internalEmail,
@@ -1389,113 +2583,147 @@ if(error){
 
 console.error(error);
 
-return toast("❌ رقم الهاتف أو كلمة المرور خاطئة");
+return toast(
+"❌ اسم المستخدم أو كلمة المرور خاطئة"
+);
 
 }
 
 if(!data.user)
-return toast("❌ تعذر تسجيل الدخول");
+return toast(
+"❌ تعذر تسجيل الدخول"
+);
 
-currentUser=data.user;
+currentUser =
+data.user;
 
 await loadData();
 
 if(!profile){
 
-await supabaseClient.auth.signOut();
+await supabaseClient
+.auth
+.signOut();
 
-currentUser=null;
+currentUser = null;
 
-return toast("❌ لم يتم العثور على ملف الحساب");
+return toast(
+"❌ تعذر تحميل الحساب"
+);
 
 }
 
 document
 .getElementById("auth")
-.classList.add("hidden");
+.classList
+.add("hidden");
 
-toast("👋 أهلاً بك "+profile.username);
+toast(
+"👋 أهلاً بك "+profile.username
+);
 
 }
 
-/* =========================
+/* =====================================================
 LOGOUT
-========================= */
+===================================================== */
 
 async function logout(){
 
-await supabaseClient.auth.signOut();
+await supabaseClient
+.auth
+.signOut();
 
-currentUser=null;
-profile=null;
-transactions=[];
-users=[];
-chatMessages=[];
+currentUser = null;
+
+profile = null;
+
+transactions = [];
+
+chatMessages = [];
 
 document
 .getElementById("auth")
-.classList.remove("hidden");
+.classList
+.remove("hidden");
 
 showLogin();
 
 }
 
-/* =========================
-LOAD
-========================= */
+/* =====================================================
+LOAD DATA
+===================================================== */
 
 async function loadData(){
 
 if(!currentUser)
 return;
 
-const {data:p,error}=await supabaseClient
+const {
+data:p,
+error:pError
+} =
+await supabaseClient
 .from("profiles")
 .select("*")
 .eq("id",currentUser.id)
 .single();
 
-if(error){
+if(pError){
 
-console.error(error);
+console.error(pError);
 
-return toast("❌ تعذر تحميل بيانات الحساب");
+return toast(
+"❌ تعذر تحميل الحساب"
+);
 
 }
 
-profile=p;
+profile = p;
 
-const {data:tx}=await supabaseClient
+const {
+data:tx
+} =
+await supabaseClient
 .from("transactions")
 .select("*")
 .eq("user_id",currentUser.id)
-.order("created_at",{ascending:false})
+.order(
+"created_at",
+{
+ascending:false
+}
+)
 .limit(100);
 
-transactions=tx||[];
+transactions =
+tx || [];
 
-const {data:allUsers}=await supabaseClient
-.from("profiles")
-.select("*")
-.order("created_at",{ascending:true});
-
-users=allUsers||[];
-
-const {data:messages}=await supabaseClient
+const {
+data:messages
+} =
+await supabaseClient
 .from("chat")
 .select("*")
-.order("created_at",{ascending:true})
+.order(
+"created_at",
+{
+ascending:true
+}
+)
 .limit(200);
 
-chatMessages=messages||[];
+chatMessages =
+messages || [];
 
 renderAll();
 
 }
 
-/* =========================
-PAGES
-========================= */
+/* =====================================================
+PAGE
+===================================================== */
 
 function page(id,btn){
 
@@ -1504,9 +2732,11 @@ return;
 
 document
 .querySelectorAll(".page")
-.forEach(x=>x.classList.add("hidden"));
+.forEach(
+x=>x.classList.add("hidden")
+);
 
-const target=
+const target =
 document.getElementById(id);
 
 if(target)
@@ -1514,7 +2744,9 @@ target.classList.remove("hidden");
 
 document
 .querySelectorAll("nav button")
-.forEach(x=>x.classList.remove("active"));
+.forEach(
+x=>x.classList.remove("active")
+);
 
 if(btn)
 btn.classList.add("active");
@@ -1523,16 +2755,19 @@ renderAll();
 
 }
 
-/* =========================
-PROFILE
-========================= */
+/* =====================================================
+UPDATE PROFILE
+===================================================== */
 
 async function updateProfile(changes){
 
 if(!profile)
 return false;
 
-const {data,error}=
+const {
+data,
+error
+} =
 await supabaseClient
 .from("profiles")
 .update(changes)
@@ -1544,23 +2779,23 @@ if(error){
 
 console.error(error);
 
-toast("❌ حدث خطأ أثناء حفظ البيانات");
+toast(
+"❌ حدث خطأ أثناء حفظ البيانات"
+);
 
 return false;
 
 }
 
-profile=data;
-
-const index=
-users.findIndex(x=>x.id===profile.id);
-
-if(index>=0)
-users[index]=profile;
+profile = data;
 
 return true;
 
 }
+
+/* =====================================================
+TRANSACTION
+===================================================== */
 
 async function addTransaction(
 type,
@@ -1571,7 +2806,10 @@ description
 if(!profile)
 return;
 
-const {data,error}=
+const {
+data,
+error
+} =
 await supabaseClient
 .from("transactions")
 .insert({
@@ -1588,32 +2826,39 @@ description
 .select()
 .single();
 
-if(!error&&data)
+if(!error && data)
 transactions.unshift(data);
 
 }
 
-/* =========================
+/* =====================================================
 WALLET
-========================= */
+===================================================== */
 
 async function makeDeposit(){
 
-const amount=
+const amount =
 parseInt(
 document
 .getElementById("depositAmount")
 .value
 );
 
-if(!Number.isFinite(amount)||amount<=0)
-return toast("❌ أدخل مبلغاً صحيحاً");
+if(
+!Number.isFinite(amount) ||
+amount <= 0
+)
+return toast(
+"❌ أدخل مبلغًا صحيحًا"
+);
 
-const ok=
+const ok =
 await updateProfile({
 
 balance:
-(profile.balance||0)+amount
+Number(profile.balance || 0)
++
+amount
 
 });
 
@@ -1630,21 +2875,29 @@ document
 .getElementById("depositAmount")
 .value="";
 
-toast("✅ تم إضافة "+amount+" 🧧");
+toast(
+"✅ تمت إضافة "+
+amount+
+" 🧧"
+);
 
 renderAll();
 
 }
 
+/* =====================================================
+TRANSFER
+===================================================== */
+
 async function makeTransfer(){
 
-const name=
+const name =
 document
 .getElementById("transferUser")
 .value
 .trim();
 
-const amount=
+const amount =
 parseInt(
 document
 .getElementById("transferAmount")
@@ -1652,94 +2905,90 @@ document
 );
 
 if(
-!name||
-!Number.isFinite(amount)||
-amount<=0
+!name ||
+!Number.isFinite(amount) ||
+amount <= 0
 )
-return toast("❌ تحقق من البيانات");
+return toast(
+"❌ تحقق من البيانات"
+);
 
 if(
-name.toLowerCase()===
+name.toLowerCase() ===
 profile.username.toLowerCase()
 )
-return toast("❌ لا يمكنك التحويل لنفسك");
+return toast(
+"❌ لا يمكنك التحويل لنفسك"
+);
 
 if(
-(profile.balance||0)<amount
+Number(profile.balance || 0)
+<
+amount
 )
-return toast("❌ رصيدك غير كافٍ");
+return toast(
+"❌ رصيدك غير كافٍ"
+);
 
-const {data:target,error}=
+/*
+نحتاج العثور على حساب المستلم.
+لذلك نستخدم RPC آمن بدل قراءة جدول profiles.
+*/
+
+const {
+data:targetId,
+error:targetError
+} =
 await supabaseClient
-.from("profiles")
-.select("*")
-.ilike("username",name)
-.maybeSingle();
+.rpc(
+"get_user_id_by_username",
+{
+p_username:name
+}
+);
 
-if(error||!target)
-return toast("❌ العضو غير موجود");
+if(
+targetError ||
+!targetId
+)
+return toast(
+"❌ العضو غير موجود"
+);
 
-const senderBalance=
-profile.balance-amount;
+/*
+لا يمكن للواجهة تعديل حساب شخص آخر
+بسبب RLS.
+لذلك التحويل يجب أن يتم بواسطة RPC آمن.
+*/
 
-const receiverBalance=
-(target.balance||0)+amount;
-
-const {error:senderError}=
+const {
+data:result,
+error
+} =
 await supabaseClient
-.from("profiles")
-.update({
-balance:senderBalance
-})
-.eq("id",profile.id);
+.rpc(
+"transfer_money",
+{
+p_target_id:targetId,
+p_amount:amount
+}
+);
 
-if(senderError)
-return toast("❌ فشل التحويل");
+if(error){
 
-const {error:receiverError}=
-await supabaseClient
-.from("profiles")
-.update({
-balance:receiverBalance
-})
-.eq("id",target.id);
+console.error(error);
 
-if(receiverError){
-
-await supabaseClient
-.from("profiles")
-.update({
-balance:profile.balance
-})
-.eq("id",profile.id);
-
-return toast("❌ فشل استلام التحويل");
+return toast(
+"❌ فشل التحويل: "+
+error.message
+);
 
 }
 
-profile.balance=senderBalance;
-
-await addTransaction(
-"transfer",
--amount,
-"تحويل إلى "+target.username
+if(result !== true)
+return toast(
+"❌ لم يتم التحويل"
 );
-
-await supabaseClient
-.from("transactions")
-.insert({
-
-user_id:target.id,
-
-type:"transfer_received",
-
-amount,
-
-description:"استلام من "+profile.username
-
-});
-
-toast("✅ تم تحويل "+amount+" 🧧");
 
 document
 .getElementById("transferUser")
@@ -1749,24 +2998,32 @@ document
 .getElementById("transferAmount")
 .value="";
 
+toast(
+"✅ تم تحويل "+
+amount+
+" 🧧"
+);
+
 await loadData();
 
 }
 
-/* =========================
+/* =====================================================
 CHARACTER
-========================= */
+===================================================== */
 
 async function changeAvatar(a){
 
-const ok=
+const ok =
 await updateProfile({
 avatar:a
 });
 
 if(ok){
 
-toast("✨ تم تغيير المظهر");
+toast(
+"✨ تم تغيير المظهر"
+);
 
 renderAll();
 
@@ -1774,63 +3031,28 @@ renderAll();
 
 }
 
-async function rename(){
-
-const name=
-document
-.getElementById("newName")
-.value
-.trim();
-
-if(name.length<3)
-return toast("❌ الاسم قصير");
-
-const {data:existing}=
-await supabaseClient
-.from("profiles")
-.select("id")
-.ilike("username",name)
-.maybeSingle();
-
-if(existing&&existing.id!==profile.id)
-return toast("❌ الاسم مستخدم");
-
-const ok=
-await updateProfile({
-username:name
-});
-
-if(ok){
-
-toast("✅ تم تغيير الاسم");
-
-renderAll();
-
-}
-
-}
-
-/* =========================
+/* =====================================================
 SHOP
-========================= */
+===================================================== */
 
 function renderShop(){
 
-const box=
-document.getElementById("shopGrid");
+const box =
+document
+.getElementById("shopGrid");
 
 if(!box)
 return;
 
-const search=
+const search =
 (
 document
 .getElementById("search")
-?.value||""
+?.value || ""
 )
 .toLowerCase();
 
-box.innerHTML=
+box.innerHTML =
 catalog
 .filter(i=>
 i[1]
@@ -1841,11 +3063,17 @@ i[1]
 
 <div class="item">
 
-<div class="icon">${i[0]}</div>
+<div class="icon">
+${i[0]}
+</div>
 
-<h3>${escapeText(i[1])}</h3>
+<h3>
+${escapeText(i[1])}
+</h3>
 
-<span class="badge">${i[2]}</span>
+<span class="badge">
+${i[2]}
+</span>
 
 <p class="muted">
 +${i[3]} قوة
@@ -1857,7 +3085,7 @@ ${i[4].toLocaleString()} 🧧
 
 <button
 class="btn gold full"
-onclick="buy('${i[1].replace(/'/g,"\\'")}')">
+onclick="buyItem(${catalog.indexOf(i)})">
 شراء
 </button>
 
@@ -1868,33 +3096,51 @@ onclick="buy('${i[1].replace(/'/g,"\\'")}')">
 
 }
 
-async function buy(name){
+async function buyItem(index){
 
-const item=
-catalog.find(x=>x[1]===name);
+const item =
+catalog[index];
 
 if(!item)
 return;
 
-if(profile.balance<item[4])
-return toast("❌ رصيدك غير كافٍ");
+const price =
+item[4];
 
-const items=
-profile.items&&
-typeof profile.items==="object"
-?{...profile.items}
-:{};
+if(
+Number(profile.balance || 0)
+<
+price
+)
+return toast(
+"❌ رصيدك غير كافٍ"
+);
 
-items[name]=(items[name]||0)+1;
+const items =
+profile.items &&
+typeof profile.items === "object"
+?
+{...profile.items}
+:
+{};
 
-const newXP=
-(profile.xp||0)+5;
+items[item[1]] =
+Number(items[item[1]] || 0)
++
+1;
 
-const ok=
+const newXP =
+Number(profile.xp || 0)
++
+5;
+
+const ok =
 await updateProfile({
 
 balance:
-profile.balance-item[4],
+Number(profile.balance || 0)
+-
+price,
 
 xp:newXP,
 
@@ -1910,53 +3156,63 @@ return;
 
 await addTransaction(
 "purchase",
--item[4],
-"شراء "+name
+-price,
+"شراء "+item[1]
 );
 
-toast("✅ اشتريت "+name);
+toast(
+"✅ اشتريت "+
+item[1]
+);
 
 renderAll();
 
 }
 
-/* =========================
+/* =====================================================
 INVENTORY
-========================= */
+===================================================== */
 
 function renderInventory(){
 
-const box=
-document.getElementById("invGrid");
+const box =
+document
+.getElementById("invGrid");
 
 if(!box)
 return;
 
-const items=
-profile.items||{};
+const items =
+profile.items || {};
 
-const arr=
+const arr =
 Object.entries(items)
-.filter(x=>x[1]>0);
+.filter(
+x=>Number(x[1])>0
+);
 
 if(!arr.length){
 
-box.innerHTML=
-`<div class="card">
+box.innerHTML = `
+<div class="card">
 🎒 الحقيبة فارغة
-</div>`;
+</div>
+`;
 
 return;
 
 }
 
-box.innerHTML=
-arr.map(([name,q])=>{
+box.innerHTML =
+arr.map(
+([name,q])=>{
 
-const i=
-catalog.find(x=>x[1]===name);
+const i =
+catalog.find(
+x=>x[1]===name
+);
 
-return`
+return `
 
 <div class="item">
 
@@ -1980,22 +3236,23 @@ ${escapeText(name)}
 
 `;
 
-})
+}
+)
 .join("");
 
 }
 
-/* =========================
+/* =====================================================
 CITY
-========================= */
+===================================================== */
 
 function cityCost(){
 
 return Math.floor(
-1000*
+1000 *
 Math.pow(
 1.55,
-(profile.city||1)-1
+(profile.city || 1)-1
 )
 );
 
@@ -2003,31 +3260,33 @@ Math.pow(
 
 function renderCity(){
 
-const owned=
+const owned =
 Array.isArray(profile.buildings)
-?[...profile.buildings]
-:[];
+?
+[...profile.buildings]
+:
+[];
 
 document
 .getElementById("cityL")
-.textContent=
-profile.city||1;
+.textContent =
+profile.city || 1;
 
 document
 .getElementById("buildingCount")
-.textContent=
-owned.length;
+.textContent =
+owned.filter(Boolean).length;
 
 document
 .getElementById("cityPower")
-.textContent=
-(profile.city||1)*100+
-owned.length*50;
+.textContent =
+(profile.city || 1)*100 +
+owned.filter(Boolean).length*50;
 
 document
 .getElementById("cityIncome")
-.textContent=
-(profile.city||1)*100;
+.textContent =
+(profile.city || 1)*100;
 
 let html="";
 
@@ -2035,12 +3294,12 @@ for(let x=0;x<15;x++){
 
 if(owned[x]){
 
-const b=
+const b =
 buildings.find(
 v=>v[1]===owned[x]
 );
 
-html+=`
+html += `
 
 <div class="plot">
 
@@ -2062,7 +3321,7 @@ ${escapeText(owned[x])}
 
 }else{
 
-html+=`
+html += `
 
 <div class="plot">
 
@@ -2086,54 +3345,74 @@ onclick="build(${x})">
 
 document
 .getElementById("cityMap")
-.innerHTML=html;
+.innerHTML =
+html;
 
 }
 
 async function build(slot){
 
-const owned=
+const owned =
 Array.isArray(profile.buildings)
-?[...profile.buildings]
-:[];
+?
+[...profile.buildings]
+:
+[];
 
 if(owned[slot])
 return;
 
-const name=
+const name =
 prompt(
-"اكتب اسم المبنى:\n"+
+"اكتب اسم المبنى:\n\n"+
 buildings
 .map(x=>x[1])
 .join(" - ")
 );
 
-const b=
+if(!name)
+return;
+
+const b =
 buildings.find(
-x=>x[1]===name
+x=>x[1]===name.trim()
 );
 
 if(!b)
-return toast("❌ اسم مبنى غير صحيح");
-
-const cost=
-500+slot*300;
-
-if(profile.balance<cost)
 return toast(
-"❌ تحتاج "+cost+" 🧧"
+"❌ اسم مبنى غير صحيح"
 );
 
-owned[slot]=b[1];
+const cost =
+500 +
+slot*300;
 
-const newXP=
-(profile.xp||0)+15;
+if(
+Number(profile.balance || 0)
+<
+cost
+)
+return toast(
+"❌ تحتاج "+
+cost+
+" 🧧"
+);
 
-const ok=
+owned[slot] =
+b[1];
+
+const newXP =
+Number(profile.xp || 0)
++
+15;
+
+const ok =
 await updateProfile({
 
 balance:
-profile.balance-cost,
+Number(profile.balance || 0)
+-
+cost,
 
 xp:newXP,
 
@@ -2153,7 +3432,10 @@ await addTransaction(
 "بناء "+b[1]
 );
 
-toast("🏗️ تم بناء "+b[1]);
+toast(
+"🏗️ تم بناء "+
+b[1]
+);
 
 renderAll();
 
@@ -2161,27 +3443,33 @@ renderAll();
 
 async function upgradeCity(){
 
-const cost=
+const cost =
 cityCost();
 
-if(profile.balance<cost)
+if(
+Number(profile.balance || 0)
+<
+cost
+)
 return toast(
 "❌ تحتاج "+
 cost.toLocaleString()+
 " 🧧"
 );
 
-const newCity=
-(profile.city||1)+1;
+const newCity =
+(profile.city || 1)+1;
 
-const newXP=
-(profile.xp||0)+30;
+const newXP =
+(profile.xp || 0)+30;
 
-const ok=
+const ok =
 await updateProfile({
 
 balance:
-profile.balance-cost,
+Number(profile.balance || 0)
+-
+cost,
 
 city:newCity,
 
@@ -2210,44 +3498,51 @@ renderAll();
 
 }
 
-/* =========================
+/* =====================================================
 FARM
-========================= */
+===================================================== */
 
 function renderFarm(){
 
-const farm=
-profile.farm||1;
+const farm =
+profile.farm || 1;
 
-const crops=
-profile.crops||0;
+const crops =
+profile.crops || 0;
 
 document
 .getElementById("farmL")
-.textContent=farm;
+.textContent =
+farm;
 
 document
 .getElementById("farmIncome")
-.textContent=farm*50;
+.textContent =
+farm*50;
 
 document
 .getElementById("farmPlots")
-.textContent=farm*4;
+.textContent =
+farm*4;
 
 document
 .getElementById("crops")
-.textContent=crops;
+.textContent =
+crops;
 
 let html="";
 
-const total=
-Math.min(16,farm*4);
+const total =
+Math.min(
+16,
+farm*4
+);
 
 for(let i=0;i<16;i++){
 
 if(i<total){
 
-html+=`
+html += `
 
 <div class="plot">
 
@@ -2271,7 +3566,7 @@ onclick="plant()">
 
 }else{
 
-html+=`
+html += `
 
 <div class="plot">
 
@@ -2291,20 +3586,21 @@ html+=`
 
 document
 .getElementById("farmMap")
-.innerHTML=html;
+.innerHTML =
+html;
 
 }
 
 async function plant(){
 
-const newXP=
-(profile.xp||0)+3;
+const newXP =
+(profile.xp || 0)+3;
 
-const ok=
+const ok =
 await updateProfile({
 
 crops:
-(profile.crops||0)+1,
+(profile.crops || 0)+1,
 
 xp:newXP,
 
@@ -2314,7 +3610,9 @@ Math.floor(newXP/100)+1
 });
 
 if(ok)
-toast("🌱 تمت الزراعة");
+toast(
+"🌱 تمت الزراعة"
+);
 
 renderAll();
 
@@ -2322,28 +3620,30 @@ renderAll();
 
 async function harvest(){
 
-const crops=
-profile.crops||0;
+const crops =
+profile.crops || 0;
 
 if(crops<=0)
-return toast("🌱 لا يوجد محصول");
+return toast(
+"🌱 لا يوجد محصول"
+);
 
-const reward=
-crops*50*(profile.farm||1);
+const reward =
+crops*50*(profile.farm || 1);
 
-const newXP=
-(profile.xp||0)+10;
+const newXP =
+(profile.xp || 0)+10;
 
-const ok=
+const ok =
 await updateProfile({
 
 balance:
-(profile.balance||0)+reward,
+(profile.balance || 0)+reward,
 
 crops:0,
 
 harvest:
-(profile.harvest||0)+crops,
+(profile.harvest || 0)+crops,
 
 xp:newXP,
 
@@ -2373,27 +3673,36 @@ renderAll();
 
 async function upgradeFarm(){
 
-const farm=
-profile.farm||1;
+const farm =
+profile.farm || 1;
 
-const cost=
+const cost =
 Math.floor(
 750*
-Math.pow(1.5,farm-1)
+Math.pow(
+1.5,
+farm-1
+)
 );
 
-if(profile.balance<cost)
+if(
+(profile.balance || 0)
+<
+cost
+)
 return toast(
-"❌ تحتاج "+cost+" 🧧"
+"❌ تحتاج "+
+cost+
+" 🧧"
 );
 
-const newFarm=
+const newFarm =
 farm+1;
 
-const newXP=
-(profile.xp||0)+25;
+const newXP =
+(profile.xp || 0)+25;
 
-const ok=
+const ok =
 await updateProfile({
 
 balance:
@@ -2426,29 +3735,39 @@ renderAll();
 
 }
 
-/* =========================
+/* =====================================================
 GAMES
-========================= */
+===================================================== */
 
 async function dice(){
 
-if(profile.balance<25)
-return toast("❌ تحتاج 25 🧧");
+if(
+(profile.balance || 0)<25
+)
+return toast(
+"❌ تحتاج 25 🧧"
+);
 
-const r=
+const r =
 Math.floor(
 Math.random()*6
 )+1;
 
-const win=
-r>=4?r*20:0;
+const win =
+r>=4 ?
+r*20 :
+0;
 
+const ok =
 await updateProfile({
 
 balance:
 profile.balance-25+win
 
 });
+
+if(!ok)
+return;
 
 await addTransaction(
 "dice",
@@ -2457,8 +3776,10 @@ win-25,
 );
 
 toast(
-win?
-"🎲 ربحت "+win+" 🧧":
+win
+?
+"🎲 ربحت "+win+" 🧧"
+:
 "🎲 خسرت الرهان"
 );
 
@@ -2468,20 +3789,30 @@ renderAll();
 
 async function quickBox(){
 
-if(profile.balance<50)
-return toast("❌ تحتاج 50 🧧");
+if(
+(profile.balance || 0)<50
+)
+return toast(
+"❌ تحتاج 50 🧧"
+);
 
-const win=
-Math.random()>0.5?
-150:
+const win =
+Math.random()>0.5
+?
+150
+:
 20;
 
+const ok =
 await updateProfile({
 
 balance:
 profile.balance-50+win
 
 });
+
+if(!ok)
+return;
 
 await addTransaction(
 "box",
@@ -2490,7 +3821,9 @@ win-50,
 );
 
 toast(
-"🎁 ربحت "+win+" 🧧"
+"🎁 ربحت "+
+win+
+" 🧧"
 );
 
 renderAll();
@@ -2499,20 +3832,28 @@ renderAll();
 
 async function spin(){
 
-if(profile.balance<100)
-return toast("❌ تحتاج 100 🧧");
+if(
+(profile.balance || 0)<100
+)
+return toast(
+"❌ تحتاج 100 🧧"
+);
 
-const win=
+const win =
 Math.floor(
 Math.random()*300
 )+50;
 
+const ok =
 await updateProfile({
 
 balance:
 profile.balance-100+win
 
 });
+
+if(!ok)
+return;
 
 await addTransaction(
 "wheel",
@@ -2521,7 +3862,9 @@ win-100,
 );
 
 toast(
-"🎡 ربحت "+win+" 🧧"
+"🎡 ربحت "+
+win+
+" 🧧"
 );
 
 renderAll();
@@ -2530,14 +3873,20 @@ renderAll();
 
 async function daily(){
 
-const reward=500;
+const reward = 500;
 
+const ok =
 await updateProfile({
 
 balance:
-profile.balance+reward
+Number(profile.balance || 0)
++
+reward
 
 });
+
+if(!ok)
+return;
 
 await addTransaction(
 "daily",
@@ -2553,22 +3902,31 @@ renderAll();
 
 }
 
-/* =========================
+/* =====================================================
 CHAT
-========================= */
+===================================================== */
 
 async function sendChat(){
 
-const input=
-document.getElementById("chatInput");
+const input =
+document
+.getElementById("chatInput");
 
-const message=
+const message =
 input.value.trim();
 
 if(!message)
 return;
 
-const {data,error}=
+if(message.length>500)
+return toast(
+"❌ الرسالة طويلة جدًا"
+);
+
+const {
+data,
+error
+} =
 await supabaseClient
 .from("chat")
 .insert({
@@ -2583,8 +3941,15 @@ message
 .select()
 .single();
 
-if(error)
-return toast("❌ تعذر إرسال الرسالة");
+if(error){
+
+console.error(error);
+
+return toast(
+"❌ تعذر إرسال الرسالة"
+);
+
+}
 
 chatMessages.push(data);
 
@@ -2596,29 +3961,35 @@ renderChat();
 
 function renderChat(){
 
-const box=
-document.getElementById("messages");
+const box =
+document
+.getElementById("messages");
 
 if(!box)
 return;
 
-box.innerHTML=
-chatMessages.map(x=>`
+box.innerHTML =
+chatMessages
+.map(
+x=>`
 
 <div class="msg">
 
 <b>
 ${escapeText(x.username)}
-</b>:
+</b>
+
+:
 
 ${escapeText(x.message)}
 
 </div>
 
-`)
+`
+)
 .join("");
 
-box.scrollTop=
+box.scrollTop =
 box.scrollHeight;
 
 }
@@ -2626,7 +3997,9 @@ box.scrollHeight;
 function subscribeChat(){
 
 supabaseClient
-.channel("sun-tokyo-chat")
+.channel(
+"sun-tokyo-chat"
+)
 .on(
 "postgres_changes",
 {
@@ -2638,7 +4011,8 @@ payload=>{
 
 if(
 !chatMessages.some(
-x=>x.id===payload.new.id
+x=>x.id===
+payload.new.id
 )
 ){
 
@@ -2656,118 +4030,20 @@ renderChat();
 
 }
 
-/* =========================
-PLAYERS
-========================= */
-
-function renderPlayers(){
-
-const box=
-document.getElementById("playersGrid");
-
-if(!box)
-return;
-
-box.innerHTML=
-users.map(u=>{
-
-const s=
-stats(u);
-
-return`
-
-<div class="player">
-
-<div style="font-size:35px">
-${escapeText(u.avatar||"🧙")}
-</div>
-
-<h3>
-${escapeText(u.username)}
-</h3>
-
-<p class="muted">
-القوة: ${s.p}
-</p>
-
-<p class="gold">
-الرصيد:
-${(u.balance||0).toLocaleString()}
-</p>
-
-</div>
-
-`;
-
-})
-.join("");
-
-}
-
-function renderRank(){
-
-const body=
-document.getElementById("rankBody");
-
-if(!body)
-return;
-
-const sorted=
-[...users]
-.sort(
-(a,b)=>
-stats(b).p-stats(a).p
-);
-
-body.innerHTML=
-sorted.map((u,i)=>{
-
-const s=
-stats(u);
-
-return`
-
-<tr>
-
-<td>#${i+1}</td>
-
-<td>
-<b>
-${escapeText(u.username)}
-</b>
-</td>
-
-<td>
-${level(u)}
-</td>
-
-<td class="red">
-${s.p}
-</td>
-
-<td>
-${u.admin?"👑 مدير":"🌱 عضو"}
-</td>
-
-</tr>
-
-`;
-
-})
-.join("");
-
-}
-
-/* =========================
+/* =====================================================
 LOANS
-========================= */
+===================================================== */
 
 async function takeLoan(){
 
-if((profile.loan||0)>0)
-return toast("❌ لديك قرض قائم");
+if(
+(profile.loan || 0)>0
+)
+return toast(
+"❌ لديك قرض قائم"
+);
 
-const ok=
+const ok =
 await updateProfile({
 
 balance:
@@ -2788,7 +4064,9 @@ await addTransaction(
 "اقتراض من البنك"
 );
 
-toast("✅ تم استلام القرض");
+toast(
+"✅ تم استلام القرض"
+);
 
 renderAll();
 
@@ -2796,16 +4074,24 @@ renderAll();
 
 async function payLoan(){
 
-const due=
-profile.loan_due||0;
+const due =
+profile.loan_due || 0;
 
 if(due<=0)
-return toast("❌ ليس عليك قرض");
+return toast(
+"❌ ليس عليك قرض"
+);
 
-if(profile.balance<due)
-return toast("❌ رصيدك غير كافٍ");
+if(
+(profile.balance || 0)
+<
+due
+)
+return toast(
+"❌ رصيدك غير كافٍ"
+);
 
-const ok=
+const ok =
 await updateProfile({
 
 balance:
@@ -2826,57 +4112,71 @@ await addTransaction(
 "سداد القرض"
 );
 
-toast("✅ تم سداد القرض");
+toast(
+"✅ تم سداد القرض"
+);
 
 renderAll();
 
 }
 
-/* =========================
+/* =====================================================
 STOCKS
-========================= */
+===================================================== */
 
 function updateStocksMarket(){
 
-stocks.price1=
+stocks.price1 =
 Math.max(
 50,
-stocks.price1+
+stocks.price1 +
 Math.floor(Math.random()*60)-25
 );
 
-stocks.price2=
+stocks.price2 =
 Math.max(
 100,
-stocks.price2+
+stocks.price2 +
 Math.floor(Math.random()*100)-45
 );
 
 document
 .getElementById("stockPrice1")
-.textContent=
-stocks.price1+" 🧧";
+.textContent =
+stocks.price1+
+" 🧧";
 
 document
 .getElementById("stockPrice2")
-.textContent=
-stocks.price2+" 🧧";
+.textContent =
+stocks.price2+
+" 🧧";
 
-toast("📈 تم تحديث السوق");
+toast(
+"📈 تم تحديث السوق"
+);
 
 }
 
 async function buyStock(type){
 
-const price=
-type===1?
-stocks.price1:
+const price =
+type===1
+?
+stocks.price1
+:
 stocks.price2;
 
-if(profile.balance<price)
-return toast("❌ رصيدك غير كافٍ");
+if(
+(profile.balance || 0)
+<
+price
+)
+return toast(
+"❌ رصيدك غير كافٍ"
+);
 
-const changes={
+const changes = {
 
 balance:
 profile.balance-price
@@ -2884,13 +4184,14 @@ profile.balance-price
 };
 
 if(type===1)
-changes.stocks1=
-(profile.stocks1||0)+1;
-else
-changes.stocks2=
-(profile.stocks2||0)+1;
+changes.stocks1 =
+(profile.stocks1 || 0)+1;
 
-const ok=
+else
+changes.stocks2 =
+(profile.stocks2 || 0)+1;
+
+const ok =
 await updateProfile(changes);
 
 if(!ok)
@@ -2902,7 +4203,9 @@ await addTransaction(
 "شراء سهم"
 );
 
-toast("✅ تم شراء السهم");
+toast(
+"✅ تم شراء السهم"
+);
 
 renderAll();
 
@@ -2910,20 +4213,26 @@ renderAll();
 
 async function sellStock(type){
 
-const owned=
-type===1?
-(profile.stocks1||0):
-(profile.stocks2||0);
+const owned =
+type===1
+?
+(profile.stocks1 || 0)
+:
+(profile.stocks2 || 0);
 
 if(owned<=0)
-return toast("❌ لا تملك هذا السهم");
+return toast(
+"❌ لا تملك هذا السهم"
+);
 
-const price=
-type===1?
-stocks.price1:
+const price =
+type===1
+?
+stocks.price1
+:
 stocks.price2;
 
-const changes={
+const changes = {
 
 balance:
 profile.balance+price
@@ -2931,11 +4240,14 @@ profile.balance+price
 };
 
 if(type===1)
-changes.stocks1=owned-1;
-else
-changes.stocks2=owned-1;
+changes.stocks1 =
+owned-1;
 
-const ok=
+else
+changes.stocks2 =
+owned-1;
+
+const ok =
 await updateProfile(changes);
 
 if(!ok)
@@ -2947,20 +4259,23 @@ price,
 "بيع سهم"
 );
 
-toast("✅ تم بيع السهم");
+toast(
+"✅ تم بيع السهم"
+);
 
 renderAll();
 
 }
 
-/* =========================
+/* =====================================================
 ADMIN
-========================= */
+===================================================== */
 
 function renderAdmin(){
 
-const btn=
-document.getElementById("adminBtn");
+const btn =
+document
+.getElementById("adminBtn");
 
 if(!profile.admin){
 
@@ -2972,132 +4287,41 @@ return;
 
 btn.style.display="block";
 
-document
-.getElementById("adminUsers")
-.textContent=
-users.length;
-
-document
-.getElementById("adminMoney")
-.textContent=
-users
-.reduce(
-(a,b)=>
-a+(b.balance||0),
-0
-)
-.toLocaleString();
-
-document
-.getElementById("adminTable")
-.innerHTML=
-users.map(u=>`
-
-<tr>
-
-<td>
-${escapeText(u.username)}
-</td>
-
-<td class="gold">
-${(u.balance||0).toLocaleString()}
-</td>
-
-<td>
-${stats(u).p}
-</td>
-
-<td>
-
-<button
-class="btn"
-onclick="adminAddMoney('${u.id}')">
-+1000
-</button>
-
-</td>
-
-</tr>
-
-`)
-.join("");
-
 }
 
-async function adminAddMoney(id){
-
-if(!profile.admin)
-return toast("❌ لا تملك صلاحية الإدارة");
-
-const target=
-users.find(
-x=>x.id===id
-);
-
-if(!target)
-return;
-
-const {error}=
-await supabaseClient
-.from("profiles")
-.update({
-
-balance:
-(target.balance||0)+1000
-
-})
-.eq("id",id);
-
-if(error)
-return toast("❌ فشل إضافة الرصيد");
-
-await supabaseClient
-.from("transactions")
-.insert({
-
-user_id:id,
-
-type:"admin_add",
-
-amount:1000,
-
-description:"إضافة من الإدارة"
-
-});
-
-toast("✅ تمت إضافة 1000");
-
-await loadData();
-
-}
-
-/* =========================
+/* =====================================================
 TRANSACTIONS
-========================= */
+===================================================== */
 
 function renderWalletHistory(){
 
-const box=
-document.getElementById("txHistoryBox");
+const box =
+document
+.getElementById("txHistoryBox");
 
 if(!box)
 return;
 
 if(!transactions.length){
 
-box.innerHTML=
-`<p class="muted">
+box.innerHTML =
+`
+<p class="muted">
 لا توجد عمليات سابقة.
-</p>`;
+</p>
+`;
 
 return;
 
 }
 
-box.innerHTML=
-transactions.map(t=>`
+box.innerHTML =
+transactions
+.map(
+t=>`
 
-<div style="
+<div
+style="
 padding:8px;
 margin:4px 0;
 background:rgba(255,255,255,.04);
@@ -3106,8 +4330,9 @@ font-size:13px;
 ">
 
 🔹
+
 ${escapeText(
-t.description||t.type
+t.description || t.type
 )}
 
 <span class="muted">
@@ -3121,14 +4346,15 @@ ${t.amount}
 
 </div>
 
-`)
+`
+)
 .join("");
 
 }
 
-/* =========================
+/* =====================================================
 RENDER
-========================= */
+===================================================== */
 
 function renderAll(){
 
@@ -3137,210 +4363,220 @@ return;
 
 document
 .getElementById("headName")
-.textContent=
+.textContent =
 profile.username;
 
 document
 .getElementById("avatar")
-.textContent=
-profile.avatar||"🧙";
+.textContent =
+profile.avatar || "🧙";
 
 document
 .getElementById("balance")
-.textContent=
-(profile.balance||0)
+.textContent =
+Number(profile.balance || 0)
 .toLocaleString();
 
 document
 .getElementById("walletBalance")
-.textContent=
-(profile.balance||0)
+.textContent =
+Number(profile.balance || 0)
 .toLocaleString();
 
 document
 .getElementById("txCount")
-.textContent=
+.textContent =
 transactions.length;
 
 document
 .getElementById("level")
-.textContent=
-level(profile);
+.textContent =
+level();
 
 document
 .getElementById("xp")
-.textContent=
-profile.xp||0;
+.textContent =
+profile.xp || 0;
 
-const st=
-stats(profile);
+const st =
+stats();
 
 document
 .getElementById("power")
-.textContent=
+.textContent =
 st.p;
 
 document
 .getElementById("attack")
-.textContent=
+.textContent =
 st.a;
 
 document
 .getElementById("defense")
-.textContent=
+.textContent =
 st.d;
 
 document
 .getElementById("hp")
-.textContent=
+.textContent =
 st.h;
 
 document
 .getElementById("cityLevel")
-.textContent=
-profile.city||1;
+.textContent =
+profile.city || 1;
 
-const rem=
-(profile.xp||0)%100;
+const rem =
+(profile.xp || 0)%100;
 
 document
 .getElementById("xpbar")
-.style.width=
+.style.width =
 rem+"%";
 
 document
 .getElementById("xptext")
-.textContent=
-rem+" / 100 XP";
+.textContent =
+rem+
+" / 100 XP";
 
 document
 .getElementById("charView")
-.textContent=
-profile.avatar||"🧙";
+.textContent =
+profile.avatar || "🧙";
 
 document
 .getElementById("charName")
-.textContent=
+.textContent =
 profile.username;
 
 document
 .getElementById("cHP")
-.textContent=
+.textContent =
 st.h;
 
 document
 .getElementById("cATK")
-.textContent=
+.textContent =
 st.a;
 
 document
 .getElementById("cDEF")
-.textContent=
+.textContent =
 st.d;
 
 document
+.getElementById("profileUsername")
+textContent =
+profile.username;
+
+document
 .getElementById("loanAmount")
-.textContent=
-(profile.loan||0)+" 🧧";
+.textContent =
+(profile.loan || 0)+
+" 🧧";
 
 document
 .getElementById("loanStatus")
-.textContent=
-profile.loan>0?
-"عليك سداد: "+profile.loan_due:
+.textContent =
+profile.loan>0
+?
+"عليك سداد: "+
+profile.loan_due
+:
 "لا يوجد قرض";
 
 document
 .getElementById("stockPrice1")
-.textContent=
-stocks.price1+" 🧧";
+.textContent =
+stocks.price1+
+" 🧧";
 
 document
 .getElementById("stockPrice2")
-.textContent=
-stocks.price2+" 🧧";
+.textContent =
+stocks.price2+
+" 🧧";
 
 document
 .getElementById("stockOwned1")
-.textContent=
+.textContent =
 "المملوك: "+
-(profile.stocks1||0)+
+(profile.stocks1 || 0)+
 " سهم";
 
 document
 .getElementById("stockOwned2")
-.textContent=
+.textContent =
 "المملوك: "+
-(profile.stocks2||0)+
+(profile.stocks2 || 0)+
 " سهم";
 
 renderShop();
+
 renderInventory();
+
 renderCity();
+
 renderFarm();
+
 renderChat();
-renderPlayers();
-renderRank();
-renderAdmin();
+
 renderWalletHistory();
+
+renderAdmin();
 
 }
 
-/* =========================
+/* =====================================================
 MUSIC
-========================= */
+===================================================== */
 
 function toggleMusic(){
 
-const m=
-document.getElementById("music");
+const m =
+document
+.getElementById("music");
 
-const b=
-document.getElementById("musicBtn");
+const b =
+document
+.getElementById("musicBtn");
 
 if(m.paused){
 
-m.play().catch(()=>{});
+m.play()
+.catch(()=>{});
 
-b.textContent="🔊";
+b.textContent =
+"🔊";
 
 }else{
 
 m.pause();
 
-b.textContent="🔇";
+b.textContent =
+"🔇";
 
 }
 
 }
 
-/* =========================
-WIN
-========================= */
-
-function closeWin(){
-
-document
-.getElementById("win")
-.classList
-.remove("show");
-
-}
-
-/* =========================
+/* =====================================================
 START
-========================= */
+===================================================== */
 
 async function startApp(){
 
-const {data}=
+const {
+data
+} =
 await supabaseClient
 .auth
 .getSession();
 
 if(data.session){
 
-currentUser=
+currentUser =
 data.session.user;
 
 await loadData();
@@ -3372,8 +4608,13 @@ async(event,session)=>{
 
 if(event==="SIGNED_OUT"){
 
-currentUser=null;
-profile=null;
+currentUser = null;
+
+profile = null;
+
+transactions = [];
+
+chatMessages = [];
 
 document
 .getElementById("auth")
@@ -3385,11 +4626,11 @@ return;
 }
 
 if(
-session&&
+session &&
 !profile
 ){
 
-currentUser=
+currentUser =
 session.user;
 
 await loadData();
