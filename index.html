@@ -1,4144 +1,1562 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-:root{
-    --red:#e51d48;
-    --red2:#700b23;
-    --gold:#f2bd4b;
-    --green:#31d695;
-    --blue:#4ba7ff;
-    --bg:#05060c;
-    --card:rgba(12,13,22,.88);
-    --line:rgba(255,255,255,.10);
-}
-
-body{
-    font-family:Tahoma,Arial,sans-serif;
-    color:#fff;
-    min-height:100vh;
-    background:#05060c;
-}
-
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    z-index:-2;
-    background:
-    linear-gradient(
-        135deg,
-        rgba(2,4,15,.72),
-        rgba(55,5,30,.78)
-    ),
-    url("https://cdn.pixabay.com/photo/2024/05/29/17/52/anime-8790430_1280.jpg")
-    center/cover fixed no-repeat;
-}
-
-body::after{
-    content:"";
-    position:fixed;
-    inset:0;
-    z-index:-1;
-    pointer-events:none;
-    background:
-    radial-gradient(
-        circle at 20% 20%,
-        rgba(255,0,80,.16),
-        transparent 25%
-    ),
-    radial-gradient(
-        circle at 80% 70%,
-        rgba(80,100,255,.15),
-        transparent 25%
-    );
-}
-
-button,
-input{
-    font:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-.hidden{
-    display:none!important;
-}
-
-/* AUTH */
-
-.auth{
-    position:fixed;
-    inset:0;
-    z-index:999;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
-    background:
-    linear-gradient(
-        rgba(3,4,12,.72),
-        rgba(20,3,15,.88)
-    );
-}
-
-.authbox{
-    width:min(430px,100%);
-    padding:30px;
-    border-radius:25px;
-    background:rgba(10,11,18,.96);
-    border:1px solid var(--line);
-    box-shadow:0 20px 80px rgba(0,0,0,.5);
-}
-
-.authlogo{
-    text-align:center;
-    font-size:23px;
-    color:var(--gold);
-    font-weight:900;
-}
-
-.authsub{
-    text-align:center;
-    color:#777;
-    margin:8px 0 25px;
-}
-
-input{
-    width:100%;
-    padding:13px;
-    margin:6px 0 12px;
-    border:1px solid var(--line);
-    border-radius:11px;
-    background:#080910;
-    color:#fff;
-    outline:0;
-}
-
-input:focus{
-    border-color:var(--red);
-}
-
-.btn{
-    border:0;
-    border-radius:11px;
-    padding:12px 16px;
-    background:
-    linear-gradient(
-        135deg,
-        var(--red),
-        var(--red2)
-    );
-    color:#fff;
-    font-weight:bold;
-}
-
-.btn.gold{
-    background:
-    linear-gradient(
-        135deg,
-        #b5791c,
-        var(--gold)
-    );
-    color:#160d00;
-}
-
-.btn.gray{
-    background:#242631;
-}
-
-.btn.green{
-    background:
-    linear-gradient(
-        135deg,
-        #167b55,
-        var(--green)
-    );
-    color:#00150d;
-}
-
-.full{
-    width:100%;
-}
-
-/* HEADER */
-
-header{
-    height:70px;
-    position:sticky;
-    top:0;
-    z-index:50;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:10px 25px;
-    background:rgba(3,4,9,.88);
-    backdrop-filter:blur(18px);
-    border-bottom:1px solid var(--line);
-}
-
-.logo{
-    font-size:20px;
-    color:var(--gold);
-    font-weight:900;
-}
-
-.userbox{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-.avatar{
-    width:42px;
-    height:42px;
-    border-radius:50%;
-    display:grid;
-    place-items:center;
-    background:
-    linear-gradient(
-        135deg,
-        var(--red),
-        #6d0820
-    );
-    font-weight:bold;
-    border:2px solid rgba(255,255,255,.15);
-}
-
-/* LAYOUT */
-
-.layout{
-    display:flex;
-    min-height:calc(100vh - 70px);
-}
-
-aside{
-    width:245px;
-    padding:18px;
-    background:rgba(4,5,10,.76);
-    border-left:1px solid var(--line);
-    backdrop-filter:blur(15px);
-}
-
-nav button{
-    width:100%;
-    border:0;
-    background:transparent;
-    color:#aaa;
-    padding:13px;
-    margin:3px 0;
-    border-radius:13px;
-    text-align:right;
-    transition:.2s;
-}
-
-nav button:hover,
-nav button.active{
-    background:
-    linear-gradient(
-        90deg,
-        rgba(229,29,72,.3),
-        transparent
-    );
-    color:#fff;
-}
-
-.navtitle{
-    font-size:11px;
-    color:#666;
-    margin:20px 8px 6px;
-}
-
-main{
-    flex:1;
-    padding:25px;
-    max-width:1600px;
-    width:100%;
-    margin:auto;
-}
-
-/* CARDS */
-
-.hero{
-    padding:30px;
-    border:1px solid var(--line);
-    border-radius:25px;
-    background:
-    linear-gradient(
-        135deg,
-        rgba(229,29,72,.25),
-        rgba(242,189,75,.07)
-    ),
-    var(--card);
-    margin-bottom:20px;
-}
-
-.hero h1{
-    font-size:29px;
-    margin-bottom:8px;
-}
-
-.hero p{
-    color:#aaa;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:14px;
-    margin-bottom:18px;
-}
-
-.card{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:18px;
-    padding:19px;
-    backdrop-filter:blur(13px);
-}
-
-.stat-title{
-    font-size:12px;
-    color:#888;
-}
-
-.stat-value{
-    font-size:25px;
-    font-weight:900;
-    margin-top:5px;
-}
-
-.gold{
-    color:var(--gold);
-}
-
-.red{
-    color:#ff4f70;
-}
-
-.green{
-    color:var(--green);
-}
-
-.blue{
-    color:var(--blue);
-}
-
-.actions{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:12px;
-}
-
-.action{
-    border:1px solid var(--line);
-    border-radius:16px;
-    padding:20px;
-    color:#fff;
-    background:rgba(255,255,255,.045);
-    text-align:center;
-}
-
-.action:hover{
-    transform:translateY(-3px);
-    border-color:var(--red);
-}
-
-.action b{
-    display:block;
-    margin-top:8px;
-}
-
-.action small{
-    color:#777;
-}
-
-.section{
-    margin-top:22px;
-}
-
-.section h2{
-    margin-bottom:12px;
-}
-
-.progress{
-    height:9px;
-    background:#222;
-    border-radius:20px;
-    overflow:hidden;
-    margin-top:10px;
-}
-
-.progress i{
-    display:block;
-    height:100%;
-    width:0;
-    background:
-    linear-gradient(
-        90deg,
-        var(--red),
-        var(--gold)
-    );
-}
-
-/* SHOP */
-
-.shop,
-.inventory,
-.players{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:14px;
-}
-
-.item,
-.player{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:17px;
-    padding:18px;
-}
-
-.icon{
-    font-size:48px;
-    text-align:center;
-    margin-bottom:10px;
-}
-
-.muted{
-    color:#888;
-    font-size:12px;
-}
-
-.price{
-    color:var(--gold);
-    font-weight:bold;
-    margin:10px 0;
-}
-
-.badge{
-    display:inline-block;
-    padding:4px 9px;
-    border-radius:20px;
-    background:rgba(242,189,75,.12);
-    color:var(--gold);
-    font-size:11px;
-}
-
-/* TABLE */
-
-.table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-.table th,
-.table td{
-    padding:12px;
-    border-bottom:1px solid var(--line);
-    text-align:right;
-}
-
-.table th{
-    color:#777;
-    font-size:11px;
-}
-
-/* CITY */
-
-.citymap{
-    min-height:480px;
-    border:1px solid var(--line);
-    border-radius:22px;
-    padding:18px;
-    background:
-    linear-gradient(
-        rgba(7,20,25,.35),
-        rgba(7,10,20,.6)
-    ),
-    repeating-linear-gradient(
-        0deg,
-        transparent 0 48px,
-        rgba(255,255,255,.04) 49px 50px
-    ),
-    repeating-linear-gradient(
-        90deg,
-        transparent 0 48px,
-        rgba(255,255,255,.04) 49px 50px
-    );
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
-    gap:12px;
-}
-
-.plot{
-    min-height:120px;
-    border:1px dashed rgba(255,255,255,.16);
-    border-radius:15px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    background:rgba(0,0,0,.18);
-    gap:8px;
-}
-
-/* CHARACTER */
-
-.character{
-    display:grid;
-    grid-template-columns:180px 1fr;
-    gap:20px;
-    align-items:center;
-}
-
-.char{
-    width:160px;
-    height:210px;
-    border-radius:25px;
-    display:grid;
-    place-items:center;
-    font-size:110px;
-    background:
-    linear-gradient(
-        160deg,
-        #32102b,
-        #0d1d3d
-    );
-    border:1px solid var(--line);
-}
-
-.stats{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-}
-
-.stat{
-    padding:14px;
-    border-radius:14px;
-    background:rgba(255,255,255,.04);
-    border:1px solid var(--line);
-}
-
-/* CHAT */
-
-.chat{
-    height:390px;
-    display:flex;
-    flex-direction:column;
-}
-
-.messages{
-    flex:1;
-    overflow:auto;
-    padding:10px;
-}
-
-.msg{
-    padding:10px;
-    margin:7px 0;
-    border-radius:12px;
-    background:rgba(255,255,255,.05);
-}
-
-.msg b{
-    color:var(--gold);
-}
-
-.chatbar{
-    display:flex;
-    gap:8px;
-}
-
-.chatbar input{
-    margin:0;
-}
-
-/* TOAST */
-
-.toast{
-    position:fixed;
-    left:20px;
-    bottom:20px;
-    z-index:200;
-    background:#151720;
-    border:1px solid var(--line);
-    border-right:4px solid var(--red);
-    padding:14px 18px;
-    border-radius:12px;
-    transform:translateY(100px);
-    opacity:0;
-    transition:.3s;
-}
-
-.toast.show{
-    transform:none;
-    opacity:1;
-}
-
-/* RESPONSIVE */
-
-@media(max-width:1100px){
-
-    .grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .actions{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .shop,
-    .inventory,
-    .players{
-        grid-template-columns:repeat(3,1fr);
-    }
-
-    aside{
-        width:210px;
-    }
-
-    .citymap{
-        grid-template-columns:repeat(4,1fr);
-    }
-}
-
-@media(max-width:700px){
-
-    header{
-        padding:10px 14px;
-    }
-
-    .layout{
-        display:block;
-    }
-
-    aside{
-        width:100%;
-        padding:7px;
-        overflow:auto;
-    }
-
-    nav{
-        display:flex;
-        gap:5px;
-        overflow:auto;
-    }
-
-    nav button{
-        white-space:nowrap;
-        width:auto;
-    }
-
-    .navtitle{
-        display:none;
-    }
-
-    main{
-        padding:13px;
-    }
-
-    .grid,
-    .actions,
-    .shop,
-    .inventory,
-    .players{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .citymap{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .character{
-        grid-template-columns:1fr;
-    }
-
-    .char{
-        margin:auto;
-    }
-
-    .stats{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .logo{
-        font-size:15px;
-    }
-}
-</style>
-</head>
-
-<body>
-
-<!-- ================= AUTH ================= -->
-
-<div class="auth" id="auth">
-
-<div class="authbox">
-
-<div class="authlogo">
-『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』
-</div>
-
-<div class="authsub">
-تسجيل باسم مستخدم وكلمة سر
-</div>
-
-<!-- LOGIN -->
-
-<div id="loginForm">
-
-<input
-id="loginUsername"
-type="text"
-autocomplete="username"
-placeholder="👤 اسم المستخدم">
-
-<input
-id="loginPassword"
-type="password"
-autocomplete="current-password"
-placeholder="🔐 كلمة المرور">
-
-<button
-class="btn full"
-onclick="login()">
-🚀 تسجيل الدخول
-</button>
-
-<br><br>
-
-<button
-class="btn gray full"
-onclick="showRegister()">
-✨ إنشاء حساب جديد
-</button>
-
-</div>
-
-<!-- REGISTER -->
-
-<div id="registerForm" class="hidden">
-
-<input
-id="registerUsername"
-type="text"
-autocomplete="username"
-placeholder="👤 اسم المستخدم">
-
-<input
-id="registerPassword"
-type="password"
-autocomplete="new-password"
-placeholder="🔐 كلمة المرور">
-
-<input
-id="registerPassword2"
-type="password"
-autocomplete="new-password"
-placeholder="🔐 تأكيد كلمة المرور">
-
-<button
-class="btn gold full"
-onclick="register()">
-✨ إنشاء الحساب
-</button>
-
-<br><br>
-
-<button
-class="btn gray full"
-onclick="showLogin()">
-↩️ رجوع لتسجيل الدخول
-</button>
-
-</div>
-
-</div>
-</div>
-
-<!-- ================= HEADER ================= -->
-
-<header>
-
-<div class="logo">
-『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』
-</div>
-
-<div class="userbox">
-
-<span id="headName">
-Guest
-</span>
-
-<div
-class="avatar"
-id="avatar">
-?
-</div>
-
-</div>
-
-</header>
-
-<!-- ================= LAYOUT ================= -->
-
-<div class="layout">
-
-<aside>
-
-<nav>
-
-<button
-class="active"
-onclick="page('home',this)">
-🏠 الرئيسية
-</button>
-
-<button
-onclick="page('character',this)">
-👤 شخصيتي
-</button>
-
-<button
-onclick="page('city',this)">
-🏙️ مدينتي
-</button>
-
-<button
-onclick="page('farm',this)">
-🌾 مزرعتي
-</button>
-
-<button
-onclick="page('shop',this)">
-🛒 المتجر
-</button>
-
-<button
-onclick="page('inventory',this)">
-🎒 الحقيبة
-</button>
-
-<button
-onclick="page('games',this)">
-🎮 الألعاب
-</button>
-
-<button
-onclick="page('chat',this)">
-💬 الدردشة
-</button>
-
-<button
-onclick="page('players',this)">
-👥 الأعضاء
-</button>
-
-<button
-onclick="page('rank',this)">
-🏆 المتصدرون
-</button>
-
-<button
-onclick="page('wallet',this)">
-💰 المحفظة
-</button>
-
-<button
-onclick="page('profile',this)">
-⚙️ الحساب
-</button>
-
-<div
-class="navtitle">
-الحساب
-</div>
-
-<button
-onclick="logout()">
-🚪 تسجيل الخروج
-</button>
-
-</nav>
-
-</aside>
-
-<main>
-
-<!-- HOME -->
-
-<section
-id="home"
-class="page">
-
-<div class="hero">
-
-<h1>
-🌙 أهلاً بك في عالم S.U.N TOKYO
-</h1>
-
-<p>
-عالمك الخاص: طوّر شخصيتك واجمع العملات وتنافس مع الآخرين.
-</p>
-
-</div>
-
-<div class="grid">
-
-<div class="card">
-
-💰
-
-<div class="stat-title">
-الرصيد
-</div>
-
-<div
-class="stat-value gold"
-id="balance">
-0
-</div>
-
-</div>
-
-<div class="card">
-
-⭐
-
-<div class="stat-title">
-المستوى
-</div>
-
-<div
-class="stat-value"
-id="level">
-1
-</div>
-
-</div>
-
-<div class="card">
-
-⚡
-
-<div class="stat-title">
-XP
-</div>
-
-<div
-class="stat-value blue"
-id="xp">
-0
-</div>
-
-</div>
-
-<div class="card">
-
-🔥
-
-<div class="stat-title">
-القوة
-</div>
-
-<div
-class="stat-value red"
-id="power">
-0
-</div>
-
-</div>
-
-</div>
-
-<div class="grid">
-
-<div class="card">
-
-⚔️
-
-<div class="stat-title">
-Attack
-</div>
-
-<div
-class="stat-value red"
-id="attack">
-0
-</div>
-
-</div>
-
-<div class="card">
-
-🛡️
-
-<div class="stat-title">
-Defense
-</div>
-
-<div
-class="stat-value blue"
-id="defense">
-0
-</div>
-
-</div>
-
-<div class="card">
-
-❤️
-
-<div class="stat-title">
-HP
-</div>
-
-<div
-class="stat-value green"
-id="hp">
-0
-</div>
-
-</div>
-
-<div class="card">
-
-🏙️
-
-<div class="stat-title">
-مستوى المدينة
-</div>
-
-<div
-class="stat-value gold"
-id="cityLevel">
-1
-</div>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<b>
-⚡ تقدم المستوى
-</b>
-
-<div class="progress">
-
-<i id="xpbar"></i>
-
-</div>
-
-<small id="xptext">
-0 / 100 XP
-</small>
-
-</div>
-
-<div class="section">
-
-<h2>
-⚡ اختصارات
-</h2>
-
-<div class="actions">
-
-<button
-class="action"
-onclick="page('wallet')">
-
-💰
-
-<b>
-المحفظة
-</b>
-
-<small>
-الرصيد
-</small>
-
-</button>
-
-<button
-class="action"
-onclick="page('chat')">
-
-💬
-
-<b>
-الدردشة
-</b>
-
-<small>
-تحدث مع الأعضاء
-</small>
-
-</button>
-
-<button
-class="action"
-onclick="page('city')">
-
-🏙️
-
-<b>
-المدينة
-</b>
-
-<small>
-تطوير المدينة
-</small>
-
-</button>
-
-<button
-class="action"
-onclick="page('shop')">
-
-🛒
-
-<b>
-المتجر
-</b>
-
-<small>
-شراء الأدوات
-</small>
-
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- CHARACTER -->
-
-<section
-id="character"
-class="page hidden">
-
-<div class="hero">
-
-<h1>
-👤 شخصيتي
-</h1>
-
-<p>
-طوّر بطلك.
-</p>
-
-</div>
-
-<div class="card character">
-
-<div
-class="char"
-id="charView">
-🧙
-</div>
-
-<div>
-
-<h1 id="charName">
-Player
-</h1>
-
-<p class="muted">
-🌱 عضو
-</p>
-
-<br>
-
-<div class="stats">
-
-<div class="stat">
-
-❤️ HP
-
-<h2 id="cHP">
-100
-</h2>
-
-</div>
-
-<div class="stat">
-
-⚔️ Attack
-
-<h2 id="cATK">
-30
-</h2>
-
-</div>
-
-<div class="stat">
-
-🛡️ Defense
-
-<h2 id="cDEF">
-30
-</h2>
-
-</div>
-
-</div>
-
-<br>
-
-<h3>
-👕 المظهر
-</h3>
-
-<br>
-
-<button
-class="btn"
-onclick="changeAvatar('🧙')">
-🧙
-</button>
-
-<button
-class="btn"
-onclick="changeAvatar('🥷')">
-🥷
-</button>
-
-<button
-class="btn"
-onclick="changeAvatar('👑')">
-👑
-</button>
-
-<button
-class="btn"
-onclick="changeAvatar('⚔️')">
-⚔️
-</button>
-
-<button
-class="btn"
-onclick="changeAvatar('🦸')">
-🦸
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- CITY -->
-
-<section
-id="city"
-class="page hidden">
-
-<div class="hero">
-
-<h1>
-🏙️ مدينتي
-</h1>
-
-<p>
-طوّر مدينتك.
-</p>
-
-</div>
-
-<div class="grid">
-
-<div class="card">
-
-🏙️ المستوى
-
-<h2 id="cityL">
-1
-</h2>
-
-</div>
-
-<div class="card">
-
-🏗️ المباني
-
-<h2 id="buildingCount">
-0
-</h2>
-
-</div>
-
-<div class="card">
-
-💪 القوة
-
-<h2 id="cityPower">
-0
-</h2>
-
-</div>
-
-<div class="card">
-
-💰 الدخل
-
-<h2 id="cityIncome">
-0
-</h2>
-
-</div>
-
-</div>
-
-<div
-class="citymap"
-id="cityMap">
-</div>
-
-<br>
-
-<button
-class="btn gold full"
-onclick="upgradeCity()">
-
-🏗️ تطوير المدينة
-
-</button>
-
-</section>
-
-<!-- FARM -->
-
-<section
-id="farm"
-class="page hidden">
-
-<div class="hero">
-
-<h1>
-🌾 مزرعتي
-</h1>
-
-<p>
-ازرع واحصد.
-</p>
-
-</div>
-
-<div class="grid">
-
-<div class="card">
-
-🌾 مستوى المزرعة
-
-<h2 id="farmL">
-1
-</h2>
-
-</div>
-
-<div class="card">
-
-💰 الدخل
-
-<h2 id="farmIncome">
-50
-</h2>
-
-</div>
-
-<div class="card">
-
-🌱 الأراضي
-
-<h2 id="farmPlots">
-4
-</h2>
-
-</div>
-
-<div class="card">
-
-🥕 المحاصيل
-
-<h2 id="crops">
-0
-</h2>
-
-</div>
-
-</div>
-
-<div
-class="citymap"
-id="farmMap">
-</div>
-
-<br>
-
-<button
-class="btn green full"
-onclick="upgradeFarm()">
-
-🌱 تطوير المزرعة
-
-</button>
-
-<br><br>
-
-<button
-class="btn gold full"
-onclick="harvest()">
-
-🌾 حصاد
-
-</button>
-
-</section>
-
-<!-- SHOP -->
-
-<section
-id="shop"
-class="page hidden">
-
-<div class="hero">
-
-<h1>
-🛒 المتجر
-</h1>
-
-<p>
-أسلحة وملابس ودروع.
-</p>
-
-</div>
-
-<input
-id="search"
-placeholder="🔎 ابحث..."
-oninput="renderShop()">
-
-<div
-class="shop"
-id="shopGrid">
-</div>
-
-</section>
-
-<!-- INVENTORY -->
-
-<section
-id="inventory"
-class="page hidden">
-
-<div class="hero">
-
-<h1>
-🎒 الحقيبة
-</h1>
-
-<p>
-مقتنياتك.
-</p>
-
-</div>
-
-<div
-class="inventory"
-id="invGrid">
-</div>
-
-</section>
-
-<!-- GAMES -->
-
-<section
-id="games"
-class="page hidden">
-
-<div class="hero">
-
-<h1>
-🎮 الألعاب
-</h1>
-
-<p>
-اختبر حظك واربح العملات.
-</p>
-
-</div>
-
-<div class="grid">
-
-<div class="card">
-
-<h2>
-🎲 النرد
-</h2>
-
-<p class="muted">
-تكلفة 25 🧧
-</p>
-
-<br>
-
-<button
-class="btn"
-onclick="dice()">
-رمي النرد
-</button>
-
-</div>
-
-<div class="card">
-
-<h2>
-🎁 الصندوق
-</h2>
-
-<p class="muted">
-تكلفة 50 🧧
-</p>
-
-<br>
-
-<button
-class="btn gold"
-onclick="quickBox()">
-فتح
-</button>
-
-</div>
-
-<div class="card">
-
-<h2>
-🎡 العجلة
-</h2>
-
-<p class="muted">
-تكلفة 100 🧧
-</p>
-
-<br>
-
-<button
-class="btn"
-onclick="spin()">
-تدوير
-</button>
-
-</div>
-
-<div class="card">
-
-<h2>
-🎁 اليومية
-</h2>
-
-<br>
-
-<button
-class="btn green"
-onclick="daily()">
-استلام
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- CHAT -->
-
-<section
-id="chat"
-class="page hidden">
-
-<div class="hero">
-
-<h1>
-💬 الدردشة
-</h1>
-
-<p>
-دردشة المجتمع.
-</p>
-
-</div>
-
-<div class="card chat">
-
-<div
-class="messages"
-id="messages">
-</div>
-
-<div class="chatbar">
-
-<input
-id="chatInput"
-placeholder="اكتب رسالتك..."
-onkeydown="if(event.key==='Enter')sendChat()">
-
-<button
-class="btn"
-onclick="sendChat()">
-إرسال
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- PLAYERS -->
-
-<section
-id="players"
-class="page hidden">
-
-<div class="hero">
-
-<h1>
-👥 الأعضاء
-</h1>
-
-<p>
-أسماء الأعضاء فقط.
-</p>
-
-</div>
-
-<div
-class="players"
-id="playersGrid">
-</div>
-
-</section>
-
-<!-- RANK -->
-
-<section
-id="rank"
-class="page hidden">
-
-<div class="hero">
-
-<h1>
-🏆 المتصدرون
-</h1>
-
-<p>
-ترتيب اللاعبين.
-</p>
-
-</div>
-
-<div class="card">
-
-<table class="table">
-
-<thead>
-
-<tr>
-
-<th>
-#
-</th>
-
-<th>
-العضو
-</th>
-
-<th>
-LV
-</th>
-
-<th>
-القوة
-</th>
-
-</tr>
-
-</thead>
-
-<tbody
-id="rankBody">
-</tbody>
-
-</table>
-
-</div>
-
-</section>
-
-<!-- WALLET -->
-
-<section
-id="wallet"
-class="page hidden">
-
-<div class="hero">
-
-<h1>
-💰 المحفظة
-</h1>
-
-<p>
-الرصيد الخاص بك.
-</p>
-
-</div>
-
-<div class="grid">
-
-<div class="card">
-
-💰 الرصيد
-
-<h2
-class="gold"
-id="walletBalance">
-0
-</h2>
-
-</div>
-
-<div class="card">
-
-📜 العمليات
-
-<h2 id="txCount">
-0
-</h2>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h3>
-💳 إيداع
-</h3>
-
-<p class="muted">
-الإيداع هنا تجريبي داخل النظام.
-</p>
-
-<br>
-
-<input
-id="depositAmount"
-type="number"
-placeholder="المبلغ">
-
-<button
-class="btn green full"
-onclick="makeDeposit()">
-إضافة رصيد
-</button>
-
-</div>
-
-<br>
-
-<div class="card">
-
-<h3>
-💸 تحويل
-</h3>
-
-<br>
-
-<input
-id="transferUser"
-placeholder="اسم العضو">
-
-<input
-id="transferAmount"
-type="number"
-placeholder="المبلغ">
-
-<button
-class="btn gold full"
-onclick="makeTransfer()">
-تحويل
-</button>
-
-</div>
-
-<br>
-
-<div class="card">
-
-<h3>
-📜 العمليات
-</h3>
-
-<div
-id="txHistoryBox"
-style="margin-top:10px">
-</div>
-
-</div>
-
-</section>
-
-<!-- PROFILE -->
-
-<section
-id="profile"
-class="page hidden">
-
-<div class="hero">
-
-<h1>
-⚙️ الحساب
-</h1>
-
-<p>
-بيانات حسابك.
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>
-👤 اسم المستخدم
-</h3>
-
-<br>
-
-<div
-id="profileUsername"
-class="gold"
-style="font-size:20px">
--
-</div>
-
-<br><br>
-
-<button
-class="btn gray"
-onclick="logout()">
-🚪 تسجيل الخروج
-</button>
-
-</div>
-
-</section>
-
-</main>
-
-</div>
-
-<div
-class="toast"
-id="toast">
-</div>
-
-<script>
-
-/* =========================================================
-   SUPABASE
-   ========================================================= */
+import { createClient } from "npm:@supabase/supabase-js@2";
 
 const SUPABASE_URL =
-"https://xmavwrtlwfkvqkpfiirr.supabase.co";
+  Deno.env.get("SUPABASE_URL") ?? "";
 
-const SUPABASE_KEY =
-"sb_publishable_eH4yTOKoHrhBqsZ3cj8s9g_TJSnJNC2";
+const SERVICE_KEY =
+  Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
 
-const supabaseClient =
-window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
+const SESSION_SECRET =
+  Deno.env.get("SESSION_SECRET") ?? "";
+
+const db = createClient(
+  SUPABASE_URL,
+  SERVICE_KEY
 );
 
-/* =========================================================
-   GLOBAL
-   ========================================================= */
+const corsHeaders = {
 
-let currentUser = null;
-let profile = null;
-let transactions = [];
-let users = [];
-let chatMessages = [];
+  "Access-Control-Allow-Origin": "*",
 
-const catalog = [
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type",
 
-    ["⚔️","كاتانا نارية","attack",30,500],
+  "Access-Control-Allow-Methods":
+    "POST, OPTIONS"
 
-    ["🗡️","نصل الظلام","attack",60,1200],
+};
 
-    ["🔱","رمح التنين","attack",100,3000],
+function json(
+  data: unknown,
+  status = 200
+) {
 
-    ["🏹","قوس القمر","attack",140,6000],
+  return new Response(
+    JSON.stringify(data),
+    {
+      status,
 
-    ["🛡️","درع ساموراي","defense",30,500],
+      headers: {
+        ...corsHeaders,
+        "Content-Type":
+          "application/json"
+      }
+    }
+  );
 
-    ["🛡️","درع التنين","defense",70,1600],
-
-    ["🔰","حاجز الإمبراطور","defense",130,5000],
-
-    ["❤️","جرعة الحياة","hp",50,400],
-
-    ["🧪","إكسير نادر","hp",120,1200],
-
-    ["💎","بلورة الحياة","hp",250,5000],
-
-    ["👕","زي الساموراي","outfit",20,800],
-
-    ["🥷","زي النينجا","outfit",35,1500],
-
-    ["👑","تاج الإمبراطور","outfit",80,7000],
-
-    ["🪽","أجنحة أسطورية","outfit",120,12000]
-
-];
-
-const buildings = [
-
-    ["🏦","البنك"],
-
-    ["🏢","ناطحة السحاب"],
-
-    ["🏯","قلعة الساموراي"],
-
-    ["🏪","السوق"],
-
-    ["🏥","المستشفى"],
-
-    ["🏫","الأكاديمية"],
-
-    ["⚓","الميناء"],
-
-    ["⛩️","المعبد"],
-
-    ["🏟️","الساحة"],
-
-    ["🚉","المحطة"]
-
-];
+}
 
 /* =========================================================
-   UI
-   ========================================================= */
+HASH
+========================================================= */
 
-function toast(message){
+function bytesToHex(
+  bytes: Uint8Array
+) {
 
-    const el =
-    document.getElementById("toast");
+  return Array.from(bytes)
+    .map(
+      b =>
+        b.toString(16).padStart(2, "0")
+    )
+    .join("");
 
-    el.textContent = message;
+}
 
-    el.classList.add("show");
+function hexToBytes(hex: string) {
 
-    setTimeout(
-        () => el.classList.remove("show"),
-        3000
+  const arr = new Uint8Array(
+    hex.length / 2
+  );
+
+  for (
+    let i = 0;
+    i < hex.length;
+    i += 2
+  ) {
+
+    arr[i / 2] =
+      parseInt(
+        hex.slice(i, i + 2),
+        16
+      );
+
+  }
+
+  return arr;
+
+}
+
+function randomHex(length = 16) {
+
+  const bytes =
+    crypto.getRandomValues(
+      new Uint8Array(length)
     );
 
+  return bytesToHex(bytes);
+
 }
 
-function escapeText(text){
+async function sha256(
+  text: string
+) {
 
-    const div =
-    document.createElement("div");
+  const data =
+    new TextEncoder().encode(text);
 
-    div.textContent =
-    text ?? "";
+  const hash =
+    await crypto.subtle.digest(
+      "SHA-256",
+      data
+    );
 
-    return div.innerHTML;
+  return bytesToHex(
+    new Uint8Array(hash)
+  );
+
+}
+
+async function passwordHash(
+  password: string
+) {
+
+  const salt =
+    randomHex(16);
+
+  const hash =
+    await sha256(
+      salt + ":" + password
+    );
+
+  return salt + "$" + hash;
+
+}
+
+async function verifyPassword(
+  password: string,
+  stored: string
+) {
+
+  const parts =
+    stored.split("$");
+
+  if (parts.length !== 2)
+    return false;
+
+  const salt = parts[0];
+
+  const expected = parts[1];
+
+  const actual =
+    await sha256(
+      salt + ":" + password
+    );
+
+  return actual === expected;
 
 }
 
 /* =========================================================
-   AUTH UI
-   ========================================================= */
+SESSION
+========================================================= */
 
-function showRegister(){
+function base64url(
+  bytes: Uint8Array
+) {
 
-    document
-    .getElementById("loginForm")
-    .classList
-    .add("hidden");
+  let binary = "";
 
-    document
-    .getElementById("registerForm")
-    .classList
-    .remove("hidden");
+  for (const b of bytes)
+    binary += String.fromCharCode(b);
+
+  return btoa(binary)
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=/g, "");
 
 }
 
-function showLogin(){
+function base64urlString(
+  text: string
+) {
 
-    document
-    .getElementById("registerForm")
-    .classList
-    .add("hidden");
+  return base64url(
+    new TextEncoder().encode(text)
+  );
 
-    document
-    .getElementById("loginForm")
-    .classList
-    .remove("hidden");
+}
+
+async function hmac(
+  text: string
+) {
+
+  const key =
+    await crypto.subtle.importKey(
+      "raw",
+      new TextEncoder().encode(
+        SESSION_SECRET
+      ),
+      {
+        name: "HMAC",
+        hash: "SHA-256"
+      },
+      false,
+      ["sign"]
+    );
+
+  const signature =
+    await crypto.subtle.sign(
+      "HMAC",
+      key,
+      new TextEncoder().encode(text)
+    );
+
+  return base64url(
+    new Uint8Array(signature)
+  );
+
+}
+
+async function createSession(
+  userId: string
+) {
+
+  const payload = {
+
+    id: userId,
+
+    exp:
+      Date.now() +
+      1000 * 60 * 60 * 24 * 30
+
+  };
+
+  const encoded =
+    base64urlString(
+      JSON.stringify(payload)
+    );
+
+  const signature =
+    await hmac(encoded);
+
+  return encoded + "." + signature;
+
+}
+
+async function getSession(
+  token: string
+) {
+
+  if (!token)
+    return null;
+
+  const parts =
+    token.split(".");
+
+  if (parts.length !== 2)
+    return null;
+
+  const encoded = parts[0];
+
+  const signature = parts[1];
+
+  const expected =
+    await hmac(encoded);
+
+  if (signature !== expected)
+    return null;
+
+  try {
+
+    const payload =
+      JSON.parse(
+        new TextDecoder().decode(
+          Uint8Array.from(
+            atob(
+              encoded
+                .replace(/-/g, "+")
+                .replace(/_/g, "/")
+                .padEnd(
+                  encoded.length +
+                  (4 -
+                    encoded.length % 4) %
+                    4,
+                  "="
+                )
+            ),
+            c =>
+              c.charCodeAt(0)
+          )
+        )
+      );
+
+    if (
+      !payload.id ||
+      !payload.exp ||
+      payload.exp < Date.now()
+    )
+      return null;
+
+    return payload;
+
+  } catch {
+
+    return null;
+
+  }
 
 }
 
 /* =========================================================
-   USERNAME -> INTERNAL AUTH EMAIL
-   ========================================================= */
+VALIDATION
+========================================================= */
 
-function makeInternalEmail(username){
+function cleanUsername(
+  username: string
+) {
 
-    const clean =
-    username
+  return String(username ?? "")
     .trim()
-    .toLowerCase();
+    .replace(/\s+/g, " ");
 
-    const encoded =
-    encodeURIComponent(clean)
-    .replace(/%/g,"x")
-    .replace(/[^a-z0-9x]/gi,"");
+}
 
-    return (
-        "user_" +
-        encoded.slice(0,50) +
-        "@sun-tokyo.local"
+function validUsername(
+  username: string
+) {
+
+  return /^[\p{L}\p{N}_ .-]{3,30}$/u
+    .test(username);
+
+}
+
+function validPassword(
+  password: string
+) {
+
+  return (
+    typeof password === "string" &&
+    password.length >= 6 &&
+    password.length <= 100
+  );
+
+}
+
+/* =========================================================
+USER
+========================================================= */
+
+async function getUserFromRequest(
+  req: Request
+) {
+
+  const token =
+    req.headers.get(
+      "x-session-token"
+    ) ?? "";
+
+  const session =
+    await getSession(token);
+
+  if (!session)
+    return null;
+
+  const {
+    data,
+    error
+  } =
+    await db
+      .from("profiles")
+      .select("*")
+      .eq("id", session.id)
+      .single();
+
+  if (error || !data)
+    return null;
+
+  return data;
+
+}
+
+/* =========================================================
+REGISTER
+========================================================= */
+
+async function register(
+  body: any
+) {
+
+  const username =
+    cleanUsername(
+      body.username
     );
 
-}
-
-/* =========================================================
-   REGISTER
-   ========================================================= */
-
-async function register(){
-
-    const username =
-    document
-    .getElementById("registerUsername")
-    .value
-    .trim();
-
-    const password =
-    document
-    .getElementById("registerPassword")
-    .value;
-
-    const password2 =
-    document
-    .getElementById("registerPassword2")
-    .value;
-
-    if(username.length < 3){
-
-        toast(
-            "❌ اسم المستخدم يجب أن يكون 3 أحرف على الأقل"
-        );
-
-        return;
-    }
-
-    if(username.length > 30){
-
-        toast(
-            "❌ اسم المستخدم طويل جدًا"
-        );
-
-        return;
-    }
-
-    if(!/^[\u0600-\u06FFa-zA-Z0-9_.-]+$/.test(username)){
-
-        toast(
-            "❌ استخدم حروف وأرقام فقط في اسم المستخدم"
-        );
-
-        return;
-    }
-
-    if(password.length < 6){
-
-        toast(
-            "❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل"
-        );
-
-        return;
-    }
-
-    if(password !== password2){
-
-        toast(
-            "❌ كلمتا المرور غير متطابقتين"
-        );
-
-        return;
-    }
-
-    /* فحص الاسم */
-
-    const {
-        data:existing,
-        error:checkError
-    } =
-    await supabaseClient
-    .from("profiles")
-    .select("id")
-    .eq("username",username)
-    .maybeSingle();
-
-    if(checkError){
-
-        console.error(checkError);
-
-        toast(
-            "❌ خطأ في الاتصال بقاعدة البيانات"
-        );
-
-        return;
-    }
-
-    if(existing){
-
-        toast(
-            "❌ اسم المستخدم مستخدم بالفعل"
-        );
-
-        return;
-    }
-
-    /* إنشاء حساب Auth */
-
-    const email =
-    makeInternalEmail(username);
-
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-    .auth
-    .signUp({
-
-        email:email,
-
-        password:password,
-
-        options:{
-            data:{
-                username:username
-            }
-        }
-
-    });
-
-    if(error){
-
-        console.error(error);
-
-        toast(
-            "❌ تعذر إنشاء الحساب: " +
-            error.message
-        );
-
-        return;
-    }
-
-    if(!data || !data.user){
-
-        toast(
-            "❌ تعذر إنشاء الحساب"
-        );
-
-        return;
-    }
-
-    /*
-      Trigger Supabase ينشئ profile تلقائيًا.
-      ننتظر لحظة للتأكد من إنشاء الملف.
-    */
-
-    let createdProfile = null;
-
-    for(let i=0;i<5;i++){
-
-        const {
-            data:p
-        } =
-        await supabaseClient
-        .from("profiles")
-        .select("*")
-        .eq("id",data.user.id)
-        .maybeSingle();
-
-        if(p){
-
-            createdProfile = p;
-
-            break;
-        }
-
-        await new Promise(
-            resolve => setTimeout(resolve,500)
-        );
-
-    }
-
-    if(!createdProfile){
-
-        /*
-          إذا لم ينشئ الـ trigger الملف،
-          نحاول إنشاؤه من الواجهة.
-        */
-
-        const {
-            data:p,
-            error:pError
-        } =
-        await supabaseClient
-        .from("profiles")
-        .insert({
-
-            id:data.user.id,
-
-            username:username,
-
-            balance:0
-
-        })
-        .select()
-        .single();
-
-        if(pError){
-
-            console.error(pError);
-
-            await supabaseClient
-            .auth
-            .signOut();
-
-            toast(
-                "❌ تعذر إنشاء ملف المستخدم"
-            );
-
-            return;
-        }
-
-        createdProfile = p;
-    }
-
-    /*
-      إذا كان Confirm Email مفعلاً في Supabase،
-      قد لا تكون هناك جلسة مباشرة.
-    */
-
-    if(!data.session){
-
-        toast(
-            "✅ تم إنشاء الحساب. إذا طلب Supabase تأكيدًا، عطّل Confirm email من إعدادات Auth."
-        );
-
-        document
-        .getElementById("loginUsername")
-        .value=username;
-
-        showLogin();
-
-        return;
-    }
-
-    currentUser = data.user;
-
-    profile = createdProfile;
-
-    document
-    .getElementById("auth")
-    .classList
-    .add("hidden");
-
-    renderAll();
-
-    toast(
-        "🎉 تم إنشاء الحساب بنجاح"
+  const password =
+    String(
+      body.password ?? ""
     );
 
-}
+  if (!validUsername(username)) {
 
-/* =========================================================
-   LOGIN
-   ========================================================= */
-
-async function login(){
-
-    const username =
-    document
-    .getElementById("loginUsername")
-    .value
-    .trim();
-
-    const password =
-    document
-    .getElementById("loginPassword")
-    .value;
-
-    if(!username || !password){
-
-        toast(
-            "❌ أدخل اسم المستخدم وكلمة المرور"
-        );
-
-        return;
-    }
-
-    const email =
-    makeInternalEmail(username);
-
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-    .auth
-    .signInWithPassword({
-
-        email:email,
-
-        password:password
-
-    });
-
-    if(error){
-
-        console.error(error);
-
-        toast(
-            "❌ اسم المستخدم أو كلمة المرور غير صحيحة"
-        );
-
-        return;
-    }
-
-    if(!data.user){
-
-        toast(
-            "❌ تعذر تسجيل الدخول"
-        );
-
-        return;
-    }
-
-    currentUser =
-    data.user;
-
-    await loadProfile();
-
-}
-
-/* =========================================================
-   LOAD PROFILE
-   ========================================================= */
-
-async function loadProfile(){
-
-    if(!currentUser)
-    return false;
-
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-    .from("profiles")
-    .select("*")
-    .eq("id",currentUser.id)
-    .single();
-
-    if(error){
-
-        console.error(error);
-
-        toast(
-            "❌ تعذر تحميل الحساب"
-        );
-
-        return false;
-    }
-
-    profile = data;
-
-    await loadTransactions();
-
-    renderAll();
-
-    document
-    .getElementById("auth")
-    .classList
-    .add("hidden");
-
-    toast(
-        "👋 أهلاً بك " +
-        profile.username
+    return json(
+      {
+        ok: false,
+        error:
+          "اسم المستخدم يجب أن يكون من 3 إلى 30 حرفًا"
+      },
+      400
     );
 
-    return true;
+  }
 
-}
+  if (!validPassword(password)) {
 
-/* =========================================================
-   LOAD TRANSACTIONS
-   ========================================================= */
-
-async function loadTransactions(){
-
-    if(!profile)
-    return;
-
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-    .from("transactions")
-    .select("*")
-    .eq("user_id",profile.id)
-    .order("created_at",{ascending:false})
-    .limit(100);
-
-    if(error){
-
-        console.warn(
-            "transactions:",
-            error.message
-        );
-
-        transactions=[];
-
-        return;
-    }
-
-    transactions =
-    data || [];
-
-}
-
-/* =========================================================
-   LOGOUT
-   ========================================================= */
-
-async function logout(){
-
-    await supabaseClient
-    .auth
-    .signOut();
-
-    currentUser=null;
-
-    profile=null;
-
-    transactions=[];
-
-    users=[];
-
-    chatMessages=[];
-
-    document
-    .getElementById("auth")
-    .classList
-    .remove("hidden");
-
-    showLogin();
-
-    document
-    .getElementById("loginPassword")
-    .value="";
-
-}
-
-/* =========================================================
-   PAGE
-   ========================================================= */
-
-function page(id,button){
-
-    if(!profile)
-    return;
-
-    document
-    .querySelectorAll(".page")
-    .forEach(
-        el => el.classList.add("hidden")
+    return json(
+      {
+        ok: false,
+        error:
+          "كلمة السر يجب أن تكون 6 أحرف على الأقل"
+      },
+      400
     );
 
-    const target =
-    document.getElementById(id);
+  }
 
-    if(target)
-    target.classList.remove("hidden");
+  const { data: existing } =
+    await db
+      .from("profiles")
+      .select("id")
+      .ilike(
+        "username",
+        username
+      )
+      .maybeSingle();
 
-    document
-    .querySelectorAll("nav button")
-    .forEach(
-        el => el.classList.remove("active")
+  if (existing) {
+
+    return json(
+      {
+        ok: false,
+        error:
+          "اسم المستخدم مستخدم بالفعل"
+      },
+      409
     );
 
-    if(button)
-    button.classList.add("active");
+  }
+
+  const hash =
+    await passwordHash(
+      password
+    );
+
+  const { data: user, error } =
+    await db
+      .from("profiles")
+      .insert({
+
+        username,
+
+        password_hash:
+          hash,
+
+        balance: 9999,
+
+        xp: 0,
+
+        level: 1,
+
+        avatar: "🧙",
+
+        city: 1,
+
+        farm: 1,
+
+        crops: 0,
+
+        harvest: 0,
+
+        loan: 0,
+
+        loan_due: 0,
+
+        stocks1: 0,
+
+        stocks2: 0,
+
+        admin: false,
+
+        items: {},
+
+        buildings: []
+
+      })
+      .select("*")
+      .single();
+
+  if (error || !user) {
+
+    console.error(error);
+
+    return json(
+      {
+        ok: false,
+        error:
+          "تعذر إنشاء الحساب"
+      },
+      500
+    );
+
+  }
+
+  const token =
+    await createSession(
+      user.id
+    );
+
+  delete user.password_hash;
+
+  return json({
+
+    ok: true,
+
+    token,
+
+    user
+
+  });
 
 }
 
 /* =========================================================
-   UPDATE PROFILE
-   ========================================================= */
+LOGIN
+========================================================= */
 
-async function updateProfile(changes){
+async function login(
+  body: any
+) {
 
-    if(!profile)
-    return false;
+  const username =
+    cleanUsername(
+      body.username
+    );
 
-    /*
-      لا نسمح بتغيير username من الواجهة.
-    */
+  const password =
+    String(
+      body.password ?? ""
+    );
 
-    if(
-        Object.prototype.hasOwnProperty.call(
-            changes,
-            "username"
-        )
-    ){
+  const { data: user } =
+    await db
+      .from("profiles")
+      .select("*")
+      .ilike(
+        "username",
+        username
+      )
+      .maybeSingle();
 
-        delete changes.username;
-    }
+  if (!user) {
 
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-    .from("profiles")
-    .update(changes)
-    .eq("id",profile.id)
-    .select()
-    .single();
+    return json(
+      {
+        ok: false,
+        error:
+          "اسم المستخدم أو كلمة السر خاطئة"
+      },
+      401
+    );
 
-    if(error){
+  }
 
-        console.error(error);
+  const valid =
+    await verifyPassword(
+      password,
+      user.password_hash
+    );
 
-        toast(
-            "❌ تعذر حفظ البيانات"
-        );
+  if (!valid) {
 
-        return false;
-    }
+    return json(
+      {
+        ok: false,
+        error:
+          "اسم المستخدم أو كلمة السر خاطئة"
+      },
+      401
+    );
 
-    profile = data;
+  }
 
-    return true;
+  const token =
+    await createSession(
+      user.id
+    );
+
+  delete user.password_hash;
+
+  return json({
+
+    ok: true,
+
+    token,
+
+    user
+
+  });
 
 }
 
 /* =========================================================
-   TRANSACTION
-   ========================================================= */
+ME
+========================================================= */
 
-async function addTransaction(
-    type,
-    amount,
-    description
-){
+async function me(
+  req: Request
+) {
 
-    if(!profile)
-    return;
+  const user =
+    await getUserFromRequest(
+      req
+    );
 
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
+  if (!user)
+    return json(
+      {
+        ok: false,
+        error: "الجلسة انتهت"
+      },
+      401
+    );
+
+  delete user.password_hash;
+
+  return json({
+    ok: true,
+    user
+  });
+
+}
+
+/* =========================================================
+UPDATE USER
+========================================================= */
+
+async function updateUser(
+  req: Request,
+  body: any
+) {
+
+  const user =
+    await getUserFromRequest(
+      req
+    );
+
+  if (!user)
+    return json(
+      {
+        ok: false,
+        error: "غير مسجل"
+      },
+      401
+    );
+
+  const allowed: any = {};
+
+  if (
+    body.avatar &&
+    typeof body.avatar === "string"
+  )
+    allowed.avatar =
+      body.avatar.slice(0, 10);
+
+  if (
+    Number.isInteger(body.xp) &&
+    body.xp >= 0
+  )
+    allowed.xp = body.xp;
+
+  if (
+    Number.isInteger(body.city) &&
+    body.city >= 1
+  )
+    allowed.city = body.city;
+
+  if (
+    Number.isInteger(body.farm) &&
+    body.farm >= 1
+  )
+    allowed.farm = body.farm;
+
+  if (
+    Number.isInteger(body.crops) &&
+    body.crops >= 0
+  )
+    allowed.crops = body.crops;
+
+  if (
+    Number.isInteger(body.harvest) &&
+    body.harvest >= 0
+  )
+    allowed.harvest = body.harvest;
+
+  if (
+    Number.isInteger(body.stocks1) &&
+    body.stocks1 >= 0
+  )
+    allowed.stocks1 = body.stocks1;
+
+  if (
+    Number.isInteger(body.stocks2) &&
+    body.stocks2 >= 0
+  )
+    allowed.stocks2 = body.stocks2;
+
+  if (
+    body.items &&
+    typeof body.items === "object"
+  )
+    allowed.items = body.items;
+
+  if (
+    Array.isArray(body.buildings)
+  )
+    allowed.buildings =
+      body.buildings;
+
+  if (
+    body.loan !== undefined &&
+    Number(body.loan) >= 0
+  )
+    allowed.loan =
+      Number(body.loan);
+
+  if (
+    body.loan_due !== undefined &&
+    Number(body.loan_due) >= 0
+  )
+    allowed.loan_due =
+      Number(body.loan_due);
+
+  if (
+    body.last_daily !== undefined
+  )
+    allowed.last_daily =
+      body.last_daily;
+
+  const { data, error } =
+    await db
+      .from("profiles")
+      .update(allowed)
+      .eq("id", user.id)
+      .select("*")
+      .single();
+
+  if (error) {
+
+    console.error(error);
+
+    return json(
+      {
+        ok: false,
+        error: error.message
+      },
+      500
+    );
+
+  }
+
+  delete data.password_hash;
+
+  return json({
+    ok: true,
+    user: data
+  });
+
+}
+
+/* =========================================================
+BALANCE OPERATION
+========================================================= */
+
+async function changeBalance(
+  req: Request,
+  body: any
+) {
+
+  const user =
+    await getUserFromRequest(
+      req
+    );
+
+  if (!user)
+    return json(
+      {
+        ok: false,
+        error: "غير مسجل"
+      },
+      401
+    );
+
+  const amount =
+    Number(body.amount);
+
+  if (
+    !Number.isFinite(amount) ||
+    amount === 0
+  )
+    return json(
+      {
+        ok: false,
+        error: "مبلغ غير صحيح"
+      },
+      400
+    );
+
+  const newBalance =
+    Number(user.balance) + amount;
+
+  if (newBalance < 0)
+    return json(
+      {
+        ok: false,
+        error: "الرصيد غير كافٍ"
+      },
+      400
+    );
+
+  const { data, error } =
+    await db
+      .from("profiles")
+      .update({
+        balance: newBalance
+      })
+      .eq("id", user.id)
+      .select("*")
+      .single();
+
+  if (error)
+    return json(
+      {
+        ok: false,
+        error: error.message
+      },
+      500
+    );
+
+  await db
     .from("transactions")
     .insert({
 
-        user_id:profile.id,
+      user_id: user.id,
 
-        type:type,
+      type:
+        body.type ||
+        "balance",
 
-        amount:amount,
+      amount,
 
-        description:description
+      description:
+        body.description ||
+        "عملية مالية"
 
-    })
-    .select()
-    .single();
-
-    if(!error && data){
-
-        transactions.unshift(data);
-    }
-
-}
-
-/* =========================================================
-   STATS
-   ========================================================= */
-
-function getLevel(){
-
-    return Math.floor(
-        (profile?.xp || 0) / 100
-    ) + 1;
-
-}
-
-function getStats(){
-
-    let attack=30;
-
-    let defense=30;
-
-    let hp=100;
-
-    return {
-
-        attack:attack,
-
-        defense:defense,
-
-        hp:hp,
-
-        power:
-        attack+
-        defense+
-        hp
-
-    };
-
-}
-
-/* =========================================================
-   CHARACTER
-   ========================================================= */
-
-async function changeAvatar(avatar){
-
-    const ok =
-    await updateProfile({
-        avatar:avatar
     });
 
-    if(ok){
+  delete data.password_hash;
 
-        toast(
-            "✨ تم تغيير الشخصية"
-        );
-
-        renderAll();
-    }
+  return json({
+    ok: true,
+    user: data
+  });
 
 }
 
 /* =========================================================
-   WALLET
-   ========================================================= */
+TRANSFER
+========================================================= */
 
-async function makeDeposit(){
+async function transfer(
+  req: Request,
+  body: any
+) {
 
-    const amount =
-    Number(
-        document
-        .getElementById("depositAmount")
-        .value
+  const sender =
+    await getUserFromRequest(
+      req
     );
 
-    if(!Number.isInteger(amount)||amount<=0){
+  if (!sender)
+    return json(
+      {
+        ok: false,
+        error: "غير مسجل"
+      },
+      401
+    );
 
-        toast(
-            "❌ أدخل مبلغًا صحيحًا"
-        );
+  const username =
+    cleanUsername(
+      body.username
+    );
 
-        return;
-    }
+  const amount =
+    Number(body.amount);
 
-    /*
-      هذا زر إداري/تجريبي فقط.
-      لا تستخدمه كنظام أموال حقيقية.
-    */
+  if (
+    !username ||
+    !Number.isFinite(amount) ||
+    amount <= 0
+  )
+    return json(
+      {
+        ok: false,
+        error: "بيانات التحويل غير صحيحة"
+      },
+      400
+    );
 
-    const ok =
-    await updateProfile({
+  if (
+    username.toLowerCase() ===
+    sender.username.toLowerCase()
+  )
+    return json(
+      {
+        ok: false,
+        error: "لا يمكنك التحويل لنفسك"
+      },
+      400
+    );
 
+  if (
+    Number(sender.balance) <
+    amount
+  )
+    return json(
+      {
+        ok: false,
+        error: "رصيدك غير كافٍ"
+      },
+      400
+    );
+
+  const { data: receiver } =
+    await db
+      .from("profiles")
+      .select("*")
+      .ilike(
+        "username",
+        username
+      )
+      .maybeSingle();
+
+  if (!receiver)
+    return json(
+      {
+        ok: false,
+        error: "العضو غير موجود"
+      },
+      404
+    );
+
+  const senderNew =
+    Number(sender.balance) -
+    amount;
+
+  const receiverNew =
+    Number(receiver.balance) +
+    amount;
+
+  const { error: e1 } =
+    await db
+      .from("profiles")
+      .update({
+        balance: senderNew
+      })
+      .eq("id", sender.id);
+
+  if (e1)
+    return json(
+      {
+        ok: false,
+        error: "فشل التحويل"
+      },
+      500
+    );
+
+  const { error: e2 } =
+    await db
+      .from("profiles")
+      .update({
+        balance: receiverNew
+      })
+      .eq("id", receiver.id);
+
+  if (e2) {
+
+    await db
+      .from("profiles")
+      .update({
         balance:
-        Number(profile.balance || 0)
-        +
-        amount
+          Number(sender.balance)
+      })
+      .eq("id", sender.id);
 
-    });
-
-    if(!ok)
-    return;
-
-    await addTransaction(
-        "deposit",
-        amount,
-        "إضافة رصيد"
+    return json(
+      {
+        ok: false,
+        error: "فشل استلام التحويل"
+      },
+      500
     );
 
-    document
-    .getElementById("depositAmount")
-    .value="";
+  }
 
-    toast(
-        "✅ تمت إضافة " +
-        amount.toLocaleString() +
-        " 🧧"
-    );
-
-    renderAll();
-
-}
-
-/* =========================================================
-   TRANSFER
-   ========================================================= */
-
-async function makeTransfer(){
-
-    const username =
-    document
-    .getElementById("transferUser")
-    .value
-    .trim();
-
-    const amount =
-    Number(
-        document
-        .getElementById("transferAmount")
-        .value
-    );
-
-    if(!username || !Number.isInteger(amount)||amount<=0){
-
-        toast(
-            "❌ تحقق من البيانات"
-        );
-
-        return;
-    }
-
-    if(
-        username.toLowerCase() ===
-        profile.username.toLowerCase()
-    ){
-
-        toast(
-            "❌ لا يمكنك التحويل لنفسك"
-        );
-
-        return;
-    }
-
-    if(
-        Number(profile.balance || 0) <
-        amount
-    ){
-
-        toast(
-            "❌ رصيدك غير كافٍ"
-        );
-
-        return;
-    }
-
-    /*
-      نحصل على id واسم العضو فقط.
-      لا نعرض بياناته للمستخدم.
-    */
-
-    const {
-        data:target,
-        error
-    } =
-    await supabaseClient
-    .from("profiles")
-    .select("id,username")
-    .eq("username",username)
-    .maybeSingle();
-
-    if(error || !target){
-
-        toast(
-            "❌ العضو غير موجود"
-        );
-
-        return;
-    }
-
-    /*
-      ملاحظة:
-      تنفيذ تحويلات آمنة بين حسابين يجب أن يتم
-      من خلال PostgreSQL RPC وليس تحديث حسابين
-      من المتصفح مباشرة.
-
-      لذلك هذه النسخة لا تنفذ التحويل بطريقة
-      غير آمنة.
-    */
-
-    toast(
-        "⚠️ التحويل يحتاج دالة SQL آمنة في Supabase"
-    );
-
-}
-
-/* =========================================================
-   SHOP
-   ========================================================= */
-
-function renderShop(){
-
-    const box =
-    document.getElementById("shopGrid");
-
-    if(!box)
-    return;
-
-    const search =
-    (
-        document
-        .getElementById("search")
-        ?.value ||
-        ""
-    )
-    .toLowerCase();
-
-    box.innerHTML =
-    catalog
-    .filter(
-        item =>
-        item[1]
-        .toLowerCase()
-        .includes(search)
-    )
-    .map(item => {
-
-        return `
-
-        <div class="item">
-
-            <div class="icon">
-                ${item[0]}
-            </div>
-
-            <h3>
-                ${escapeText(item[1])}
-            </h3>
-
-            <span class="badge">
-                ${item[2]}
-            </span>
-
-            <p class="muted">
-                +${item[3]} قوة
-            </p>
-
-            <div class="price">
-                ${item[4].toLocaleString()} 🧧
-            </div>
-
-            <button
-                class="btn gold full"
-                onclick="buyItem(${JSON.stringify(item[1])})">
-
-                شراء
-
-            </button>
-
-        </div>
-
-        `;
-
-    })
-    .join("");
-
-}
-
-async function buyItem(name){
-
-    const item =
-    catalog.find(
-        x => x[1] === name
-    );
-
-    if(!item)
-    return;
-
-    const price = item[4];
-
-    if(
-        Number(profile.balance || 0) <
-        price
-    ){
-
-        toast(
-            "❌ رصيدك غير كافٍ"
-        );
-
-        return;
-    }
-
-    const items =
-    profile.items &&
-    typeof profile.items === "object"
-    ?
-    {...profile.items}
-    :
-    {};
-
-    items[name] =
-    (items[name] || 0) + 1;
-
-    const ok =
-    await updateProfile({
-
-        balance:
-        Number(profile.balance || 0)
-        -
-        price,
-
-        items:items,
-
-        xp:
-        Number(profile.xp || 0)+5
-
-    });
-
-    if(!ok)
-    return;
-
-    await addTransaction(
-        "purchase",
-        -price,
-        "شراء "+name
-    );
-
-    toast(
-        "✅ تم شراء "+name
-    );
-
-    renderAll();
-
-}
-
-/* =========================================================
-   INVENTORY
-   ========================================================= */
-
-function renderInventory(){
-
-    const box =
-    document.getElementById("invGrid");
-
-    if(!box)
-    return;
-
-    const items =
-    profile.items || {};
-
-    const owned =
-    Object.entries(items)
-    .filter(
-        ([,quantity]) =>
-        Number(quantity)>0
-    );
-
-    if(!owned.length){
-
-        box.innerHTML = `
-
-        <div class="card">
-
-            🎒 الحقيبة فارغة
-
-        </div>
-
-        `;
-
-        return;
-    }
-
-    box.innerHTML =
-    owned
-    .map(
-        ([name,quantity]) => {
-
-            const item =
-            catalog.find(
-                x => x[1] === name
-            );
-
-            return `
-
-            <div class="item">
-
-                <div class="icon">
-                    ${item ? item[0] : "📦"}
-                </div>
-
-                <h3>
-                    ${escapeText(name)}
-                </h3>
-
-                <p class="gold">
-                    × ${quantity}
-                </p>
-
-            </div>
-
-            `;
-
-        }
-    )
-    .join("");
-
-}
-
-/* =========================================================
-   CITY
-   ========================================================= */
-
-async function upgradeCity(){
-
-    const current =
-    Number(profile.city || 1);
-
-    const cost =
-    Math.floor(
-        1000 *
-        Math.pow(
-            1.55,
-            current-1
-        )
-    );
-
-    if(
-        Number(profile.balance || 0) <
-        cost
-    ){
-
-        toast(
-            "❌ تحتاج "+
-            cost.toLocaleString()+
-            " 🧧"
-        );
-
-        return;
-    }
-
-    const ok =
-    await updateProfile({
-
-        balance:
-        Number(profile.balance || 0)
-        -
-        cost,
-
-        city:
-        current+1,
-
-        xp:
-        Number(profile.xp || 0)+30
-
-    });
-
-    if(!ok)
-    return;
-
-    await addTransaction(
-        "city_upgrade",
-        -cost,
-        "تطوير المدينة"
-    );
-
-    toast(
-        "🏙️ تم تطوير المدينة"
-    );
-
-    renderAll();
-
-}
-
-/* =========================================================
-   FARM
-   ========================================================= */
-
-async function plant(){
-
-    const ok =
-    await updateProfile({
-
-        crops:
-        Number(profile.crops || 0)+1,
-
-        xp:
-        Number(profile.xp || 0)+3
-
-    });
-
-    if(ok){
-
-        toast(
-            "🌱 تمت الزراعة"
-        );
-
-        renderAll();
-
-    }
-
-}
-
-async function harvest(){
-
-    const crops =
-    Number(profile.crops || 0);
-
-    if(crops<=0){
-
-        toast(
-            "🌱 لا يوجد محصول"
-        );
-
-        return;
-    }
-
-    const reward =
-    crops *
-    50 *
-    Number(profile.farm || 1);
-
-    const ok =
-    await updateProfile({
-
-        balance:
-        Number(profile.balance || 0)
-        +
-        reward,
-
-        crops:0,
-
-        harvest:
-        Number(profile.harvest || 0)
-        +
-        crops,
-
-        xp:
-        Number(profile.xp || 0)+10
-
-    });
-
-    if(!ok)
-    return;
-
-    await addTransaction(
-        "harvest",
-        reward,
-        "حصاد المزرعة"
-    );
-
-    toast(
-        "🌾 حصلت على "+
-        reward.toLocaleString()+
-        " 🧧"
-    );
-
-    renderAll();
-
-}
-
-async function upgradeFarm(){
-
-    const current =
-    Number(profile.farm || 1);
-
-    const cost =
-    Math.floor(
-        750 *
-        Math.pow(
-            1.5,
-            current-1
-        )
-    );
-
-    if(
-        Number(profile.balance || 0) <
-        cost
-    ){
-
-        toast(
-            "❌ رصيدك غير كافٍ"
-        );
-
-        return;
-    }
-
-    const ok =
-    await updateProfile({
-
-        balance:
-        Number(profile.balance || 0)
-        -
-        cost,
-
-        farm:
-        current+1,
-
-        xp:
-        Number(profile.xp || 0)+25
-
-    });
-
-    if(!ok)
-    return;
-
-    await addTransaction(
-        "farm_upgrade",
-        -cost,
-        "تطوير المزرعة"
-    );
-
-    toast(
-        "🌾 تم تطوير المزرعة"
-    );
-
-    renderAll();
-
-}
-
-/* =========================================================
-   GAMES
-   ========================================================= */
-
-async function dice(){
-
-    const cost=25;
-
-    if(profile.balance<cost){
-
-        toast(
-            "❌ تحتاج 25 🧧"
-        );
-
-        return;
-    }
-
-    const roll =
-    Math.floor(
-        Math.random()*6
-    )+1;
-
-    const reward =
-    roll>=4
-    ? roll*20
-    : 0;
-
-    const ok =
-    await updateProfile({
-
-        balance:
-        Number(profile.balance)
-        -
-        cost
-        +
-        reward
-
-    });
-
-    if(!ok)
-    return;
-
-    await addTransaction(
-        "dice",
-        reward-cost,
-        "لعبة النرد"
-    );
-
-    toast(
-        reward
-        ?
-        "🎲 ربحت "+reward+" 🧧"
-        :
-        "🎲 لم تربح"
-    );
-
-    renderAll();
-
-}
-
-async function quickBox(){
-
-    const cost=50;
-
-    if(profile.balance<cost){
-
-        toast(
-            "❌ تحتاج 50 🧧"
-        );
-
-        return;
-    }
-
-    const reward =
-    Math.random() < .5
-    ? 20
-    : 150;
-
-    const ok =
-    await updateProfile({
-
-        balance:
-        Number(profile.balance)
-        -
-        cost
-        +
-        reward
-
-    });
-
-    if(!ok)
-    return;
-
-    await addTransaction(
-        "box",
-        reward-cost,
-        "فتح الصندوق"
-    );
-
-    toast(
-        "🎁 ربحت "+
-        reward+
-        " 🧧"
-    );
-
-    renderAll();
-
-}
-
-async function spin(){
-
-    const cost=100;
-
-    if(profile.balance<cost){
-
-        toast(
-            "❌ تحتاج 100 🧧"
-        );
-
-        return;
-    }
-
-    const reward =
-    Math.floor(
-        Math.random()*300
-    )+50;
-
-    const ok =
-    await updateProfile({
-
-        balance:
-        Number(profile.balance)
-        -
-        cost
-        +
-        reward
-
-    });
-
-    if(!ok)
-    return;
-
-    await addTransaction(
-        "wheel",
-        reward-cost,
-        "العجلة"
-    );
-
-    toast(
-        "🎡 ربحت "+
-        reward+
-        " 🧧"
-    );
-
-    renderAll();
-
-}
-
-async function daily(){
-
-    const today =
-    new Date()
-    .toISOString()
-    .slice(0,10);
-
-    const last =
-    profile.last_daily || "";
-
-    if(last===today){
-
-        toast(
-            "❌ استلمت المكافأة اليومية بالفعل"
-        );
-
-        return;
-    }
-
-    const reward=500;
-
-    const ok =
-    await updateProfile({
-
-        balance:
-        Number(profile.balance || 0)
-        +
-        reward,
-
-        last_daily:today
-
-    });
-
-    if(!ok)
-    return;
-
-    await addTransaction(
-        "daily",
-        reward,
-        "المكافأة اليومية"
-    );
-
-    toast(
-        "🎁 حصلت على +500 🧧"
-    );
-
-    renderAll();
-
-}
-
-/* =========================================================
-   CHAT
-   ========================================================= */
-
-async function sendChat(){
-
-    const input =
-    document.getElementById("chatInput");
-
-    const message =
-    input.value.trim();
-
-    if(!message)
-    return;
-
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-    .from("chat")
+  await db
+    .from("transactions")
     .insert({
 
-        user_id:profile.id,
+      user_id: sender.id,
 
-        username:profile.username,
+      type: "transfer",
 
-        message:message
+      amount: -amount,
 
-    })
-    .select()
-    .single();
+      description:
+        "تحويل إلى " +
+        receiver.username
 
-    if(error){
+    });
 
-        console.error(error);
+  await db
+    .from("transactions")
+    .insert({
 
-        toast(
-            "❌ تعذر إرسال الرسالة"
-        );
+      user_id: receiver.id,
 
-        return;
-    }
+      type:
+        "transfer_received",
 
-    chatMessages.push(data);
+      amount,
 
-    input.value="";
+      description:
+        "استلام من " +
+        sender.username
 
-    renderChat();
+    });
 
-}
-
-function renderChat(){
-
-    const box =
-    document.getElementById("messages");
-
-    if(!box)
-    return;
-
-    box.innerHTML =
-    chatMessages
-    .map(
-        msg => `
-
-        <div class="msg">
-
-            <b>
-                ${escapeText(msg.username)}
-            </b>
-
-            :
-
-            ${escapeText(msg.message)}
-
-        </div>
-
-        `
-    )
-    .join("");
-
-    box.scrollTop =
-    box.scrollHeight;
+  return me(req);
 
 }
 
 /* =========================================================
-   LOAD PUBLIC NAMES
-   ========================================================= */
-
-async function loadUsers(){
-
-    /*
-      مهم:
-      نطلب username فقط.
-      لا نطلب balance أو password.
-    */
-
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-    .from("profiles")
-    .select("id,username")
-    .order("created_at",{ascending:true});
-
-    if(error){
-
-        console.warn(error.message);
-
-        users=[];
-
-        return;
-    }
-
-    users =
-    data || [];
-
-}
-
-/* =========================================================
-   PLAYERS
-   ========================================================= */
-
-function renderPlayers(){
-
-    const box =
-    document.getElementById("playersGrid");
-
-    if(!box)
-    return;
-
-    box.innerHTML =
-    users
-    .map(
-        user => `
-
-        <div class="player">
-
-            <div style="font-size:35px">
-                👤
-            </div>
-
-            <h3>
-                ${escapeText(user.username)}
-            </h3>
-
-            <p class="muted">
-                عضو في المجتمع
-            </p>
-
-        </div>
-
-        `
-    )
-    .join("");
-
-}
-
-function renderRank(){
-
-    const body =
-    document.getElementById("rankBody");
-
-    if(!body)
-    return;
-
-    /*
-      في هذه النسخة لا نعرض أرصدة الآخرين.
-      المتصدرون سيكونون بالأسماء فقط.
-    */
-
-    body.innerHTML =
-    users
-    .map(
-        (user,index) => `
-
-        <tr>
-
-            <td>
-                #${index+1}
-            </td>
-
-            <td>
-                <b>
-                    ${escapeText(user.username)}
-                </b>
-            </td>
-
-            <td>
-                —
-            </td>
-
-            <td>
-                —
-            </td>
-
-        </tr>
-
-        `
-    )
-    .join("");
-
-}
-
-/* =========================================================
-   CITY RENDER
-   ========================================================= */
-
-function renderCity(){
-
-    const city =
-    Number(profile.city || 1);
-
-    document
-    .getElementById("cityL")
-    .textContent=city;
-
-    document
-    .getElementById("buildingCount")
-    .textContent=0;
-
-    document
-    .getElementById("cityPower")
-    .textContent=city*100;
-
-    document
-    .getElementById("cityIncome")
-    .textContent=city*100;
-
-    const map =
-    document.getElementById("cityMap");
-
-    let html="";
-
-    for(let i=0;i<15;i++){
-
-        html += `
-
-        <div class="plot">
-
-            <div style="font-size:40px">
-                🏗️
-            </div>
-
-            <b>
-                قطعة ${i+1}
-            </b>
-
-        </div>
-
-        `;
-
-    }
-
-    map.innerHTML=html;
-
-}
-
-/* =========================================================
-   FARM RENDER
-   ========================================================= */
-
-function renderFarm(){
-
-    const farm =
-    Number(profile.farm || 1);
-
-    const crops =
-    Number(profile.crops || 0);
-
-    document
-    .getElementById("farmL")
-    .textContent=farm;
-
-    document
-    .getElementById("farmIncome")
-    .textContent=farm*50;
-
-    document
-    .getElementById("farmPlots")
-    .textContent=farm*4;
-
-    document
-    .getElementById("crops")
-    .textContent=crops;
-
-    const map =
-    document.getElementById("farmMap");
-
-    let html="";
-
-    const total =
-    Math.min(
-        16,
-        farm*4
+TRANSACTIONS
+========================================================= */
+
+async function transactions(
+  req: Request
+) {
+
+  const user =
+    await getUserFromRequest(
+      req
     );
 
-    for(let i=0;i<16;i++){
-
-        if(i<total){
-
-            html += `
-
-            <div class="plot">
-
-                <div style="font-size:40px">
-                    ${crops>i ? "🌾":"🌱"}
-                </div>
-
-                <b>
-                    أرض ${i+1}
-                </b>
-
-                <button
-                    class="btn green"
-                    onclick="plant()">
-
-                    زراعة
-
-                </button>
-
-            </div>
-
-            `;
-
-        }else{
-
-            html += `
-
-            <div class="plot">
-
-                🔒
-
-                <small>
-                    طوّر المزرعة
-                </small>
-
-            </div>
-
-            `;
-
-        }
-
-    }
-
-    map.innerHTML=html;
-
-}
-
-/* =========================================================
-   RENDER WALLET
-   ========================================================= */
-
-function renderWallet(){
-
-    document
-    .getElementById("walletBalance")
-    .textContent =
-    Number(profile.balance || 0)
-    .toLocaleString();
-
-    document
-    .getElementById("txCount")
-    .textContent =
-    transactions.length;
-
-    const box =
-    document.getElementById("txHistoryBox");
-
-    if(!box)
-    return;
-
-    if(!transactions.length){
-
-        box.innerHTML = `
-
-        <p class="muted">
-            لا توجد عمليات.
-        </p>
-
-        `;
-
-        return;
-    }
-
-    box.innerHTML =
-    transactions
-    .map(
-        tx => `
-
-        <div
-        style="
-        padding:10px;
-        margin:5px 0;
-        background:rgba(255,255,255,.04);
-        border-radius:8px;
-        ">
-
-            🔹
-            ${escapeText(tx.description || tx.type)}
-
-            <span class="muted">
-
-                (
-                ${tx.amount > 0 ? "+" : ""}
-                ${tx.amount}
-                )
-
-            </span>
-
-        </div>
-
-        `
-    )
-    .join("");
-
-}
-
-/* =========================================================
-   RENDER ALL
-   ========================================================= */
-
-function renderAll(){
-
-    if(!profile)
-    return;
-
-    const stats =
-    getStats();
-
-    const lvl =
-    getLevel();
-
-    document
-    .getElementById("headName")
-    .textContent =
-    profile.username;
-
-    document
-    .getElementById("avatar")
-    .textContent =
-    profile.avatar || "🧙";
-
-    document
-    .getElementById("balance")
-    .textContent =
-    Number(profile.balance || 0)
-    .toLocaleString();
-
-    document
-    .getElementById("level")
-    .textContent =
-    lvl;
-
-    document
-    .getElementById("xp")
-    .textContent =
-    profile.xp || 0;
-
-    document
-    .getElementById("power")
-    .textContent =
-    stats.power;
-
-    document
-    .getElementById("attack")
-    .textContent =
-    stats.attack;
-
-    document
-    .getElementById("defense")
-    .textContent =
-    stats.defense;
-
-    document
-    .getElementById("hp")
-    .textContent =
-    stats.hp;
-
-    document
-    .getElementById("cityLevel")
-    .textContent =
-    profile.city || 1;
-
-    const xp =
-    Number(profile.xp || 0);
-
-    const remaining =
-    xp % 100;
-
-    document
-    .getElementById("xpbar")
-    .style.width =
-    remaining+"%";
-
-    document
-    .getElementById("xptext")
-    .textContent =
-    remaining+
-    " / 100 XP";
-
-    document
-    .getElementById("charView")
-    .textContent =
-    profile.avatar || "🧙";
-
-    document
-    .getElementById("charName")
-    .textContent =
-    profile.username;
-
-    document
-    .getElementById("cHP")
-    .textContent =
-    stats.hp;
-
-    document
-    .getElementById("cATK")
-    .textContent =
-    stats.attack;
-
-    document
-    .getElementById("cDEF")
-    .textContent =
-    stats.defense;
-
-    document
-    .getElementById("profileUsername")
-    .textContent =
-    profile.username;
-
-    renderShop();
-
-    renderInventory();
-
-    renderCity();
-
-    renderFarm();
-
-    renderPlayers();
-
-    renderRank();
-
-    renderWallet();
-
-}
-
-/* =========================================================
-   CHAT LOAD
-   ========================================================= */
-
-async function loadChat(){
-
-    const {
-        data,
-        error
-    } =
-    await supabaseClient
-    .from("chat")
-    .select("*")
-    .order("created_at",{ascending:true})
-    .limit(200);
-
-    if(error){
-
-        console.warn(
-            "chat:",
-            error.message
-        );
-
-        chatMessages=[];
-
-        return;
-    }
-
-    chatMessages =
-    data || [];
-
-    renderChat();
-
-}
-
-/* =========================================================
-   REALTIME CHAT
-   ========================================================= */
-
-function subscribeChat(){
-
-    supabaseClient
-    .channel("sun-tokyo-chat")
-    .on(
-        "postgres_changes",
+  if (!user)
+    return json(
+      {
+        ok: false,
+        error: "غير مسجل"
+      },
+      401
+    );
+
+  const { data, error } =
+    await db
+      .from("transactions")
+      .select(
+        "id,type,amount,description,created_at"
+      )
+      .eq(
+        "user_id",
+        user.id
+      )
+      .order(
+        "created_at",
         {
-            event:"INSERT",
-            schema:"public",
-            table:"chat"
-        },
-        payload => {
-
-            if(
-                !chatMessages
-                .some(
-                    x =>
-                    x.id ===
-                    payload.new.id
-                )
-            ){
-
-                chatMessages.push(
-                    payload.new
-                );
-
-                renderChat();
-
-            }
-
+          ascending: false
         }
-    )
-    .subscribe();
+      )
+      .limit(100);
+
+  if (error)
+    return json(
+      {
+        ok: false,
+        error: error.message
+      },
+      500
+    );
+
+  return json({
+    ok: true,
+    transactions:
+      data || []
+  });
 
 }
 
 /* =========================================================
-   START APP
-   ========================================================= */
+CHAT
+========================================================= */
 
-async function startApp(){
+async function chat(
+  req: Request,
+  body: any
+) {
 
-    const {
-        data
-    } =
-    await supabaseClient
-    .auth
-    .getSession();
+  const user =
+    await getUserFromRequest(
+      req
+    );
 
-    if(data.session){
+  if (!user)
+    return json(
+      {
+        ok: false,
+        error: "غير مسجل"
+      },
+      401
+    );
 
-        currentUser =
-        data.session.user;
+  const message =
+    String(
+      body.message ?? ""
+    )
+    .trim()
+    .slice(0, 500);
 
-        await loadProfile();
+  if (!message)
+    return json(
+      {
+        ok: false,
+        error: "الرسالة فارغة"
+      },
+      400
+    );
 
-        await loadUsers();
+  const { data, error } =
+    await db
+      .from("chat")
+      .insert({
 
-        await loadChat();
+        user_id: user.id,
 
-        renderAll();
+        username:
+          user.username,
 
-    }else{
+        message
 
-        document
-        .getElementById("auth")
-        .classList
-        .remove("hidden");
+      })
+      .select("*")
+      .single();
+
+  if (error)
+    return json(
+      {
+        ok: false,
+        error: error.message
+      },
+      500
+    );
+
+  return json({
+    ok: true,
+    message: data
+  });
+
+}
+
+async function getChat(
+  req: Request
+) {
+
+  const user =
+    await getUserFromRequest(
+      req
+    );
+
+  if (!user)
+    return json(
+      {
+        ok: false,
+        error: "غير مسجل"
+      },
+      401
+    );
+
+  const { data, error } =
+    await db
+      .from("chat")
+      .select(
+        "id,user_id,username,message,created_at"
+      )
+      .order(
+        "created_at",
+        {
+          ascending: true
+        }
+      )
+      .limit(200);
+
+  if (error)
+    return json(
+      {
+        ok: false,
+        error: error.message
+      },
+      500
+    );
+
+  return json({
+    ok: true,
+    messages:
+      data || []
+  });
+
+}
+
+/* =========================================================
+PLAYERS
+========================================================= */
+
+async function players(
+  req: Request
+) {
+
+  const user =
+    await getUserFromRequest(
+      req
+    );
+
+  if (!user)
+    return json(
+      {
+        ok: false,
+        error: "غير مسجل"
+      },
+      401
+    );
+
+  const { data, error } =
+    await db
+      .from("profiles")
+      .select(`
+        id,
+        username,
+        balance,
+        xp,
+        level,
+        avatar,
+        city,
+        farm,
+        items,
+        admin,
+        created_at
+      `)
+      .order(
+        "created_at",
+        {
+          ascending: true
+        }
+      );
+
+  if (error)
+    return json(
+      {
+        ok: false,
+        error: error.message
+      },
+      500
+    );
+
+  return json({
+    ok: true,
+    users:
+      data || []
+  });
+
+}
+
+/* =========================================================
+ADMIN
+========================================================= */
+
+async function adminAdd(
+  req: Request,
+  body: any
+) {
+
+  const admin =
+    await getUserFromRequest(
+      req
+    );
+
+  if (!admin || !admin.admin)
+    return json(
+      {
+        ok: false,
+        error: "غير مصرح"
+      },
+      403
+    );
+
+  const id =
+    String(body.id ?? "");
+
+  const amount =
+    Number(body.amount ?? 1000);
+
+  if (
+    !id ||
+    !Number.isFinite(amount)
+  )
+    return json(
+      {
+        ok: false,
+        error: "بيانات غير صحيحة"
+      },
+      400
+    );
+
+  const { data: target } =
+    await db
+      .from("profiles")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+  if (!target)
+    return json(
+      {
+        ok: false,
+        error: "العضو غير موجود"
+      },
+      404
+    );
+
+  const { data, error } =
+    await db
+      .from("profiles")
+      .update({
+
+        balance:
+          Number(target.balance) +
+          amount
+
+      })
+      .eq("id", id)
+      .select("*")
+      .single();
+
+  if (error)
+    return json(
+      {
+        ok: false,
+        error: error.message
+      },
+      500
+    );
+
+  await db
+    .from("transactions")
+    .insert({
+
+      user_id: id,
+
+      type: "admin_add",
+
+      amount,
+
+      description:
+        "إضافة من الإدارة"
+
+    });
+
+  delete data.password_hash;
+
+  return json({
+    ok: true,
+    user: data
+  });
+
+}
+
+/* =========================================================
+REQUEST ROUTER
+========================================================= */
+
+Deno.serve(
+  async (req: Request) => {
+
+    if (
+      req.method ===
+      "OPTIONS"
+    )
+      return new Response(
+        "ok",
+        {
+          headers:
+            corsHeaders
+        }
+      );
+
+    try {
+
+      const url =
+        new URL(req.url);
+
+      const action =
+        url.searchParams.get(
+          "action"
+        );
+
+      let body: any = {};
+
+      if (
+        req.method !==
+        "GET"
+      ) {
+
+        try {
+
+          body =
+            await req.json();
+
+        } catch {
+
+          body = {};
+
+        }
+
+      }
+
+      if (
+        action ===
+        "register"
+      )
+        return register(
+          body
+        );
+
+      if (
+        action ===
+        "login"
+      )
+        return login(
+          body
+        );
+
+      if (
+        action ===
+        "me"
+      )
+        return me(
+          req
+        );
+
+      if (
+        action ===
+        "update"
+      )
+        return updateUser(
+          req,
+          body
+        );
+
+      if (
+        action ===
+        "balance"
+      )
+        return changeBalance(
+          req,
+          body
+        );
+
+      if (
+        action ===
+        "transfer"
+      )
+        return transfer(
+          req,
+          body
+        );
+
+      if (
+        action ===
+        "transactions"
+      )
+        return transactions(
+          req
+        );
+
+      if (
+        action ===
+        "chat"
+      )
+        return chat(
+          req,
+          body
+        );
+
+      if (
+        action ===
+        "get_chat"
+      )
+        return getChat(
+          req
+        );
+
+      if (
+        action ===
+        "players"
+      )
+        return players(
+          req
+        );
+
+      if (
+        action ===
+        "admin_add"
+      )
+        return adminAdd(
+          req,
+          body
+        );
+
+      return json(
+        {
+          ok: false,
+          error:
+            "الأمر غير موجود"
+        },
+        404
+      );
+
+    } catch (error) {
+
+      console.error(error);
+
+      return json(
+        {
+          ok: false,
+          error:
+            "حدث خطأ في الخادم"
+        },
+        500
+      );
 
     }
 
-    subscribeChat();
-
-    supabaseClient
-    .auth
-    .onAuthStateChange(
-        async(event,session)=>{
-
-            if(event === "SIGNED_OUT"){
-
-                currentUser=null;
-
-                profile=null;
-
-                document
-                .getElementById("auth")
-                .classList
-                .remove("hidden");
-
-                return;
-            }
-
-        }
-    );
-
-}
-
-/* =========================================================
-   RUN
-   ========================================================= */
-
-startApp();
-
-</script>
-
-</body>
-</html>
+  }
+);
