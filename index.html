@@ -2,17 +2,10 @@
 <html lang="ar" dir="rtl">
 
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
@@ -59,28 +52,16 @@ button{
 }
 
 .container{
-  width:min(
-    1200px,
-    calc(100% - 30px)
-  );
-
+  width:min(1200px,calc(100% - 30px));
   margin:auto;
 }
 
 .card{
   background:rgba(20,20,20,.94);
-
-  border:
-    1px solid
-    rgba(255,193,7,.18);
-
+  border:1px solid rgba(255,193,7,.18);
   border-radius:18px;
-
   padding:20px;
-
-  box-shadow:
-    0 10px 35px
-    rgba(0,0,0,.35);
+  box-shadow:0 10px 35px rgba(0,0,0,.35);
 }
 
 .card-title{
@@ -93,14 +74,10 @@ button{
 .btn{
   border:0;
   border-radius:12px;
-
   padding:13px 18px;
-
   font-weight:900;
-
   color:#fff;
   background:#222;
-
   transition:.2s;
 }
 
@@ -113,13 +90,7 @@ button{
 }
 
 .goldbtn{
-  background:
-    linear-gradient(
-      135deg,
-      #ff9800,
-      #ffd54f
-    );
-
+  background:linear-gradient(135deg,#ff9800,#ffd54f);
   color:#111;
 }
 
@@ -137,21 +108,12 @@ button{
 
 input{
   width:100%;
-
   padding:13px;
-
   margin:6px 0;
-
-  border:
-    1px solid
-    #333;
-
+  border:1px solid #333;
   border-radius:11px;
-
   background:#0d0d0d;
-
   color:#fff;
-
   outline:none;
 }
 
@@ -161,158 +123,112 @@ input:focus{
 
 #auth{
   min-height:100vh;
-
   display:flex;
-
   align-items:center;
   justify-content:center;
-
   padding:20px;
 }
 
 .auth-box{
-  width:min(
-    430px,
-    100%
-  );
+  width:min(430px,100%);
 }
 
 .logo{
   text-align:center;
-
   font-size:30px;
-
   font-weight:900;
-
   color:#ffd54f;
-
   margin-bottom:20px;
+}
+
+.auth-message{
+  margin-top:12px;
+  padding:10px;
+  border-radius:10px;
+  display:none;
+  text-align:center;
+  font-weight:700;
+}
+
+.auth-message.error{
+  display:block;
+  background:#450909;
+  color:#ff8a80;
+}
+
+.auth-message.success-msg{
+  display:block;
+  background:#063d14;
+  color:#69f08a;
 }
 
 .topbar{
   position:sticky;
   top:0;
   z-index:100;
-
-  background:
-    rgba(5,5,5,.95);
-
-  backdrop-filter:
-    blur(12px);
-
-  border-bottom:
-    1px solid
-    rgba(255,193,7,.15);
+  background:rgba(5,5,5,.95);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,193,7,.15);
 }
 
 .topbar-inner{
-
-  width:min(
-    1200px,
-    calc(100% - 30px)
-  );
-
+  width:min(1200px,calc(100% - 30px));
   margin:auto;
-
   padding:14px 0;
-
   display:flex;
-
   align-items:center;
-
   justify-content:space-between;
-
   gap:10px;
-
 }
 
 .brand{
-
   color:#ffd54f;
-
   font-weight:900;
-
 }
 
 .user-info{
-
   color:#ddd;
-
   font-weight:700;
-
 }
 
 .separator{
-
   margin:0 8px;
-
   color:#555;
-
 }
 
 nav{
-
-  width:min(
-    1200px,
-    calc(100% - 30px)
-  );
-
+  width:min(1200px,calc(100% - 30px));
   margin:auto;
-
   padding:10px 0;
-
   display:flex;
-
   gap:8px;
-
   overflow-x:auto;
-
   scrollbar-width:thin;
-
 }
 
 nav button{
-
   white-space:nowrap;
-
   border:0;
-
   border-radius:10px;
-
   padding:10px 14px;
-
   background:#171717;
-
   color:#ccc;
-
   transition:.2s;
-
 }
 
 nav button:hover{
-
   background:#292929;
-
   transform:translateY(-1px);
-
 }
 
 nav button.active{
-
   background:#ffd54f;
   color:#111;
-
 }
 
 main{
-
-  width:min(
-    1200px,
-    calc(100% - 30px)
-  );
-
+  width:min(1200px,calc(100% - 30px));
   margin:20px auto;
-
 }
 
 .page{
@@ -324,33 +240,21 @@ main{
 }
 
 .grid{
-
   display:grid;
-
   grid-template-columns:
     repeat(
       auto-fit,
       minmax(220px,1fr)
     );
-
   gap:15px;
-
 }
 
 .stat{
-
   display:flex;
-
   justify-content:space-between;
-
   align-items:center;
-
   padding:12px 0;
-
-  border-bottom:
-    1px solid
-    rgba(255,255,255,.08);
-
+  border-bottom:1px solid rgba(255,255,255,.08);
 }
 
 .stat-name{
@@ -358,13 +262,9 @@ main{
 }
 
 .big-number{
-
   font-size:32px;
-
   font-weight:900;
-
   margin-top:10px;
-
 }
 
 .green{
@@ -376,13 +276,9 @@ main{
 }
 
 .character-stat{
-
   font-size:28px;
-
   font-weight:900;
-
   margin-top:10px;
-
 }
 
 .hp{
@@ -398,67 +294,28 @@ main{
 }
 
 .description{
-
   color:#aaa;
-
   line-height:1.8;
-
   margin:10px 0;
-
-}
-
-.status{
-
-  text-align:center;
-
-  padding:10px;
-
-  margin-bottom:10px;
-
-  border-radius:10px;
-
-  display:none;
-
-}
-
-.status.error{
-
-  display:block;
-
-  background:#420909;
-
-  color:#ff7777;
-
-}
-
-.status.success{
-
-  display:block;
-
-  background:#073d16;
-
-  color:#7cff9a;
-
 }
 
 .loading{
-
   text-align:center;
-
   color:#ffd54f;
-
   padding:20px;
+}
 
+.empty{
+  text-align:center;
+  color:#aaa;
+  padding:20px;
 }
 
 @media(max-width:700px){
 
   .topbar-inner{
-
     flex-direction:column;
-
     align-items:flex-start;
-
   }
 
   .user-info{
@@ -470,12 +327,8 @@ main{
   }
 
   main{
-
-    width:
-      calc(100% - 20px);
-
+    width:calc(100% - 20px);
     margin-top:15px;
-
   }
 
   .card{
@@ -489,15 +342,13 @@ main{
 }
 
 </style>
-
 </head>
 
 <body>
 
-
-<!-- =========================
-     تسجيل الدخول
-========================= -->
+<!-- =====================================================
+     تسجيل الدخول / التسجيل
+===================================================== -->
 
 <div id="auth">
 
@@ -509,13 +360,7 @@ main{
 
     <div class="card">
 
-      <div
-        id="authStatus"
-        class="status"
-      ></div>
-
-
-      <!-- LOGIN -->
+      <!-- تسجيل الدخول -->
 
       <div id="loginBox">
 
@@ -538,6 +383,7 @@ main{
         >
 
         <button
+          id="loginButton"
           class="btn goldbtn full"
           type="button"
           onclick="login()"
@@ -557,7 +403,7 @@ main{
       </div>
 
 
-      <!-- REGISTER -->
+      <!-- إنشاء الحساب -->
 
       <div
         id="registerBox"
@@ -590,6 +436,7 @@ main{
         >
 
         <button
+          id="registerButton"
           class="btn goldbtn full"
           type="button"
           onclick="register()"
@@ -608,6 +455,8 @@ main{
 
       </div>
 
+      <div id="authMessage" class="auth-message"></div>
+
     </div>
 
   </div>
@@ -615,9 +464,9 @@ main{
 </div>
 
 
-<!-- =========================
+<!-- =====================================================
      التطبيق
-========================= -->
+===================================================== -->
 
 <div
   id="app"
@@ -650,7 +499,6 @@ main{
   <nav>
 
     <button
-      type="button"
       data-page="home"
       onclick="page('home')"
     >
@@ -658,7 +506,6 @@ main{
     </button>
 
     <button
-      type="button"
       data-page="character"
       onclick="page('character')"
     >
@@ -666,7 +513,6 @@ main{
     </button>
 
     <button
-      type="button"
       data-page="city"
       onclick="page('city')"
     >
@@ -674,7 +520,6 @@ main{
     </button>
 
     <button
-      type="button"
       data-page="farm"
       onclick="page('farm')"
     >
@@ -682,7 +527,6 @@ main{
     </button>
 
     <button
-      type="button"
       data-page="shop"
       onclick="page('shop')"
     >
@@ -690,7 +534,6 @@ main{
     </button>
 
     <button
-      type="button"
       data-page="inventory"
       onclick="page('inventory')"
     >
@@ -698,7 +541,6 @@ main{
     </button>
 
     <button
-      type="button"
       data-page="games"
       onclick="page('games')"
     >
@@ -706,7 +548,6 @@ main{
     </button>
 
     <button
-      type="button"
       data-page="chat"
       onclick="page('chat')"
     >
@@ -714,7 +555,6 @@ main{
     </button>
 
     <button
-      type="button"
       data-page="players"
       onclick="page('players')"
     >
@@ -722,7 +562,6 @@ main{
     </button>
 
     <button
-      type="button"
       data-page="rank"
       onclick="page('rank')"
     >
@@ -730,7 +569,6 @@ main{
     </button>
 
     <button
-      type="button"
       data-page="wallet"
       onclick="page('wallet')"
     >
@@ -738,7 +576,6 @@ main{
     </button>
 
     <button
-      type="button"
       data-page="profile"
       onclick="page('profile')"
     >
@@ -746,7 +583,6 @@ main{
     </button>
 
     <button
-      type="button"
       onclick="logout()"
     >
       🚪 خروج
@@ -760,7 +596,7 @@ main{
 <main>
 
 
-<!-- HOME -->
+<!-- الرئيسية -->
 
 <section
   id="page-home"
@@ -829,10 +665,8 @@ main{
     </div>
 
     <p class="description">
-
       عالم مصرفي تفاعلي مليء بالألعاب
       والمتجر والتحويلات والتطوير.
-
     </p>
 
   </div>
@@ -840,7 +674,7 @@ main{
 </section>
 
 
-<!-- CHARACTER -->
+<!-- الشخصية -->
 
 <section
   id="page-character"
@@ -903,7 +737,7 @@ main{
 </section>
 
 
-<!-- CITY -->
+<!-- المدينة -->
 
 <section
   id="page-city"
@@ -933,7 +767,6 @@ main{
 
         <button
           class="btn goldbtn full"
-          type="button"
           onclick="upgradeCity()"
         >
           ⬆️ تطوير المدينة
@@ -964,7 +797,7 @@ main{
 </section>
 
 
-<!-- FARM -->
+<!-- المزرعة -->
 
 <section
   id="page-farm"
@@ -989,7 +822,6 @@ main{
 
         <button
           class="btn goldbtn full"
-          type="button"
           onclick="plantCrop()"
         >
           🌱 زراعة
@@ -1008,7 +840,6 @@ main{
 
         <button
           class="btn success full"
-          type="button"
           onclick="harvestCrop()"
         >
           🌾 حصاد
@@ -1023,7 +854,7 @@ main{
 </section>
 
 
-<!-- SHOP -->
+<!-- المتجر -->
 
 <section
   id="page-shop"
@@ -1098,7 +929,7 @@ main{
 </section>
 
 
-<!-- INVENTORY -->
+<!-- المخزون -->
 
 <section
   id="page-inventory"
@@ -1114,15 +945,14 @@ main{
     <div
       id="inventoryList"
       class="grid"
-    >
-    </div>
+    ></div>
 
   </div>
 
 </section>
 
 
-<!-- GAMES -->
+<!-- الألعاب -->
 
 <section
   id="page-games"
@@ -1215,7 +1045,7 @@ main{
 </section>
 
 
-<!-- CHAT -->
+<!-- الدردشة -->
 
 <section
   id="page-chat"
@@ -1235,8 +1065,7 @@ main{
         overflow-y:auto;
         margin-bottom:15px;
       "
-    >
-    </div>
+    ></div>
 
     <input
       id="chatInput"
@@ -1256,7 +1085,7 @@ main{
 </section>
 
 
-<!-- PLAYERS -->
+<!-- اللاعبين -->
 
 <section
   id="page-players"
@@ -1272,15 +1101,14 @@ main{
     <div
       id="playersList"
       class="grid"
-    >
-    </div>
+    ></div>
 
   </div>
 
 </section>
 
 
-<!-- RANK -->
+<!-- الترتيب -->
 
 <section
   id="page-rank"
@@ -1296,15 +1124,14 @@ main{
     <div
       id="rankList"
       class="grid"
-    >
-    </div>
+    ></div>
 
   </div>
 
 </section>
 
 
-<!-- WALLET -->
+<!-- المحفظة -->
 
 <section
   id="page-wallet"
@@ -1312,7 +1139,6 @@ main{
 >
 
   <div class="grid">
-
 
     <div class="card">
 
@@ -1388,13 +1214,12 @@ main{
 
     </div>
 
-
   </div>
 
 </section>
 
 
-<!-- PROFILE -->
+<!-- الملف الشخصي -->
 
 <section
   id="page-profile"
@@ -1406,7 +1231,6 @@ main{
     <div class="card-title">
       👤 الملف الشخصي
     </div>
-
 
     <div class="stat">
 
@@ -1420,7 +1244,6 @@ main{
 
     </div>
 
-
     <div class="stat">
 
       <span class="stat-name">
@@ -1432,7 +1255,6 @@ main{
       </strong>
 
     </div>
-
 
     <div class="stat">
 
@@ -1446,7 +1268,6 @@ main{
 
     </div>
 
-
     <div class="stat">
 
       <span class="stat-name">
@@ -1458,7 +1279,6 @@ main{
       </strong>
 
     </div>
-
 
     <button
       class="btn danger full"
@@ -1478,146 +1298,80 @@ main{
 </div>
 
 
+<!-- =====================================================
+     Supabase
+===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
 
-/* =========================================================
-   SUPABASE
-========================================================= */
+/* =====================================================
+   إعداد Supabase
+===================================================== */
 
 const SUPABASE_URL =
   'https://xmavwrtlwfkvqkpfiirr.supabase.co';
 
-const SUPABASE_ANON_KEY =
-  'YOUR_SUPABASE_ANON_KEY';
-
+const SUPABASE_PUBLISHABLE_KEY =
+  'sb_publishable_eH4yTOKoHrhBqsZ3cj8s9g_TJSnJNC2';
 
 const supabaseClient =
   window.supabase.createClient(
     SUPABASE_URL,
-    SUPABASE_ANON_KEY
+    SUPABASE_PUBLISHABLE_KEY
   );
 
 
-/* =========================================================
-   المتغيرات
-========================================================= */
+/* =====================================================
+   بيانات المستخدم الحالي
+===================================================== */
 
 let currentUser = null;
 
-let currentUserId = null;
 
+/* =====================================================
+   أدوات عامة
+===================================================== */
 
-/*
-  بيانات إضافية للحساب.
-  يتم تحميلها من قاعدة البيانات إذا كانت الأعمدة
-  موجودة.
-*/
-
-const DEFAULT_USER_DATA = {
-
-  level:1,
-
-  xp:0,
-
-  attack:10,
-
-  defense:10,
-
-  hp:100,
-
-  rank:'🌱 مبتدئ',
-
-  city_level:1,
-
-  population:1,
-
-  farm_planted:false,
-
-  farm_time:0,
-
-  last_daily_reward:null,
-
-  last_login_bonus:null
-
-};
-
-
-/* =========================================================
-   الرسائل
-========================================================= */
-
-function showStatus(message,type='error'){
+function showMessage(message,type='error'){
 
   const box =
-    document.getElementById(
-      'authStatus'
-    );
+    document.getElementById('authMessage');
 
   if(!box){
     return;
   }
 
-  box.textContent =
-    message;
+  box.textContent = message;
 
   box.className =
-    'status ' + type;
+    'auth-message ' +
+    (
+      type === 'success'
+      ? 'success-msg'
+      : 'error'
+    );
 
 }
 
 
-function clearStatus(){
+function clearMessage(){
 
   const box =
-    document.getElementById(
-      'authStatus'
-    );
+    document.getElementById('authMessage');
 
   if(box){
 
     box.textContent = '';
 
     box.className =
-      'status';
+      'auth-message';
 
   }
 
 }
 
-
-/* =========================================================
-   تشفير كلمة المرور
-========================================================= */
-
-async function hashPassword(password){
-
-  const data =
-    new TextEncoder()
-      .encode(password);
-
-  const hash =
-    await crypto.subtle.digest(
-      'SHA-256',
-      data
-    );
-
-  return Array.from(
-    new Uint8Array(hash)
-  )
-  .map(
-    byte =>
-      byte
-        .toString(16)
-        .padStart(2,'0')
-  )
-  .join('');
-
-}
-
-
-/* =========================================================
-   أدوات
-========================================================= */
 
 function formatMoney(amount){
 
@@ -1630,17 +1384,19 @@ function formatMoney(amount){
 
 function escapeHTML(text){
 
-  return String(
-    text ?? ''
-  )
-  .replace(/&/g,'&amp;')
-  .replace(/</g,'&lt;')
-  .replace(/>/g,'&gt;')
-  .replace(/"/g,'&quot;')
-  .replace(/'/g,'&#039;');
+  return String(text ?? '')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#039;');
 
 }
 
+
+/* =====================================================
+   تطبيع المستخدم
+===================================================== */
 
 function normalizeUser(user){
 
@@ -1648,179 +1404,107 @@ function normalizeUser(user){
     return;
   }
 
-  user.balance =
-    Number(user.balance || 0);
+  if(user.balance === null ||
+     user.balance === undefined ||
+     !Number.isFinite(Number(user.balance))){
 
-  user.level =
-    Number(
-      user.level ??
-      DEFAULT_USER_DATA.level
-    );
-
-  user.xp =
-    Number(
-      user.xp ??
-      DEFAULT_USER_DATA.xp
-    );
-
-  user.attack =
-    Number(
-      user.attack ??
-      DEFAULT_USER_DATA.attack
-    );
-
-  user.defense =
-    Number(
-      user.defense ??
-      DEFAULT_USER_DATA.defense
-    );
-
-  user.hp =
-    Number(
-      user.hp ??
-      DEFAULT_USER_DATA.hp
-    );
-
-  user.rank =
-    user.rank ||
-    DEFAULT_USER_DATA.rank;
-
-  user.city_level =
-    Number(
-      user.city_level ??
-      DEFAULT_USER_DATA.city_level
-    );
-
-  user.population =
-    Number(
-      user.population ??
-      DEFAULT_USER_DATA.population
-    );
-
-  user.farm_planted =
-    Boolean(
-      user.farm_planted
-    );
-
-  user.farm_time =
-    Number(
-      user.farm_time || 0
-    );
-
-}
-
-
-/* =========================================================
-   البحث عن المستخدم
-========================================================= */
-
-async function findUserByName(username){
-
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from('users')
-      .select('*')
-      .ilike(
-        'username',
-        username
-      )
-      .limit(1);
-
-  if(error){
-
-    console.error(error);
-
-    throw error;
+    user.balance = 9999;
 
   }
 
-  return data && data.length
-    ? data[0]
-    : null;
+  user.balance =
+    Number(user.balance);
+
+  if(!Number.isFinite(user.level)){
+    user.level = 1;
+  }
+
+  if(!Number.isFinite(user.xp)){
+    user.xp = 0;
+  }
+
+  if(!Number.isFinite(user.attack)){
+    user.attack = 10;
+  }
+
+  if(!Number.isFinite(user.defense)){
+    user.defense = 10;
+  }
+
+  if(!Number.isFinite(user.hp)){
+    user.hp = 100;
+  }
+
+  if(!user.rank){
+    user.rank = '🌱 مبتدئ';
+  }
+
+  if(!Array.isArray(user.inventory)){
+    user.inventory = [];
+  }
+
+  if(!Number.isFinite(user.city_level)){
+    user.city_level = 1;
+  }
+
+  if(!Number.isFinite(user.population)){
+    user.population = 1;
+  }
 
 }
 
 
-/* =========================================================
-   تحديث المستخدم في Supabase
-========================================================= */
+/* =====================================================
+   إنشاء بيانات إضافية للمستخدم
+===================================================== */
 
-async function updateUser(updates){
+async function ensureUserData(){
 
   if(!currentUser){
-    return false;
+    return;
   }
 
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from('users')
-      .update(updates)
-      .eq(
-        'id',
-        currentUser.id
-      )
-      .select()
-      .single();
+  normalizeUser(currentUser);
 
-  if(error){
+  const updateData = {
+    balance: currentUser.balance
+  };
 
-    console.error(
-      'Supabase update:',
-      error
-    );
-
-    alert(
-      '❌ حدث خطأ أثناء حفظ البيانات:\n' +
-      error.message
-    );
-
-    return false;
-
-  }
-
-  currentUser =
-    data;
-
-  normalizeUser(
-    currentUser
-  );
-
-  updateAllUI();
-
-  return true;
+  /*
+    الأعمدة الإضافية اختيارية.
+    إذا كان جدول users عندك يحتوي فقط:
+    id / created_at / username / password_hash / balance
+    فلن نرسل الأعمدة الأخرى لقاعدة البيانات.
+  */
 
 }
 
 
-/* =========================================================
-   إنشاء الحساب
-========================================================= */
+/* =====================================================
+   تسجيل الحساب
+===================================================== */
 
 async function register(){
 
-  clearStatus();
+  clearMessage();
+
+  const nameEl =
+    document.getElementById('regName');
+
+  const passEl =
+    document.getElementById('regPass');
+
+  const pass2El =
+    document.getElementById('regPass2');
 
   const username =
-    document
-      .getElementById('regName')
-      .value
-      .trim();
+    nameEl.value.trim();
 
   const password =
-    document
-      .getElementById('regPass')
-      .value;
+    passEl.value;
 
   const password2 =
-    document
-      .getElementById('regPass2')
-      .value;
+    pass2El.value;
 
 
   if(
@@ -1829,8 +1513,8 @@ async function register(){
     !password2
   ){
 
-    showStatus(
-      'أكمل جميع البيانات'
+    showMessage(
+      '❌ أكمل جميع البيانات.'
     );
 
     return;
@@ -1840,8 +1524,8 @@ async function register(){
 
   if(username.length < 3){
 
-    showStatus(
-      'اسم المستخدم يجب أن يكون 3 أحرف على الأقل'
+    showMessage(
+      '❌ اسم المستخدم يجب أن يكون 3 أحرف على الأقل.'
     );
 
     return;
@@ -1851,8 +1535,8 @@ async function register(){
 
   if(password.length < 4){
 
-    showStatus(
-      'كلمة المرور يجب أن تكون 4 أحرف على الأقل'
+    showMessage(
+      '❌ كلمة المرور يجب أن تكون 4 أحرف على الأقل.'
     );
 
     return;
@@ -1862,8 +1546,8 @@ async function register(){
 
   if(password !== password2){
 
-    showStatus(
-      'كلمتا المرور غير متطابقتين'
+    showMessage(
+      '❌ كلمتا المرور غير متطابقتين.'
     );
 
     return;
@@ -1871,17 +1555,36 @@ async function register(){
   }
 
 
+  const button =
+    document.getElementById(
+      'registerButton'
+    );
+
+  button.disabled = true;
+  button.textContent = 'جاري إنشاء الحساب...';
+
+
   try{
 
-    const exists =
-      await findUserByName(
-        username
-      );
+    /*
+      البحث عن اسم المستخدم
+    */
 
-    if(exists){
+    const { data: existingUser, error: checkError } =
+      await supabaseClient
+        .from('users')
+        .select('id')
+        .eq('username',username)
+        .maybeSingle();
 
-      showStatus(
-        'اسم المستخدم موجود بالفعل'
+
+    if(checkError){
+
+      console.error(checkError);
+
+      showMessage(
+        '❌ حدث خطأ في الاتصال بقاعدة البيانات.\n' +
+        checkError.message
       );
 
       return;
@@ -1889,20 +1592,22 @@ async function register(){
     }
 
 
-    const passwordHash =
-      await hashPassword(
-        password
+    if(existingUser){
+
+      showMessage(
+        '❌ اسم المستخدم موجود بالفعل.'
       );
+
+      return;
+
+    }
 
 
     /*
-      balance = 9999
+      إنشاء الحساب
     */
 
-    const {
-      data,
-      error
-    } =
+    const { data, error } =
       await supabaseClient
         .from('users')
         .insert({
@@ -1911,7 +1616,7 @@ async function register(){
             username,
 
           password_hash:
-            passwordHash,
+            password,
 
           balance:
             9999
@@ -1925,7 +1630,8 @@ async function register(){
 
       console.error(error);
 
-      showStatus(
+      showMessage(
+        '❌ تعذر إنشاء الحساب.\n\n' +
         error.message
       );
 
@@ -1937,41 +1643,33 @@ async function register(){
     currentUser =
       data;
 
-    normalizeUser(
-      currentUser
+
+    normalizeUser(currentUser);
+
+
+    sessionStorage.setItem(
+      'SUN_CURRENT_USER_ID',
+      String(currentUser.id)
     );
 
 
-    /*
-      محاولة حفظ البيانات الإضافية
-      إذا كانت الأعمدة موجودة.
-    */
-
-    await saveExtendedData();
+    showMessage(
+      '✅ تم إنشاء الحساب بنجاح!',
+      'success'
+    );
 
 
-    enterApp();
+    setTimeout(
+      function(){
 
+        openApp();
 
-    document.getElementById(
-      'regName'
-    ).value = '';
+        updateAll();
 
-    document.getElementById(
-      'regPass'
-    ).value = '';
+        page('home');
 
-    document.getElementById(
-      'regPass2'
-    ).value = '';
-
-
-    alert(
-      '🎉 تم إنشاء الحساب بنجاح!\n\n' +
-      '👤 المستخدم: ' +
-      username +
-      '\n' +
-      '💰 الرصيد الابتدائي: 9,999'
+      },
+      500
     );
 
 
@@ -1979,33 +1677,40 @@ async function register(){
 
     console.error(error);
 
-    showStatus(
-      'حدث خطأ في الاتصال بقاعدة البيانات'
+    showMessage(
+      '❌ حدث خطأ غير متوقع.\n' +
+      error.message
     );
+
+  }finally{
+
+    button.disabled = false;
+    button.textContent = 'إنشاء الحساب';
 
   }
 
 }
 
 
-/* =========================================================
+/* =====================================================
    تسجيل الدخول
-========================================================= */
+===================================================== */
 
 async function login(){
 
-  clearStatus();
+  clearMessage();
+
+  const nameEl =
+    document.getElementById('loginName');
+
+  const passEl =
+    document.getElementById('loginPass');
 
   const username =
-    document
-      .getElementById('loginName')
-      .value
-      .trim();
+    nameEl.value.trim();
 
   const password =
-    document
-      .getElementById('loginPass')
-      .value;
+    passEl.value;
 
 
   if(
@@ -2013,8 +1718,8 @@ async function login(){
     !password
   ){
 
-    showStatus(
-      'اكتب اسم المستخدم وكلمة المرور'
+    showMessage(
+      '❌ اكتب اسم المستخدم وكلمة المرور.'
     );
 
     return;
@@ -2022,18 +1727,32 @@ async function login(){
   }
 
 
+  const button =
+    document.getElementById(
+      'loginButton'
+    );
+
+  button.disabled = true;
+  button.textContent = 'جاري تسجيل الدخول...';
+
+
   try{
 
-    const user =
-      await findUserByName(
-        username
-      );
+    const { data, error } =
+      await supabaseClient
+        .from('users')
+        .select('*')
+        .eq('username',username)
+        .maybeSingle();
 
 
-    if(!user){
+    if(error){
 
-      showStatus(
-        'اسم المستخدم أو كلمة المرور غير صحيحة'
+      console.error(error);
+
+      showMessage(
+        '❌ حدث خطأ في الاتصال بقاعدة البيانات.\n\n' +
+        error.message
       );
 
       return;
@@ -2041,21 +1760,24 @@ async function login(){
     }
 
 
-    const passwordHash =
-      await hashPassword(
-        password
+    if(!data){
+
+      showMessage(
+        '❌ اسم المستخدم أو كلمة المرور غير صحيحة.'
       );
+
+      return;
+
+    }
 
 
     if(
-      String(
-        user.password_hash || ''
-      ) !==
-      passwordHash
+      String(data.password_hash) !==
+      String(password)
     ){
 
-      showStatus(
-        'اسم المستخدم أو كلمة المرور غير صحيحة'
+      showMessage(
+        '❌ اسم المستخدم أو كلمة المرور غير صحيحة.'
       );
 
       return;
@@ -2064,463 +1786,356 @@ async function login(){
 
 
     currentUser =
-      user;
+      data;
 
-    normalizeUser(
-      currentUser
+
+    normalizeUser(currentUser);
+
+
+    sessionStorage.setItem(
+      'SUN_CURRENT_USER_ID',
+      String(currentUser.id)
     );
 
 
-    await saveExtendedData();
+    openApp();
 
+    updateAll();
 
-    enterApp();
-
-
-    document.getElementById(
-      'loginName'
-    ).value = '';
-
-    document.getElementById(
-      'loginPass'
-    ).value = '';
-
-
-    await loginBonus();
+    page('home');
 
 
   }catch(error){
 
     console.error(error);
 
-    showStatus(
-      'تعذر الاتصال بقاعدة البيانات'
+    showMessage(
+      '❌ حدث خطأ غير متوقع.\n' +
+      error.message
     );
+
+  }finally{
+
+    button.disabled = false;
+    button.textContent = 'دخول';
 
   }
 
 }
 
 
-/* =========================================================
-   الدخول للتطبيق
-========================================================= */
+/* =====================================================
+   فتح التسجيل
+===================================================== */
 
-function enterApp(){
+function showRegister(){
 
-  const auth =
-    document.getElementById(
-      'auth'
-    );
-
-  const app =
-    document.getElementById(
-      'app'
-    );
-
-
-  if(auth){
-
-    auth.classList.add(
-      'hidden'
-    );
-
-  }
-
-
-  if(app){
-
-    app.classList.remove(
-      'hidden'
-    );
-
-  }
-
-
-  updateAllUI();
-
-  page('home');
-
-}
-
-
-/* =========================================================
-   تسجيل الخروج
-========================================================= */
-
-function logout(){
-
-  currentUser = null;
-
-  currentUserId = null;
-
+  clearMessage();
 
   document
-    .getElementById('app')
-    .classList.add(
-      'hidden'
-    );
+    .getElementById('loginBox')
+    .classList.add('hidden');
 
+  document
+    .getElementById('registerBox')
+    .classList.remove('hidden');
+
+}
+
+
+/* =====================================================
+   فتح الدخول
+===================================================== */
+
+function showLogin(){
+
+  clearMessage();
+
+  document
+    .getElementById('registerBox')
+    .classList.add('hidden');
+
+  document
+    .getElementById('loginBox')
+    .classList.remove('hidden');
+
+}
+
+
+/* =====================================================
+   فتح التطبيق
+===================================================== */
+
+function openApp(){
 
   document
     .getElementById('auth')
-    .classList.remove(
-      'hidden'
-    );
+    .classList.add('hidden');
 
+  document
+    .getElementById('app')
+    .classList.remove('hidden');
+
+}
+
+
+/* =====================================================
+   إغلاق التطبيق
+===================================================== */
+
+async function logout(){
+
+  currentUser = null;
+
+  sessionStorage.removeItem(
+    'SUN_CURRENT_USER_ID'
+  );
+
+  document
+    .getElementById('app')
+    .classList.add('hidden');
+
+  document
+    .getElementById('auth')
+    .classList.remove('hidden');
 
   showLogin();
 
 }
 
 
-/* =========================================================
-   تبديل النوافذ
-========================================================= */
+/* =====================================================
+   استعادة الجلسة
+===================================================== */
 
-function showRegister(){
+async function restoreSession(){
 
-  clearStatus();
-
-  document
-    .getElementById('loginBox')
-    .classList.add(
-      'hidden'
+  const id =
+    sessionStorage.getItem(
+      'SUN_CURRENT_USER_ID'
     );
 
-  document
-    .getElementById('registerBox')
-    .classList.remove(
-      'hidden'
-    );
-
-}
-
-
-function showLogin(){
-
-  clearStatus();
-
-  document
-    .getElementById('registerBox')
-    .classList.add(
-      'hidden'
-    );
-
-  document
-    .getElementById('loginBox')
-    .classList.remove(
-      'hidden'
-    );
-
-}
-
-
-/* =========================================================
-   حفظ البيانات الإضافية
-========================================================= */
-
-async function saveExtendedData(){
-
-  if(!currentUser){
+  if(!id){
     return;
   }
 
 
-  /*
-    نحاول حفظ الأعمدة الإضافية.
-    إذا لم تكن موجودة في جدول users
-    لن نوقف تسجيل الدخول.
-  */
+  try{
 
-  const updates = {
-
-    level:
-      Number(
-        currentUser.level || 1
-      ),
-
-    xp:
-      Number(
-        currentUser.xp || 0
-      ),
-
-    attack:
-      Number(
-        currentUser.attack || 10
-      ),
-
-    defense:
-      Number(
-        currentUser.defense || 10
-      ),
-
-    hp:
-      Number(
-        currentUser.hp || 100
-      ),
-
-    rank:
-      currentUser.rank ||
-      '🌱 مبتدئ',
-
-    city_level:
-      Number(
-        currentUser.city_level || 1
-      ),
-
-    population:
-      Number(
-        currentUser.population || 1
-      ),
-
-    farm_planted:
-      Boolean(
-        currentUser.farm_planted
-      ),
-
-    farm_time:
-      Number(
-        currentUser.farm_time || 0
-      ),
-
-    last_daily_reward:
-      currentUser.last_daily_reward ||
-      null,
-
-    last_login_bonus:
-      currentUser.last_login_bonus ||
-      null
-
-  };
+    const { data, error } =
+      await supabaseClient
+        .from('users')
+        .select('*')
+        .eq('id',id)
+        .maybeSingle();
 
 
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from('users')
-      .update(updates)
-      .eq(
-        'id',
-        currentUser.id
-      )
-      .select()
-      .single();
+    if(error){
+
+      console.error(error);
+
+      sessionStorage.removeItem(
+        'SUN_CURRENT_USER_ID'
+      );
+
+      return;
+
+    }
 
 
-  if(!error && data){
+    if(!data){
+
+      sessionStorage.removeItem(
+        'SUN_CURRENT_USER_ID'
+      );
+
+      return;
+
+    }
+
 
     currentUser =
       data;
 
-    normalizeUser(
-      currentUser
-    );
+    normalizeUser(currentUser);
 
-    return true;
+    openApp();
+
+    updateAll();
+
+    page('home');
+
+
+  }catch(error){
+
+    console.error(error);
 
   }
-
-
-  console.warn(
-    'لم يتم حفظ الأعمدة الإضافية:',
-    error
-  );
-
-
-  return false;
 
 }
 
 
-/* =========================================================
+/* =====================================================
    تحديث الواجهة
-========================================================= */
+===================================================== */
 
-function updateAllUI(){
+function updateHeader(){
 
   if(!currentUser){
     return;
   }
 
-  normalizeUser(
-    currentUser
-  );
+  normalizeUser(currentUser);
 
 
-  document.getElementById(
-    'headerName'
-  ).textContent =
-    currentUser.username;
-
-
-  document.getElementById(
-    'headerBalance'
-  ).textContent =
-    formatMoney(
-      currentUser.balance
-    );
-
-
-  document.getElementById(
-    'homeBalance'
-  ).textContent =
-    formatMoney(
-      currentUser.balance
-    );
-
-
-  document.getElementById(
-    'homeLevel'
-  ).textContent =
-    currentUser.level;
-
-
-  document.getElementById(
-    'homePower'
-  ).textContent =
-    Number(
-      currentUser.attack
-    ) +
-    Number(
-      currentUser.defense
-    );
-
-
-  document.getElementById(
-    'profileName'
-  ).textContent =
-    currentUser.username;
-
-
-  document.getElementById(
-    'profileBalance'
-  ).textContent =
-    formatMoney(
-      currentUser.balance
-    );
-
-
-  document.getElementById(
-    'profileLevel'
-  ).textContent =
-    currentUser.level;
-
-
-  document.getElementById(
-    'profileRank'
-  ).textContent =
-    currentUser.rank;
-
-
-  updateCharacter();
-
-  updateCity();
-
-}
-
-
-/* =========================================================
-   الصفحات
-========================================================= */
-
-function page(pageName){
-
-  document
-    .querySelectorAll('.page')
-    .forEach(
-      item =>
-        item.classList.remove(
-          'active'
-        )
-    );
-
-
-  const target =
+  const headerName =
     document.getElementById(
-      'page-' +
-      pageName
+      'headerName'
+    );
+
+  const headerBalance =
+    document.getElementById(
+      'headerBalance'
+    );
+
+  const homeBalance =
+    document.getElementById(
+      'homeBalance'
+    );
+
+  const homeLevel =
+    document.getElementById(
+      'homeLevel'
+    );
+
+  const homePower =
+    document.getElementById(
+      'homePower'
     );
 
 
-  if(target){
+  if(headerName){
 
-    target.classList.add(
-      'active'
-    );
+    headerName.textContent =
+      currentUser.username;
 
   }
 
 
-  document
-    .querySelectorAll(
-      'nav button[data-page]'
-    )
-    .forEach(
-      button => {
+  if(headerBalance){
 
-        button.classList.remove(
-          'active'
-        );
+    headerBalance.textContent =
+      formatMoney(
+        currentUser.balance
+      );
 
-
-        if(
-          button.dataset.page ===
-          pageName
-        ){
-
-          button.classList.add(
-            'active'
-          );
-
-        }
-
-      }
-    );
-
-
-  if(pageName === 'character'){
-    updateCharacter();
   }
 
-  if(pageName === 'city'){
-    updateCity();
+
+  if(homeBalance){
+
+    homeBalance.textContent =
+      formatMoney(
+        currentUser.balance
+      );
+
   }
 
-  if(pageName === 'inventory'){
-    renderInventory();
+
+  if(homeLevel){
+
+    homeLevel.textContent =
+      currentUser.level;
+
   }
 
-  if(pageName === 'players'){
-    renderPlayers();
-  }
 
-  if(pageName === 'rank'){
-    renderRank();
-  }
+  if(homePower){
 
-  if(pageName === 'chat'){
-    loadChat();
-  }
+    homePower.textContent =
+      Number(currentUser.attack) +
+      Number(currentUser.defense);
 
-  if(pageName === 'profile'){
-    updateAllUI();
   }
 
 }
 
 
-/* =========================================================
+/* =====================================================
+   الملف الشخصي
+===================================================== */
+
+function updateProfile(){
+
+  if(!currentUser){
+    return;
+  }
+
+  const name =
+    document.getElementById(
+      'profileName'
+    );
+
+  const balance =
+    document.getElementById(
+      'profileBalance'
+    );
+
+  const level =
+    document.getElementById(
+      'profileLevel'
+    );
+
+  const rank =
+    document.getElementById(
+      'profileRank'
+    );
+
+
+  if(name){
+
+    name.textContent =
+      currentUser.username;
+
+  }
+
+  if(balance){
+
+    balance.textContent =
+      formatMoney(
+        currentUser.balance
+      );
+
+  }
+
+  if(level){
+
+    level.textContent =
+      currentUser.level;
+
+  }
+
+  if(rank){
+
+    rank.textContent =
+      currentUser.rank;
+
+  }
+
+}
+
+
+/* =====================================================
    الشخصية
-========================================================= */
+===================================================== */
 
 function updateCharacter(){
 
   if(!currentUser){
     return;
   }
+
+  normalizeUser(currentUser);
 
 
   document.getElementById(
@@ -2543,118 +2158,208 @@ function updateCharacter(){
 }
 
 
-/* =========================================================
-   XP
-========================================================= */
+/* =====================================================
+   تحديث كل شيء
+===================================================== */
 
-async function addXP(amount){
+function updateAll(){
 
-  if(!currentUser){
-    return;
-  }
+  updateHeader();
 
+  updateProfile();
 
-  currentUser.xp +=
-    Number(amount || 0);
+  updateCharacter();
 
+  updateCity();
 
-  let required =
-    currentUser.level *
-    100;
+}
 
 
-  let leveled = false;
+/* =====================================================
+   الصفحات
+===================================================== */
 
+function page(pageName){
 
-  while(
-    currentUser.xp >=
-    required
-  ){
+  document
+    .querySelectorAll('.page')
+    .forEach(
+      function(item){
 
-    currentUser.xp -=
-      required;
+        item.classList.remove(
+          'active'
+        );
 
-    currentUser.level++;
-
-    currentUser.attack += 2;
-
-    currentUser.defense += 2;
-
-    currentUser.hp += 10;
-
-    leveled = true;
-
-
-    if(
-      currentUser.level >= 50
-    ){
-
-      currentUser.rank =
-        '👑 إمبراطور';
-
-    }
-    else if(
-      currentUser.level >= 30
-    ){
-
-      currentUser.rank =
-        '⚔️ محارب أسطوري';
-
-    }
-    else if(
-      currentUser.level >= 20
-    ){
-
-      currentUser.rank =
-        '🔥 محارب';
-
-    }
-    else if(
-      currentUser.level >= 10
-    ){
-
-      currentUser.rank =
-        '🥷 نينجا';
-
-    }
-    else if(
-      currentUser.level >= 5
-    ){
-
-      currentUser.rank =
-        '⚔️ مقاتل';
-
-    }
-
-
-    required =
-      currentUser.level *
-      100;
-
-  }
-
-
-  await saveExtendedData();
-
-  updateAllUI();
-
-
-  if(leveled){
-
-    alert(
-      '🎉 مبروك!\n' +
-      'وصلت إلى المستوى ' +
-      currentUser.level
+      }
     );
 
+
+  const target =
+    document.getElementById(
+      'page-' + pageName
+    );
+
+
+  if(target){
+
+    target.classList.add(
+      'active'
+    );
+
+  }
+
+
+  document
+    .querySelectorAll(
+      'nav button[data-page]'
+    )
+    .forEach(
+      function(button){
+
+        button.classList.remove(
+          'active'
+        );
+
+        if(
+          button.dataset.page ===
+          pageName
+        ){
+
+          button.classList.add(
+            'active'
+          );
+
+        }
+
+      }
+    );
+
+
+  if(pageName === 'inventory'){
+    renderInventory();
+  }
+
+  if(pageName === 'players'){
+    renderPlayers();
+  }
+
+  if(pageName === 'rank'){
+    renderRank();
+  }
+
+  if(pageName === 'chat'){
+    renderChat();
+  }
+
+  if(pageName === 'character'){
+    updateCharacter();
+  }
+
+  if(pageName === 'city'){
+    updateCity();
   }
 
 }
 
 
-/* =========================================================
+/* =====================================================
+   حفظ بيانات المستخدم
+===================================================== */
+
+async function saveUser(){
+
+  if(!currentUser){
+    return false;
+  }
+
+  normalizeUser(currentUser);
+
+  /*
+    نستخدم فقط الأعمدة الموجودة في جدولك الحالي.
+    هذا يمنع الخطأ إذا كان الجدول يحتوي:
+    id / created_at / username / password_hash / balance
+  */
+
+  const { data, error } =
+    await supabaseClient
+      .from('users')
+      .update({
+        balance:
+          currentUser.balance
+      })
+      .eq(
+        'id',
+        currentUser.id
+      )
+      .select()
+      .maybeSingle();
+
+
+  if(error){
+
+    console.error(
+      'saveUser:',
+      error
+    );
+
+    alert(
+      '❌ تعذر حفظ الرصيد في قاعدة البيانات.\n\n' +
+      error.message
+    );
+
+    return false;
+
+  }
+
+
+  if(data){
+
+    currentUser =
+      {
+        ...currentUser,
+        ...data
+      };
+
+  }
+
+  return true;
+
+}
+
+
+/* =====================================================
+   إيجاد مستخدم
+===================================================== */
+
+async function findUser(username){
+
+  const { data, error } =
+    await supabaseClient
+      .from('users')
+      .select('*')
+      .eq(
+        'username',
+        username
+      )
+      .maybeSingle();
+
+
+  if(error){
+
+    console.error(error);
+
+    return null;
+
+  }
+
+  return data;
+
+}
+
+
+/* =====================================================
    المدينة
-========================================================= */
+===================================================== */
 
 function updateCity(){
 
@@ -2662,19 +2367,27 @@ function updateCity(){
     return;
   }
 
+  const level =
+    Number(
+      currentUser.city_level || 1
+    );
+
+  const population =
+    Number(
+      currentUser.population || 1
+    );
+
 
   document.getElementById(
     'cityLevel'
   ).textContent =
-    currentUser.city_level;
+    level;
 
 
   document.getElementById(
     'cityPopulation'
   ).textContent =
-    Number(
-      currentUser.population
-    ).toLocaleString(
+    population.toLocaleString(
       'ar-EG'
     );
 
@@ -2690,8 +2403,7 @@ async function upgradeCity(){
 
   const level =
     Number(
-      currentUser.city_level ||
-      1
+      currentUser.city_level || 1
     );
 
 
@@ -2700,16 +2412,15 @@ async function upgradeCity(){
 
 
   if(
-    Number(
-      currentUser.balance
-    ) <
+    currentUser.balance <
     cost
   ){
 
     alert(
       '❌ رصيدك غير كافٍ.\n' +
       'التكلفة: ' +
-      formatMoney(cost)
+      formatMoney(cost) +
+      ' 💰'
     );
 
     return;
@@ -2731,104 +2442,73 @@ async function upgradeCity(){
     ) + 10;
 
 
-  await addXP(50);
+  await saveUser();
 
-  await saveExtendedData();
-
-  updateAllUI();
+  updateAll();
 
   alert(
-    '🏯 تم تطوير المدينة بنجاح!'
+    '🏯 تم تطوير المدينة!'
   );
 
 }
 
 
-/* =========================================================
+/* =====================================================
    المزرعة
-========================================================= */
+===================================================== */
 
-async function plantCrop(){
+function plantCrop(){
 
   if(!currentUser){
     return;
   }
 
-
-  if(
-    currentUser.farm_planted
-  ){
-
-    alert(
-      '🌱 لديك محصول مزروع بالفعل.'
-    );
-
-    return;
-
-  }
-
-
-  currentUser.farm_planted =
+  currentUser.farmPlanted =
     true;
 
-
-  currentUser.farm_time =
+  currentUser.farmTime =
     Date.now();
 
-
-  await saveExtendedData();
-
-
   alert(
-    '🌱 تمت الزراعة بنجاح!\n' +
-    'انتظر 30 ثانية للحصاد.'
+    '🌱 تمت الزراعة!\n' +
+    'انتظر 30 ثانية ثم احصد.'
   );
 
 }
 
 
-async function harvestCrop(){
+function harvestCrop(){
 
   if(!currentUser){
     return;
   }
 
 
-  if(
-    !currentUser.farm_planted
-  ){
+  if(!currentUser.farmPlanted){
 
     alert(
-      '❌ لا يوجد محصول مزروع.'
+      '❌ لا يوجد محصول.'
     );
 
     return;
 
   }
-
-
-  const required =
-    30 * 1000;
 
 
   const elapsed =
     Date.now() -
     Number(
-      currentUser.farm_time || 0
+      currentUser.farmTime || 0
     );
 
 
-  if(elapsed < required){
+  if(elapsed < 30000){
 
     const remaining =
       Math.ceil(
-        (
-          required -
-          elapsed
-        ) /
+        (30000 - elapsed) /
         1000
       );
-
 
     alert(
       '🌱 المحصول لم ينضج بعد.\n' +
@@ -2845,8 +2525,7 @@ async function harvestCrop(){
   const reward =
     200 +
     Math.floor(
-      Math.random() *
-      301
+      Math.random() * 301
     );
 
 
@@ -2854,38 +2533,50 @@ async function harvestCrop(){
     reward;
 
 
-  currentUser.farm_planted =
+  currentUser.farmPlanted =
     false;
 
 
-  currentUser.farm_time =
+  currentUser.farmTime =
     0;
 
 
-  await addXP(20);
+  awaitSaveAndUpdate(
 
-  await saveExtendedData();
-
-  updateAllUI();
-
-
-  alert(
-    '🌾 تم الحصاد!\n\n' +
+    '🌾 تم الحصاد!\n' +
     '💰 +' +
     formatMoney(reward)
+
   );
 
 }
 
 
-/* =========================================================
-   المتجر
-========================================================= */
+/* =====================================================
+   مساعد الحفظ والتنبيه
+===================================================== */
 
-async function buyItem(
-  name,
-  price
-){
+async function awaitSaveAndUpdate(message){
+
+  const ok =
+    await saveUser();
+
+  if(ok){
+
+    updateAll();
+
+    alert(message);
+
+  }
+
+}
+
+
+/* =====================================================
+   المتجر
+===================================================== */
+
+async function buyItem(name,price){
 
   if(!currentUser){
     return;
@@ -2910,95 +2601,78 @@ async function buyItem(
   }
 
 
-  /*
-    يحتاج جدول inventory
-    لحفظ العناصر فعليًا.
-  */
-
-  const {
-    error
-  } =
-    await supabaseClient
-      .from('inventory')
-      .insert({
-
-        user_id:
-          currentUser.id,
-
-        item_name:
-          name,
-
-        price:
-          price
-
-      });
-
-
-  if(error){
-
-    alert(
-      '❌ لم يتم حفظ العنصر في قاعدة البيانات.\n\n' +
-      'تأكد من وجود جدول inventory.'
-    );
-
-    console.error(error);
-
-    return;
-
-  }
-
-
   currentUser.balance -=
     price;
 
 
-  if(
-    name.includes('سيف')
-  ){
+  if(!Array.isArray(
+    currentUser.inventory
+  )){
+
+    currentUser.inventory = [];
+
+  }
+
+
+  currentUser.inventory.push({
+    name:name,
+    boughtAt:
+      new Date().toISOString()
+  });
+
+
+  if(name.includes('سيف')){
 
     currentUser.attack += 5;
 
   }
 
 
-  if(
-    name.includes('درع')
-  ){
+  if(name.includes('درع')){
 
     currentUser.defense += 5;
 
   }
 
 
-  if(
-    name.includes('جرعة')
-  ){
+  if(name.includes('جرعة')){
 
     currentUser.hp += 20;
 
   }
 
 
-  await addXP(10);
+  /*
+    لأن جدول users الحالي لا يحتوي
+    inventory/attack/defense/hp،
+    نحفظ الرصيد فقط حاليًا.
+  */
 
-  await saveExtendedData();
+  const ok =
+    await saveUser();
 
-  updateAllUI();
 
+  if(ok){
 
-  alert(
-    '🛒 تم شراء:\n' +
-    name
-  );
+    updateAll();
+
+    renderInventory();
+
+    alert(
+      '🛒 تم شراء:\n' +
+      name
+    );
+
+  }
 
 }
 
 
-/* =========================================================
+/* =====================================================
    المخزون
-========================================================= */
+===================================================== */
 
-async function renderInventory(){
+function renderInventory(){
 
   const list =
     document.getElementById(
@@ -3006,56 +2680,17 @@ async function renderInventory(){
     );
 
 
-  if(!list || !currentUser){
+  if(!list){
     return;
-  }
-
-
-  list.innerHTML =
-    '<div class="loading">جاري تحميل المخزون...</div>';
-
-
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from('inventory')
-      .select('*')
-      .eq(
-        'user_id',
-        currentUser.id
-      )
-      .order(
-        'created_at',
-        {
-          ascending:false
-        }
-      );
-
-
-  if(error){
-
-    list.innerHTML = `
-
-      <div class="card">
-
-        <p class="description">
-          ❌ لم يتم تحميل المخزون.
-        </p>
-
-      </div>
-
-    `;
-
-    return;
-
   }
 
 
   if(
-    !data ||
-    data.length === 0
+    !currentUser ||
+    !Array.isArray(
+      currentUser.inventory
+    ) ||
+    currentUser.inventory.length === 0
   ){
 
     list.innerHTML = `
@@ -3082,7 +2717,7 @@ async function renderInventory(){
   list.innerHTML = '';
 
 
-  data.forEach(
+  currentUser.inventory.forEach(
     function(item,index){
 
       const box =
@@ -3098,19 +2733,11 @@ async function renderInventory(){
       box.innerHTML = `
 
         <h3>
-          🎁 ${escapeHTML(
-            item.item_name
-          )}
+          ${escapeHTML(item.name)}
         </h3>
 
         <p class="description">
-          💰 السعر:
-          ${formatMoney(item.price)}
-        </p>
-
-        <p class="description">
-          📦 عنصر رقم:
-          ${index + 1}
+          عنصر رقم ${index + 1}
         </p>
 
       `;
@@ -3124,274 +2751,18 @@ async function renderInventory(){
 }
 
 
-/* =========================================================
-   اللاعبين
-========================================================= */
-
-async function renderPlayers(){
-
-  const list =
-    document.getElementById(
-      'playersList'
-    );
-
-
-  if(!list){
-    return;
-  }
-
-
-  list.innerHTML =
-    '<div class="loading">جاري تحميل اللاعبين...</div>';
-
-
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from('users')
-      .select(
-        'id,username,balance,level,rank'
-      )
-      .order(
-        'level',
-        {
-          ascending:false
-        }
-      );
-
-
-  if(error){
-
-    list.innerHTML =
-      '<div class="card">❌ تعذر تحميل اللاعبين</div>';
-
-    return;
-
-  }
-
-
-  list.innerHTML = '';
-
-
-  if(!data || !data.length){
-
-    list.innerHTML =
-      '<div class="card">لا يوجد لاعبين.</div>';
-
-    return;
-
-  }
-
-
-  data.forEach(
-    function(user){
-
-      const box =
-        document.createElement(
-          'div'
-        );
-
-
-      box.className =
-        'card';
-
-
-      box.innerHTML = `
-
-        <h3>
-          👤 ${escapeHTML(
-            user.username
-          )}
-        </h3>
-
-        <p class="description">
-          💰 الرصيد:
-          ${formatMoney(
-            user.balance
-          )}
-        </p>
-
-        <p class="description">
-          ⭐ المستوى:
-          ${user.level || 1}
-        </p>
-
-        <p class="description">
-          🏆 الرتبة:
-          ${escapeHTML(
-            user.rank ||
-            '🌱 مبتدئ'
-          )}
-        </p>
-
-      `;
-
-
-      list.appendChild(box);
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   الترتيب
-========================================================= */
-
-async function renderRank(){
-
-  const list =
-    document.getElementById(
-      'rankList'
-    );
-
-
-  if(!list){
-    return;
-  }
-
-
-  list.innerHTML =
-    '<div class="loading">جاري تحميل الترتيب...</div>';
-
-
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from('users')
-      .select(
-        'username,balance,level,rank'
-      )
-      .order(
-        'level',
-        {
-          ascending:false
-        }
-      )
-      .order(
-        'balance',
-        {
-          ascending:false
-        }
-      );
-
-
-  if(error){
-
-    list.innerHTML =
-      '<div class="card">❌ تعذر تحميل الترتيب</div>';
-
-    return;
-
-  }
-
-
-  list.innerHTML = '';
-
-
-  data.forEach(
-    function(user,index){
-
-      let medal =
-        '🏅';
-
-
-      if(index === 0){
-        medal = '🥇';
-      }
-
-      if(index === 1){
-        medal = '🥈';
-      }
-
-      if(index === 2){
-        medal = '🥉';
-      }
-
-
-      const box =
-        document.createElement(
-          'div'
-        );
-
-
-      box.className =
-        'card';
-
-
-      box.innerHTML = `
-
-        <h3>
-          ${medal}
-          #${index + 1}
-          —
-          ${escapeHTML(
-            user.username
-          )}
-        </h3>
-
-        <p class="description">
-          ⭐ المستوى:
-          ${user.level || 1}
-        </p>
-
-        <p class="description">
-          💰 الرصيد:
-          ${formatMoney(
-            user.balance
-          )}
-        </p>
-
-      `;
-
-
-      list.appendChild(box);
-
-    }
-  );
-
-}
-
-
-/* =========================================================
+/* =====================================================
    الألعاب
-========================================================= */
-
-function requireUser(){
-
-  if(!currentUser){
-
-    alert(
-      '❌ يجب تسجيل الدخول أولًا.'
-    );
-
-    return false;
-
-  }
-
-  return true;
-
-}
-
-
-/* =========================================================
-   النرد
-========================================================= */
+===================================================== */
 
 async function playDice(){
 
-  if(!requireUser()){
+  if(!currentUser){
     return;
   }
 
 
-  const cost =
-    25;
+  const cost = 25;
 
 
   if(
@@ -3408,83 +2779,83 @@ async function playDice(){
   }
 
 
-  const playerRoll =
+  currentUser.balance -=
+    cost;
+
+
+  const player =
     Math.floor(
       Math.random() * 6
     ) + 1;
 
 
-  const otherRoll =
+  const other =
     Math.floor(
       Math.random() * 6
     ) + 1;
 
 
-  let reward =
-    10;
+  let reward;
 
 
-  if(
-    playerRoll >
-    otherRoll
-  ){
+  if(player > other){
 
     reward = 100;
 
   }
-  else if(
-    playerRoll ===
-    otherRoll
-  ){
+  else if(player === other){
 
     reward = 50;
 
   }
+  else{
 
+    reward = 10;
 
-  currentUser.balance -=
-    cost;
+  }
 
 
   currentUser.balance +=
     reward;
 
 
-  await addXP(5);
-
-  await saveExtendedData();
-
-  updateAllUI();
+  const ok =
+    await saveUser();
 
 
-  alert(
-    '🎲 نتيجة النرد\n\n' +
-    '🎯 رقمك: ' +
-    playerRoll +
-    '\n' +
-    '🎯 الرقم الآخر: ' +
-    otherRoll +
-    '\n\n' +
-    '💰 المكافأة: ' +
-    formatMoney(reward)
-  );
+  if(ok){
+
+    updateAll();
+
+    alert(
+      '🎲 النرد\n\n' +
+      '🎯 رقمك: ' +
+      player +
+      '\n' +
+      '🎯 الرقم الآخر: ' +
+      other +
+      '\n\n' +
+      '💰 المكافأة: ' +
+      formatMoney(reward)
+    );
+
+  }
 
 }
 
 
-/* =========================================================
+/* =====================================================
    الصندوق
-========================================================= */
+===================================================== */
 
 async function quickBox(){
 
-  if(!requireUser()){
+  if(!currentUser){
     return;
   }
 
 
-  const cost =
-    50;
+  const cost = 50;
 
 
   if(
@@ -3508,33 +2879,28 @@ async function quickBox(){
   const rewards = [
 
     {
-      name:'💰 مكافأة مالية',
+      name:'💰 +100',
       money:100
     },
 
     {
-      name:'💰 مكافأة كبيرة',
+      name:'💰 +250',
       money:250
     },
 
     {
-      name:'⭐ خبرة',
-      xp:50
+      name:'💰 +500',
+      money:500
     },
 
     {
-      name:'⚔️ قوة هجومية',
+      name:'⚔️ +3 هجوم',
       attack:3
     },
 
     {
-      name:'🛡️ قوة دفاعية',
+      name:'🛡️ +3 دفاع',
       defense:3
-    },
-
-    {
-      name:'🎁 جائزة نادرة',
-      money:500
     }
 
   ];
@@ -3549,35 +2915,10 @@ async function quickBox(){
     ];
 
 
-  let message =
-    '📦 فتحت الصندوق!\n\n' +
-    reward.name;
-
-
   if(reward.money){
 
     currentUser.balance +=
       reward.money;
-
-    message +=
-      '\n💰 +' +
-      formatMoney(
-        reward.money
-      );
-
-  }
-
-
-  if(reward.xp){
-
-    await addXP(
-      reward.xp
-    );
-
-    message +=
-      '\n⭐ +' +
-      reward.xp +
-      ' XP';
 
   }
 
@@ -3585,10 +2926,6 @@ async function quickBox(){
   if(reward.attack){
 
     currentUser.attack +=
-      reward.attack;
-
-    message +=
-      '\n⚔️ +' +
       reward.attack;
 
   }
@@ -3599,36 +2936,39 @@ async function quickBox(){
     currentUser.defense +=
       reward.defense;
 
-    message +=
-      '\n🛡️ +' +
-      reward.defense;
-
   }
 
 
-  await saveExtendedData();
+  const ok =
+    await saveUser();
 
-  updateAllUI();
 
+  if(ok){
 
-  alert(message);
+    updateAll();
+
+    alert(
+      '📦 فتحت الصندوق!\n\n' +
+      reward.name
+    );
+
+  }
 
 }
 
 
-/* =========================================================
+/* =====================================================
    عجلة الحظ
-========================================================= */
+===================================================== */
 
 async function spinWheel(){
 
-  if(!requireUser()){
+  if(!currentUser){
     return;
   }
 
 
-  const cost =
-    100;
+  const cost = 100;
 
 
   if(
@@ -3667,27 +3007,13 @@ async function spinWheel(){
     },
 
     {
-      text:'⭐ +100 XP',
-      xp:100
-    },
-
-    {
-      text:'⚔️ +5 هجوم',
-      attack:5
-    },
-
-    {
-      text:'🛡️ +5 دفاع',
-      defense:5
-    },
-
-    {
       text:'💎 +1000',
       money:1000
     },
 
     {
-      text:'😢 لا شيء'
+      text:'😢 لا شيء',
+      money:0
     }
 
   ];
@@ -3710,122 +3036,58 @@ async function spinWheel(){
   }
 
 
-  if(reward.xp){
+  const ok =
+    await saveUser();
 
-    await addXP(
-      reward.xp
+
+  if(ok){
+
+    updateAll();
+
+    alert(
+      '🎡 عجلة الحظ\n\n' +
+      reward.text
     );
 
   }
 
-
-  if(reward.attack){
-
-    currentUser.attack +=
-      reward.attack;
-
-  }
-
-
-  if(reward.defense){
-
-    currentUser.defense +=
-      reward.defense;
-
-  }
-
-
-  await saveExtendedData();
-
-  updateAllUI();
-
-
-  alert(
-    '🎡 عجلة الحظ\n\n' +
-    reward.text
-  );
-
 }
 
 
-/* =========================================================
+/* =====================================================
    المكافأة اليومية
-========================================================= */
+===================================================== */
 
 async function dailyReward(){
 
-  if(!requireUser()){
+  if(!currentUser){
     return;
   }
+
+
+  const key =
+    'SUN_DAILY_' +
+    currentUser.id;
+
+
+  const last =
+    Number(
+      localStorage.getItem(key) || 0
+    );
 
 
   const now =
     Date.now();
 
 
-  const last =
-    Number(
-      currentUser.last_daily_reward ||
-      0
-    );
-
-
-  const day =
-    24 *
-    60 *
-    60 *
-    1000;
-
-
   if(
     last &&
     now - last <
-    day
+    86400000
   ){
 
-    const remaining =
-      day -
-      (
-        now -
-        last
-      );
-
-
-    const hours =
-      Math.floor(
-        remaining /
-        (
-          60 *
-          60 *
-          1000
-        )
-      );
-
-
-    const minutes =
-      Math.floor(
-        (
-          remaining %
-          (
-            60 *
-            60 *
-            1000
-          )
-        ) /
-        (
-          60 *
-          1000
-        )
-      );
-
-
     alert(
-      '🎁 استلمت المكافأة بالفعل.\n\n' +
-      '⏳ المتبقي: ' +
-      hours +
-      ' ساعة و ' +
-      minutes +
-      ' دقيقة'
+      '🎁 استلمت مكافأتك اليوم بالفعل.'
     );
 
     return;
@@ -3836,8 +3098,7 @@ async function dailyReward(){
   const reward =
     500 +
     Math.floor(
-      Math.random() *
-      501
+      Math.random() * 501
     );
 
 
@@ -3845,93 +3106,239 @@ async function dailyReward(){
     reward;
 
 
-  currentUser.last_daily_reward =
-    now;
+  const ok =
+    await saveUser();
 
 
-  await addXP(25);
+  if(ok){
 
-  await saveExtendedData();
+    localStorage.setItem(
+      key,
+      String(now)
+    );
 
-  updateAllUI();
+
+    updateAll();
 
 
-  alert(
-    '🎁 المكافأة اليومية\n\n' +
-    '💰 +' +
-    formatMoney(reward) +
-    '\n' +
-    '⭐ +25 XP'
+    alert(
+      '🎁 المكافأة اليومية\n\n' +
+      '💰 +' +
+      formatMoney(reward)
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   اللاعبين
+===================================================== */
+
+async function renderPlayers(){
+
+  const list =
+    document.getElementById(
+      'playersList'
+    );
+
+
+  if(!list){
+    return;
+  }
+
+
+  list.innerHTML =
+    '<div class="loading">جاري تحميل اللاعبين...</div>';
+
+
+  const { data, error } =
+    await supabaseClient
+      .from('users')
+      .select(
+        'id,username,balance,created_at'
+      )
+      .order(
+        'balance',
+        {
+          ascending:false
+        }
+      );
+
+
+  if(error){
+
+    console.error(error);
+
+    list.innerHTML =
+      '<div class="empty">تعذر تحميل اللاعبين.</div>';
+
+    return;
+
+  }
+
+
+  if(!data || data.length === 0){
+
+    list.innerHTML =
+      '<div class="empty">لا يوجد لاعبين.</div>';
+
+    return;
+
+  }
+
+
+  list.innerHTML = '';
+
+
+  data.forEach(
+    function(user){
+
+      const box =
+        document.createElement(
+          'div'
+        );
+
+
+      box.className =
+        'card';
+
+
+      box.innerHTML = `
+
+        <h3>
+          👤 ${escapeHTML(user.username)}
+        </h3>
+
+        <p class="description">
+          💰 الرصيد:
+          ${formatMoney(user.balance)}
+        </p>
+
+      `;
+
+
+      list.appendChild(box);
+
+    }
   );
 
 }
 
 
-/* =========================================================
-   مكافأة تسجيل الدخول
-========================================================= */
+/* =====================================================
+   الترتيب
+===================================================== */
 
-async function loginBonus(){
+async function renderRank(){
 
-  if(!currentUser){
+  const list =
+    document.getElementById(
+      'rankList'
+    );
+
+
+  if(!list){
     return;
   }
 
 
-  const today =
-    new Date()
-      .toISOString()
-      .slice(
-        0,
-        10
+  list.innerHTML =
+    '<div class="loading">جاري تحميل الترتيب...</div>';
+
+
+  const { data, error } =
+    await supabaseClient
+      .from('users')
+      .select(
+        'id,username,balance,created_at'
+      )
+      .order(
+        'balance',
+        {
+          ascending:false
+        }
       );
 
 
-  if(
-    currentUser.last_login_bonus ===
-    today
-  ){
+  if(error){
+
+    console.error(error);
+
+    list.innerHTML =
+      '<div class="empty">تعذر تحميل الترتيب.</div>';
 
     return;
 
   }
 
 
-  currentUser.balance +=
-    100;
+  list.innerHTML = '';
 
 
-  currentUser.last_login_bonus =
-    today;
+  data.forEach(
+    function(user,index){
+
+      let medal;
 
 
-  await saveExtendedData();
+      if(index === 0){
+        medal = '🥇';
+      }
+      else if(index === 1){
+        medal = '🥈';
+      }
+      else if(index === 2){
+        medal = '🥉';
+      }
+      else{
+        medal = '🏅';
+      }
 
-  updateAllUI();
+
+      const box =
+        document.createElement(
+          'div'
+        );
 
 
-  setTimeout(
-    function(){
+      box.className =
+        'card';
 
-      alert(
-        '🌅 مكافأة الدخول!\n\n' +
-        '💰 +100'
-      );
 
-    },
-    300
+      box.innerHTML = `
+
+        <h3>
+          ${medal}
+          #${index + 1}
+          —
+          ${escapeHTML(user.username)}
+        </h3>
+
+        <p class="description">
+          💰 الرصيد:
+          ${formatMoney(user.balance)}
+        </p>
+
+      `;
+
+
+      list.appendChild(box);
+
+    }
   );
 
 }
 
 
-/* =========================================================
-   التحويل
-========================================================= */
+/* =====================================================
+   تحويل الأموال
+===================================================== */
 
 async function transferMoney(){
 
-  if(!requireUser()){
+  if(!currentUser){
     return;
   }
 
@@ -3955,11 +3362,7 @@ async function transferMoney(){
     );
 
 
-  if(
-    !username ||
-    !Number.isFinite(amount) ||
-    amount <= 0
-  ){
+  if(!username || amount <= 0){
 
     alert(
       '❌ أدخل اسم المستخدم والمبلغ.'
@@ -3971,8 +3374,8 @@ async function transferMoney(){
 
 
   if(
-    amount >
-    currentUser.balance
+    currentUser.balance <
+    amount
   ){
 
     alert(
@@ -3984,10 +3387,22 @@ async function transferMoney(){
   }
 
 
-  const receiver =
-    await findUserByName(
-      username
+  if(
+    username.toLowerCase() ===
+    currentUser.username.toLowerCase()
+  ){
+
+    alert(
+      '❌ لا يمكنك التحويل لنفسك.'
     );
+
+    return;
+
+  }
+
+
+  const receiver =
+    await findUser(username);
 
 
   if(!receiver){
@@ -4001,42 +3416,24 @@ async function transferMoney(){
   }
 
 
-  if(
-    String(receiver.id) ===
-    String(currentUser.id)
-  ){
-
-    alert(
-      '❌ لا يمكنك التحويل لنفسك.'
-    );
-
-    return;
-
-  }
-
-
-  const senderNewBalance =
+  const newSenderBalance =
     Number(
       currentUser.balance
-    ) -
-    amount;
+    ) - amount;
 
 
-  const receiverNewBalance =
+  const newReceiverBalance =
     Number(
       receiver.balance || 0
-    ) +
-    amount;
+    ) + amount;
 
 
-  const senderResult =
+  const senderUpdate =
     await supabaseClient
       .from('users')
       .update({
-
         balance:
-          senderNewBalance
-
+          newSenderBalance
       })
       .eq(
         'id',
@@ -4044,7 +3441,7 @@ async function transferMoney(){
       );
 
 
-  if(senderResult.error){
+  if(senderUpdate.error){
 
     alert(
       '❌ فشل التحويل.'
@@ -4055,14 +3452,12 @@ async function transferMoney(){
   }
 
 
-  const receiverResult =
+  const receiverUpdate =
     await supabaseClient
       .from('users')
       .update({
-
         balance:
-          receiverNewBalance
-
+          newReceiverBalance
       })
       .eq(
         'id',
@@ -4070,19 +3465,17 @@ async function transferMoney(){
       );
 
 
-  if(receiverResult.error){
+  if(receiverUpdate.error){
 
     /*
-      إعادة رصيد المرسل في حالة فشل تحديث المستقبل.
+      إعادة رصيد المرسل في حال فشل تحديث المستلم
     */
 
     await supabaseClient
       .from('users')
       .update({
-
         balance:
           currentUser.balance
-
       })
       .eq(
         'id',
@@ -4091,7 +3484,7 @@ async function transferMoney(){
 
 
     alert(
-      '❌ فشل تحويل المبلغ.'
+      '❌ فشل إتمام التحويل.'
     );
 
     return;
@@ -4100,41 +3493,39 @@ async function transferMoney(){
 
 
   currentUser.balance =
-    senderNewBalance;
+    newSenderBalance;
 
 
-  updateAllUI();
+  updateAll();
 
 
-  document.getElementById(
-    'transferUser'
-  ).value = '';
-
-
-  document.getElementById(
-    'transferAmount'
-  ).value = '';
+  document
+    .getElementById(
+      'transferAmount'
+    )
+    .value = '';
 
 
   alert(
     '✅ تم التحويل بنجاح!\n\n' +
-    '👤 إلى: ' +
+    'إلى: ' +
     receiver.username +
     '\n' +
-    '💰 المبلغ: ' +
-    formatMoney(amount)
+    'المبلغ: ' +
+    formatMoney(amount) +
+    ' 💰'
   );
 
 }
 
 
-/* =========================================================
+/* =====================================================
    الإيداع
-========================================================= */
+===================================================== */
 
 async function depositMoney(){
 
-  if(!requireUser()){
+  if(!currentUser){
     return;
   }
 
@@ -4149,10 +3540,7 @@ async function depositMoney(){
     );
 
 
-  if(
-    !Number.isFinite(amount) ||
-    amount <= 0
-  ){
+  if(amount <= 0){
 
     alert(
       '❌ أدخل مبلغًا صحيحًا.'
@@ -4167,41 +3555,39 @@ async function depositMoney(){
     amount;
 
 
-  const success =
-    await updateUser({
-
-      balance:
-        currentUser.balance
-
-    });
+  const ok =
+    await saveUser();
 
 
-  if(!success){
-    return;
+  if(ok){
+
+    updateAll();
+
+    document
+      .getElementById(
+        'depositAmount'
+      )
+      .value = '';
+
+
+    alert(
+      '✅ تم الإيداع.\n' +
+      '💰 +' +
+      formatMoney(amount)
+    );
+
   }
-
-
-  document.getElementById(
-    'depositAmount'
-  ).value = '';
-
-
-  alert(
-    '✅ تم الإيداع.\n' +
-    '💰 +' +
-    formatMoney(amount)
-  );
 
 }
 
 
-/* =========================================================
+/* =====================================================
    السحب
-========================================================= */
+===================================================== */
 
 async function withdrawMoney(){
 
-  if(!requireUser()){
+  if(!currentUser){
     return;
   }
 
@@ -4216,10 +3602,7 @@ async function withdrawMoney(){
     );
 
 
-  if(
-    !Number.isFinite(amount) ||
-    amount <= 0
-  ){
+  if(amount <= 0){
 
     alert(
       '❌ أدخل مبلغًا صحيحًا.'
@@ -4231,8 +3614,8 @@ async function withdrawMoney(){
 
 
   if(
-    amount >
-    currentUser.balance
+    currentUser.balance <
+    amount
   ){
 
     alert(
@@ -4248,39 +3631,37 @@ async function withdrawMoney(){
     amount;
 
 
-  const success =
-    await updateUser({
-
-      balance:
-        currentUser.balance
-
-    });
+  const ok =
+    await saveUser();
 
 
-  if(!success){
-    return;
+  if(ok){
+
+    updateAll();
+
+    document
+      .getElementById(
+        'withdrawAmount'
+      )
+      .value = '';
+
+
+    alert(
+      '✅ تم السحب.\n' +
+      '💳 -' +
+      formatMoney(amount)
+    );
+
   }
-
-
-  document.getElementById(
-    'withdrawAmount'
-  ).value = '';
-
-
-  alert(
-    '✅ تم السحب.\n' +
-    '💰 -' +
-    formatMoney(amount)
-  );
 
 }
 
 
-/* =========================================================
+/* =====================================================
    الدردشة
-========================================================= */
+===================================================== */
 
-async function loadChat(){
+async function renderChat(){
 
   const box =
     document.getElementById(
@@ -4294,13 +3675,14 @@ async function loadChat(){
 
 
   box.innerHTML =
-    '<div class="loading">جاري تحميل الدردشة...</div>';
+    '<div class="loading">جاري تحميل الرسائل...</div>';
 
 
-  const {
-    data,
-    error
-  } =
+  /*
+    إذا كان جدول chat موجودًا.
+  */
+
+  const { data, error } =
     await supabaseClient
       .from('chat')
       .select('*')
@@ -4315,19 +3697,26 @@ async function loadChat(){
 
   if(error){
 
+    console.error(error);
+
     box.innerHTML = `
-
-      <div class="card">
-
-        <p class="description">
-          ❌ تعذر تحميل الدردشة.
-        </p>
-
+      <div class="empty">
+        لا يمكن تحميل الدردشة حاليًا.
       </div>
-
     `;
 
-    console.error(error);
+    return;
+
+  }
+
+
+  if(!data || data.length === 0){
+
+    box.innerHTML = `
+      <div class="empty">
+        لا توجد رسائل حتى الآن.
+      </div>
+    `;
 
     return;
 
@@ -4337,51 +3726,36 @@ async function loadChat(){
   box.innerHTML = '';
 
 
-  if(!data || !data.length){
-
-    box.innerHTML = `
-
-      <div class="card">
-
-        <p class="description">
-          لا توجد رسائل حتى الآن.
-        </p>
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
   data.forEach(
     function(message){
 
-      const div =
+      const item =
         document.createElement(
           'div'
         );
 
 
-      div.className =
+      item.className =
         'card';
+
+
+      item.style.marginBottom =
+        '8px';
 
 
       const username =
         message.username ||
-        message.user_name ||
-        'عضو';
+        message.user ||
+        'مستخدم';
 
 
       const text =
         message.message ||
-        message.content ||
+        message.text ||
         '';
 
 
-      div.innerHTML = `
+      item.innerHTML = `
 
         <strong>
           👤 ${escapeHTML(username)}
@@ -4394,7 +3768,7 @@ async function loadChat(){
       `;
 
 
-      box.appendChild(div);
+      box.appendChild(item);
 
     }
   );
@@ -4406,13 +3780,13 @@ async function loadChat(){
 }
 
 
-/* =========================================================
-   إرسال الدردشة
-========================================================= */
+/* =====================================================
+   إرسال رسالة
+===================================================== */
 
 async function sendChat(){
 
-  if(!requireUser()){
+  if(!currentUser){
     return;
   }
 
@@ -4432,9 +3806,7 @@ async function sendChat(){
   }
 
 
-  const {
-    error
-  } =
+  const { error } =
     await supabaseClient
       .from('chat')
       .insert({
@@ -4450,12 +3822,12 @@ async function sendChat(){
 
   if(error){
 
+    console.error(error);
+
     alert(
       '❌ تعذر إرسال الرسالة.\n\n' +
       error.message
     );
-
-    console.error(error);
 
     return;
 
@@ -4464,260 +3836,28 @@ async function sendChat(){
 
   input.value = '';
 
-
-  await loadChat();
-
-}
-
-
-/* =========================================================
-   تحديث الدردشة تلقائيًا
-========================================================= */
-
-setInterval(
-  function(){
-
-    if(
-      currentUser &&
-      document
-        .getElementById(
-          'page-chat'
-        )
-        .classList
-        .contains('active')
-    ){
-
-      loadChat();
-
-    }
-
-  },
-  5000
-);
-
-
-/* =========================================================
-   تدريب الهجوم
-========================================================= */
-
-async function trainAttack(){
-
-  if(!requireUser()){
-    return;
-  }
-
-
-  const cost =
-    300;
-
-
-  if(
-    currentUser.balance <
-    cost
-  ){
-
-    alert(
-      '❌ تحتاج إلى 300 💰.'
-    );
-
-    return;
-
-  }
-
-
-  currentUser.balance -=
-    cost;
-
-
-  currentUser.attack +=
-    2;
-
-
-  await addXP(15);
-
-  await saveExtendedData();
-
-  updateAllUI();
-
-
-  alert(
-    '⚔️ تم تدريب الهجوم!\n' +
-    'الهجوم: ' +
-    currentUser.attack
-  );
+  renderChat();
 
 }
 
 
-/* =========================================================
-   تدريب الدفاع
-========================================================= */
-
-async function trainDefense(){
-
-  if(!requireUser()){
-    return;
-  }
-
-
-  const cost =
-    300;
-
-
-  if(
-    currentUser.balance <
-    cost
-  ){
-
-    alert(
-      '❌ تحتاج إلى 300 💰.'
-    );
-
-    return;
-
-  }
-
-
-  currentUser.balance -=
-    cost;
-
-
-  currentUser.defense +=
-    2;
-
-
-  await addXP(15);
-
-  await saveExtendedData();
-
-  updateAllUI();
-
-
-  alert(
-    '🛡️ تم تدريب الدفاع!\n' +
-    'الدفاع: ' +
-    currentUser.defense
-  );
-
-}
-
-
-/* =========================================================
-   استخدام جرعة الصحة
-========================================================= */
-
-async function useHealthPotion(){
-
-  if(!requireUser()){
-    return;
-  }
-
-
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from('inventory')
-      .select('*')
-      .eq(
-        'user_id',
-        currentUser.id
-      );
-
-
-  if(error){
-    return;
-  }
-
-
-  const potion =
-    data.find(
-      item =>
-        String(
-          item.item_name || ''
-        ).includes(
-          'جرعة صحة'
-        )
-    );
-
-
-  if(!potion){
-
-    alert(
-      '❌ لا تملك جرعة صحة.'
-    );
-
-    return;
-
-  }
-
-
-  const {
-    error:deleteError
-  } =
-    await supabaseClient
-      .from('inventory')
-      .delete()
-      .eq(
-        'id',
-        potion.id
-      );
-
-
-  if(deleteError){
-
-    alert(
-      '❌ تعذر استخدام الجرعة.'
-    );
-
-    return;
-
-  }
-
-
-  currentUser.hp +=
-    20;
-
-
-  if(
-    currentUser.hp >
-    100
-  ){
-
-    currentUser.hp =
-      100;
-
-  }
-
-
-  await saveExtendedData();
-
-  updateAllUI();
-
-  renderInventory();
-
-
-  alert(
-    '❤️ تم استخدام جرعة الصحة.\n' +
-    'الصحة: ' +
-    currentUser.hp
-  );
-
-}
-
-
-/* =========================================================
-   تشغيل الموقع
-========================================================= */
+/* =====================================================
+   بدء الموقع
+===================================================== */
 
 document.addEventListener(
   'DOMContentLoaded',
-  function(){
+  async function(){
 
-    console.log(
-      '『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』 جاهز'
-    );
+    try{
+
+      await restoreSession();
+
+    }catch(error){
+
+      console.error(error);
+
+    }
 
   }
 );
