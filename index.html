@@ -6,18 +6,34 @@
 <title>S.U.N TOKYO — Interactive Bank</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-  font-family:Tahoma,Arial,sans-serif;
-  background:
-    radial-gradient(circle at 20% 10%,#4b0714 0,transparent 28%),
-    radial-gradient(circle at 80% 90%,#291006 0,transparent 30%),
-    #070709;
-  color:#fff;min-height:100vh
+*{
+ box-sizing:border-box;
+ margin:0;
+ padding:0
 }
-button,input{font:inherit}
-button{cursor:pointer;border:0}
-.hidden{display:none!important}
+
+body{
+ font-family:Tahoma,Arial,sans-serif;
+ background:
+  radial-gradient(circle at 20% 10%,#4b0714 0,transparent 28%),
+  radial-gradient(circle at 80% 90%,#291006 0,transparent 30%),
+  #070709;
+ color:#fff;
+ min-height:100vh
+}
+
+button,input{
+ font:inherit
+}
+
+button{
+ cursor:pointer;
+ border:0
+}
+
+.hidden{
+ display:none!important
+}
 
 :root{
  --red:#d7193f;
@@ -25,561 +41,2174 @@ button{cursor:pointer;border:0}
  --dark:#0e0e13;
  --card:rgba(255,255,255,.055);
  --border:rgba(255,255,255,.1);
+ --green:#35d07f;
+ --blue:#4da3ff;
 }
 
 header{
- position:sticky;top:0;z-index:20;
+ position:sticky;
+ top:0;
+ z-index:20;
  background:rgba(5,5,8,.85);
  backdrop-filter:blur(18px);
  border-bottom:1px solid var(--border);
  padding:15px 25px;
- display:flex;align-items:center;justify-content:space-between
+ display:flex;
+ align-items:center;
+ justify-content:space-between
 }
+
 .logo{
- font-size:22px;font-weight:900;
+ font-size:22px;
+ font-weight:900;
  color:var(--gold);
  letter-spacing:1px
 }
-.logo span{color:#fff}
-.header-user{display:flex;align-items:center;gap:12px}
+
+.logo span{
+ color:#fff
+}
+
+.header-user{
+ display:flex;
+ align-items:center;
+ gap:12px
+}
+
 .avatar{
- width:40px;height:40px;border-radius:50%;
- display:grid;place-items:center;
+ width:40px;
+ height:40px;
+ border-radius:50%;
+ display:grid;
+ place-items:center;
  background:linear-gradient(135deg,var(--red),#65091d);
  font-weight:bold
 }
 
-.layout{display:flex;min-height:calc(100vh - 72px)}
+.layout{
+ display:flex;
+ min-height:calc(100vh - 72px)
+}
+
 .sidebar{
- width:250px;padding:20px;
+ width:250px;
+ padding:20px;
  border-left:1px solid var(--border);
  background:rgba(10,10,14,.65)
 }
-.nav-title{font-size:11px;color:#777;margin:20px 10px 8px}
+
+.nav-title{
+ font-size:11px;
+ color:#777;
+ margin:20px 10px 8px
+}
+
 .nav button{
- width:100%;padding:13px 15px;margin:4px 0;
- background:transparent;color:#bbb;
- border-radius:12px;text-align:right;
+ width:100%;
+ padding:13px 15px;
+ margin:4px 0;
+ background:transparent;
+ color:#bbb;
+ border-radius:12px;
+ text-align:right;
  transition:.2s
 }
-.nav button:hover,.nav button.active{
+
+.nav button:hover,
+.nav button.active{
  background:linear-gradient(90deg,rgba(215,25,63,.25),transparent);
  color:#fff
 }
-.main{flex:1;padding:25px;max-width:1500px;margin:auto;width:100%}
+
+.main{
+ flex:1;
+ padding:25px;
+ max-width:1500px;
+ margin:auto;
+ width:100%
+}
 
 .hero{
  border:1px solid var(--border);
  background:
  linear-gradient(135deg,rgba(215,25,63,.25),rgba(228,176,74,.07)),
  var(--card);
- border-radius:24px;padding:28px;
+ border-radius:24px;
+ padding:28px;
  margin-bottom:20px;
- position:relative;overflow:hidden
+ position:relative;
+ overflow:hidden
 }
+
 .hero:after{
  content:"🧧";
- position:absolute;left:35px;bottom:-35px;
- font-size:150px;opacity:.05
+ position:absolute;
+ left:35px;
+ bottom:-35px;
+ font-size:150px;
+ opacity:.05
 }
-.hero h1{font-size:30px;margin-bottom:8px}
-.hero p{color:#aaa}
+
+.hero h1{
+ font-size:30px;
+ margin-bottom:8px
+}
+
+.hero p{
+ color:#aaa
+}
 
 .grid{
  display:grid;
  grid-template-columns:repeat(4,1fr);
- gap:15px;margin-bottom:20px
+ gap:15px;
+ margin-bottom:20px
 }
+
 .card{
  background:var(--card);
  border:1px solid var(--border);
- border-radius:18px;padding:20px;
+ border-radius:18px;
+ padding:20px;
  backdrop-filter:blur(12px)
 }
-.stat-icon{font-size:25px}
-.stat-title{color:#999;font-size:13px;margin-top:10px}
-.stat-value{font-size:25px;font-weight:900;margin-top:5px}
-.gold{color:var(--gold)}
-.red{color:#ff4c6d}
 
-.section{margin-top:25px}
-.section-head{
- display:flex;justify-content:space-between;
- align-items:center;margin-bottom:12px
+.stat-icon{
+ font-size:25px
 }
-.section-head h2{font-size:19px}
+
+.stat-title{
+ color:#999;
+ font-size:13px;
+ margin-top:10px
+}
+
+.stat-value{
+ font-size:25px;
+ font-weight:900;
+ margin-top:5px
+}
+
+.gold{
+ color:var(--gold)
+}
+
+.red{
+ color:#ff4c6d
+}
+
+.green{
+ color:var(--green)
+}
+
+.section{
+ margin-top:25px
+}
+
+.section-head{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-bottom:12px
+}
+
+.section-head h2{
+ font-size:19px
+}
 
 .actions{
- display:grid;grid-template-columns:repeat(4,1fr);gap:12px
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:12px
 }
+
 .action{
- padding:18px;border-radius:16px;
+ padding:18px;
+ border-radius:16px;
  background:rgba(255,255,255,.045);
  border:1px solid var(--border);
- color:#fff;text-align:center
+ color:#fff;
+ text-align:center;
+ transition:.2s
 }
-.action:hover{border-color:var(--red);transform:translateY(-2px)}
-.action b{display:block;margin-top:8px}
-.action small{color:#888}
 
-.table{width:100%;border-collapse:collapse}
-.table th,.table td{
- padding:13px;border-bottom:1px solid var(--border);
+.action:hover{
+ border-color:var(--red);
+ transform:translateY(-2px)
+}
+
+.action b{
+ display:block;
+ margin-top:8px
+}
+
+.action small{
+ color:#888
+}
+
+.table{
+ width:100%;
+ border-collapse:collapse
+}
+
+.table th,
+.table td{
+ padding:13px;
+ border-bottom:1px solid var(--border);
  text-align:right
 }
-.table th{color:#888;font-size:12px}
+
+.table th{
+ color:#888;
+ font-size:12px
+}
+
 .badge{
- display:inline-block;padding:5px 10px;
- border-radius:20px;background:rgba(228,176,74,.12);
- color:var(--gold);font-size:11px
+ display:inline-block;
+ padding:5px 10px;
+ border-radius:20px;
+ background:rgba(228,176,74,.12);
+ color:var(--gold);
+ font-size:11px
 }
 
 .progress{
- height:8px;background:#222;border-radius:20px;overflow:hidden;margin-top:10px
-}
-.progress i{
- display:block;height:100%;
- background:linear-gradient(90deg,var(--red),var(--gold));
- width:0
+ height:8px;
+ background:#222;
+ border-radius:20px;
+ overflow:hidden;
+ margin-top:10px
 }
 
+.progress i{
+ display:block;
+ height:100%;
+ background:linear-gradient(90deg,var(--red),var(--gold));
+ width:0;
+ transition:.4s
+}
+
+/* ================= MODAL ================= */
+
 .modal{
- position:fixed;inset:0;z-index:100;
+ position:fixed;
+ inset:0;
+ z-index:100;
  background:rgba(0,0,0,.75);
  backdrop-filter:blur(8px);
- display:none;align-items:center;justify-content:center;
+ display:none;
+ align-items:center;
+ justify-content:center;
  padding:20px
 }
-.modal.show{display:flex}
+
+.modal.show{
+ display:flex
+}
+
 .modal-box{
  width:min(500px,100%);
+ max-height:90vh;
+ overflow:auto;
  background:#111116;
  border:1px solid var(--border);
- border-radius:22px;padding:25px;
+ border-radius:22px;
+ padding:25px;
  box-shadow:0 20px 80px #000
 }
+
 .modal-head{
- display:flex;justify-content:space-between;
+ display:flex;
+ justify-content:space-between;
  margin-bottom:20px
 }
-.close{background:none;color:#aaa;font-size:25px}
-input,select{
- width:100%;padding:13px;
+
+.close{
+ background:none;
+ color:#aaa;
+ font-size:25px
+}
+
+input,
+select{
+ width:100%;
+ padding:13px;
  margin:7px 0 12px;
  border:1px solid var(--border);
  border-radius:12px;
- background:#08080c;color:#fff;outline:none
+ background:#08080c;
+ color:#fff;
+ outline:none
 }
-input:focus{border-color:var(--red)}
+
+input:focus,
+select:focus{
+ border-color:var(--red)
+}
+
 .btn{
- padding:12px 18px;border-radius:12px;
+ padding:12px 18px;
+ border-radius:12px;
  background:linear-gradient(135deg,var(--red),#8d0925);
- color:#fff;font-weight:bold
+ color:#fff;
+ font-weight:bold;
+ transition:.2s
 }
+
+.btn:hover{
+ filter:brightness(1.15);
+ transform:translateY(-1px)
+}
+
 .btn.goldbtn{
  background:linear-gradient(135deg,#b77d20,var(--gold));
  color:#130d02
 }
-.btn.full{width:100%}
-.btn.secondary{
- background:#22232b;color:#ddd
+
+.btn.full{
+ width:100%
 }
 
+.btn.secondary{
+ background:#22232b;
+ color:#ddd
+}
+
+.btn.greenbtn{
+ background:linear-gradient(135deg,#168c50,#35d07f);
+ color:#04150b
+}
+
+/* ================= AUTH ================= */
+
 .auth{
- position:fixed;inset:0;z-index:200;
+ position:fixed;
+ inset:0;
+ z-index:200;
  background:
  radial-gradient(circle at 50% 20%,#500919,transparent 35%),
  #060609;
- display:flex;align-items:center;justify-content:center;padding:20px
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ padding:20px
 }
+
 .auth-box{
  width:min(430px,100%);
  background:rgba(17,17,22,.9);
  border:1px solid var(--border);
- border-radius:25px;padding:30px;
+ border-radius:25px;
+ padding:30px;
  box-shadow:0 25px 100px #000
 }
-.auth-logo{text-align:center;font-size:27px;font-weight:900;color:var(--gold)}
-.auth-logo span{color:#fff}
-.auth-sub{text-align:center;color:#777;margin:8px 0 25px}
+
+.auth-logo{
+ text-align:center;
+ font-size:27px;
+ font-weight:900;
+ color:var(--gold)
+}
+
+.auth-logo span{
+ color:#fff
+}
+
+.auth-sub{
+ text-align:center;
+ color:#777;
+ margin:8px 0 25px
+}
+
+/* ================= WHEEL ================= */
 
 .wheel{
- width:240px;height:240px;border-radius:50%;
+ width:240px;
+ height:240px;
+ border-radius:50%;
  margin:20px auto;
  background:conic-gradient(
- #d7193f 0 45deg,#e4b04a 45deg 90deg,
- #8d0925 90deg 135deg,#b77d20 135deg 180deg,
- #d7193f 180deg 225deg,#e4b04a 225deg 270deg,
- #8d0925 270deg 315deg,#b77d20 315deg 360deg
+  #d7193f 0 45deg,
+  #e4b04a 45deg 90deg,
+  #8d0925 90deg 135deg,
+  #b77d20 135deg 180deg,
+  #d7193f 180deg 225deg,
+  #e4b04a 225deg 270deg,
+  #8d0925 270deg 315deg,
+  #b77d20 315deg 360deg
  );
  border:10px solid #191920;
  box-shadow:0 0 40px rgba(215,25,63,.25);
  transition:transform 4s cubic-bezier(.15,.75,.2,1)
 }
-.wheel-wrap{text-align:center}
-.pointer{font-size:28px;color:#fff}
 
-.empty{text-align:center;padding:35px;color:#777}
+.wheel-wrap{
+ text-align:center
+}
+
+.pointer{
+ font-size:28px;
+ color:#fff
+}
+
+/* ================= STORE ================= */
+
+.store-toolbar{
+ display:flex;
+ gap:10px;
+ margin-bottom:20px;
+ flex-wrap:wrap
+}
+
+.store-toolbar input{
+ flex:1;
+ min-width:220px;
+ margin:0
+}
+
+.store-categories{
+ display:flex;
+ gap:8px;
+ flex-wrap:wrap
+}
+
+.category-btn{
+ padding:10px 15px;
+ border-radius:12px;
+ background:#1a1a21;
+ color:#aaa;
+ border:1px solid var(--border);
+ transition:.2s
+}
+
+.category-btn:hover,
+.category-btn.active{
+ background:linear-gradient(135deg,var(--red),#8d0925);
+ color:#fff
+}
+
+.products{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:15px
+}
+
+.product{
+ position:relative;
+ background:rgba(255,255,255,.045);
+ border:1px solid var(--border);
+ border-radius:18px;
+ padding:18px;
+ transition:.2s
+}
+
+.product:hover{
+ transform:translateY(-4px);
+ border-color:var(--gold);
+ box-shadow:0 10px 35px rgba(0,0,0,.25)
+}
+
+.product-icon{
+ width:65px;
+ height:65px;
+ border-radius:18px;
+ display:grid;
+ place-items:center;
+ font-size:32px;
+ background:linear-gradient(
+  135deg,
+  rgba(215,25,63,.2),
+  rgba(228,176,74,.1)
+ );
+ margin-bottom:12px
+}
+
+.product h3{
+ font-size:16px;
+ margin-bottom:7px
+}
+
+.product p{
+ color:#888;
+ font-size:12px;
+ min-height:35px
+}
+
+.product-price{
+ color:var(--gold);
+ font-weight:bold;
+ margin:12px 0
+}
+
+.product button{
+ width:100%
+}
+
+.product-owned{
+ position:absolute;
+ top:12px;
+ left:12px;
+ background:#153c28;
+ color:#5cff9b;
+ padding:5px 9px;
+ border-radius:20px;
+ font-size:10px
+}
+
+/* ================= INVENTORY ================= */
+
+.inventory{
+ display:grid;
+ grid-template-columns:repeat(5,1fr);
+ gap:12px
+}
+
+.inventory-item{
+ background:rgba(255,255,255,.045);
+ border:1px solid var(--border);
+ border-radius:16px;
+ padding:15px;
+ text-align:center;
+ transition:.2s
+}
+
+.inventory-item:hover{
+ border-color:var(--gold);
+ transform:translateY(-2px)
+}
+
+.inventory-item .icon{
+ font-size:32px;
+ margin-bottom:8px
+}
+
+.inventory-item small{
+ color:#888
+}
+
+/* ================= GAMES ================= */
+
+.games-grid{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:15px
+}
+
+.game-card{
+ background:
+ linear-gradient(
+  135deg,
+  rgba(215,25,63,.1),
+  rgba(228,176,74,.04)
+ ),
+ var(--card);
+ border:1px solid var(--border);
+ border-radius:20px;
+ padding:22px;
+ transition:.2s
+}
+
+.game-card:hover{
+ transform:translateY(-3px);
+ border-color:var(--red)
+}
+
+.game-icon{
+ font-size:42px;
+ margin-bottom:12px
+}
+
+.game-card h2{
+ margin-bottom:7px
+}
+
+.game-card p{
+ color:#888;
+ min-height:38px;
+ margin-bottom:15px
+}
+
+.game-cost{
+ color:var(--gold);
+ font-size:13px;
+ margin-bottom:12px
+}
+
+.game-result{
+ margin-top:12px;
+ min-height:22px;
+ color:#ddd;
+ font-weight:bold
+}
+
+/* ================= EMPTY ================= */
+
+.empty{
+ text-align:center;
+ padding:35px;
+ color:#777
+}
+
+/* ================= TOAST ================= */
 
 .toast{
- position:fixed;left:20px;bottom:20px;
- z-index:500;background:#17171d;
+ position:fixed;
+ left:20px;
+ bottom:20px;
+ z-index:500;
+ background:#17171d;
  border:1px solid var(--border);
  border-right:4px solid var(--red);
- padding:13px 18px;border-radius:12px;
- transform:translateY(100px);opacity:0;
- transition:.3s
+ padding:13px 18px;
+ border-radius:12px;
+ transform:translateY(100px);
+ opacity:0;
+ transition:.3s;
+ max-width:350px
 }
-.toast.show{transform:none;opacity:1}
 
-@media(max-width:1000px){
- .grid{grid-template-columns:repeat(2,1fr)}
- .actions{grid-template-columns:repeat(2,1fr)}
- .sidebar{width:210px}
+.toast.show{
+ transform:none;
+ opacity:1
 }
-@media(max-width:700px){
- header{padding:12px 15px}
- .layout{display:block}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1100px){
+
+ .grid{
+  grid-template-columns:repeat(2,1fr)
+ }
+
+ .actions{
+  grid-template-columns:repeat(2,1fr)
+ }
+
  .sidebar{
-  width:100%;padding:8px;
-  border-left:0;border-bottom:1px solid var(--border);
+  width:210px
+ }
+
+ .products{
+  grid-template-columns:repeat(3,1fr)
+ }
+
+ .inventory{
+  grid-template-columns:repeat(4,1fr)
+ }
+
+ .games-grid{
+  grid-template-columns:repeat(2,1fr)
+ }
+}
+
+@media(max-width:700px){
+
+ header{
+  padding:12px 15px
+ }
+
+ .layout{
+  display:block
+ }
+
+ .sidebar{
+  width:100%;
+  padding:8px;
+  border-left:0;
+  border-bottom:1px solid var(--border);
   overflow:auto
  }
- .nav{display:flex;gap:5px}
- .nav-title{display:none}
- .nav button{white-space:nowrap;padding:9px}
- .main{padding:15px}
- .grid{grid-template-columns:1fr 1fr}
- .actions{grid-template-columns:1fr 1fr}
- .hero h1{font-size:22px}
- .header-user span{display:none}
+
+ .nav{
+  display:flex;
+  gap:5px;
+  overflow-x:auto
+ }
+
+ .nav-title{
+  display:none
+ }
+
+ .nav button{
+  white-space:nowrap;
+  padding:9px
+ }
+
+ .main{
+  padding:15px
+ }
+
+ .grid{
+  grid-template-columns:1fr 1fr
+ }
+
+ .actions{
+  grid-template-columns:1fr 1fr
+ }
+
+ .hero h1{
+  font-size:22px
+ }
+
+ .header-user span{
+  display:none
+ }
+
+ .products{
+  grid-template-columns:1fr 1fr
+ }
+
+ .inventory{
+  grid-template-columns:1fr 1fr
+ }
+
+ .games-grid{
+  grid-template-columns:1fr
+ }
+
+ .table{
+  font-size:12px
+ }
+
+ .table th,
+ .table td{
+  padding:9px 5px
+ }
+
+ .wheel{
+  width:200px;
+  height:200px
+ }
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
+<!-- ================= LOGIN ================= -->
+
 <div class="auth" id="auth">
+
  <div class="auth-box">
-  <div class="auth-logo">『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』</div>
-  <div class="auth-sub">Interactive Bank & Community</div>
+
+  <div class="auth-logo">
+   『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』
+  </div>
+
+  <div class="auth-sub">
+   Interactive Bank & Community
+  </div>
 
   <div id="loginForm">
-   <input id="loginName" placeholder="اسم المستخدم">
-   <input id="loginPass" type="password" placeholder="كلمة المرور">
-   <button class="btn full" onclick="login()">دخول إلى البنك</button>
-   <button class="btn secondary full" style="margin-top:8px" onclick="showRegister()">إنشاء حساب</button>
+
+   <input
+    id="loginName"
+    placeholder="اسم المستخدم"
+   >
+
+   <input
+    id="loginPass"
+    type="password"
+    placeholder="كلمة المرور"
+   >
+
+   <button
+    class="btn full"
+    onclick="login()">
+    دخول إلى البنك
+   </button>
+
+   <button
+    class="btn secondary full"
+    style="margin-top:8px"
+    onclick="showRegister()">
+    إنشاء حساب
+   </button>
+
   </div>
 
   <div id="registerForm" class="hidden">
-   <input id="regName" placeholder="اسم المستخدم">
-   <input id="regPass" type="password" placeholder="كلمة المرور">
-   <button class="btn goldbtn full" onclick="register()">إنشاء الحساب</button>
-   <button class="btn secondary full" style="margin-top:8px" onclick="showLogin()">لدي حساب بالفعل</button>
+
+   <input
+    id="regName"
+    placeholder="اسم المستخدم"
+   >
+
+   <input
+    id="regPass"
+    type="password"
+    placeholder="كلمة المرور"
+   >
+
+   <button
+    class="btn goldbtn full"
+    onclick="register()">
+    إنشاء الحساب
+   </button>
+
+   <button
+    class="btn secondary full"
+    style="margin-top:8px"
+    onclick="showLogin()">
+    لدي حساب بالفعل
+   </button>
+
   </div>
+
  </div>
+
 </div>
 
+<!-- ================= HEADER ================= -->
+
 <header>
- <div class="logo">『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』</div>
- <div class="header-user">
-  <span id="headerName">Guest</span>
-  <div class="avatar" id="avatar">?</div>
+
+ <div class="logo">
+  『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』
  </div>
+
+ <div class="header-user">
+
+  <span id="headerName">
+   Guest
+  </span>
+
+  <div
+   class="avatar"
+   id="avatar">
+   ?
+  </div>
+
+ </div>
+
 </header>
 
 <div class="layout">
 
+<!-- ================= SIDEBAR ================= -->
+
 <aside class="sidebar">
+
  <div class="nav">
 
-  <button class="active" onclick="page('home',this)">🏠 الرئيسية</button>
-  <button onclick="page('wallet',this)">💰 المحفظة</button>
-  <button onclick="page('games',this)">🎮 الألعاب</button>
-  <button onclick="page('rank',this)">🏆 الترتيب</button>
-  <button onclick="page('transactions',this)">📜 العمليات</button>
-  <button onclick="page('profile',this)">👤 الحساب</button>
+  <button
+   class="active"
+   onclick="page('home',this)">
+   🏠 الرئيسية
+  </button>
 
-  <div class="nav-title">الإدارة</div>
-  <button id="adminNav" onclick="page('admin',this)">👑 الإدارة</button>
+  <button
+   onclick="page('wallet',this)">
+   💰 المحفظة
+  </button>
 
-  <div class="nav-title">النظام</div>
-  <button onclick="logout()">🚪 تسجيل الخروج</button>
+  <button
+   onclick="page('store',this)">
+   🛒 المتجر
+  </button>
+
+  <button
+   onclick="page('inventory',this)">
+   🎒 مخزني
+  </button>
+
+  <button
+   onclick="page('games',this)">
+   🎮 الألعاب
+  </button>
+
+  <button
+   onclick="page('rank',this)">
+   🏆 الترتيب
+  </button>
+
+  <button
+   onclick="page('transactions',this)">
+   📜 العمليات
+  </button>
+
+  <button
+   onclick="page('profile',this)">
+   👤 الحساب
+  </button>
+
+  <div class="nav-title">
+   الإدارة
+  </div>
+
+  <button
+   id="adminNav"
+   onclick="page('admin',this)">
+   👑 الإدارة
+  </button>
+
+  <div class="nav-title">
+   النظام
+  </div>
+
+  <button onclick="logout()">
+   🚪 تسجيل الخروج
+  </button>
 
  </div>
+
 </aside>
+
+<!-- ================= MAIN ================= -->
 
 <main class="main">
 
-<!-- HOME -->
+<!-- ================= HOME ================= -->
+
 <section id="home" class="page">
 
  <div class="hero">
-  <h1>مرحباً بك في 『𝑺.𝑼.𝑵 TOKYO』 🧧</h1>
-  <p>البنك التفاعلي لمجتمعك — اجمع العملات، ارفع مستواك ونافس الأعضاء.</p>
+
+  <h1>
+   مرحباً بك في 『𝑺.𝑼.𝑵 TOKYO』 🧧
+  </h1>
+
+  <p>
+   البنك التفاعلي لمجتمعك — اجمع العملات، ارفع مستواك ونافس الأعضاء.
+  </p>
+
  </div>
 
  <div class="grid">
+
   <div class="card">
-   <div class="stat-icon">💰</div>
-   <div class="stat-title">الرصيد</div>
-   <div class="stat-value gold" id="balance">0</div>
+
+   <div class="stat-icon">
+    💰
+   </div>
+
+   <div class="stat-title">
+    الرصيد
+   </div>
+
+   <div
+    class="stat-value gold"
+    id="balance">
+    0
+   </div>
+
   </div>
 
   <div class="card">
-   <div class="stat-icon">⭐</div>
-   <div class="stat-title">المستوى</div>
-   <div class="stat-value" id="level">1</div>
+
+   <div class="stat-icon">
+    ⭐
+   </div>
+
+   <div class="stat-title">
+    المستوى
+   </div>
+
+   <div
+    class="stat-value"
+    id="level">
+    1
+   </div>
+
   </div>
 
   <div class="card">
-   <div class="stat-icon">⚡</div>
-   <div class="stat-title">XP</div>
-   <div class="stat-value" id="xp">0</div>
+
+   <div class="stat-icon">
+    ⚡
+   </div>
+
+   <div class="stat-title">
+    XP
+   </div>
+
+   <div
+    class="stat-value"
+    id="xp">
+    0
+   </div>
+
   </div>
 
   <div class="card">
-   <div class="stat-icon">👑</div>
-   <div class="stat-title">الرتبة</div>
-   <div class="stat-value red" id="rankName">عضو</div>
+
+   <div class="stat-icon">
+    👑
+   </div>
+
+   <div class="stat-title">
+    الرتبة
+   </div>
+
+   <div
+    class="stat-value red"
+    id="rankName">
+    عضو
+   </div>
+
   </div>
+
  </div>
 
  <div class="section">
-  <div class="section-head"><h2>⚡ العمليات السريعة</h2></div>
-  <div class="actions">
-   <button class="action" onclick="openModal('transferModal')">💸<b>تحويل</b><small>إرسال عملات</small></button>
-   <button class="action" onclick="openModal('depositModal')">💰<b>إيداع</b><small>إضافة رصيد</small></button>
-   <button class="action" onclick="page('games')">🎮<b>الألعاب</b><small>اكسب عملات</small></button>
-   <button class="action" onclick="page('rank')">🏆<b>المتصدرون</b><small>أفضل الأعضاء</small></button>
-  </div>
- </div>
 
- <div class="section">
   <div class="section-head">
-   <h2>📊 تقدم المستوى</h2>
-   <span id="xpText">0 / 100 XP</span>
+   <h2>⚡ العمليات السريعة</h2>
   </div>
-  <div class="card">
-   <div class="progress"><i id="xpBar"></i></div>
+
+  <div class="actions">
+
+   <button
+    class="action"
+    onclick="openModal('transferModal')">
+    💸
+    <b>تحويل</b>
+    <small>إرسال عملات</small>
+   </button>
+
+   <button
+    class="action"
+    onclick="openModal('depositModal')">
+    💰
+    <b>إيداع</b>
+    <small>إضافة رصيد</small>
+   </button>
+
+   <button
+    class="action"
+    onclick="page('games')">
+    🎮
+    <b>الألعاب</b>
+    <small>اكسب عملات</small>
+   </button>
+
+   <button
+    class="action"
+    onclick="page('store')">
+    🛒
+    <b>المتجر</b>
+    <small>100 منتج</small>
+   </button>
+
   </div>
+
  </div>
 
  <div class="section">
-  <div class="section-head"><h2>📜 آخر العمليات</h2></div>
-  <div class="card">
-   <table class="table">
-    <thead><tr><th>العملية</th><th>المبلغ</th><th>التاريخ</th></tr></thead>
-    <tbody id="recent"></tbody>
-   </table>
+
+  <div class="section-head">
+
+   <h2>
+    📊 تقدم المستوى
+   </h2>
+
+   <span id="xpText">
+    0 / 100 XP
+   </span>
+
   </div>
+
+  <div class="card">
+
+   <div class="progress">
+    <i id="xpBar"></i>
+   </div>
+
+  </div>
+
  </div>
+
+ <div class="section">
+
+  <div class="section-head">
+   <h2>📜 آخر العمليات</h2>
+  </div>
+
+  <div class="card">
+
+   <table class="table">
+
+    <thead>
+
+     <tr>
+      <th>العملية</th>
+      <th>المبلغ</th>
+      <th>التاريخ</th>
+     </tr>
+
+    </thead>
+
+    <tbody id="recent"></tbody>
+
+   </table>
+
+  </div>
+
+ </div>
+
 </section>
 
-<!-- WALLET -->
+<!-- ================= WALLET ================= -->
+
 <section id="wallet" class="page hidden">
+
  <div class="hero">
-  <h1>💰 المحفظة</h1>
-  <p>تحكم بأموالك وعملياتك.</p>
+
+  <h1>
+   💰 المحفظة
+  </h1>
+
+  <p>
+   تحكم بأموالك وعملياتك.
+  </p>
+
  </div>
 
  <div class="grid">
+
   <div class="card">
-   <div class="stat-title">الرصيد الحالي</div>
-   <div class="stat-value gold" id="walletBalance">0 🧧</div>
+
+   <div class="stat-title">
+    الرصيد الحالي
+   </div>
+
+   <div
+    class="stat-value gold"
+    id="walletBalance">
+    0 🧧
+   </div>
+
   </div>
+
   <div class="card">
-   <div class="stat-title">إجمالي العمليات</div>
-   <div class="stat-value" id="transactionCount">0</div>
+
+   <div class="stat-title">
+    إجمالي العمليات
+   </div>
+
+   <div
+    class="stat-value"
+    id="transactionCount">
+    0
+   </div>
+
   </div>
+
  </div>
 
  <div class="actions">
-  <button class="action" onclick="openModal('transferModal')">💸<b>تحويل</b></button>
-  <button class="action" onclick="openModal('depositModal')">💰<b>إيداع</b></button>
-  <button class="action" onclick="openModal('withdrawModal')">🏧<b>سحب</b></button>
-  <button class="action" onclick="openModal('giftModal')">🎁<b>هدية</b></button>
+
+  <button
+   class="action"
+   onclick="openModal('transferModal')">
+   💸
+   <b>تحويل</b>
+  </button>
+
+  <button
+   class="action"
+   onclick="openModal('depositModal')">
+   💰
+   <b>إيداع</b>
+  </button>
+
+  <button
+   class="action"
+   onclick="openModal('withdrawModal')">
+   🏧
+   <b>سحب</b>
+  </button>
+
+  <button
+   class="action"
+   onclick="openModal('giftModal')">
+   🎁
+   <b>هدية</b>
+  </button>
+
  </div>
+
 </section>
 
-<!-- GAMES -->
+<!-- ================= STORE ================= -->
+
+<section id="store" class="page hidden">
+
+ <div class="hero">
+
+  <h1>
+   🛒 متجر 『S.U.N TOKYO』
+  </h1>
+
+  <p>
+   اشترِ منتجات خاصة، ألقاب، شارات ومزايا باستخدام 🧧.
+  </p>
+
+ </div>
+
+ <div class="card">
+
+  <div class="store-toolbar">
+
+   <input
+    id="storeSearch"
+    placeholder="🔎 ابحث عن منتج..."
+    oninput="renderStore()"
+   >
+
+   <button
+    class="category-btn active"
+    onclick="setStoreCategory('all',this)">
+    الكل
+   </button>
+
+   <button
+    class="category-btn"
+    onclick="setStoreCategory('titles',this)">
+    👑 ألقاب
+   </button>
+
+   <button
+    class="category-btn"
+    onclick="setStoreCategory('badges',this)">
+    🏅 شارات
+   </button>
+
+   <button
+    class="category-btn"
+    onclick="setStoreCategory('items',this)">
+    🎁 منتجات
+   </button>
+
+   <button
+    class="category-btn"
+    onclick="setStoreCategory('boosts',this)">
+    ⚡ تعزيزات
+   </button>
+
+  </div>
+
+  <div
+   class="products"
+   id="products">
+  </div>
+
+ </div>
+
+</section>
+
+<!-- ================= INVENTORY ================= -->
+
+<section id="inventory" class="page hidden">
+
+ <div class="hero">
+
+  <h1>
+   🎒 مخزني
+  </h1>
+
+  <p>
+   جميع المنتجات والعناصر التي اشتريتها.
+  </p>
+
+ </div>
+
+ <div class="card">
+
+  <div
+   class="inventory"
+   id="inventoryList">
+  </div>
+
+ </div>
+
+</section>
+
+<!-- ================= GAMES ================= -->
+
 <section id="games" class="page hidden">
+
  <div class="hero">
-  <h1>🎮 مركز الترفيه</h1>
-  <p>استخدم العملات وجرّب حظك.</p>
+
+  <h1>
+   🎮 مركز الألعاب
+  </h1>
+
+  <p>
+   العب واربح 🧧 و XP — اختر لعبتك.
+  </p>
+
  </div>
 
- <div class="grid">
-  <div class="card">
-   <h2>🎁 الصندوق</h2>
-   <p style="color:#888;margin:10px 0">تكلفة فتح الصندوق: 50 🧧</p>
-   <button class="btn goldbtn" onclick="openBox()">فتح الصندوق</button>
+ <div class="games-grid">
+
+  <div class="game-card">
+
+   <div class="game-icon">🎰</div>
+
+   <h2>
+    سلوت ماشين
+   </h2>
+
+   <p>
+    احصل على 3 رموز متطابقة واربح جائزة كبيرة.
+   </p>
+
+   <div class="game-cost">
+    التكلفة: 50 🧧
+   </div>
+
+   <button
+    class="btn goldbtn"
+    onclick="slots()">
+    تشغيل
+   </button>
+
+   <div
+    class="game-result"
+    id="slotsResult">
+   </div>
+
   </div>
 
-  <div class="card">
-   <h2>🎡 عجلة الحظ</h2>
-   <p style="color:#888;margin:10px 0">تكلفة الدور: 100 🧧</p>
-   <button class="btn" onclick="spinWheel()">تدوير العجلة</button>
+  <div class="game-card">
+
+   <div class="game-icon">🪙</div>
+
+   <h2>
+    وجه أو كتابة
+   </h2>
+
+   <p>
+    اختر وجه العملة وحاول مضاعفة رهانك.
+   </p>
+
+   <div class="game-cost">
+    التكلفة: 50 🧧
+   </div>
+
+   <button
+    class="btn"
+    onclick="coinFlip()">
+    ابدأ
+   </button>
+
+   <div
+    class="game-result"
+    id="coinResult">
+   </div>
+
   </div>
 
-  <div class="card">
-   <h2>🎲 رمية الحظ</h2>
-   <p style="color:#888;margin:10px 0">تكلفة اللعب: 25 🧧</p>
-   <button class="btn secondary" onclick="dice()">رمي النرد</button>
+  <div class="game-card">
+
+   <div class="game-icon">🔢</div>
+
+   <h2>
+    خمن الرقم
+   </h2>
+
+   <p>
+    خمن رقماً من 1 إلى 10 للحصول على الجائزة.
+   </p>
+
+   <div class="game-cost">
+    التكلفة: 30 🧧
+   </div>
+
+   <button
+    class="btn secondary"
+    onclick="guessNumber()">
+    خمن
+   </button>
+
+   <div
+    class="game-result"
+    id="guessResult">
+   </div>
+
   </div>
 
-  <div class="card">
-   <h2>⚡ مكافأة يومية</h2>
-   <p style="color:#888;margin:10px 0">احصل على مكافأتك اليومية.</p>
-   <button class="btn goldbtn" onclick="daily()">استلام</button>
+  <div class="game-card">
+
+   <div class="game-icon">🃏</div>
+
+   <h2>
+    أعلى أو أدنى
+   </h2>
+
+   <p>
+    هل الرقم التالي سيكون أعلى أم أدنى؟
+   </p>
+
+   <div class="game-cost">
+    التكلفة: 40 🧧
+   </div>
+
+   <button
+    class="btn"
+    onclick="highLow('high')">
+    ⬆️ أعلى
+   </button>
+
+   <button
+    class="btn secondary"
+    onclick="highLow('low')">
+    ⬇️ أدنى
+   </button>
+
+   <div
+    class="game-result"
+    id="highLowResult">
+   </div>
+
   </div>
+
+  <div class="game-card">
+
+   <div class="game-icon">✊</div>
+
+   <h2>
+    حجر ورق مقص
+   </h2>
+
+   <p>
+    واجه النظام واربح العملات.
+   </p>
+
+   <div class="game-cost">
+    التكلفة: 25 🧧
+   </div>
+
+   <button
+    class="btn"
+    onclick="rps('rock')">
+    ✊
+   </button>
+
+   <button
+    class="btn"
+    onclick="rps('paper')">
+    📄
+   </button>
+
+   <button
+    class="btn"
+    onclick="rps('scissors')">
+    ✂️
+   </button>
+
+   <div
+    class="game-result"
+    id="rpsResult">
+   </div>
+
+  </div>
+
+  <div class="game-card">
+
+   <div class="game-icon">🎯</div>
+
+   <h2>
+    الهدف
+   </h2>
+
+   <p>
+    حاول إصابة الهدف واحصل على مكافأة.
+   </p>
+
+   <div class="game-cost">
+    التكلفة: 75 🧧
+   </div>
+
+   <button
+    class="btn goldbtn"
+    onclick="targetGame()">
+    إطلاق
+   </button>
+
+   <div
+    class="game-result"
+    id="targetResult">
+   </div>
+
+  </div>
+
+  <div class="game-card">
+
+   <div class="game-icon">💎</div>
+
+   <h2>
+    Jackpot
+   </h2>
+
+   <p>
+    مخاطرة كبيرة مقابل فرصة ربح ضخمة.
+   </p>
+
+   <div class="game-cost">
+    التكلفة: 200 🧧
+   </div>
+
+   <button
+    class="btn"
+    onclick="jackpot()">
+    محاولة Jackpot
+   </button>
+
+   <div
+    class="game-result"
+    id="jackpotResult">
+   </div>
+
+  </div>
+
+  <div class="game-card">
+
+   <div class="game-icon">🎟️</div>
+
+   <h2>
+    اليانصيب
+   </h2>
+
+   <p>
+    اختر رقماً عشوائياً واحصل على جائزة.
+   </p>
+
+   <div class="game-cost">
+    التكلفة: 100 🧧
+   </div>
+
+   <button
+    class="btn goldbtn"
+    onclick="lottery()">
+    شراء تذكرة
+   </button>
+
+   <div
+    class="game-result"
+    id="lotteryResult">
+   </div>
+
+  </div>
+
+  <div class="game-card">
+
+   <div class="game-icon">🃏</div>
+
+   <h2>
+    بطاقة الخدش
+   </h2>
+
+   <p>
+    اكشف جائزتك المخفية.
+   </p>
+
+   <div class="game-cost">
+    التكلفة: 60 🧧
+   </div>
+
+   <button
+    class="btn secondary"
+    onclick="scratch()">
+    خدش البطاقة
+   </button>
+
+   <div
+    class="game-result"
+    id="scratchResult">
+   </div>
+
+  </div>
+
+  <div class="game-card">
+
+   <div class="game-icon">🎲</div>
+
+   <h2>
+    رمية النرد
+   </h2>
+
+   <p>
+    ارمِ النرد واحصل على مكافأة حسب النتيجة.
+   </p>
+
+   <div class="game-cost">
+    التكلفة: 25 🧧
+   </div>
+
+   <button
+    class="btn"
+    onclick="dice()">
+    رمي النرد
+   </button>
+
+  </div>
+
+  <div class="game-card">
+
+   <div class="game-icon">🎁</div>
+
+   <h2>
+    الصندوق الغامض
+   </h2>
+
+   <p>
+    جائزة عشوائية قد تكون صغيرة أو ضخمة.
+   </p>
+
+   <div class="game-cost">
+    التكلفة: 50 🧧
+   </div>
+
+   <button
+    class="btn goldbtn"
+    onclick="openBox()">
+    فتح الصندوق
+   </button>
+
+  </div>
+
+  <div class="game-card">
+
+   <div class="game-icon">🎡</div>
+
+   <h2>
+    عجلة الحظ
+   </h2>
+
+   <p>
+    أدر العجلة وحاول الفوز بالجائزة الكبرى.
+   </p>
+
+   <div class="game-cost">
+    التكلفة: 100 🧧
+   </div>
+
+   <button
+    class="btn"
+    onclick="spinWheel()">
+    تدوير العجلة
+   </button>
+
+  </div>
+
+  <div class="game-card">
+
+   <div class="game-icon">⚡</div>
+
+   <h2>
+    مكافأة يومية
+   </h2>
+
+   <p>
+    احصل على مكافأتك اليومية.
+   </p>
+
+   <div class="game-cost">
+    مكافأة: 250 🧧
+   </div>
+
+   <button
+    class="btn goldbtn"
+    onclick="daily()">
+    استلام
+   </button>
+
+  </div>
+
  </div>
 
- <div class="card wheel-wrap">
-  <div class="pointer">▼</div>
-  <div class="wheel" id="wheel"></div>
+ <div
+  class="card wheel-wrap"
+  style="margin-top:20px">
+
+  <div class="pointer">
+   ▼
+  </div>
+
+  <div
+   class="wheel"
+   id="wheel">
+  </div>
+
  </div>
+
 </section>
 
-<!-- RANK -->
+<!-- ================= RANK ================= -->
+
 <section id="rank" class="page hidden">
+
  <div class="hero">
-  <h1>🏆 لوحة المتصدرين</h1>
-  <p>أغنى وأعلى أعضاء 『S.U.N TOKYO』.</p>
+
+  <h1>
+   🏆 لوحة المتصدرين
+  </h1>
+
+  <p>
+   أغنى وأعلى أعضاء 『S.U.N TOKYO』.
+  </p>
+
  </div>
+
  <div class="card">
+
   <table class="table">
-   <thead><tr><th>#</th><th>العضو</th><th>المستوى</th><th>الرصيد</th><th>الرتبة</th></tr></thead>
+
+   <thead>
+
+    <tr>
+     <th>#</th>
+     <th>العضو</th>
+     <th>المستوى</th>
+     <th>الرصيد</th>
+     <th>الرتبة</th>
+    </tr>
+
+   </thead>
+
    <tbody id="leaderboard"></tbody>
+
   </table>
+
  </div>
+
 </section>
 
-<!-- TRANSACTIONS -->
+<!-- ================= TRANSACTIONS ================= -->
+
 <section id="transactions" class="page hidden">
+
  <div class="hero">
-  <h1>📜 سجل العمليات</h1>
-  <p>كل عمليات حسابك.</p>
+
+  <h1>
+   📜 سجل العمليات
+  </h1>
+
+  <p>
+   كل عمليات حسابك.
+  </p>
+
  </div>
+
  <div class="card">
+
   <table class="table">
-   <thead><tr><th>العملية</th><th>المبلغ</th><th>التفاصيل</th><th>التاريخ</th></tr></thead>
+
+   <thead>
+
+    <tr>
+     <th>العملية</th>
+     <th>المبلغ</th>
+     <th>التفاصيل</th>
+     <th>التاريخ</th>
+    </tr>
+
+   </thead>
+
    <tbody id="allTransactions"></tbody>
+
   </table>
+
  </div>
+
 </section>
 
-<!-- PROFILE -->
+<!-- ================= PROFILE ================= -->
+
 <section id="profile" class="page hidden">
+
  <div class="hero">
-  <h1>👤 حسابي</h1>
-  <p>معلومات وإحصائيات العضو.</p>
+
+  <h1>
+   👤 حسابي
+  </h1>
+
+  <p>
+   معلومات وإحصائيات العضو.
+  </p>
+
  </div>
 
  <div class="grid">
+
   <div class="card">
-   <div class="stat-title">اسم المستخدم</div>
-   <div class="stat-value" id="profileName">-</div>
+
+   <div class="stat-title">
+    اسم المستخدم
+   </div>
+
+   <div
+    class="stat-value"
+    id="profileName">
+    -
+   </div>
+
   </div>
+
   <div class="card">
-   <div class="stat-title">ID</div>
-   <div class="stat-value" id="profileId">-</div>
+
+   <div class="stat-title">
+    ID
+   </div>
+
+   <div
+    class="stat-value"
+    id="profileId">
+    -
+   </div>
+
   </div>
+
   <div class="card">
-   <div class="stat-title">المستوى</div>
-   <div class="stat-value" id="profileLevel">1</div>
+
+   <div class="stat-title">
+    المستوى
+   </div>
+
+   <div
+    class="stat-value"
+    id="profileLevel">
+    1
+   </div>
+
   </div>
+
   <div class="card">
-   <div class="stat-title">XP</div>
-   <div class="stat-value" id="profileXP">0</div>
+
+   <div class="stat-title">
+    XP
+   </div>
+
+   <div
+    class="stat-value"
+    id="profileXP">
+    0
+   </div>
+
   </div>
+
  </div>
 
  <div class="card">
-  <h2>⚙️ الإعدادات</h2>
-  <input id="newName" placeholder="اسم جديد">
-  <button class="btn" onclick="changeName()">تغيير الاسم</button>
+
+  <h2>
+   ⚙️ الإعدادات
+  </h2>
+
+  <input
+   id="newName"
+   placeholder="اسم جديد"
+  >
+
+  <button
+   class="btn"
+   onclick="changeName()">
+   تغيير الاسم
+  </button>
+
  </div>
+
 </section>
 
-<!-- ADMIN -->
+<!-- ================= ADMIN ================= -->
+
 <section id="admin" class="page hidden">
+
  <div class="hero">
-  <h1>👑 لوحة الإدارة</h1>
-  <p>إدارة النظام والأعضاء.</p>
+
+  <h1>
+   👑 لوحة الإدارة
+  </h1>
+
+  <p>
+   إدارة النظام والأعضاء.
+  </p>
+
  </div>
 
  <div class="grid">
-  <div class="card"><div class="stat-title">عدد الأعضاء</div><div class="stat-value" id="usersCount">0</div></div>
-  <div class="card"><div class="stat-title">إجمالي العملات</div><div class="stat-value gold" id="totalMoney">0</div></div>
-  <div class="card"><div class="stat-title">العمليات</div><div class="stat-value" id="adminTransactions">0</div></div>
-  <div class="card"><div class="stat-title">حالة النظام</div><div class="stat-value red">ONLINE</div></div>
+
+  <div class="card">
+
+   <div class="stat-title">
+    عدد الأعضاء
+   </div>
+
+   <div
+    class="stat-value"
+    id="usersCount">
+    0
+   </div>
+
+  </div>
+
+  <div class="card">
+
+   <div class="stat-title">
+    إجمالي العملات
+   </div>
+
+   <div
+    class="stat-value gold"
+    id="totalMoney">
+    0
+   </div>
+
+  </div>
+
+  <div class="card">
+
+   <div class="stat-title">
+    العمليات
+   </div>
+
+   <div
+    class="stat-value"
+    id="adminTransactions">
+    0
+   </div>
+
+  </div>
+
+  <div class="card">
+
+   <div class="stat-title">
+    حالة النظام
+   </div>
+
+   <div class="stat-value green">
+    ONLINE
+   </div>
+
+  </div>
+
  </div>
 
  <div class="card">
-  <h2 style="margin-bottom:15px">👥 الأعضاء</h2>
+
+  <h2 style="margin-bottom:15px">
+   👥 الأعضاء
+  </h2>
+
   <table class="table">
-   <thead><tr><th>العضو</th><th>الرصيد</th><th>المستوى</th><th>إدارة</th></tr></thead>
+
+   <thead>
+
+    <tr>
+     <th>العضو</th>
+     <th>الرصيد</th>
+     <th>المستوى</th>
+     <th>إدارة</th>
+    </tr>
+
+   </thead>
+
    <tbody id="adminUsers"></tbody>
+
   </table>
+
  </div>
+
 </section>
 
 </main>
 </div>
 
-<!-- TRANSFER -->
-<div class="modal" id="transferModal">
+<!-- ================= TRANSFER MODAL ================= -->
+
+<div
+ class="modal"
+ id="transferModal">
+
  <div class="modal-box">
-  <div class="modal-head"><h2>💸 تحويل</h2><button class="close" onclick="closeModal('transferModal')">×</button></div>
-  <input id="transferTo" placeholder="اسم العضو">
-  <input id="transferAmount" type="number" placeholder="المبلغ">
-  <button class="btn full" onclick="transfer()">تأكيد التحويل</button>
+
+  <div class="modal-head">
+
+   <h2>
+    💸 تحويل
+   </h2>
+
+   <button
+    class="close"
+    onclick="closeModal('transferModal')">
+    ×
+   </button>
+
+  </div>
+
+  <input
+   id="transferTo"
+   placeholder="اسم العضو"
+  >
+
+  <input
+   id="transferAmount"
+   type="number"
+   min="1"
+   placeholder="المبلغ"
+  >
+
+  <button
+   class="btn full"
+   onclick="transfer()">
+   تأكيد التحويل
+  </button>
+
  </div>
+
 </div>
 
-<!-- DEPOSIT -->
-<div class="modal" id="depositModal">
+<!-- ================= DEPOSIT MODAL ================= -->
+
+<div
+ class="modal"
+ id="depositModal">
+
  <div class="modal-box">
-  <div class="modal-head"><h2>💰 إيداع</h2><button class="close" onclick="closeModal('depositModal')">×</button></div>
-  <input id="depositAmount" type="number" placeholder="المبلغ">
-  <button class="btn goldbtn full" onclick="deposit()">إيداع</button>
+
+  <div class="modal-head">
+
+   <h2>
+    💰 إيداع
+   </h2>
+
+   <button
+    class="close"
+    onclick="closeModal('depositModal')">
+    ×
+   </button>
+
+  </div>
+
+  <input
+   id="depositAmount"
+   type="number"
+   min="1"
+   placeholder="المبلغ"
+  >
+
+  <button
+   class="btn goldbtn full"
+   onclick="deposit()">
+   إيداع
+  </button>
+
  </div>
+
 </div>
 
-<!-- WITHDRAW -->
-<div class="modal" id="withdrawModal">
+<!-- ================= WITHDRAW MODAL ================= -->
+
+<div
+ class="modal"
+ id="withdrawModal">
+
  <div class="modal-box">
-  <div class="modal-head"><h2>🏧 سحب</h2><button class="close" onclick="closeModal('withdrawModal')">×</button></div>
-  <input id="withdrawAmount" type="number" placeholder="المبلغ">
-  <button class="btn full" onclick="withdraw()">سحب</button>
+
+  <div class="modal-head">
+
+   <h2>
+    🏧 سحب
+   </h2>
+
+   <button
+    class="close"
+    onclick="closeModal('withdrawModal')">
+    ×
+   </button>
+
+  </div>
+
+  <input
+   id="withdrawAmount"
+   type="number"
+   min="1"
+   placeholder="المبلغ"
+  >
+
+  <button
+   class="btn full"
+   onclick="withdraw()">
+   سحب
+  </button>
+
  </div>
+
 </div>
 
-<!-- GIFT -->
-<div class="modal" id="giftModal">
+<!-- ================= GIFT MODAL ================= -->
+
+<div
+ class="modal"
+ id="giftModal">
+
  <div class="modal-box">
-  <div class="modal-head"><h2>🎁 هدية</h2><button class="close" onclick="closeModal('giftModal')">×</button></div>
-  <input id="giftTo" placeholder="اسم العضو">
-  <input id="giftAmount" type="number" placeholder="قيمة الهدية">
-  <button class="btn goldbtn full" onclick="gift()">إرسال الهدية</button>
+
+  <div class="modal-head">
+
+   <h2>
+    🎁 هدية
+   </h2>
+
+   <button
+    class="close"
+    onclick="closeModal('giftModal')">
+    ×
+   </button>
+
+  </div>
+
+  <input
+   id="giftTo"
+   placeholder="اسم العضو"
+  >
+
+  <input
+   id="giftAmount"
+   type="number"
+   min="1"
+   placeholder="قيمة الهدية"
+  >
+
+  <button
+   class="btn goldbtn full"
+   onclick="gift()">
+   إرسال الهدية
+  </button>
+
  </div>
+
 </div>
 
-<div class="toast" id="toast"></div>
+<div
+ class="toast"
+ id="toast">
+</div>
 
 <script>
+
 /* =========================================================
-   S.U.N TOKYO — SINGLE FILE BANK SYSTEM
+   S.U.N TOKYO — BANK SYSTEM
    ========================================================= */
 
-const KEY="SUN_TOKYO_BANK_V1";
-let data=JSON.parse(localStorage.getItem(KEY)||"null");
+const KEY="SUN_TOKYO_BANK_V2";
+
+let data=JSON.parse(
+ localStorage.getItem(KEY)||"null"
+);
+
+
+/* =========================================================
+   INITIAL DATA
+   ========================================================= */
 
 if(!data){
+
  data={
   current:null,
+
   users:[
    {
     id:"SUN-0001",
@@ -589,8 +2218,10 @@ if(!data){
     xp:500,
     admin:true,
     daily:null,
-    transactions:[]
+    transactions:[],
+    inventory:[]
    },
+
    {
     id:"SUN-0002",
     name:"Nero",
@@ -599,8 +2230,10 @@ if(!data){
     xp:180,
     admin:false,
     daily:null,
-    transactions:[]
+    transactions:[],
+    inventory:[]
    },
+
    {
     id:"SUN-0003",
     name:"Kaito",
@@ -609,490 +2242,2586 @@ if(!data){
     xp:90,
     admin:false,
     daily:null,
-    transactions:[]
+    transactions:[],
+    inventory:[]
    }
   ]
  };
+
  save();
 }
 
+
+/* =========================================================
+   MIGRATION
+   ========================================================= */
+
+data.users.forEach(u=>{
+
+ if(!Array.isArray(u.inventory)){
+  u.inventory=[];
+ }
+
+ if(!Array.isArray(u.transactions)){
+  u.transactions=[];
+ }
+
+ if(typeof u.xp!=="number"){
+  u.xp=0;
+ }
+
+ if(typeof u.balance!=="number"){
+  u.balance=0;
+ }
+
+});
+
+save();
+
+
+/* =========================================================
+   SAVE
+   ========================================================= */
+
 function save(){
- localStorage.setItem(KEY,JSON.stringify(data));
+
+ localStorage.setItem(
+  KEY,
+  JSON.stringify(data)
+ );
+
 }
+
+
+/* =========================================================
+   CURRENT USER
+   ========================================================= */
 
 function current(){
- return data.users.find(u=>u.id===data.current);
+
+ return data.users.find(
+  u=>u.id===data.current
+ );
+
 }
+
+
+/* =========================================================
+   TOAST
+   ========================================================= */
 
 function toast(msg){
+
  const t=document.getElementById("toast");
+
  t.textContent=msg;
+
  t.classList.add("show");
- setTimeout(()=>t.classList.remove("show"),2500);
+
+ clearTimeout(window.toastTimer);
+
+ window.toastTimer=setTimeout(
+  ()=>{
+   t.classList.remove("show");
+  },
+  2500
+ );
+
 }
+
+
+/* =========================================================
+   AUTH FORMS
+   ========================================================= */
 
 function showRegister(){
- document.getElementById("loginForm").classList.add("hidden");
- document.getElementById("registerForm").classList.remove("hidden");
+
+ document
+  .getElementById("loginForm")
+  .classList.add("hidden");
+
+ document
+  .getElementById("registerForm")
+  .classList.remove("hidden");
+
 }
+
 
 function showLogin(){
- document.getElementById("registerForm").classList.add("hidden");
- document.getElementById("loginForm").classList.remove("hidden");
+
+ document
+  .getElementById("registerForm")
+  .classList.add("hidden");
+
+ document
+  .getElementById("loginForm")
+  .classList.remove("hidden");
+
 }
 
-function register(){
- const name=document.getElementById("regName").value.trim();
- const pass=document.getElementById("regPass").value;
 
- if(name.length<3)return toast("❌ الاسم قصير جداً");
- if(pass.length<4)return toast("❌ كلمة المرور يجب أن تكون 4 أحرف على الأقل");
- if(data.users.some(u=>u.name.toLowerCase()===name.toLowerCase()))
+/* =========================================================
+   REGISTER
+   ========================================================= */
+
+function register(){
+
+ const name=
+  document
+   .getElementById("regName")
+   .value
+   .trim();
+
+ const pass=
+  document
+   .getElementById("regPass")
+   .value;
+
+ if(name.length<3)
+  return toast("❌ الاسم قصير جداً");
+
+ if(pass.length<4)
+  return toast(
+   "❌ كلمة المرور يجب أن تكون 4 أحرف على الأقل"
+  );
+
+ if(
+  data.users.some(
+   u=>u.name.toLowerCase()===name.toLowerCase()
+  )
+ )
   return toast("❌ اسم المستخدم موجود");
 
- const id="SUN-"+String(Date.now()).slice(-6);
+ const id=
+  "SUN-"+String(Date.now()).slice(-6);
 
  data.users.push({
-  id,name,pass,balance:500,xp:0,admin:false,daily:null,transactions:[]
+
+  id,
+  name,
+  pass,
+  balance:500,
+  xp:0,
+  admin:false,
+  daily:null,
+  transactions:[],
+  inventory:[]
+
  });
 
  save();
- toast("✅ تم إنشاء الحساب، رصيد البداية 500 🧧");
- showLogin();
-}
 
-function login(){
- const name=document.getElementById("loginName").value.trim();
- const pass=document.getElementById("loginPass").value;
-
- const u=data.users.find(x=>
-  x.name.toLowerCase()===name.toLowerCase() && x.pass===pass
+ toast(
+  "✅ تم إنشاء الحساب، رصيد البداية 500 🧧"
  );
 
- if(!u)return toast("❌ اسم المستخدم أو كلمة المرور خاطئة");
+ showLogin();
+
+}
+
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+
+function login(){
+
+ const name=
+  document
+   .getElementById("loginName")
+   .value
+   .trim();
+
+ const pass=
+  document
+   .getElementById("loginPass")
+   .value;
+
+ const u=
+  data.users.find(
+   x=>
+    x.name.toLowerCase()===name.toLowerCase()
+    &&
+    x.pass===pass
+  );
+
+ if(!u)
+  return toast(
+   "❌ اسم المستخدم أو كلمة المرور خاطئة"
+  );
 
  data.current=u.id;
+
  save();
 
- document.getElementById("auth").classList.add("hidden");
+ document
+  .getElementById("auth")
+  .classList.add("hidden");
+
  update();
- toast("👋 أهلاً بك "+u.name);
+
+ toast(
+  "👋 أهلاً بك "+u.name
+ );
+
 }
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
 
 function logout(){
+
  data.current=null;
+
  save();
- document.getElementById("auth").classList.remove("hidden");
+
+ document
+  .getElementById("auth")
+  .classList.remove("hidden");
+
  showLogin();
+
+ document
+  .getElementById("loginName")
+  .value="";
+
+ document
+  .getElementById("loginPass")
+  .value="";
+
 }
 
+
+/* =========================================================
+   REQUIRE LOGIN
+   ========================================================= */
+
 function requireLogin(){
+
  if(!current()){
-  document.getElementById("auth").classList.remove("hidden");
+
+  document
+   .getElementById("auth")
+   .classList.remove("hidden");
+
   return false;
  }
+
  return true;
 }
 
+
+/* =========================================================
+   PAGE NAVIGATION
+   ========================================================= */
+
 function page(id,btn){
- if(!requireLogin())return;
 
- document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
- document.getElementById(id).classList.remove("hidden");
+ if(!requireLogin())
+  return;
 
- document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
- if(btn)btn.classList.add("active");
+ if(id==="admin" && !current().admin){
+
+  toast("❌ غير مصرح");
+
+  return;
+ }
+
+ document
+  .querySelectorAll(".page")
+  .forEach(
+   p=>p.classList.add("hidden")
+  );
+
+ const target=document.getElementById(id);
+
+ if(target)
+  target.classList.remove("hidden");
+
+ document
+  .querySelectorAll(".nav button")
+  .forEach(
+   b=>b.classList.remove("active")
+  );
+
+ if(btn)
+  btn.classList.add("active");
 
  update();
+
 }
+
+
+/* =========================================================
+   MODALS
+   ========================================================= */
 
 function openModal(id){
- if(!requireLogin())return;
- document.getElementById(id).classList.add("show");
+
+ if(!requireLogin())
+  return;
+
+ document
+  .getElementById(id)
+  .classList.add("show");
+
 }
+
 
 function closeModal(id){
- document.getElementById(id).classList.remove("show");
+
+ document
+  .getElementById(id)
+  .classList.remove("show");
+
 }
 
-function addTransaction(user,type,amount,details){
+
+/* =========================================================
+   TRANSACTIONS
+   ========================================================= */
+
+function addTransaction(
+ user,
+ type,
+ amount,
+ details
+){
+
  user.transactions.unshift({
-  type,amount,details,
+
+  type,
+  amount,
+  details,
   date:new Date().toLocaleString("ar-EG")
+
  });
- user.transactions=user.transactions.slice(0,100);
+
+ user.transactions=
+  user.transactions.slice(0,100);
+
 }
+
+
+/* =========================================================
+   XP
+   ========================================================= */
 
 function addXP(amount){
+
  const u=current();
- if(!u)return;
+
+ if(!u)
+  return;
 
  u.xp+=amount;
 
  while(u.xp>=100){
+
   u.xp-=100;
+
   u.balance+=100;
-  addTransaction(u,"مكافأة مستوى",100,"🎉 مكافأة رفع المستوى");
-  toast("🎉 ارتفع مستواك! +100 🧧");
+
+  addTransaction(
+   u,
+   "مكافأة مستوى",
+   100,
+   "🎉 مكافأة رفع المستوى"
+  );
+
+  toast(
+   "🎉 ارتفع مستواك! +100 🧧"
+  );
+
  }
+
 }
+
+
+/* =========================================================
+   LEVEL
+   ========================================================= */
 
 function getLevel(u){
- return Math.max(1,Math.floor((u.xp)/100)+1);
+
+ return Math.max(
+  1,
+  Math.floor(u.xp/100)+1
+ );
+
 }
+
+
+/* =========================================================
+   RANK
+   ========================================================= */
 
 function getRank(u){
+
  const l=getLevel(u);
- if(u.admin)return "👑 المدير";
- if(l>=20)return "🐉 إمبراطور";
- if(l>=15)return "⚔️ شوغون";
- if(l>=10)return "🔥 ساموراي";
- if(l>=5)return "🛡️ محارب";
+
+ if(u.admin)
+  return "👑 المدير";
+
+ if(l>=20)
+  return "🐉 إمبراطور";
+
+ if(l>=15)
+  return "⚔️ شوغون";
+
+ if(l>=10)
+  return "🔥 ساموراي";
+
+ if(l>=5)
+  return "🛡️ محارب";
+
  return "🌱 عضو";
+
 }
 
-function deposit(){
- const u=current();
- const amount=Number(document.getElementById("depositAmount").value);
 
- if(!amount||amount<=0)return toast("❌ أدخل مبلغاً صحيحاً");
+/* =========================================================
+   DEPOSIT
+   ========================================================= */
+
+function deposit(){
+
+ const u=current();
+
+ const amount=Number(
+  document.getElementById("depositAmount").value
+ );
+
+ if(!amount || amount<=0)
+  return toast(
+   "❌ أدخل مبلغاً صحيحاً"
+  );
 
  u.balance+=amount;
- addTransaction(u,"إيداع",amount,"إيداع في المحفظة");
+
+ addTransaction(
+  u,
+  "إيداع",
+  amount,
+  "إيداع في المحفظة"
+ );
+
  addXP(5);
 
  save();
+
  closeModal("depositModal");
+
  update();
- toast("✅ تمت إضافة "+amount+" 🧧");
+
+ toast(
+  "✅ تمت إضافة "+amount+" 🧧"
+ );
+
 }
 
-function withdraw(){
- const u=current();
- const amount=Number(document.getElementById("withdrawAmount").value);
 
- if(!amount||amount<=0)return toast("❌ أدخل مبلغاً صحيحاً");
- if(amount>u.balance)return toast("❌ رصيدك غير كافٍ");
+/* =========================================================
+   WITHDRAW
+   ========================================================= */
+
+function withdraw(){
+
+ const u=current();
+
+ const amount=Number(
+  document.getElementById("withdrawAmount").value
+ );
+
+ if(!amount || amount<=0)
+  return toast(
+   "❌ أدخل مبلغاً صحيحاً"
+  );
+
+ if(amount>u.balance)
+  return toast(
+   "❌ رصيدك غير كافٍ"
+  );
 
  u.balance-=amount;
- addTransaction(u,"سحب",-amount,"سحب من المحفظة");
+
+ addTransaction(
+  u,
+  "سحب",
+  -amount,
+  "سحب من المحفظة"
+ );
+
  addXP(3);
 
  save();
+
  closeModal("withdrawModal");
+
  update();
+
  toast("✅ تم السحب");
+
 }
 
+
+/* =========================================================
+   TRANSFER
+   ========================================================= */
+
 function transfer(){
+
  const u=current();
- const name=document.getElementById("transferTo").value.trim();
- const amount=Number(document.getElementById("transferAmount").value);
 
- if(!name||!amount||amount<=0)return toast("❌ تحقق من البيانات");
- if(amount>u.balance)return toast("❌ رصيدك غير كافٍ");
+ const name=
+  document
+   .getElementById("transferTo")
+   .value
+   .trim();
 
- const to=data.users.find(x=>x.name.toLowerCase()===name.toLowerCase());
+ const amount=Number(
+  document.getElementById("transferAmount").value
+ );
 
- if(!to)return toast("❌ العضو غير موجود");
- if(to.id===u.id)return toast("❌ لا يمكنك التحويل لنفسك");
+ if(!name || !amount || amount<=0)
+  return toast(
+   "❌ تحقق من البيانات"
+  );
+
+ if(amount>u.balance)
+  return toast(
+   "❌ رصيدك غير كافٍ"
+  );
+
+ const to=
+  data.users.find(
+   x=>x.name.toLowerCase()===name.toLowerCase()
+  );
+
+ if(!to)
+  return toast(
+   "❌ العضو غير موجود"
+  );
+
+ if(to.id===u.id)
+  return toast(
+   "❌ لا يمكنك التحويل لنفسك"
+  );
 
  u.balance-=amount;
+
  to.balance+=amount;
 
- addTransaction(u,"تحويل",-amount,"إلى "+to.name);
- addTransaction(to,"تحويل",amount,"من "+u.name);
+ addTransaction(
+  u,
+  "تحويل",
+  -amount,
+  "إلى "+to.name
+ );
+
+ addTransaction(
+  to,
+  "تحويل",
+  amount,
+  "من "+u.name
+ );
 
  addXP(8);
+
  save();
 
  closeModal("transferModal");
+
  update();
 
- toast("✅ تم تحويل "+amount+" 🧧 إلى "+to.name);
+ toast(
+  "✅ تم تحويل "+amount+
+  " 🧧 إلى "+to.name
+ );
+
 }
 
+
+/* =========================================================
+   GIFT
+   ========================================================= */
+
 function gift(){
+
  const u=current();
- const name=document.getElementById("giftTo").value.trim();
- const amount=Number(document.getElementById("giftAmount").value);
 
- if(!name||!amount||amount<=0)return toast("❌ تحقق من البيانات");
- if(amount>u.balance)return toast("❌ رصيدك غير كافٍ");
+ const name=
+  document
+   .getElementById("giftTo")
+   .value
+   .trim();
 
- const to=data.users.find(x=>x.name.toLowerCase()===name.toLowerCase());
+ const amount=Number(
+  document.getElementById("giftAmount").value
+ );
 
- if(!to)return toast("❌ العضو غير موجود");
- if(to.id===u.id)return toast("❌ لا يمكنك إرسال هدية لنفسك");
+ if(!name || !amount || amount<=0)
+  return toast(
+   "❌ تحقق من البيانات"
+  );
+
+ if(amount>u.balance)
+  return toast(
+   "❌ رصيدك غير كافٍ"
+  );
+
+ const to=
+  data.users.find(
+   x=>x.name.toLowerCase()===name.toLowerCase()
+  );
+
+ if(!to)
+  return toast(
+   "❌ العضو غير موجود"
+  );
+
+ if(to.id===u.id)
+  return toast(
+   "❌ لا يمكنك إرسال هدية لنفسك"
+  );
 
  u.balance-=amount;
+
  to.balance+=amount;
 
- addTransaction(u,"هدية",-amount,"🎁 إلى "+to.name);
- addTransaction(to,"هدية",amount,"🎁 من "+u.name);
+ addTransaction(
+  u,
+  "هدية",
+  -amount,
+  "🎁 إلى "+to.name
+ );
+
+ addTransaction(
+  to,
+  "هدية",
+  amount,
+  "🎁 من "+u.name
+ );
 
  addXP(10);
+
  save();
 
  closeModal("giftModal");
+
  update();
+
  toast("🎁 تم إرسال الهدية");
+
 }
 
+
+/* =========================================================
+   BOX
+   ========================================================= */
+
 function openBox(){
+
  const u=current();
+
  const cost=50;
 
- if(u.balance<cost)return toast("❌ تحتاج 50 🧧");
+ if(u.balance<cost)
+  return toast(
+   "❌ تحتاج 50 🧧"
+  );
 
  u.balance-=cost;
 
- const rewards=[20,40,70,100,150,250,500];
- const reward=rewards[Math.floor(Math.random()*rewards.length)];
+ const rewards=[
+  20,
+  40,
+  70,
+  100,
+  150,
+  250,
+  500
+ ];
+
+ const reward=
+  rewards[
+   Math.floor(
+    Math.random()*rewards.length
+   )
+  ];
 
  u.balance+=reward;
 
- addTransaction(u,"صندوق",reward-cost,"🎁 صندوق — ربح "+reward);
+ addTransaction(
+  u,
+  "صندوق",
+  reward-cost,
+  "🎁 صندوق — ربح "+reward
+ );
+
  addXP(12);
 
  save();
+
  update();
 
- toast("🎁 فتحت الصندوق وربحت "+reward+" 🧧");
+ toast(
+  "🎁 فتحت الصندوق وربحت "+
+  reward+" 🧧"
+ );
+
 }
+
+
+/* =========================================================
+   WHEEL
+   ========================================================= */
 
 let rotation=0;
 
+let wheelBusy=false;
+
 function spinWheel(){
+
  const u=current();
+
  const cost=100;
 
- if(u.balance<cost)return toast("❌ تحتاج 100 🧧");
+ if(wheelBusy)
+  return toast(
+   "⏳ انتظر حتى تنتهي العجلة"
+  );
+
+ if(u.balance<cost)
+  return toast(
+   "❌ تحتاج 100 🧧"
+  );
+
+ wheelBusy=true;
 
  u.balance-=cost;
 
- const rewards=[0,50,100,150,250,400,700,1000];
- const reward=rewards[Math.floor(Math.random()*rewards.length)];
+ const rewards=[
+  0,
+  50,
+  100,
+  150,
+  250,
+  400,
+  700,
+  1000
+ ];
 
- rotation+=1440+Math.floor(Math.random()*360);
+ const reward=
+  rewards[
+   Math.floor(
+    Math.random()*rewards.length
+   )
+  ];
 
- document.getElementById("wheel").style.transform=
+ rotation+=
+  1440+
+  Math.floor(
+   Math.random()*360
+  );
+
+ document
+  .getElementById("wheel")
+  .style.transform=
   "rotate("+rotation+"deg)";
 
  setTimeout(()=>{
+
   u.balance+=reward;
-  addTransaction(u,"عجلة",reward-cost,"🎡 عجلة الحظ — ربح "+reward);
+
+  addTransaction(
+   u,
+   "عجلة",
+   reward-cost,
+   "🎡 عجلة الحظ — ربح "+reward
+  );
+
   addXP(15);
+
   save();
+
   update();
-  toast(reward>0?"🎡 ربحت "+reward+" 🧧":"😢 لم تربح شيئاً");
+
+  wheelBusy=false;
+
+  toast(
+   reward>0
+   ?
+   "🎡 ربحت "+reward+" 🧧"
+   :
+   "😢 لم تربح شيئاً"
+  );
+
  },4000);
+
 }
 
+
+/* =========================================================
+   DICE
+   ========================================================= */
+
 function dice(){
+
  const u=current();
+
  const cost=25;
 
- if(u.balance<cost)return toast("❌ تحتاج 25 🧧");
+ if(u.balance<cost)
+  return toast(
+   "❌ تحتاج 25 🧧"
+  );
 
  u.balance-=cost;
 
- const roll=Math.floor(Math.random()*6)+1;
+ const roll=
+  Math.floor(Math.random()*6)+1;
+
  let reward=0;
 
- if(roll===6)reward=200;
- else if(roll===5)reward=100;
- else if(roll>=3)reward=50;
+ if(roll===6)
+  reward=200;
+
+ else if(roll===5)
+  reward=100;
+
+ else if(roll>=3)
+  reward=50;
 
  u.balance+=reward;
 
- addTransaction(u,"نرد",reward-cost,"🎲 النتيجة "+roll);
+ addTransaction(
+  u,
+  "نرد",
+  reward-cost,
+  "🎲 النتيجة "+roll
+ );
+
  addXP(5);
 
  save();
+
  update();
 
- toast("🎲 النتيجة: "+roll+" — "+(reward?"ربحت "+reward:"لم تربح"));
+ toast(
+  "🎲 النتيجة: "+roll+
+  " — "+
+  (reward
+   ?"ربحت "+reward
+   :"لم تربح")
+ );
+
 }
 
-function daily(){
- const u=current();
- const today=new Date().toISOString().slice(0,10);
 
- if(u.daily===today)return toast("⏳ استلمت مكافأتك اليوم");
+/* =========================================================
+   DAILY
+   ========================================================= */
+
+function daily(){
+
+ const u=current();
+
+ const today=
+  new Date()
+   .toISOString()
+   .slice(0,10);
+
+ if(u.daily===today)
+  return toast(
+   "⏳ استلمت مكافأتك اليوم"
+  );
 
  const reward=250;
 
  u.daily=today;
+
  u.balance+=reward;
 
- addTransaction(u,"يومية",reward,"🎁 المكافأة اليومية");
+ addTransaction(
+  u,
+  "يومية",
+  reward,
+  "🎁 المكافأة اليومية"
+ );
+
  addXP(10);
 
  save();
+
  update();
 
- toast("🎁 استلمت "+reward+" 🧧");
+ toast(
+  "🎁 استلمت "+reward+" 🧧"
+ );
+
 }
+
+
+/* =========================================================
+   CHANGE NAME
+   ========================================================= */
 
 function changeName(){
- const u=current();
- const n=document.getElementById("newName").value.trim();
 
- if(n.length<3)return toast("❌ الاسم قصير");
- if(data.users.some(x=>x.id!==u.id&&x.name.toLowerCase()===n.toLowerCase()))
-  return toast("❌ الاسم مستخدم");
+ const u=current();
+
+ const n=
+  document
+   .getElementById("newName")
+   .value
+   .trim();
+
+ if(n.length<3)
+  return toast(
+   "❌ الاسم قصير"
+  );
+
+ if(
+  data.users.some(
+   x=>
+    x.id!==u.id &&
+    x.name.toLowerCase()===n.toLowerCase()
+  )
+ )
+  return toast(
+   "❌ الاسم مستخدم"
+  );
 
  u.name=n;
+
  save();
+
  update();
- toast("✅ تم تغيير الاسم");
+
+ toast(
+  "✅ تم تغيير الاسم"
+ );
+
 }
+
+
+/* =========================================================
+   ADMIN ADD
+   ========================================================= */
 
 function adminAdd(id){
+
  const u=current();
- if(!u.admin)return toast("❌ غير مصرح");
 
- const target=data.users.find(x=>x.id===id);
- if(!target)return;
+ if(!u.admin)
+  return toast(
+   "❌ غير مصرح"
+  );
 
- const amount=Number(prompt("أدخل المبلغ الذي تريد إضافته:"));
- if(!amount||amount<=0)return;
+ const target=
+  data.users.find(
+   x=>x.id===id
+  );
+
+ if(!target)
+  return;
+
+ const amount=Number(
+  prompt(
+   "أدخل المبلغ الذي تريد إضافته:"
+  )
+ );
+
+ if(!amount || amount<=0)
+  return;
 
  target.balance+=amount;
- addTransaction(target,"إدارة",amount,"👑 إضافة من الإدارة");
+
+ addTransaction(
+  target,
+  "إدارة",
+  amount,
+  "👑 إضافة من الإدارة"
+ );
 
  save();
+
  update();
- toast("✅ تمت إضافة العملات");
+
+ toast(
+  "✅ تمت إضافة العملات"
+ );
+
 }
+
+
+/* =========================================================
+   ADMIN REMOVE
+   ========================================================= */
 
 function adminRemove(id){
+
  const u=current();
- if(!u.admin)return toast("❌ غير مصرح");
 
- const target=data.users.find(x=>x.id===id);
- if(!target)return;
+ if(!u.admin)
+  return toast(
+   "❌ غير مصرح"
+  );
 
- const amount=Number(prompt("أدخل المبلغ الذي تريد خصمه:"));
- if(!amount||amount<=0)return;
+ const target=
+  data.users.find(
+   x=>x.id===id
+  );
 
- target.balance=Math.max(0,target.balance-amount);
- addTransaction(target,"إدارة",-amount,"👑 خصم من الإدارة");
+ if(!target)
+  return;
+
+ const amount=Number(
+  prompt(
+   "أدخل المبلغ الذي تريد خصمه:"
+  )
+ );
+
+ if(!amount || amount<=0)
+  return;
+
+ target.balance=
+  Math.max(
+   0,
+   target.balance-amount
+  );
+
+ addTransaction(
+  target,
+  "إدارة",
+  -amount,
+  "👑 خصم من الإدارة"
+ );
 
  save();
+
  update();
- toast("✅ تم خصم العملات");
+
+ toast(
+  "✅ تم خصم العملات"
+ );
+
 }
 
-function update(){
- const u=current();
- if(!u)return;
 
- document.getElementById("headerName").textContent=u.name;
- document.getElementById("avatar").textContent=u.name.charAt(0).toUpperCase();
+/* =========================================================
+   STORE — 100 PRODUCTS
+   ========================================================= */
 
- const level=getLevel(u);
- const rank=getRank(u);
+const productIcons=[
+ "👑",
+ "💎",
+ "🔥",
+ "⚡",
+ "🐉",
+ "🛡️",
+ "⚔️",
+ "🎖️",
+ "🏆",
+ "🌟"
+];
 
- document.getElementById("balance").textContent=u.balance.toLocaleString();
- document.getElementById("level").textContent=level;
- document.getElementById("xp").textContent=u.xp;
- document.getElementById("rankName").textContent=rank;
+const productNames=[
+ "لقب الأسطورة",
+ "لقب الإمبراطور",
+ "لقب الشوغون",
+ "لقب الساموراي",
+ "لقب التنين",
+ "لقب النخبة",
+ "لقب المحارب",
+ "لقب الزعيم",
+ "لقب الملك",
+ "لقب الأسطوري"
+];
 
- document.getElementById("walletBalance").textContent=
-  u.balance.toLocaleString()+" 🧧";
+const productCategories=[
+ "titles",
+ "badges",
+ "items",
+ "boosts"
+];
 
- document.getElementById("transactionCount").textContent=
-  u.transactions.length;
+const products=[];
 
- document.getElementById("profileName").textContent=u.name;
- document.getElementById("profileId").textContent=u.id;
- document.getElementById("profileLevel").textContent=level;
- document.getElementById("profileXP").textContent=u.xp;
+for(let i=1;i<=100;i++){
 
- document.getElementById("xpText").textContent=
-  u.xp+" / 100 XP";
+ let category=
+  productCategories[
+   (i-1)%productCategories.length
+  ];
 
- document.getElementById("xpBar").style.width=u.xp+"%";
+ let icon=
+  productIcons[
+   (i-1)%productIcons.length
+  ];
 
- const recent=document.getElementById("recent");
+ let name;
 
- if(!u.transactions.length){
-  recent.innerHTML='<tr><td colspan="3" class="empty">لا توجد عمليات</td></tr>';
- }else{
-  recent.innerHTML=u.transactions.slice(0,5).map(t=>`
-   <tr>
-    <td>${t.type}</td>
-    <td class="${t.amount>=0?'gold':'red'}">
-     ${t.amount>=0?'+':''}${t.amount.toLocaleString()} 🧧
-    </td>
-    <td>${t.date}</td>
-   </tr>
-  `).join("");
+ if(category==="titles"){
+
+  name=
+   productNames[
+    (i-1)%productNames.length
+   ]+
+   " #"+i;
+
  }
 
- document.getElementById("allTransactions").innerHTML=
-  u.transactions.length?
-  u.transactions.map(t=>`
-   <tr>
-    <td>${t.type}</td>
-    <td class="${t.amount>=0?'gold':'red'}">
-     ${t.amount>=0?'+':''}${t.amount.toLocaleString()} 🧧
-    </td>
-    <td>${t.details}</td>
-    <td>${t.date}</td>
-   </tr>
-  `).join("")
-  :
-  '<tr><td colspan="4" class="empty">لا توجد عمليات</td></tr>';
+ else if(category==="badges"){
 
- const sorted=[...data.users].sort((a,b)=>b.balance-a.balance);
+  name=
+   "شارة النخبة #"+i;
 
- document.getElementById("leaderboard").innerHTML=sorted.map((x,i)=>`
-  <tr>
-   <td>${i===0?"🥇":i===1?"🥈":i===2?"🥉":i+1}</td>
-   <td>${x.name}</td>
-   <td>${getLevel(x)}</td>
-   <td class="gold">${x.balance.toLocaleString()} 🧧</td>
-   <td><span class="badge">${getRank(x)}</span></td>
-  </tr>
- `).join("");
+ }
 
- document.getElementById("adminNav").style.display=
-  u.admin?"block":"none";
+ else if(category==="items"){
 
- if(u.admin)updateAdmin();
+  name=
+   "صندوق S.U.N #"+i;
+
+ }
+
+ else{
+
+  name=
+   "تعزيز XP ×"+
+   ((i%5)+1)+
+   " #"+i;
+
+ }
+
+ let price=
+  50+(i*25);
+
+ products.push({
+
+  id:
+   "SHOP-"+
+   String(i).padStart(3,"0"),
+
+  name,
+
+  icon,
+
+  category,
+
+  price,
+
+  description:
+   category==="titles"
+   ?
+   "لقب مميز يظهر في حسابك."
+   :
+   category==="badges"
+   ?
+   "شارة خاصة للملف الشخصي."
+   :
+   category==="items"
+   ?
+   "منتج مميز من متجر S.U.N TOKYO."
+   :
+   "تعزيز خاص للحصول على XP إضافي.",
+
+  stock:true
+
+ });
+
 }
+
+
+let storeCategory="all";
+
+
+/* =========================================================
+   STORE CATEGORY
+   ========================================================= */
+
+function setStoreCategory(
+ category,
+ btn
+){
+
+ storeCategory=category;
+
+ document
+  .querySelectorAll(".category-btn")
+  .forEach(
+   b=>b.classList.remove("active")
+  );
+
+ if(btn)
+  btn.classList.add("active");
+
+ renderStore();
+
+}
+
+
+/* =========================================================
+   RENDER STORE
+   ========================================================= */
+
+function renderStore(){
+
+ const box=
+  document.getElementById("products");
+
+ if(!box)
+  return;
+
+ const search=
+  (
+   document
+    .getElementById("storeSearch")
+    ?.value || ""
+  )
+  .trim()
+  .toLowerCase();
+
+ const u=current();
+
+ const list=
+  products.filter(p=>{
+
+   const categoryOK=
+    storeCategory==="all" ||
+    p.category===storeCategory;
+
+   const searchOK=
+    !search ||
+    p.name
+     .toLowerCase()
+     .includes(search) ||
+    p.description
+     .toLowerCase()
+     .includes(search);
+
+   return categoryOK && searchOK;
+
+  });
+
+ if(!list.length){
+
+  box.innerHTML=
+   `
+   <div
+    class="empty"
+    style="grid-column:1/-1">
+
+    لا توجد منتجات
+
+   </div>
+   `;
+
+  return;
+
+ }
+
+ box.innerHTML=
+  list.map(p=>{
+
+   const owned=
+    u &&
+    u.inventory &&
+    u.inventory.some(
+     x=>x.productId===p.id
+    );
+
+   return `
+
+    <div class="product">
+
+     ${
+      owned
+      ?
+      '<div class="product-owned">مملوك ✓</div>'
+      :
+      ''
+     }
+
+     <div class="product-icon">
+      ${p.icon}
+     </div>
+
+     <h3>
+      ${p.name}
+     </h3>
+
+     <p>
+      ${p.description}
+     </p>
+
+     <div class="product-price">
+      ${p.price.toLocaleString()} 🧧
+     </div>
+
+     <button
+      class="btn ${owned?'secondary':''}"
+      onclick="buyProduct('${p.id}')">
+
+      ${owned
+       ?"شراء مرة أخرى"
+       :"شراء"}
+
+     </button>
+
+    </div>
+
+   `;
+
+  }).join("");
+
+}
+
+
+/* =========================================================
+   BUY PRODUCT
+   ========================================================= */
+
+function buyProduct(id){
+
+ const u=current();
+
+ if(!u)
+  return;
+
+ const product=
+  products.find(
+   p=>p.id===id
+  );
+
+ if(!product)
+  return toast(
+   "❌ المنتج غير موجود"
+  );
+
+ if(u.balance<product.price)
+  return toast(
+   "❌ رصيدك غير كافٍ"
+  );
+
+ if(!u.inventory)
+  u.inventory=[];
+
+ u.balance-=product.price;
+
+ u.inventory.unshift({
+
+  productId:product.id,
+
+  name:product.name,
+
+  icon:product.icon,
+
+  category:product.category,
+
+  purchasedAt:
+   new Date()
+    .toLocaleString("ar-EG")
+
+ });
+
+ addTransaction(
+  u,
+  "متجر",
+  -product.price,
+  "🛒 شراء "+product.name
+ );
+
+ addXP(10);
+
+ save();
+
+ update();
+
+ renderStore();
+
+ renderInventory();
+
+ toast(
+  "🛒 تم شراء "+
+  product.name+
+  " مقابل "+
+  product.price+
+  " 🧧"
+ );
+
+}
+
+
+/* =========================================================
+   INVENTORY
+   ========================================================= */
+
+function renderInventory(){
+
+ const box=
+  document.getElementById("inventoryList");
+
+ if(!box)
+  return;
+
+ const u=current();
+
+ if(
+  !u ||
+  !u.inventory ||
+  !u.inventory.length
+ ){
+
+  box.innerHTML=
+   `
+   <div
+    class="empty"
+    style="grid-column:1/-1">
+
+    🎒 المخزن فارغ
+
+    <br>
+
+    <small>
+     اذهب إلى المتجر لشراء المنتجات.
+    </small>
+
+   </div>
+   `;
+
+  return;
+ }
+
+ box.innerHTML=
+  u.inventory.map(item=>`
+
+   <div class="inventory-item">
+
+    <div class="icon">
+     ${item.icon}
+    </div>
+
+    <b>
+     ${item.name}
+    </b>
+
+    <br>
+
+    <small>
+     تم الشراء:
+     <br>
+     ${item.purchasedAt}
+    </small>
+
+   </div>
+
+  `).join("");
+
+}
+
+
+/* =========================================================
+   GAME PAYMENT
+   ========================================================= */
+
+function gamePay(cost){
+
+ const u=current();
+
+ if(!u)
+  return false;
+
+ if(u.balance<cost){
+
+  toast(
+   "❌ تحتاج "+cost+" 🧧"
+  );
+
+  return false;
+ }
+
+ u.balance-=cost;
+
+ return true;
+
+}
+
+
+/* =========================================================
+   GAME FINISH
+   ========================================================= */
+
+function gameFinish(
+ type,
+ cost,
+ reward,
+ details,
+ resultId
+){
+
+ const u=current();
+
+ u.balance+=reward;
+
+ addTransaction(
+  u,
+  type,
+  reward-cost,
+  details
+ );
+
+ addXP(5);
+
+ save();
+
+ update();
+
+ if(resultId){
+
+  document
+   .getElementById(resultId)
+   .textContent=
+    reward>cost
+    ?
+    "🎉 ربحت "+reward+" 🧧"
+    :
+    "😢 خسرت هذه الجولة";
+
+ }
+
+ return reward;
+
+}
+
+
+/* =========================================================
+   SLOT
+   ========================================================= */
+
+function slots(){
+
+ const cost=50;
+
+ if(!gamePay(cost))
+  return;
+
+ const symbols=[
+  "🍒",
+  "🍋",
+  "💎",
+  "7️⃣",
+  "👑"
+ ];
+
+ const a=
+  symbols[
+   Math.floor(
+    Math.random()*symbols.length
+   )
+  ];
+
+ const b=
+  symbols[
+   Math.floor(
+    Math.random()*symbols.length
+   )
+  ];
+
+ const c=
+  symbols[
+   Math.floor(
+    Math.random()*symbols.length
+   )
+  ];
+
+ let reward=0;
+
+ if(a===b && b===c){
+
+  if(a==="7️⃣")
+   reward=1000;
+
+  else if(a==="👑")
+   reward=700;
+
+  else if(a==="💎")
+   reward=500;
+
+  else
+   reward=250;
+
+ }
+
+ else if(
+  a===b ||
+  b===c ||
+  a===c
+ ){
+
+  reward=100;
+
+ }
+
+ gameFinish(
+  "سلوت",
+  cost,
+  reward,
+  "🎰 "+a+" "+b+" "+c,
+  "slotsResult"
+ );
+
+ document
+  .getElementById("slotsResult")
+  .textContent=
+   "🎰 "+
+   a+" | "+
+   b+" | "+
+   c+
+   " — "+
+   (
+    reward
+    ?
+    "ربحت "+reward+" 🧧"
+    :
+    "خسارة"
+   );
+
+}
+
+
+/* =========================================================
+   COIN FLIP
+   ========================================================= */
+
+function coinFlip(){
+
+ const cost=50;
+
+ if(!gamePay(cost))
+  return;
+
+ const choice=
+  prompt(
+   "اختر:\n1 = وجه\n2 = كتابة"
+  );
+
+ if(
+  choice!=="1" &&
+  choice!=="2"
+ ){
+
+  current().balance+=cost;
+
+  save();
+
+  update();
+
+  return toast(
+   "تم إلغاء اللعبة"
+  );
+
+ }
+
+ const result=
+  Math.random()<.5
+  ?"1"
+  :"2";
+
+ const win=
+  choice===result;
+
+ const reward=
+  win
+  ?100
+  :0;
+
+ gameFinish(
+  "عملة",
+  cost,
+  reward,
+  win
+  ?"🪙 فوز"
+  :"🪙 خسارة",
+  "coinResult"
+ );
+
+ document
+  .getElementById("coinResult")
+  .textContent=
+   win
+   ?
+   "🪙 فزت! +100 🧧"
+   :
+   "🪙 خسرت الجولة";
+
+}
+
+
+/* =========================================================
+   GUESS NUMBER
+   ========================================================= */
+
+function guessNumber(){
+
+ const cost=30;
+
+ if(!gamePay(cost))
+  return;
+
+ const guess=
+  Number(
+   prompt(
+    "اختر رقماً من 1 إلى 10"
+   )
+  );
+
+ if(
+  !Number.isInteger(guess) ||
+  guess<1 ||
+  guess>10
+ ){
+
+  current().balance+=cost;
+
+  save();
+
+  update();
+
+  return toast(
+   "❌ رقم غير صحيح"
+  );
+
+ }
+
+ const number=
+  Math.floor(
+   Math.random()*10
+  )+1;
+
+ let reward=0;
+
+ if(guess===number)
+  reward=300;
+
+ else if(
+  Math.abs(
+   guess-number
+  )===1
+ )
+  reward=75;
+
+ gameFinish(
+  "تخمين",
+  cost,
+  reward,
+  "🔢 الرقم كان "+number,
+  "guessResult"
+ );
+
+ document
+  .getElementById("guessResult")
+  .textContent=
+   "🎯 الرقم: "+
+   number+
+   (
+    reward
+    ?
+    " — ربحت "+reward+" 🧧"
+    :
+    " — لم تفز"
+   );
+
+}
+
+
+/* =========================================================
+   HIGH LOW
+   ========================================================= */
+
+let highLowNumber=5;
+
+function highLow(choice){
+
+ const cost=40;
+
+ if(!gamePay(cost))
+  return;
+
+ const old=highLowNumber;
+
+ const next=
+  Math.floor(
+   Math.random()*10
+  )+1;
+
+ let win=false;
+
+ if(choice==="high")
+  win=next>old;
+
+ if(choice==="low")
+  win=next<old;
+
+ const reward=
+  win
+  ?90
+  :0;
+
+ highLowNumber=next;
+
+ gameFinish(
+  "أعلى/أدنى",
+  cost,
+  reward,
+  "🃏 "+old+" → "+next,
+  "highLowResult"
+ );
+
+ document
+  .getElementById("highLowResult")
+  .textContent=
+   old+
+   " → "+
+   next+
+   (
+    win
+    ?
+    " 🎉 فوز +90"
+    :
+    " 😢 خسارة"
+   );
+
+}
+
+
+/* =========================================================
+   RPS
+   ========================================================= */
+
+function rps(player){
+
+ const cost=25;
+
+ if(!gamePay(cost))
+  return;
+
+ const choices=[
+  "rock",
+  "paper",
+  "scissors"
+ ];
+
+ const bot=
+  choices[
+   Math.floor(
+    Math.random()*3
+   )
+  ];
+
+ let win=false;
+
+ if(player===bot){
+
+  win=null;
+
+ }
+
+ else if(
+
+  (
+   player==="rock" &&
+   bot==="scissors"
+  )
+
+  ||
+
+  (
+   player==="paper" &&
+   bot==="rock"
+  )
+
+  ||
+
+  (
+   player==="scissors" &&
+   bot==="paper"
+  )
+
+ ){
+
+  win=true;
+
+ }
+
+ const reward=
+  win===true
+  ?75
+  :
+  win===null
+  ?25
+  :
+  0;
+
+ gameFinish(
+  "حجر ورق مقص",
+  cost,
+  reward,
+  "✊ اللاعب "+player+
+  " ضد "+bot,
+  "rpsResult"
+ );
+
+ document
+  .getElementById("rpsResult")
+  .textContent=
+   win===true
+   ?
+   "🎉 فزت +75 🧧"
+   :
+   win===null
+   ?
+   "🤝 تعادل"
+   :
+   "😢 خسرت";
+
+}
+
+
+/* =========================================================
+   TARGET
+   ========================================================= */
+
+function targetGame(){
+
+ const cost=75;
+
+ if(!gamePay(cost))
+  return;
+
+ const chance=
+  Math.random();
+
+ let reward=0;
+
+ if(chance<.05)
+  reward=1000;
+
+ else if(chance<.20)
+  reward=300;
+
+ else if(chance<.50)
+  reward=120;
+
+ gameFinish(
+  "الهدف",
+  cost,
+  reward,
+  "🎯 رمية الهدف",
+  "targetResult"
+ );
+
+ document
+  .getElementById("targetResult")
+  .textContent=
+   reward
+   ?
+   "🎯 أصبت الهدف! +"+
+   reward+
+   " 🧧"
+   :
+   "🎯 أخطأت الهدف";
+
+}
+
+
+/* =========================================================
+   JACKPOT
+   ========================================================= */
+
+function jackpot(){
+
+ const cost=200;
+
+ if(!gamePay(cost))
+  return;
+
+ const chance=
+  Math.random();
+
+ let reward=0;
+
+ if(chance<.01)
+  reward=5000;
+
+ else if(chance<.05)
+  reward=1500;
+
+ else if(chance<.15)
+  reward=500;
+
+ else if(chance<.35)
+  reward=250;
+
+ gameFinish(
+  "Jackpot",
+  cost,
+  reward,
+  "💎 محاولة Jackpot",
+  "jackpotResult"
+ );
+
+ document
+  .getElementById("jackpotResult")
+  .textContent=
+   reward
+   ?
+   "💎 JACKPOT! +"+
+   reward+
+   " 🧧"
+   :
+   "💔 لم تفز";
+
+}
+
+
+/* =========================================================
+   LOTTERY
+   ========================================================= */
+
+function lottery(){
+
+ const cost=100;
+
+ if(!gamePay(cost))
+  return;
+
+ const number=
+  Math.floor(
+   Math.random()*5
+  )+1;
+
+ const lucky=
+  Math.floor(
+   Math.random()*5
+  )+1;
+
+ let reward=0;
+
+ if(number===lucky)
+  reward=1000;
+
+ else
+  reward=50;
+
+ gameFinish(
+  "يانصيب",
+  cost,
+  reward,
+  "🎟️ رقمك "+
+  number+
+  " — الفائز "+
+  lucky,
+  "lotteryResult"
+ );
+
+ document
+  .getElementById("lotteryResult")
+  .textContent=
+   "🎟️ رقمك "+
+   number+
+   " | الفائز "+
+   lucky+
+   (
+    reward===1000
+    ?
+    " — 🎉 JACKPOT"
+    :
+    " — +50 🧧"
+   );
+
+}
+
+
+/* =========================================================
+   SCRATCH
+   ========================================================= */
+
+function scratch(){
+
+ const cost=60;
+
+ if(!gamePay(cost))
+  return;
+
+ const rewards=[
+  0,
+  0,
+  25,
+  50,
+  75,
+  100,
+  150,
+  250,
+  500
+ ];
+
+ const reward=
+  rewards[
+   Math.floor(
+    Math.random()*rewards.length
+   )
+  ];
+
+ gameFinish(
+  "بطاقة خدش",
+  cost,
+  reward,
+  "🃏 بطاقة خدش",
+  "scratchResult"
+ );
+
+ document
+  .getElementById("scratchResult")
+  .textContent=
+   reward
+   ?
+   "🃏 كشفت البطاقة: +"+
+   reward+
+   " 🧧"
+   :
+   "🃏 البطاقة فارغة 😢";
+
+}
+
+
+/* =========================================================
+   ADMIN UPDATE
+   ========================================================= */
 
 function updateAdmin(){
- const total=data.users.reduce((s,u)=>s+u.balance,0);
- const transactions=data.users.reduce((s,u)=>s+u.transactions.length,0);
 
- document.getElementById("usersCount").textContent=data.users.length;
- document.getElementById("totalMoney").textContent=total.toLocaleString();
- document.getElementById("adminTransactions").textContent=transactions;
+ const total=
+  data.users.reduce(
+   (s,u)=>s+u.balance,
+   0
+  );
 
- document.getElementById("adminUsers").innerHTML=data.users.map(u=>`
-  <tr>
-   <td>${u.name}${u.admin?" 👑":""}</td>
-   <td class="gold">${u.balance.toLocaleString()}</td>
-   <td>${getLevel(u)}</td>
-   <td>
-    <button class="btn" onclick="adminAdd('${u.id}')">+</button>
-    <button class="btn secondary" onclick="adminRemove('${u.id}')">−</button>
-   </td>
-  </tr>
- `).join("");
+ const transactions=
+  data.users.reduce(
+   (s,u)=>s+u.transactions.length,
+   0
+  );
+
+ document
+  .getElementById("usersCount")
+  .textContent=
+   data.users.length;
+
+ document
+  .getElementById("totalMoney")
+  .textContent=
+   total.toLocaleString();
+
+ document
+  .getElementById("adminTransactions")
+  .textContent=
+   transactions;
+
+ document
+  .getElementById("adminUsers")
+  .innerHTML=
+   data.users.map(u=>`
+
+    <tr>
+
+     <td>
+      ${u.name}
+      ${u.admin?" 👑":""}
+     </td>
+
+     <td class="gold">
+      ${u.balance.toLocaleString()}
+     </td>
+
+     <td>
+      ${getLevel(u)}
+     </td>
+
+     <td>
+
+      <button
+       class="btn"
+       onclick="adminAdd('${u.id}')">
+       +
+      </button>
+
+      <button
+       class="btn secondary"
+       onclick="adminRemove('${u.id}')">
+       −
+      </button>
+
+     </td>
+
+    </tr>
+
+   `).join("");
+
 }
 
-/* بدء النظام */
+
+/* =========================================================
+   MAIN UPDATE
+   ========================================================= */
+
+function update(){
+
+ const u=current();
+
+ if(!u)
+  return;
+
+ document
+  .getElementById("headerName")
+  .textContent=
+   u.name;
+
+ document
+  .getElementById("avatar")
+  .textContent=
+   u.name
+    .charAt(0)
+    .toUpperCase();
+
+ const level=
+  getLevel(u);
+
+ const rank=
+  getRank(u);
+
+ document
+  .getElementById("balance")
+  .textContent=
+   u.balance.toLocaleString();
+
+ document
+  .getElementById("level")
+  .textContent=
+   level;
+
+ document
+  .getElementById("xp")
+  .textContent=
+   u.xp;
+
+ document
+  .getElementById("rankName")
+  .textContent=
+   rank;
+
+ document
+  .getElementById("walletBalance")
+  .textContent=
+   u.balance.toLocaleString()+
+   " 🧧";
+
+ document
+  .getElementById("transactionCount")
+  .textContent=
+   u.transactions.length;
+
+ document
+  .getElementById("profileName")
+  .textContent=
+   u.name;
+
+ document
+  .getElementById("profileId")
+  .textContent=
+   u.id;
+
+ document
+  .getElementById("profileLevel")
+  .textContent=
+   level;
+
+ document
+  .getElementById("profileXP")
+  .textContent=
+   u.xp;
+
+ document
+  .getElementById("xpText")
+  .textContent=
+   u.xp+
+   " / 100 XP";
+
+ document
+  .getElementById("xpBar")
+  .style.width=
+   u.xp+"%";
+
+
+ /* ================= RECENT ================= */
+
+ const recent=
+  document.getElementById("recent");
+
+ if(!u.transactions.length){
+
+  recent.innerHTML=
+   `
+   <tr>
+    <td
+     colspan="3"
+     class="empty">
+     لا توجد عمليات
+    </td>
+   </tr>
+   `;
+
+ }
+
+ else{
+
+  recent.innerHTML=
+   u.transactions
+    .slice(0,5)
+    .map(t=>`
+
+     <tr>
+
+      <td>
+       ${t.type}
+      </td>
+
+      <td
+       class="${t.amount>=0?'gold':'red'}">
+
+       ${t.amount>=0?'+':''}
+       ${t.amount.toLocaleString()}
+       🧧
+
+      </td>
+
+      <td>
+       ${t.date}
+      </td>
+
+     </tr>
+
+    `)
+    .join("");
+
+ }
+
+
+ /* ================= ALL TRANSACTIONS ================= */
+
+ const all=
+  document.getElementById(
+   "allTransactions"
+  );
+
+ if(u.transactions.length){
+
+  all.innerHTML=
+   u.transactions
+    .map(t=>`
+
+     <tr>
+
+      <td>
+       ${t.type}
+      </td>
+
+      <td
+       class="${t.amount>=0?'gold':'red'}">
+
+       ${t.amount>=0?'+':''}
+       ${t.amount.toLocaleString()}
+       🧧
+
+      </td>
+
+      <td>
+       ${t.details}
+      </td>
+
+      <td>
+       ${t.date}
+      </td>
+
+     </tr>
+
+    `)
+    .join("");
+
+ }
+
+ else{
+
+  all.innerHTML=
+   `
+   <tr>
+    <td
+     colspan="4"
+     class="empty">
+     لا توجد عمليات
+    </td>
+   </tr>
+   `;
+
+ }
+
+
+ /* ================= LEADERBOARD ================= */
+
+ const sorted=
+  [...data.users]
+   .sort(
+    (a,b)=>b.balance-a.balance
+   );
+
+ document
+  .getElementById("leaderboard")
+  .innerHTML=
+   sorted.map((x,i)=>`
+
+    <tr>
+
+     <td>
+      ${
+       i===0
+       ?"🥇"
+       :
+       i===1
+       ?"🥈"
+       :
+       i===2
+       ?"🥉"
+       :
+       i+1
+      }
+     </td>
+
+     <td>
+      ${x.name}
+     </td>
+
+     <td>
+      ${getLevel(x)}
+     </td>
+
+     <td class="gold">
+      ${x.balance.toLocaleString()}
+      🧧
+     </td>
+
+     <td>
+
+      <span class="badge">
+       ${getRank(x)}
+      </span>
+
+     </td>
+
+    </tr>
+
+   `)
+   .join("");
+
+
+ /* ================= ADMIN NAV ================= */
+
+ document
+  .getElementById("adminNav")
+  .style.display=
+   u.admin
+   ?"block"
+   :"none";
+
+ if(u.admin)
+  updateAdmin();
+
+
+ /* ================= STORE ================= */
+
+ renderStore();
+
+ renderInventory();
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL BY CLICKING OUTSIDE
+   ========================================================= */
+
+document
+ .querySelectorAll(".modal")
+ .forEach(modal=>{
+
+  modal.addEventListener(
+   "click",
+   e=>{
+
+    if(e.target===modal)
+     modal.classList.remove("show");
+
+   }
+  );
+
+ });
+
+
+/* =========================================================
+   ESC KEY
+   ========================================================= */
+
+document.addEventListener(
+ "keydown",
+ e=>{
+
+  if(e.key==="Escape"){
+
+   document
+    .querySelectorAll(".modal.show")
+    .forEach(
+     m=>m.classList.remove("show")
+    );
+
+  }
+
+ });
+
+
+/* =========================================================
+   START SYSTEM
+   ========================================================= */
+
 if(data.current){
- document.getElementById("auth").classList.add("hidden");
+
+ document
+  .getElementById("auth")
+  .classList.add("hidden");
+
  update();
-}else{
- document.getElementById("auth").classList.remove("hidden");
+
 }
+else{
+
+ document
+  .getElementById("auth")
+  .classList.remove("hidden");
+
+}
+
 </script>
 
 </body>
