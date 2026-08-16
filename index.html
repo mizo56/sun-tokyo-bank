@@ -1739,6 +1739,63 @@ textarea:focus{
 
 
 <script>
+ window.login = function(){
+
+ const username =
+  document.getElementById('loginName').value.trim();
+
+ const pass =
+  document.getElementById('loginPass').value;
+
+ if(!username || !pass){
+  alert('اكتب اسم المستخدم وكلمة المرور');
+  return;
+ }
+
+ if(
+  typeof db === 'undefined' ||
+  !db ||
+  !Array.isArray(db.users)
+ ){
+  alert('بيانات المستخدمين غير متاحة');
+  return;
+ }
+
+ const user = db.users.find(
+  u =>
+   String(u.username || '').toLowerCase() ===
+   username.toLowerCase() &&
+   String(u.password || '') === pass
+ );
+
+ if(!user){
+  alert('اسم المستخدم أو كلمة المرور غير صحيحة');
+  return;
+ }
+
+ currentUser = user;
+
+ localStorage.setItem(
+  'SUN_CURRENT_USER',
+  String(user.id)
+ );
+
+ const auth =
+  document.getElementById('auth');
+
+ if(auth){
+  auth.classList.add('hidden');
+ }
+
+ if(typeof updateHeader === 'function'){
+  updateHeader();
+ }
+
+ if(typeof page === 'function'){
+  page('home');
+ }
+
+};
 /* =====================================================
    DATA
 ===================================================== */
