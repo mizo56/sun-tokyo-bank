@@ -1,8 +1,8 @@
-```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -16,19 +16,32 @@
   padding:0;
 }
 
-html,body{
+html,
+body{
   min-height:100%;
 }
 
 body{
-  font-family:Arial,Tahoma,sans-serif;
+
+  font-family:
+    Arial,
+    Tahoma,
+    sans-serif;
+
   background:
-    radial-gradient(circle at top,#241000 0,#090909 45%,#000 100%);
+    radial-gradient(
+      circle at top,
+      #241000 0,
+      #090909 45%,
+      #000 100%
+    );
+
   color:#fff;
   min-height:100vh;
 }
 
-button,input{
+button,
+input{
   font-family:inherit;
 }
 
@@ -36,37 +49,64 @@ button{
   cursor:pointer;
 }
 
+button:disabled{
+  cursor:not-allowed;
+  opacity:.6;
+}
+
 .hidden{
   display:none !important;
 }
 
 .container{
-  width:min(1200px,calc(100% - 30px));
+  width:min(
+    1200px,
+    calc(100% - 30px)
+  );
+
   margin:auto;
 }
 
 .card{
-  background:rgba(20,20,20,.94);
-  border:1px solid rgba(255,193,7,.18);
+
+  background:
+    rgba(20,20,20,.94);
+
+  border:
+    1px solid
+    rgba(255,193,7,.18);
+
   border-radius:18px;
+
   padding:20px;
-  box-shadow:0 10px 35px rgba(0,0,0,.35);
+
+  box-shadow:
+    0 10px 35px
+    rgba(0,0,0,.35);
 }
 
 .card-title{
+
   font-size:20px;
   font-weight:900;
+
   margin-bottom:15px;
+
   color:#ffd54f;
 }
 
 .btn{
+
   border:0;
   border-radius:12px;
+
   padding:13px 18px;
+
   font-weight:900;
+
   color:#fff;
   background:#222;
+
   transition:.2s;
 }
 
@@ -74,18 +114,19 @@ button{
   transform:translateY(-2px);
 }
 
-.btn:disabled{
-  opacity:.6;
-  cursor:not-allowed;
-  transform:none;
-}
-
 .full{
   width:100%;
 }
 
 .goldbtn{
-  background:linear-gradient(135deg,#ff9800,#ffd54f);
+
+  background:
+    linear-gradient(
+      135deg,
+      #ff9800,
+      #ffd54f
+    );
+
   color:#111;
 }
 
@@ -102,13 +143,23 @@ button{
 }
 
 input{
+
   width:100%;
+
   padding:13px;
+
   margin:6px 0;
-  border:1px solid #333;
+
+  border:
+    1px solid
+    #333;
+
   border-radius:11px;
+
   background:#0d0d0d;
+
   color:#fff;
+
   outline:none;
 }
 
@@ -117,30 +168,48 @@ input:focus{
 }
 
 #auth{
+
   min-height:100vh;
+
   display:flex;
+
   align-items:center;
   justify-content:center;
+
   padding:20px;
 }
 
 .auth-box{
-  width:min(430px,100%);
+
+  width:min(
+    430px,
+    100%
+  );
 }
 
 .logo{
+
   text-align:center;
+
   font-size:30px;
+
   font-weight:900;
+
   color:#ffd54f;
+
   margin-bottom:20px;
 }
 
 .message{
+
   margin-top:10px;
+
   padding:10px;
+
   border-radius:10px;
+
   text-align:center;
+
   display:none;
 }
 
@@ -154,72 +223,133 @@ input:focus{
   background:#075c1b;
 }
 
+.status{
+
+  margin-top:15px;
+
+  text-align:center;
+
+  color:#aaa;
+
+  font-size:13px;
+}
+
 .topbar{
+
   position:sticky;
   top:0;
   z-index:100;
-  background:rgba(5,5,5,.95);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid rgba(255,193,7,.15);
+
+  background:
+    rgba(5,5,5,.95);
+
+  backdrop-filter:
+    blur(12px);
+
+  border-bottom:
+    1px solid
+    rgba(255,193,7,.15);
 }
 
 .topbar-inner{
-  width:min(1200px,calc(100% - 30px));
+
+  width:min(
+    1200px,
+    calc(100% - 30px)
+  );
+
   margin:auto;
+
   padding:14px 0;
+
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
+
   gap:10px;
 }
 
 .brand{
+
   color:#ffd54f;
+
   font-weight:900;
 }
 
 .user-info{
+
   color:#ddd;
+
   font-weight:700;
 }
 
 .separator{
+
   margin:0 8px;
+
   color:#555;
 }
 
 nav{
-  width:min(1200px,calc(100% - 30px));
+
+  width:min(
+    1200px,
+    calc(100% - 30px)
+  );
+
   margin:auto;
+
   padding:10px 0;
+
   display:flex;
+
   gap:8px;
+
   overflow-x:auto;
+
   scrollbar-width:thin;
 }
 
 nav button{
+
   white-space:nowrap;
+
   border:0;
+
   border-radius:10px;
+
   padding:10px 14px;
+
   background:#171717;
+
   color:#ccc;
+
   transition:.2s;
 }
 
 nav button:hover{
+
   background:#292929;
+
   transform:translateY(-1px);
 }
 
 nav button.active{
+
   background:#ffd54f;
+
   color:#111;
 }
 
 main{
-  width:min(1200px,calc(100% - 30px));
+
+  width:min(
+    1200px,
+    calc(100% - 30px)
+  );
+
   margin:20px auto;
 }
 
@@ -232,17 +362,31 @@ main{
 }
 
 .grid{
+
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(220px,1fr)
+    );
+
   gap:15px;
 }
 
 .stat{
+
   display:flex;
+
   justify-content:space-between;
+
   align-items:center;
+
   padding:12px 0;
-  border-bottom:1px solid rgba(255,255,255,.08);
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.08);
 }
 
 .stat-name{
@@ -250,8 +394,11 @@ main{
 }
 
 .big-number{
+
   font-size:32px;
+
   font-weight:900;
+
   margin-top:10px;
 }
 
@@ -264,8 +411,11 @@ main{
 }
 
 .character-stat{
+
   font-size:28px;
+
   font-weight:900;
+
   margin-top:10px;
 }
 
@@ -282,22 +432,20 @@ main{
 }
 
 .description{
-  color:#aaa;
-  line-height:1.8;
-  margin:10px 0;
-}
 
-.status{
-  margin-top:15px;
-  text-align:center;
   color:#aaa;
-  font-size:13px;
+
+  line-height:1.8;
+
+  margin:10px 0;
 }
 
 @media(max-width:700px){
 
   .topbar-inner{
+
     flex-direction:column;
+
     align-items:flex-start;
   }
 
@@ -310,7 +458,10 @@ main{
   }
 
   main{
-    width:calc(100% - 20px);
+
+    width:
+      calc(100% - 20px);
+
     margin-top:15px;
   }
 
@@ -321,15 +472,18 @@ main{
   .logo{
     font-size:24px;
   }
+
 }
 
 </style>
+
 </head>
 
 <body>
 
+
 <!-- =====================================================
-     AUTH
+     تسجيل الدخول وإنشاء الحساب
 ===================================================== -->
 
 <div id="auth">
@@ -340,15 +494,18 @@ main{
       『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』
     </div>
 
+
     <div class="card">
 
-      <!-- LOGIN -->
+
+      <!-- ================= LOGIN ================= -->
 
       <div id="loginBox">
 
         <div class="card-title">
           🔐 تسجيل الدخول
         </div>
+
 
         <input
           id="loginName"
@@ -358,6 +515,7 @@ main{
           maxlength="50"
         >
 
+
         <input
           id="loginPass"
           type="password"
@@ -365,6 +523,7 @@ main{
           autocomplete="current-password"
           maxlength="100"
         >
+
 
         <button
           id="loginButton"
@@ -375,6 +534,7 @@ main{
           🔐 دخول
         </button>
 
+
         <button
           class="btn secondary full"
           type="button"
@@ -384,18 +544,26 @@ main{
           📝 إنشاء حساب
         </button>
 
-        <div id="loginMessage" class="message"></div>
+
+        <div
+          id="loginMessage"
+          class="message"
+        ></div>
 
       </div>
 
 
-      <!-- REGISTER -->
+      <!-- ================= REGISTER ================= -->
 
-      <div id="registerBox" class="hidden">
+      <div
+        id="registerBox"
+        class="hidden"
+      >
 
         <div class="card-title">
           📝 إنشاء حساب جديد
         </div>
+
 
         <input
           id="regName"
@@ -405,6 +573,7 @@ main{
           maxlength="50"
         >
 
+
         <input
           id="regPass"
           type="password"
@@ -413,6 +582,7 @@ main{
           maxlength="100"
         >
 
+
         <input
           id="regPass2"
           type="password"
@@ -420,6 +590,7 @@ main{
           autocomplete="new-password"
           maxlength="100"
         >
+
 
         <button
           id="registerButton"
@@ -430,6 +601,7 @@ main{
           📝 إنشاء الحساب
         </button>
 
+
         <button
           class="btn secondary full"
           type="button"
@@ -439,11 +611,16 @@ main{
           ↩️ العودة لتسجيل الدخول
         </button>
 
-        <div id="registerMessage" class="message"></div>
+
+        <div
+          id="registerMessage"
+          class="message"
+        ></div>
 
       </div>
 
     </div>
+
 
     <div class="status">
       🔒 تسجيل باسم المستخدم وكلمة المرور فقط
@@ -454,89 +631,156 @@ main{
 </div>
 
 
+
 <!-- =====================================================
-     APP
+     التطبيق
 ===================================================== -->
 
-<div id="app" class="hidden">
+<div
+  id="app"
+  class="hidden"
+>
+
 
 <header class="topbar">
 
+
   <div class="topbar-inner">
+
 
     <div class="brand">
       『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』
     </div>
 
+
     <div class="user-info">
 
       👤
-      <span id="headerName">-</span>
+      <span id="headerName">
+        -
+      </span>
 
-      <span class="separator">|</span>
+
+      <span class="separator">
+        |
+      </span>
+
 
       💰
-      <span id="headerBalance">0</span>
+      <span id="headerBalance">
+        0
+      </span>
 
     </div>
 
   </div>
 
 
+
   <nav>
 
-    <button data-page="home" onclick="page('home')">
+
+    <button
+      data-page="home"
+      onclick="page('home')"
+    >
       🏠 الرئيسية
     </button>
 
-    <button data-page="character" onclick="page('character')">
+
+    <button
+      data-page="character"
+      onclick="page('character')"
+    >
       🧙 الشخصية
     </button>
 
-    <button data-page="city" onclick="page('city')">
+
+    <button
+      data-page="city"
+      onclick="page('city')"
+    >
       🏯 المدينة
     </button>
 
-    <button data-page="farm" onclick="page('farm')">
+
+    <button
+      data-page="farm"
+      onclick="page('farm')"
+    >
       🌾 المزرعة
     </button>
 
-    <button data-page="shop" onclick="page('shop')">
+
+    <button
+      data-page="shop"
+      onclick="page('shop')"
+    >
       🛒 المتجر
     </button>
 
-    <button data-page="inventory" onclick="page('inventory')">
+
+    <button
+      data-page="inventory"
+      onclick="page('inventory')"
+    >
       🎒 المخزون
     </button>
 
-    <button data-page="games" onclick="page('games')">
+
+    <button
+      data-page="games"
+      onclick="page('games')"
+    >
       🎮 الألعاب
     </button>
 
-    <button data-page="wallet" onclick="page('wallet')">
+
+    <button
+      data-page="wallet"
+      onclick="page('wallet')"
+    >
       💰 المحفظة
     </button>
 
-    <button data-page="profile" onclick="page('profile')">
+
+    <button
+      data-page="profile"
+      onclick="page('profile')"
+    >
       👤 الملف
     </button>
 
-    <button onclick="logout()">
+
+    <button
+      type="button"
+      onclick="logout()"
+    >
       🚪 خروج
     </button>
+
 
   </nav>
 
 </header>
 
 
+
 <main>
 
-<!-- HOME -->
 
-<section id="page-home" class="page active">
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<section
+  id="page-home"
+  class="page active"
+>
+
 
   <div class="grid">
+
 
     <div class="card">
 
@@ -544,11 +788,16 @@ main{
         💰 الرصيد
       </div>
 
-      <div id="homeBalance" class="big-number green">
+
+      <div
+        id="homeBalance"
+        class="big-number green"
+      >
         0
       </div>
 
     </div>
+
 
 
     <div class="card">
@@ -557,11 +806,16 @@ main{
         ⭐ المستوى
       </div>
 
-      <div id="homeLevel" class="big-number gold">
+
+      <div
+        id="homeLevel"
+        class="big-number gold"
+      >
         1
       </div>
 
     </div>
+
 
 
     <div class="card">
@@ -570,24 +824,36 @@ main{
         ⚔️ القوة
       </div>
 
-      <div id="homePower" class="big-number">
+
+      <div
+        id="homePower"
+        class="big-number"
+      >
         20
       </div>
 
     </div>
 
+
   </div>
 
 
-  <div class="card" style="margin-top:15px">
+
+  <div
+    class="card"
+    style="margin-top:15px"
+  >
 
     <div class="card-title">
       🏯 مرحبًا بك في S.U.N TOKYO
     </div>
 
+
     <p class="description">
-      عالم مصرفي تفاعلي مليء بالألعاب
-      والمتجر والتطوير.
+
+      عالم مصرفي تفاعلي مليء
+      بالألعاب والمتجر والتطوير.
+
     </p>
 
   </div>
@@ -595,9 +861,16 @@ main{
 </section>
 
 
-<!-- CHARACTER -->
 
-<section id="page-character" class="page">
+<!-- =====================================================
+     CHARACTER
+===================================================== -->
+
+<section
+  id="page-character"
+  class="page"
+>
+
 
   <div class="card">
 
@@ -605,39 +878,62 @@ main{
       🧙 الشخصية
     </div>
 
+
     <div class="grid">
+
 
       <div class="card">
 
-        <h3>❤️ الصحة</h3>
+        <h3>
+          ❤️ الصحة
+        </h3>
 
-        <div id="characterHP" class="character-stat hp">
+
+        <div
+          id="characterHP"
+          class="character-stat hp"
+        >
           100
         </div>
 
       </div>
 
 
+
       <div class="card">
 
-        <h3>⚔️ الهجوم</h3>
+        <h3>
+          ⚔️ الهجوم
+        </h3>
 
-        <div id="characterAttack" class="character-stat attack">
+
+        <div
+          id="characterAttack"
+          class="character-stat attack"
+        >
           10
         </div>
 
       </div>
 
 
+
       <div class="card">
 
-        <h3>🛡️ الدفاع</h3>
+        <h3>
+          🛡️ الدفاع
+        </h3>
 
-        <div id="characterDefense" class="character-stat defense">
+
+        <div
+          id="characterDefense"
+          class="character-stat defense"
+        >
           10
         </div>
 
       </div>
+
 
     </div>
 
@@ -646,9 +942,16 @@ main{
 </section>
 
 
-<!-- CITY -->
 
-<section id="page-city" class="page">
+<!-- =====================================================
+     CITY
+===================================================== -->
+
+<section
+  id="page-city"
+  class="page"
+>
+
 
   <div class="card">
 
@@ -656,15 +959,24 @@ main{
       🏯 المدينة
     </div>
 
+
     <div class="grid">
+
 
       <div class="card">
 
-        <h3>🏯 مستوى المدينة</h3>
+        <h3>
+          🏯 مستوى المدينة
+        </h3>
 
-        <div id="cityLevel" class="big-number gold">
+
+        <div
+          id="cityLevel"
+          class="big-number gold"
+        >
           1
         </div>
+
 
         <button
           class="btn goldbtn full"
@@ -676,15 +988,23 @@ main{
       </div>
 
 
+
       <div class="card">
 
-        <h3>👥 السكان</h3>
+        <h3>
+          👥 السكان
+        </h3>
 
-        <div id="cityPopulation" class="big-number">
+
+        <div
+          id="cityPopulation"
+          class="big-number"
+        >
           1
         </div>
 
       </div>
+
 
     </div>
 
@@ -693,9 +1013,16 @@ main{
 </section>
 
 
-<!-- FARM -->
 
-<section id="page-farm" class="page">
+<!-- =====================================================
+     FARM
+===================================================== -->
+
+<section
+  id="page-farm"
+  class="page"
+>
+
 
   <div class="card">
 
@@ -703,15 +1030,21 @@ main{
       🌾 المزرعة
     </div>
 
+
     <div class="grid">
+
 
       <div class="card">
 
-        <h3>🌱 الزراعة</h3>
+        <h3>
+          🌱 الزراعة
+        </h3>
+
 
         <p class="description">
           ازرع محصولًا وانتظر حتى ينضج.
         </p>
+
 
         <button
           class="btn goldbtn full"
@@ -723,13 +1056,18 @@ main{
       </div>
 
 
+
       <div class="card">
 
-        <h3>🌾 الحصاد</h3>
+        <h3>
+          🌾 الحصاد
+        </h3>
+
 
         <p class="description">
           احصد محصولك واربح العملات.
         </p>
+
 
         <button
           class="btn success full"
@@ -740,6 +1078,7 @@ main{
 
       </div>
 
+
     </div>
 
   </div>
@@ -747,9 +1086,16 @@ main{
 </section>
 
 
-<!-- SHOP -->
 
-<section id="page-shop" class="page">
+<!-- =====================================================
+     SHOP
+===================================================== -->
+
+<section
+  id="page-shop"
+  class="page"
+>
+
 
   <div class="card">
 
@@ -757,15 +1103,21 @@ main{
       🛒 المتجر
     </div>
 
+
     <div class="grid">
+
 
       <div class="card">
 
-        <h3>⚔️ سيف أسطوري</h3>
+        <h3>
+          ⚔️ سيف أسطوري
+        </h3>
+
 
         <p class="description">
           يزيد الهجوم.
         </p>
+
 
         <button
           class="btn goldbtn full"
@@ -777,13 +1129,18 @@ main{
       </div>
 
 
+
       <div class="card">
 
-        <h3>🛡️ درع أسطوري</h3>
+        <h3>
+          🛡️ درع أسطوري
+        </h3>
+
 
         <p class="description">
           يزيد الدفاع.
         </p>
+
 
         <button
           class="btn goldbtn full"
@@ -795,13 +1152,18 @@ main{
       </div>
 
 
+
       <div class="card">
 
-        <h3>❤️ جرعة صحة</h3>
+        <h3>
+          ❤️ جرعة صحة
+        </h3>
+
 
         <p class="description">
           تزيد الصحة.
         </p>
+
 
         <button
           class="btn goldbtn full"
@@ -812,6 +1174,7 @@ main{
 
       </div>
 
+
     </div>
 
   </div>
@@ -819,9 +1182,16 @@ main{
 </section>
 
 
-<!-- INVENTORY -->
 
-<section id="page-inventory" class="page">
+<!-- =====================================================
+     INVENTORY
+===================================================== -->
+
+<section
+  id="page-inventory"
+  class="page"
+>
+
 
   <div class="card">
 
@@ -829,13 +1199,21 @@ main{
       🎒 المخزون
     </div>
 
-    <div id="inventoryList" class="grid">
+
+    <div
+      id="inventoryList"
+      class="grid"
+    >
+
 
       <div class="card">
+
         <p class="description">
           لا توجد عناصر حاليًا.
         </p>
+
       </div>
+
 
     </div>
 
@@ -844,9 +1222,16 @@ main{
 </section>
 
 
-<!-- GAMES -->
 
-<section id="page-games" class="page">
+<!-- =====================================================
+     GAMES
+===================================================== -->
+
+<section
+  id="page-games"
+  class="page"
+>
+
 
   <div class="card">
 
@@ -854,15 +1239,21 @@ main{
       🎮 الألعاب
     </div>
 
+
     <div class="grid">
+
 
       <div class="card">
 
-        <h3>🎲 النرد</h3>
+        <h3>
+          🎲 النرد
+        </h3>
+
 
         <p class="description">
           التكلفة: 25 💰
         </p>
+
 
         <button
           class="btn goldbtn full"
@@ -874,13 +1265,18 @@ main{
       </div>
 
 
+
       <div class="card">
 
-        <h3>📦 الصندوق</h3>
+        <h3>
+          📦 الصندوق
+        </h3>
+
 
         <p class="description">
           التكلفة: 50 💰
         </p>
+
 
         <button
           class="btn goldbtn full"
@@ -892,13 +1288,18 @@ main{
       </div>
 
 
+
       <div class="card">
 
-        <h3>🎡 عجلة الحظ</h3>
+        <h3>
+          🎡 عجلة الحظ
+        </h3>
+
 
         <p class="description">
           التكلفة: 100 💰
         </p>
+
 
         <button
           class="btn goldbtn full"
@@ -910,13 +1311,18 @@ main{
       </div>
 
 
+
       <div class="card">
 
-        <h3>🎁 المكافأة اليومية</h3>
+        <h3>
+          🎁 المكافأة اليومية
+        </h3>
+
 
         <p class="description">
           مكافأة مجانية كل يوم.
         </p>
+
 
         <button
           class="btn goldbtn full"
@@ -927,6 +1333,7 @@ main{
 
       </div>
 
+
     </div>
 
   </div>
@@ -934,11 +1341,19 @@ main{
 </section>
 
 
-<!-- WALLET -->
 
-<section id="page-wallet" class="page">
+<!-- =====================================================
+     WALLET
+===================================================== -->
+
+<section
+  id="page-wallet"
+  class="page"
+>
+
 
   <div class="grid">
+
 
     <div class="card">
 
@@ -946,11 +1361,13 @@ main{
         💸 تحويل
       </div>
 
+
       <input
         id="transferUser"
         type="text"
         placeholder="اسم المستخدم المستلم"
       >
+
 
       <input
         id="transferAmount"
@@ -958,6 +1375,7 @@ main{
         min="1"
         placeholder="المبلغ"
       >
+
 
       <button
         class="btn goldbtn full"
@@ -969,11 +1387,13 @@ main{
     </div>
 
 
+
     <div class="card">
 
       <div class="card-title">
         💰 إيداع
       </div>
+
 
       <input
         id="depositAmount"
@@ -981,6 +1401,7 @@ main{
         min="1"
         placeholder="المبلغ"
       >
+
 
       <button
         class="btn success full"
@@ -992,11 +1413,13 @@ main{
     </div>
 
 
+
     <div class="card">
 
       <div class="card-title">
         💳 سحب
       </div>
+
 
       <input
         id="withdrawAmount"
@@ -1004,6 +1427,7 @@ main{
         min="1"
         placeholder="المبلغ"
       >
+
 
       <button
         class="btn danger full"
@@ -1014,14 +1438,22 @@ main{
 
     </div>
 
+
   </div>
 
 </section>
 
 
-<!-- PROFILE -->
 
-<section id="page-profile" class="page">
+<!-- =====================================================
+     PROFILE
+===================================================== -->
+
+<section
+  id="page-profile"
+  class="page"
+>
+
 
   <div class="card">
 
@@ -1029,11 +1461,13 @@ main{
       👤 الملف الشخصي
     </div>
 
+
     <div class="stat">
 
       <span class="stat-name">
         اسم المستخدم
       </span>
+
 
       <strong id="profileName">
         -
@@ -1048,6 +1482,7 @@ main{
         الرصيد
       </span>
 
+
       <strong id="profileBalance">
         0
       </strong>
@@ -1060,6 +1495,7 @@ main{
       <span class="stat-name">
         المستوى
       </span>
+
 
       <strong id="profileLevel">
         1
@@ -1080,15 +1516,22 @@ main{
 
 </section>
 
+
 </main>
 
 </div>
 
 
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
 <script>
 
+
 /* =====================================================
-   حالة المستخدم
+   المستخدم الحالي
 ===================================================== */
 
 let currentUser = null;
@@ -1098,39 +1541,79 @@ let currentUser = null;
    API
 ===================================================== */
 
-async function api(action, username="", password=""){
+async function api(
+  action,
+  username = "",
+  password = ""
+){
+
+  let endpoint = "";
+
+
+  if(action === "login"){
+
+    endpoint = "/api/login";
+
+  }
+
+
+  if(action === "register"){
+
+    endpoint = "/api/register";
+
+  }
+
+
+  if(!endpoint){
+
+    throw new Error(
+      "عملية غير معروفة"
+    );
+
+  }
+
 
   try{
 
-    const response = await fetch("/api/auth",{
 
-      method:"POST",
+    const response =
+      await fetch(
+        endpoint,
+        {
 
-      headers:{
-        "Content-Type":"application/json"
-      },
+          method:"POST",
 
-      body:JSON.stringify({
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
 
-        action:action,
-        username:username,
-        password:password
+          body:JSON.stringify({
 
-      })
+            username:
+              username,
 
-    });
+            password:
+              password
+
+          })
+
+        }
+      );
 
 
     let data;
 
+
     try{
 
-      data = await response.json();
+      data =
+        await response.json();
 
-    }catch(error){
+    }catch{
 
       throw new Error(
-        "الخادم أعاد استجابة غير صحيحة."
+        "الخادم أعاد استجابة غير صحيحة"
       );
 
     }
@@ -1140,8 +1623,7 @@ async function api(action, username="", password=""){
 
       throw new Error(
         data.message ||
-        data.error ||
-        "حدث خطأ في الخادم."
+        "حدث خطأ في الخادم"
       );
 
     }
@@ -1151,13 +1633,14 @@ async function api(action, username="", password=""){
 
       throw new Error(
         data.message ||
-        "فشلت العملية."
+        "فشلت العملية"
       );
 
     }
 
 
     return data;
+
 
   }catch(error){
 
@@ -1166,9 +1649,10 @@ async function api(action, username="", password=""){
       error
     );
 
+
     throw new Error(
       error.message ||
-      "حدث خطأ في الاتصال بالخادم."
+      "حدث خطأ في الاتصال بالخادم"
     );
 
   }
@@ -1176,23 +1660,35 @@ async function api(action, username="", password=""){
 }
 
 
+
 /* =====================================================
    الرسائل
 ===================================================== */
 
-function showMessage(id,text,type="error"){
+function showMessage(
+  id,
+  text,
+  type = "error"
+){
 
   const box =
     document.getElementById(id);
 
-  if(!box) return;
 
-  box.textContent = text;
+  if(!box){
+    return;
+  }
+
+
+  box.textContent =
+    text;
+
 
   box.className =
     "message " + type;
 
 }
+
 
 
 /* =====================================================
@@ -1206,10 +1702,12 @@ function showRegister(){
     .classList
     .add("hidden");
 
+
   document
     .getElementById("registerBox")
     .classList
     .remove("hidden");
+
 
   showMessage(
     "loginMessage",
@@ -1219,8 +1717,9 @@ function showRegister(){
 }
 
 
+
 /* =====================================================
-   إظهار الدخول
+   إظهار تسجيل الدخول
 ===================================================== */
 
 function showLogin(){
@@ -1230,10 +1729,12 @@ function showLogin(){
     .classList
     .add("hidden");
 
+
   document
     .getElementById("loginBox")
     .classList
     .remove("hidden");
+
 
   showMessage(
     "registerMessage",
@@ -1243,8 +1744,9 @@ function showLogin(){
 }
 
 
+
 /* =====================================================
-   التسجيل
+   REGISTER
 ===================================================== */
 
 async function register(){
@@ -1255,10 +1757,12 @@ async function register(){
       .value
       .trim();
 
+
   const password =
     document
       .getElementById("regPass")
       .value;
+
 
   const password2 =
     document
@@ -1266,7 +1770,11 @@ async function register(){
       .value;
 
 
-  if(!username || !password || !password2){
+  if(
+    !username ||
+    !password ||
+    !password2
+  ){
 
     showMessage(
       "registerMessage",
@@ -1319,13 +1827,17 @@ async function register(){
       "registerButton"
     );
 
-  button.disabled = true;
+
+  button.disabled =
+    true;
+
 
   button.textContent =
     "⏳ جاري إنشاء الحساب...";
 
 
   try{
+
 
     const result =
       await api(
@@ -1335,7 +1847,10 @@ async function register(){
       );
 
 
-    if(result.success){
+    if(
+      result.success &&
+      result.user
+    ){
 
       showMessage(
         "registerMessage",
@@ -1344,30 +1859,25 @@ async function register(){
       );
 
 
-      if(result.user){
-
-        setTimeout(function(){
+      setTimeout(
+        function(){
 
           loginUser(
             result.user
           );
 
-        },700);
+        },
+        700
+      );
 
-      }else{
 
-        setTimeout(function(){
+    }else{
 
-          showLogin();
-
-          document
-            .getElementById("loginName")
-            .value =
-              username;
-
-        },700);
-
-      }
+      showMessage(
+        "registerMessage",
+        result.message ||
+        "تعذر إنشاء الحساب."
+      );
 
     }
 
@@ -1379,14 +1889,19 @@ async function register(){
       error
     );
 
+
     showMessage(
       "registerMessage",
-      "❌ " + error.message
+      "❌ " +
+      error.message
     );
+
 
   }finally{
 
-    button.disabled = false;
+    button.disabled =
+      false;
+
 
     button.textContent =
       "📝 إنشاء الحساب";
@@ -1396,8 +1911,9 @@ async function register(){
 }
 
 
+
 /* =====================================================
-   تسجيل الدخول
+   LOGIN
 ===================================================== */
 
 async function login(){
@@ -1408,13 +1924,17 @@ async function login(){
       .value
       .trim();
 
+
   const password =
     document
       .getElementById("loginPass")
       .value;
 
 
-  if(!username || !password){
+  if(
+    !username ||
+    !password
+  ){
 
     showMessage(
       "loginMessage",
@@ -1431,13 +1951,17 @@ async function login(){
       "loginButton"
     );
 
-  button.disabled = true;
+
+  button.disabled =
+    true;
+
 
   button.textContent =
     "⏳ جاري الدخول...";
 
 
   try{
+
 
     const result =
       await api(
@@ -1447,7 +1971,10 @@ async function login(){
       );
 
 
-    if(result.success && result.user){
+    if(
+      result.success &&
+      result.user
+    ){
 
       showMessage(
         "loginMessage",
@@ -1455,13 +1982,16 @@ async function login(){
         "success"
       );
 
+
       loginUser(
         result.user
       );
 
+
     }else{
 
       throw new Error(
+        result.message ||
         "اسم المستخدم أو كلمة المرور غير صحيحة."
       );
 
@@ -1475,14 +2005,19 @@ async function login(){
       error
     );
 
+
     showMessage(
       "loginMessage",
-      "❌ " + error.message
+      "❌ " +
+      error.message
     );
+
 
   }finally{
 
-    button.disabled = false;
+    button.disabled =
+      false;
+
 
     button.textContent =
       "🔐 دخول";
@@ -1492,15 +2027,19 @@ async function login(){
 }
 
 
+
 /* =====================================================
    دخول المستخدم
 ===================================================== */
 
 function loginUser(user){
 
-  currentUser = user;
+  currentUser =
+    user;
 
-  window.currentUser = user;
+
+  window.currentUser =
+    user;
 
 
   document
@@ -1517,20 +2056,25 @@ function loginUser(user){
 
   updateUI();
 
+
   page("home");
 
 }
 
 
+
 /* =====================================================
-   تسجيل الخروج
+   LOGOUT
 ===================================================== */
 
 function logout(){
 
-  currentUser = null;
+  currentUser =
+    null;
 
-  window.currentUser = null;
+
+  window.currentUser =
+    null;
 
 
   document
@@ -1547,7 +2091,8 @@ function logout(){
 
   document
     .getElementById("loginPass")
-    .value = "";
+    .value =
+      "";
 
 
   showLogin();
@@ -1555,13 +2100,16 @@ function logout(){
 }
 
 
+
 /* =====================================================
-   تحديث الواجهة
+   UPDATE UI
 ===================================================== */
 
 function updateUI(){
 
-  if(!currentUser) return;
+  if(!currentUser){
+    return;
+  }
 
 
   const user =
@@ -1580,6 +2128,24 @@ function updateUI(){
     );
 
 
+  const city =
+    Number(
+      user.city || 1
+    );
+
+
+  const farm =
+    Number(
+      user.farm || 1
+    );
+
+
+  const crops =
+    Number(
+      user.crops || 0
+    );
+
+
   document
     .getElementById("headerName")
     .textContent =
@@ -1589,13 +2155,17 @@ function updateUI(){
   document
     .getElementById("headerBalance")
     .textContent =
-      balance.toLocaleString("ar-EG");
+      balance.toLocaleString(
+        "ar-EG"
+      );
 
 
   document
     .getElementById("homeBalance")
     .textContent =
-      balance.toLocaleString("ar-EG");
+      balance.toLocaleString(
+        "ar-EG"
+      );
 
 
   document
@@ -1613,7 +2183,9 @@ function updateUI(){
   document
     .getElementById("profileBalance")
     .textContent =
-      balance.toLocaleString("ar-EG");
+      balance.toLocaleString(
+        "ar-EG"
+      );
 
 
   document
@@ -1625,91 +2197,40 @@ function updateUI(){
   document
     .getElementById("cityLevel")
     .textContent =
-      Number(user.city || 1);
+      city;
 
 
   document
     .getElementById("cityPopulation")
     .textContent =
-      Number(user.city || 1);
+      city;
 
 
-  updateInventory();
-
-}
-
-
-/* =====================================================
-   المخزون
-===================================================== */
-
-function updateInventory(){
-
-  const list =
-    document.getElementById(
-      "inventoryList"
-    );
-
-  if(!list) return;
+  document
+    .getElementById("homePower")
+    .textContent =
+      20 + ((level - 1) * 5);
 
 
-  const items =
-    currentUser &&
-    currentUser.items
-      ? currentUser.items
-      : {};
+  document
+    .getElementById("characterHP")
+    .textContent =
+      100 + ((level - 1) * 10);
 
 
-  const keys =
-    Object.keys(items);
+  document
+    .getElementById("characterAttack")
+    .textContent =
+      10 + ((level - 1) * 2);
 
 
-  if(keys.length === 0){
-
-    list.innerHTML = `
-      <div class="card">
-        <p class="description">
-          لا توجد عناصر حاليًا.
-        </p>
-      </div>
-    `;
-
-    return;
-
-  }
-
-
-  list.innerHTML =
-    keys.map(function(name){
-
-      return `
-        <div class="card">
-          <h3>${escapeHTML(name)}</h3>
-          <p class="description">
-            الكمية: ${Number(items[name] || 0)}
-          </p>
-        </div>
-      `;
-
-    }).join("");
+  document
+    .getElementById("characterDefense")
+    .textContent =
+      10 + ((level - 1) * 2);
 
 }
 
-
-/* =====================================================
-   حماية عرض النص
-===================================================== */
-
-function escapeHTML(value){
-
-  return String(value)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
 
 
 /* =====================================================
@@ -1720,26 +2241,30 @@ function page(name){
 
   document
     .querySelectorAll(".page")
-    .forEach(function(item){
+    .forEach(
+      function(item){
 
-      item.classList.remove(
-        "active"
-      );
+        item.classList.remove(
+          "active"
+        );
 
-    });
+      }
+    );
 
 
   document
     .querySelectorAll(
       "nav button[data-page]"
     )
-    .forEach(function(button){
+    .forEach(
+      function(button){
 
-      button.classList.remove(
-        "active"
-      );
+        button.classList.remove(
+          "active"
+        );
 
-    });
+      }
+    );
 
 
   const target =
@@ -1776,8 +2301,9 @@ function page(name){
 }
 
 
+
 /* =====================================================
-   فحص تسجيل الدخول
+   LOGIN CHECK
 ===================================================== */
 
 function needLogin(){
@@ -1792,9 +2318,11 @@ function needLogin(){
 
   }
 
+
   return true;
 
 }
+
 
 
 /* =====================================================
@@ -1803,10 +2331,13 @@ function needLogin(){
 
 function playDice(){
 
-  if(!needLogin()) return;
+  if(!needLogin()){
+    return;
+  }
+
 
   alert(
-    "🎲 النرد جاهز للربط مع Backend."
+    "🎲 نظام النرد سيتم ربطه بقاعدة البيانات."
   );
 
 }
@@ -1814,10 +2345,13 @@ function playDice(){
 
 function quickBox(){
 
-  if(!needLogin()) return;
+  if(!needLogin()){
+    return;
+  }
+
 
   alert(
-    "📦 الصندوق جاهز للربط مع Backend."
+    "📦 نظام الصندوق سيتم ربطه بقاعدة البيانات."
   );
 
 }
@@ -1825,10 +2359,13 @@ function quickBox(){
 
 function spinWheel(){
 
-  if(!needLogin()) return;
+  if(!needLogin()){
+    return;
+  }
+
 
   alert(
-    "🎡 عجلة الحظ جاهزة للربط مع Backend."
+    "🎡 عجلة الحظ سيتم ربطها بقاعدة البيانات."
   );
 
 }
@@ -1836,13 +2373,17 @@ function spinWheel(){
 
 function dailyReward(){
 
-  if(!needLogin()) return;
+  if(!needLogin()){
+    return;
+  }
+
 
   alert(
-    "🎁 المكافأة اليومية جاهزة للربط مع Backend."
+    "🎁 المكافأة اليومية سيتم ربطها بقاعدة البيانات."
   );
 
 }
+
 
 
 /* =====================================================
@@ -1851,13 +2392,17 @@ function dailyReward(){
 
 function upgradeCity(){
 
-  if(!needLogin()) return;
+  if(!needLogin()){
+    return;
+  }
+
 
   alert(
-    "🏯 تطوير المدينة جاهز للربط مع Backend."
+    "🏯 تطوير المدينة سيتم ربطه بقاعدة البيانات."
   );
 
 }
+
 
 
 /* =====================================================
@@ -1866,10 +2411,13 @@ function upgradeCity(){
 
 function plantCrop(){
 
-  if(!needLogin()) return;
+  if(!needLogin()){
+    return;
+  }
+
 
   alert(
-    "🌱 الزراعة جاهزة للربط مع Backend."
+    "🌱 الزراعة سيتم ربطها بقاعدة البيانات."
   );
 
 }
@@ -1877,32 +2425,43 @@ function plantCrop(){
 
 function harvestCrop(){
 
-  if(!needLogin()) return;
+  if(!needLogin()){
+    return;
+  }
+
 
   alert(
-    "🌾 الحصاد جاهز للربط مع Backend."
+    "🌾 الحصاد سيتم ربطه بقاعدة البيانات."
   );
 
 }
+
 
 
 /* =====================================================
    المتجر
 ===================================================== */
 
-function buyItem(name,price){
+function buyItem(
+  name,
+  price
+){
 
-  if(!needLogin()) return;
+  if(!needLogin()){
+    return;
+  }
+
 
   alert(
     "🛒 شراء " +
     name +
     " بسعر " +
     price +
-    " 💰 جاهز للربط مع Backend."
+    " 💰 سيتم ربطه بقاعدة البيانات."
   );
 
 }
+
 
 
 /* =====================================================
@@ -1911,7 +2470,9 @@ function buyItem(name,price){
 
 function transferMoney(){
 
-  if(!needLogin()) return;
+  if(!needLogin()){
+    return;
+  }
 
 
   const username =
@@ -1933,7 +2494,11 @@ function transferMoney(){
     );
 
 
-  if(!username || !amount || amount <= 0){
+  if(
+    !username ||
+    !amount ||
+    amount <= 0
+  ){
 
     alert(
       "❌ اكتب اسم المستلم والمبلغ."
@@ -1945,15 +2510,18 @@ function transferMoney(){
 
 
   alert(
-    "💸 التحويل جاهز للربط مع Backend."
+    "💸 التحويل سيتم ربطه بقاعدة البيانات."
   );
 
 }
 
 
+
 function depositMoney(){
 
-  if(!needLogin()) return;
+  if(!needLogin()){
+    return;
+  }
 
 
   const amount =
@@ -1966,7 +2534,10 @@ function depositMoney(){
     );
 
 
-  if(!amount || amount <= 0){
+  if(
+    !amount ||
+    amount <= 0
+  ){
 
     alert(
       "❌ اكتب مبلغًا صحيحًا."
@@ -1978,15 +2549,18 @@ function depositMoney(){
 
 
   alert(
-    "💰 الإيداع جاهز للربط مع Backend."
+    "💰 الإيداع سيتم ربطه بقاعدة البيانات."
   );
 
 }
 
 
+
 function withdrawMoney(){
 
-  if(!needLogin()) return;
+  if(!needLogin()){
+    return;
+  }
 
 
   const amount =
@@ -1999,7 +2573,10 @@ function withdrawMoney(){
     );
 
 
-  if(!amount || amount <= 0){
+  if(
+    !amount ||
+    amount <= 0
+  ){
 
     alert(
       "❌ اكتب مبلغًا صحيحًا."
@@ -2011,14 +2588,15 @@ function withdrawMoney(){
 
 
   alert(
-    "💳 السحب جاهز للربط مع Backend."
+    "💳 السحب سيتم ربطه بقاعدة البيانات."
   );
 
 }
 
 
+
 /* =====================================================
-   تشغيل الصفحة
+   ENTER
 ===================================================== */
 
 document.addEventListener(
@@ -2028,29 +2606,15 @@ document.addEventListener(
     page("home");
 
 
-    const loginName =
-      document.getElementById(
-        "loginName"
-      );
-
-    const loginPass =
-      document.getElementById(
-        "loginPass"
-      );
-
-    const regPass2 =
-      document.getElementById(
-        "regPass2"
-      );
-
-
-    if(loginName){
-
-      loginName.addEventListener(
+    document
+      .getElementById("loginName")
+      .addEventListener(
         "keydown",
         function(event){
 
-          if(event.key === "Enter"){
+          if(
+            event.key === "Enter"
+          ){
 
             login();
 
@@ -2059,16 +2623,16 @@ document.addEventListener(
         }
       );
 
-    }
 
-
-    if(loginPass){
-
-      loginPass.addEventListener(
+    document
+      .getElementById("loginPass")
+      .addEventListener(
         "keydown",
         function(event){
 
-          if(event.key === "Enter"){
+          if(
+            event.key === "Enter"
+          ){
 
             login();
 
@@ -2077,16 +2641,16 @@ document.addEventListener(
         }
       );
 
-    }
 
-
-    if(regPass2){
-
-      regPass2.addEventListener(
+    document
+      .getElementById("regPass2")
+      .addEventListener(
         "keydown",
         function(event){
 
-          if(event.key === "Enter"){
+          if(
+            event.key === "Enter"
+          ){
 
             register();
 
@@ -2095,13 +2659,11 @@ document.addEventListener(
         }
       );
 
-    }
-
   }
 );
 
 </script>
 
 </body>
+
 </html>
-```
