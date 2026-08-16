@@ -1653,72 +1653,92 @@ textarea:focus{
 
    <button
     class="btn full"
-    onclick="login()"
-   >
-    دخول
-   </button>
-
-   <button
-    class="btn secondary full"
-    style="margin-top:8px"
-    onclick="showRegister()"
-   >
-    إنشاء حساب
-   </button>
-
-  </div>
-
-
   <div
-   id="registerBox"
-   class="hidden"
-  >
+ id="loginBox"
+>
 
-   <h3>
-    📝 إنشاء حساب
-   </h3>
+ <h3>
+  🔐 تسجيل الدخول
+ </h3>
 
-   <input
-    id="regName"
-    placeholder="اسم المستخدم"
-   >
+ <input
+  id="loginName"
+  placeholder="اسم المستخدم"
+ >
 
-   <input
-    id="regPass"
-    type="password"
-    placeholder="كلمة المرور"
-   >
+ <input
+  id="loginPass"
+  type="password"
+  placeholder="كلمة المرور"
+ >
 
-   <input
-    id="regPass2"
-    type="password"
-    placeholder="تأكيد كلمة المرور"
-   >
+ <button
+  class="btn goldbtn full"
+  type="button"
+  onclick="window.login()"
+ >
+  دخول
+ </button>
 
-   <button
-    class="btn goldbtn full"
-    onclick="register()"
-   >
-    إنشاء الحساب
-   </button>
+ <button
+  class="btn secondary full"
+  type="button"
+  style="margin-top:8px"
+  onclick="window.showRegister()"
+ >
+  إنشاء حساب
+ </button>
 
-   <button
-    class="btn secondary full"
-    style="margin-top:8px"
-    onclick="showLogin()"
-   >
-    العودة لتسجيل الدخول
-   </button>
+</div>
 
-  </div>
 
- </div>
+<div
+ id="registerBox"
+ class="hidden"
+>
+
+ <h3>
+  📝 إنشاء حساب
+ </h3>
+
+ <input
+  id="regName"
+  placeholder="اسم المستخدم"
+ >
+
+ <input
+  id="regPass"
+  type="password"
+  placeholder="كلمة المرور"
+ >
+
+ <input
+  id="regPass2"
+  type="password"
+  placeholder="تأكيد كلمة المرور"
+ >
+
+ <button
+  class="btn goldbtn full"
+  type="button"
+  onclick="window.register()"
+ >
+  إنشاء الحساب
+ </button>
+
+ <button
+  class="btn secondary full"
+  type="button"
+  style="margin-top:8px"
+  onclick="window.showLogin()"
+ >
+  العودة لتسجيل الدخول
+ </button>
 
 </div>
 
 
 <script>
-
 /* =====================================================
    DATA
 ===================================================== */
