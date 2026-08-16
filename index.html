@@ -1971,7 +1971,6 @@ function register(){
  showLogin();
 
 }
-
 function login(){
 
  const username=
@@ -2020,6 +2019,9 @@ function login(){
 
 }
 
+window.login = login;
+
+
 function logout(){
 
  currentUser=null;
@@ -2033,7 +2035,6 @@ function logout(){
   .classList.remove('hidden');
 
 }
-
 function restoreSession(){
 
  const id=
