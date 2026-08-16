@@ -3,5177 +3,1096 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』</title>
-
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<title>S.U.N TOKYO — Interactive Bank</title>
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Tahoma,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 20% 10%,#4b0714 0,transparent 28%),
+    radial-gradient(circle at 80% 90%,#291006 0,transparent 30%),
+    #070709;
+  color:#fff;min-height:100vh
 }
+button,input{font:inherit}
+button{cursor:pointer;border:0}
+.hidden{display:none!important}
 
 :root{
-    --red:#e51d48;
-    --red2:#700b23;
-    --gold:#f2bd4b;
-    --green:#31d695;
-    --blue:#4ba7ff;
-    --purple:#a855f7;
-    --bg:#05060c;
-    --card:rgba(12,13,22,.82);
-    --line:rgba(255,255,255,.11);
+ --red:#d7193f;
+ --gold:#e4b04a;
+ --dark:#0e0e13;
+ --card:rgba(255,255,255,.055);
+ --border:rgba(255,255,255,.1);
 }
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:Tahoma,Arial,sans-serif;
-    color:#fff;
-    min-height:100vh;
-    background:#05060c;
-    overflow-x:hidden;
-}
-
-body:before{
-    content:"";
-    position:fixed;
-    inset:0;
-    z-index:-5;
-    background:
-        linear-gradient(135deg,rgba(2,4,15,.72),rgba(55,5,30,.72)),
-        url("https://cdn.pixabay.com/photo/2024/05/29/17/52/anime-8790430_1280.jpg")
-        center/cover fixed no-repeat;
-}
-
-body:after{
-    content:"";
-    position:fixed;
-    inset:0;
-    z-index:-4;
-    background:
-        radial-gradient(circle at 20% 20%,rgba(255,0,80,.18),transparent 25%),
-        radial-gradient(circle at 80% 70%,rgba(80,100,255,.16),transparent 25%);
-}
-
-#stars{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:-2;
-    background-image:
-        radial-gradient(#fff 1px,transparent 1px),
-        radial-gradient(#fff 1px,transparent 1px);
-    background-size:90px 90px,130px 130px;
-    background-position:0 0,40px 50px;
-    opacity:.18;
-}
-
-button,
-input{
-    font:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-.hidden{
-    display:none!important;
-}
-
-/* =========================
-AUTH
-========================= */
-
-.auth{
-    position:fixed;
-    inset:0;
-    z-index:500;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
-    background:
-        linear-gradient(
-            rgba(3,4,12,.78),
-            rgba(20,3,15,.9)
-        );
-}
-
-.authbox{
-    width:min(440px,100%);
-    padding:32px;
-    border-radius:26px;
-    background:rgba(10,11,18,.96);
-    border:1px solid var(--line);
-    box-shadow:
-        0 30px 80px rgba(0,0,0,.55),
-        0 0 50px rgba(229,29,72,.08);
-}
-
-.authlogo{
-    text-align:center;
-    font-size:25px;
-    color:var(--gold);
-    font-weight:900;
-    line-height:1.5;
-}
-
-.authsub{
-    text-align:center;
-    color:#777;
-    margin:8px 0 24px;
-}
-
-.auth-title{
-    text-align:center;
-    margin-bottom:18px;
-}
-
-.auth-error{
-    color:#ff607e;
-    font-size:13px;
-    min-height:20px;
-    margin-bottom:8px;
-    text-align:center;
-}
-
-/* =========================
-HEADER
-========================= */
 
 header{
-    height:70px;
-    position:sticky;
-    top:0;
-    z-index:50;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:10px 25px;
-    background:rgba(3,4,9,.88);
-    backdrop-filter:blur(18px);
-    border-bottom:1px solid var(--line);
+ position:sticky;top:0;z-index:20;
+ background:rgba(5,5,8,.85);
+ backdrop-filter:blur(18px);
+ border-bottom:1px solid var(--border);
+ padding:15px 25px;
+ display:flex;align-items:center;justify-content:space-between
 }
-
 .logo{
-    font-size:20px;
-    color:var(--gold);
-    font-weight:900;
+ font-size:22px;font-weight:900;
+ color:var(--gold);
+ letter-spacing:1px
 }
-
-.userbox{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
+.logo span{color:#fff}
+.header-user{display:flex;align-items:center;gap:12px}
 .avatar{
-    width:42px;
-    height:42px;
-    border-radius:50%;
-    display:grid;
-    place-items:center;
-    background:linear-gradient(135deg,var(--red),#6d0820);
-    font-weight:bold;
-    border:2px solid rgba(255,255,255,.15);
+ width:40px;height:40px;border-radius:50%;
+ display:grid;place-items:center;
+ background:linear-gradient(135deg,var(--red),#65091d);
+ font-weight:bold
 }
 
-/* =========================
-LAYOUT
-========================= */
-
-.layout{
-    display:flex;
-    min-height:calc(100vh - 70px);
+.layout{display:flex;min-height:calc(100vh - 72px)}
+.sidebar{
+ width:250px;padding:20px;
+ border-left:1px solid var(--border);
+ background:rgba(10,10,14,.65)
 }
-
-aside{
-    width:245px;
-    padding:18px;
-    background:rgba(4,5,10,.74);
-    border-left:1px solid var(--line);
-    backdrop-filter:blur(15px);
+.nav-title{font-size:11px;color:#777;margin:20px 10px 8px}
+.nav button{
+ width:100%;padding:13px 15px;margin:4px 0;
+ background:transparent;color:#bbb;
+ border-radius:12px;text-align:right;
+ transition:.2s
 }
-
-nav button{
-    width:100%;
-    border:0;
-    background:transparent;
-    color:#aaa;
-    padding:13px;
-    margin:3px 0;
-    border-radius:13px;
-    text-align:right;
-    transition:.2s;
+.nav button:hover,.nav button.active{
+ background:linear-gradient(90deg,rgba(215,25,63,.25),transparent);
+ color:#fff
 }
-
-nav button:hover,
-nav button.active{
-    background:
-        linear-gradient(
-            90deg,
-            rgba(229,29,72,.3),
-            transparent
-        );
-    color:#fff;
-    transform:scale(1.02);
-}
-
-.navtitle{
-    font-size:11px;
-    color:#666;
-    margin:20px 8px 6px;
-}
-
-main{
-    flex:1;
-    padding:25px;
-    max-width:1600px;
-    width:100%;
-    margin:auto;
-}
-
-/* =========================
-COMPONENTS
-========================= */
+.main{flex:1;padding:25px;max-width:1500px;margin:auto;width:100%}
 
 .hero{
-    padding:30px;
-    border:1px solid var(--line);
-    border-radius:25px;
-    background:
-        linear-gradient(
-            135deg,
-            rgba(229,29,72,.25),
-            rgba(242,189,75,.07)
-        ),
-        var(--card);
-    margin-bottom:20px;
-    overflow:hidden;
-    position:relative;
+ border:1px solid var(--border);
+ background:
+ linear-gradient(135deg,rgba(215,25,63,.25),rgba(228,176,74,.07)),
+ var(--card);
+ border-radius:24px;padding:28px;
+ margin-bottom:20px;
+ position:relative;overflow:hidden
 }
-
-.hero h1{
-    font-size:29px;
-    margin-bottom:8px;
+.hero:after{
+ content:"🧧";
+ position:absolute;left:35px;bottom:-35px;
+ font-size:150px;opacity:.05
 }
-
-.hero p{
-    color:#aaa;
-}
+.hero h1{font-size:30px;margin-bottom:8px}
+.hero p{color:#aaa}
 
 .grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:14px;
-    margin-bottom:18px;
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:15px;margin-bottom:20px
 }
-
 .card{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:18px;
-    padding:19px;
-    backdrop-filter:blur(13px);
+ background:var(--card);
+ border:1px solid var(--border);
+ border-radius:18px;padding:20px;
+ backdrop-filter:blur(12px)
 }
+.stat-icon{font-size:25px}
+.stat-title{color:#999;font-size:13px;margin-top:10px}
+.stat-value{font-size:25px;font-weight:900;margin-top:5px}
+.gold{color:var(--gold)}
+.red{color:#ff4c6d}
 
-.stat-title{
-    font-size:12px;
-    color:#888;
+.section{margin-top:25px}
+.section-head{
+ display:flex;justify-content:space-between;
+ align-items:center;margin-bottom:12px
 }
-
-.stat-value{
-    font-size:25px;
-    font-weight:900;
-    margin-top:5px;
-}
-
-.gold{
-    color:var(--gold);
-}
-
-.red{
-    color:#ff4f70;
-}
-
-.green{
-    color:var(--green);
-}
-
-.blue{
-    color:var(--blue);
-}
-
-.purple{
-    color:var(--purple);
-}
+.section-head h2{font-size:19px}
 
 .actions{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:12px;
+ display:grid;grid-template-columns:repeat(4,1fr);gap:12px
 }
-
 .action{
-    border:1px solid var(--line);
-    border-radius:16px;
-    padding:20px;
-    color:#fff;
-    background:rgba(255,255,255,.045);
-    text-align:center;
+ padding:18px;border-radius:16px;
+ background:rgba(255,255,255,.045);
+ border:1px solid var(--border);
+ color:#fff;text-align:center
 }
+.action:hover{border-color:var(--red);transform:translateY(-2px)}
+.action b{display:block;margin-top:8px}
+.action small{color:#888}
 
-.action:hover{
-    transform:translateY(-3px);
-    border-color:var(--red);
+.table{width:100%;border-collapse:collapse}
+.table th,.table td{
+ padding:13px;border-bottom:1px solid var(--border);
+ text-align:right
 }
-
-.action b{
-    display:block;
-    margin-top:8px;
-}
-
-.action small{
-    color:#777;
-}
-
-.section{
-    margin-top:22px;
-}
-
-.section h2{
-    margin-bottom:12px;
+.table th{color:#888;font-size:12px}
+.badge{
+ display:inline-block;padding:5px 10px;
+ border-radius:20px;background:rgba(228,176,74,.12);
+ color:var(--gold);font-size:11px
 }
 
 .progress{
-    height:9px;
-    background:#222;
-    border-radius:20px;
-    overflow:hidden;
-    margin-top:10px;
+ height:8px;background:#222;border-radius:20px;overflow:hidden;margin-top:10px
 }
-
 .progress i{
-    display:block;
-    height:100%;
-    width:0;
-    background:
-        linear-gradient(
-            90deg,
-            var(--red),
-            var(--gold)
-        );
-    transition:.4s;
+ display:block;height:100%;
+ background:linear-gradient(90deg,var(--red),var(--gold));
+ width:0
 }
 
+.modal{
+ position:fixed;inset:0;z-index:100;
+ background:rgba(0,0,0,.75);
+ backdrop-filter:blur(8px);
+ display:none;align-items:center;justify-content:center;
+ padding:20px
+}
+.modal.show{display:flex}
+.modal-box{
+ width:min(500px,100%);
+ background:#111116;
+ border:1px solid var(--border);
+ border-radius:22px;padding:25px;
+ box-shadow:0 20px 80px #000
+}
+.modal-head{
+ display:flex;justify-content:space-between;
+ margin-bottom:20px
+}
+.close{background:none;color:#aaa;font-size:25px}
+input,select{
+ width:100%;padding:13px;
+ margin:7px 0 12px;
+ border:1px solid var(--border);
+ border-radius:12px;
+ background:#08080c;color:#fff;outline:none
+}
+input:focus{border-color:var(--red)}
 .btn{
-    border:0;
-    border-radius:11px;
-    padding:11px 16px;
-    background:
-        linear-gradient(
-            135deg,
-            var(--red),
-            var(--red2)
-        );
-    color:#fff;
-    font-weight:bold;
-    transition:.2s;
+ padding:12px 18px;border-radius:12px;
+ background:linear-gradient(135deg,var(--red),#8d0925);
+ color:#fff;font-weight:bold
+}
+.btn.goldbtn{
+ background:linear-gradient(135deg,#b77d20,var(--gold));
+ color:#130d02
+}
+.btn.full{width:100%}
+.btn.secondary{
+ background:#22232b;color:#ddd
 }
 
-.btn:hover{
-    transform:translateY(-2px);
-    filter:brightness(1.08);
+.auth{
+ position:fixed;inset:0;z-index:200;
+ background:
+ radial-gradient(circle at 50% 20%,#500919,transparent 35%),
+ #060609;
+ display:flex;align-items:center;justify-content:center;padding:20px
 }
+.auth-box{
+ width:min(430px,100%);
+ background:rgba(17,17,22,.9);
+ border:1px solid var(--border);
+ border-radius:25px;padding:30px;
+ box-shadow:0 25px 100px #000
+}
+.auth-logo{text-align:center;font-size:27px;font-weight:900;color:var(--gold)}
+.auth-logo span{color:#fff}
+.auth-sub{text-align:center;color:#777;margin:8px 0 25px}
 
-.btn.gold{
-    background:
-        linear-gradient(
-            135deg,
-            #b5791c,
-            var(--gold)
-        );
-    color:#160d00;
+.wheel{
+ width:240px;height:240px;border-radius:50%;
+ margin:20px auto;
+ background:conic-gradient(
+ #d7193f 0 45deg,#e4b04a 45deg 90deg,
+ #8d0925 90deg 135deg,#b77d20 135deg 180deg,
+ #d7193f 180deg 225deg,#e4b04a 225deg 270deg,
+ #8d0925 270deg 315deg,#b77d20 315deg 360deg
+ );
+ border:10px solid #191920;
+ box-shadow:0 0 40px rgba(215,25,63,.25);
+ transition:transform 4s cubic-bezier(.15,.75,.2,1)
 }
+.wheel-wrap{text-align:center}
+.pointer{font-size:28px;color:#fff}
 
-.btn.green{
-    background:
-        linear-gradient(
-            135deg,
-            #167b55,
-            var(--green)
-        );
-    color:#00150d;
-}
-
-.btn.gray{
-    background:#242631;
-}
-
-.full{
-    width:100%;
-}
-
-input{
-    width:100%;
-    padding:12px;
-    margin:6px 0 12px;
-    border:1px solid var(--line);
-    border-radius:11px;
-    background:#080910;
-    color:#fff;
-    outline:0;
-}
-
-input:focus{
-    border-color:var(--red);
-    box-shadow:0 0 0 2px rgba(229,29,72,.08);
-}
-
-.shop,
-.inventory,
-.players{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:14px;
-}
-
-.item,
-.player{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:17px;
-    padding:18px;
-}
-
-.icon{
-    font-size:48px;
-    text-align:center;
-    margin-bottom:10px;
-}
-
-.muted{
-    color:#888;
-    font-size:12px;
-}
-
-.price{
-    color:var(--gold);
-    font-weight:bold;
-    margin:10px 0;
-}
-
-.badge{
-    display:inline-block;
-    padding:4px 9px;
-    border-radius:20px;
-    background:rgba(242,189,75,.12);
-    color:var(--gold);
-    font-size:11px;
-}
-
-.table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-.table th,
-.table td{
-    padding:12px;
-    border-bottom:1px solid var(--line);
-    text-align:right;
-}
-
-.table th{
-    color:#777;
-    font-size:11px;
-}
-
-.citymap{
-    min-height:480px;
-    border:1px solid var(--line);
-    border-radius:22px;
-    padding:18px;
-    background:
-        linear-gradient(
-            rgba(7,20,25,.35),
-            rgba(7,10,20,.6)
-        ),
-        repeating-linear-gradient(
-            0deg,
-            transparent 0 48px,
-            rgba(255,255,255,.04) 49px 50px
-        ),
-        repeating-linear-gradient(
-            90deg,
-            transparent 0 48px,
-            rgba(255,255,255,.04) 49px 50px
-        );
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
-    gap:12px;
-}
-
-.plot{
-    min-height:120px;
-    border:1px dashed rgba(255,255,255,.16);
-    border-radius:15px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    background:rgba(0,0,0,.18);
-    gap:7px;
-}
-
-.character{
-    display:grid;
-    grid-template-columns:180px 1fr;
-    gap:20px;
-    align-items:center;
-}
-
-.char{
-    width:160px;
-    height:210px;
-    border-radius:25px;
-    display:grid;
-    place-items:center;
-    font-size:110px;
-    background:
-        linear-gradient(
-            160deg,
-            #32102b,
-            #0d1d3d
-        );
-    border:1px solid var(--line);
-}
-
-.stats{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-}
-
-.stat{
-    padding:14px;
-    border-radius:14px;
-    background:rgba(255,255,255,.04);
-    border:1px solid var(--line);
-}
-
-.chat{
-    height:390px;
-    display:flex;
-    flex-direction:column;
-}
-
-.messages{
-    flex:1;
-    overflow:auto;
-    padding:10px;
-}
-
-.msg{
-    padding:10px;
-    margin:7px 0;
-    border-radius:12px;
-    background:rgba(255,255,255,.05);
-}
-
-.msg b{
-    color:var(--gold);
-}
-
-.chatbar{
-    display:flex;
-    gap:8px;
-}
-
-.chatbar input{
-    margin:0;
-}
+.empty{text-align:center;padding:35px;color:#777}
 
 .toast{
-    position:fixed;
-    left:20px;
-    bottom:20px;
-    z-index:200;
-    background:#151720;
-    border:1px solid var(--line);
-    border-right:4px solid var(--red);
-    padding:14px 18px;
-    border-radius:12px;
-    transform:translateY(100px);
-    opacity:0;
-    transition:.3s;
+ position:fixed;left:20px;bottom:20px;
+ z-index:500;background:#17171d;
+ border:1px solid var(--border);
+ border-right:4px solid var(--red);
+ padding:13px 18px;border-radius:12px;
+ transform:translateY(100px);opacity:0;
+ transition:.3s
 }
+.toast.show{transform:none;opacity:1}
 
-.toast.show{
-    transform:none;
-    opacity:1;
+@media(max-width:1000px){
+ .grid{grid-template-columns:repeat(2,1fr)}
+ .actions{grid-template-columns:repeat(2,1fr)}
+ .sidebar{width:210px}
 }
-
-.win{
-    position:fixed;
-    inset:0;
-    z-index:300;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    background:rgba(0,0,0,.72);
-}
-
-.win.show{
-    display:flex;
-}
-
-.winbox{
-    text-align:center;
-    padding:35px;
-}
-
-.music{
-    position:fixed;
-    left:20px;
-    top:85px;
-    z-index:40;
-}
-
-.music button{
-    border:1px solid var(--line);
-    border-radius:50%;
-    width:45px;
-    height:45px;
-    background:#11131c;
-    color:white;
-}
-
-/* =========================
-RESPONSIVE
-========================= */
-
-@media(max-width:1100px){
-
-    .grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .actions{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .shop,
-    .inventory,
-    .players{
-        grid-template-columns:repeat(3,1fr);
-    }
-
-    aside{
-        width:210px;
-    }
-
-    .citymap{
-        grid-template-columns:repeat(4,1fr);
-    }
-}
-
 @media(max-width:700px){
-
-    header{
-        padding:10px 14px;
-    }
-
-    .layout{
-        display:block;
-    }
-
-    aside{
-        width:100%;
-        padding:7px;
-        overflow:auto;
-    }
-
-    nav{
-        display:flex;
-        gap:5px;
-        overflow:auto;
-    }
-
-    nav button{
-        white-space:nowrap;
-        width:auto;
-    }
-
-    .navtitle{
-        display:none;
-    }
-
-    main{
-        padding:13px;
-    }
-
-    .grid,
-    .actions,
-    .shop,
-    .inventory,
-    .players{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .citymap{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .character{
-        grid-template-columns:1fr;
-    }
-
-    .char{
-        margin:auto;
-    }
-
-    .stats{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .logo{
-        font-size:15px;
-    }
+ header{padding:12px 15px}
+ .layout{display:block}
+ .sidebar{
+  width:100%;padding:8px;
+  border-left:0;border-bottom:1px solid var(--border);
+  overflow:auto
+ }
+ .nav{display:flex;gap:5px}
+ .nav-title{display:none}
+ .nav button{white-space:nowrap;padding:9px}
+ .main{padding:15px}
+ .grid{grid-template-columns:1fr 1fr}
+ .actions{grid-template-columns:1fr 1fr}
+ .hero h1{font-size:22px}
+ .header-user span{display:none}
 }
 </style>
 </head>
 
 <body>
 
-<div id="stars"></div>
-
-<audio id="music" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_946b8c98f2.mp3?filename=lofi-study-112191.mp3">
-</audio>
-
-<div class="music">
-    <button onclick="toggleMusic()" id="musicBtn">🔇</button>
-</div>
-
-<!-- =========================
-AUTH
-========================= -->
-
+<!-- LOGIN -->
 <div class="auth" id="auth">
+ <div class="auth-box">
+  <div class="auth-logo">『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』</div>
+  <div class="auth-sub">Interactive Bank & Community</div>
 
-    <div class="authbox">
+  <div id="loginForm">
+   <input id="loginName" placeholder="اسم المستخدم">
+   <input id="loginPass" type="password" placeholder="كلمة المرور">
+   <button class="btn full" onclick="login()">دخول إلى البنك</button>
+   <button class="btn secondary full" style="margin-top:8px" onclick="showRegister()">إنشاء حساب</button>
+  </div>
 
-        <div class="authlogo">
-            『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』
-        </div>
-
-        <div class="authsub">
-            Ultimate Anime Community
-        </div>
-
-        <div id="authError" class="auth-error"></div>
-
-        <!-- LOGIN -->
-
-        <div id="loginForm">
-
-            <h3 class="auth-title">
-                🔐 تسجيل الدخول
-            </h3>
-
-            <input
-                id="loginUsername"
-                type="text"
-                autocomplete="username"
-                placeholder="👤 اسم المستخدم">
-
-            <input
-                id="loginPassword"
-                type="password"
-                autocomplete="current-password"
-                placeholder="🔐 كلمة المرور">
-
-            <button
-                class="btn full"
-                onclick="login()">
-
-                🚀 دخول
-
-            </button>
-
-            <br><br>
-
-            <button
-                class="btn gray full"
-                onclick="showRegister()">
-
-                ✨ إنشاء حساب جديد
-
-            </button>
-
-        </div>
-
-        <!-- REGISTER -->
-
-        <div id="registerForm" class="hidden">
-
-            <h3 class="auth-title">
-                ✨ إنشاء حساب
-            </h3>
-
-            <input
-                id="registerUsername"
-                type="text"
-                autocomplete="username"
-                placeholder="👤 اسم المستخدم">
-
-            <input
-                id="registerPassword"
-                type="password"
-                autocomplete="new-password"
-                placeholder="🔐 كلمة المرور">
-
-            <input
-                id="registerPassword2"
-                type="password"
-                autocomplete="new-password"
-                placeholder="🔐 تأكيد كلمة المرور">
-
-            <button
-                class="btn gold full"
-                onclick="register()">
-
-                ✨ إنشاء الحساب
-
-            </button>
-
-            <br><br>
-
-            <button
-                class="btn gray full"
-                onclick="showLogin()">
-
-                رجوع
-
-            </button>
-
-        </div>
-
-    </div>
-
+  <div id="registerForm" class="hidden">
+   <input id="regName" placeholder="اسم المستخدم">
+   <input id="regPass" type="password" placeholder="كلمة المرور">
+   <button class="btn goldbtn full" onclick="register()">إنشاء الحساب</button>
+   <button class="btn secondary full" style="margin-top:8px" onclick="showLogin()">لدي حساب بالفعل</button>
+  </div>
+ </div>
 </div>
-
-<!-- =========================
-HEADER
-========================= -->
 
 <header>
-
-    <div class="logo">
-        『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』
-    </div>
-
-    <div class="userbox">
-
-        <span id="headName">
-            Guest
-        </span>
-
-        <div
-            class="avatar"
-            id="avatar">
-
-            ?
-
-        </div>
-
-    </div>
-
+ <div class="logo">『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』</div>
+ <div class="header-user">
+  <span id="headerName">Guest</span>
+  <div class="avatar" id="avatar">?</div>
+ </div>
 </header>
-
-<!-- =========================
-LAYOUT
-========================= -->
 
 <div class="layout">
 
-<aside>
+<aside class="sidebar">
+ <div class="nav">
 
-<nav>
+  <button class="active" onclick="page('home',this)">🏠 الرئيسية</button>
+  <button onclick="page('wallet',this)">💰 المحفظة</button>
+  <button onclick="page('games',this)">🎮 الألعاب</button>
+  <button onclick="page('rank',this)">🏆 الترتيب</button>
+  <button onclick="page('transactions',this)">📜 العمليات</button>
+  <button onclick="page('profile',this)">👤 الحساب</button>
 
-<button
-class="active"
-onclick="page('home',this)">
-🏠 الرئيسية
-</button>
+  <div class="nav-title">الإدارة</div>
+  <button id="adminNav" onclick="page('admin',this)">👑 الإدارة</button>
 
-<button
-onclick="page('character',this)">
-👤 شخصيتي
-</button>
+  <div class="nav-title">النظام</div>
+  <button onclick="logout()">🚪 تسجيل الخروج</button>
 
-<button
-onclick="page('city',this)">
-🏙️ مدينتي
-</button>
-
-<button
-onclick="page('farm',this)">
-🌾 مزرعتي
-</button>
-
-<button
-onclick="page('shop',this)">
-🛒 المتجر
-</button>
-
-<button
-onclick="page('inventory',this)">
-🎒 الحقيبة
-</button>
-
-<button
-onclick="page('games',this)">
-🎮 الألعاب
-</button>
-
-<button
-onclick="page('chat',this)">
-💬 الدردشة
-</button>
-
-<button
-onclick="page('players',this)">
-👥 الأعضاء
-</button>
-
-<button
-onclick="page('rank',this)">
-🏆 المتصدرون
-</button>
-
-<button
-onclick="page('wallet',this)">
-💰 المحفظة
-</button>
-
-<button
-onclick="page('loans',this)">
-🏦 البنك والقروض
-</button>
-
-<button
-onclick="page('stocks',this)">
-📈 سوق الأسهم
-</button>
-
-<button
-onclick="page('profile',this)">
-⚙️ الحساب
-</button>
-
-<div class="navtitle">
-الإدارة
-</div>
-
-<button
-id="adminBtn"
-onclick="page('admin',this)">
-👑 الإدارة
-</button>
-
-<button
-onclick="logout()">
-🚪 خروج
-</button>
-
-</nav>
-
+ </div>
 </aside>
 
-<main>
-
-<!-- =========================
-HOME
-========================= -->
-
-<section
-id="home"
-class="page">
-
-<div class="hero">
-
-<h1>
-🌙 أهلاً بك في عالم S.U.N TOKYO
-</h1>
-
-<p>
-ابنِ مدينتك، ازرع مزرعتك، طوّر شخصيتك،
-العب واربح وتنافس مع أعضاء المجتمع.
-</p>
-
-</div>
-
-<div class="grid">
-
-<div class="card">
-
-💰
-
-<div class="stat-title">
-الرصيد
-</div>
-
-<div
-class="stat-value gold"
-id="balance">
-0
-</div>
-
-</div>
-
-<div class="card">
-
-⭐
-
-<div class="stat-title">
-المستوى
-</div>
-
-<div
-class="stat-value"
-id="level">
-1
-</div>
-
-</div>
-
-<div class="card">
-
-⚡
-
-<div class="stat-title">
-XP
-</div>
-
-<div
-class="stat-value blue"
-id="xp">
-0
-</div>
-
-</div>
-
-<div class="card">
-
-🔥
-
-<div class="stat-title">
-القوة
-</div>
-
-<div
-class="stat-value red"
-id="power">
-0
-</div>
-
-</div>
-
-</div>
-
-<div class="grid">
-
-<div class="card">
-
-⚔️
-
-<div class="stat-title">
-Attack
-</div>
-
-<div
-class="stat-value red"
-id="attack">
-0
-</div>
-
-</div>
-
-<div class="card">
-
-🛡️
-
-<div class="stat-title">
-Defense
-</div>
-
-<div
-class="stat-value blue"
-id="defense">
-0
-</div>
-
-</div>
-
-<div class="card">
-
-❤️
-
-<div class="stat-title">
-HP
-</div>
-
-<div
-class="stat-value green"
-id="hp">
-0
-</div>
-
-</div>
-
-<div class="card">
-
-🏙️
-
-<div class="stat-title">
-مستوى المدينة
-</div>
-
-<div
-class="stat-value gold"
-id="cityLevel">
-1
-</div>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<b>
-⚡ تقدم المستوى
-</b>
-
-<div class="progress">
-<i id="xpbar"></i>
-</div>
-
-<small id="xptext">
-0 / 100 XP
-</small>
-
-</div>
-
-<div class="section">
-
-<h2>
-⚡ اختصارات
-</h2>
-
-<div class="actions">
-
-<button
-class="action"
-onclick="page('wallet')">
-
-💰
-
-<b>
-المحفظة
-</b>
-
-<small>
-الرصيد والتحويل
-</small>
-
-</button>
-
-<button
-class="action"
-onclick="page('chat')">
-
-💬
-
-<b>
-الدردشة
-</b>
-
-<small>
-تحدث مع الأعضاء
-</small>
-
-</button>
-
-<button
-class="action"
-onclick="page('city')">
-
-🏙️
-
-<b>
-المدينة
-</b>
-
-<small>
-ابنِ وطوّر
-</small>
-
-</button>
-
-<button
-class="action"
-onclick="page('shop')">
-
-🛒
-
-<b>
-المتجر
-</b>
-
-<small>
-اشترِ الأدوات
-</small>
-
-</button>
-
-</div>
-
-</div>
-
+<main class="main">
+
+<!-- HOME -->
+<section id="home" class="page">
+
+ <div class="hero">
+  <h1>مرحباً بك في 『𝑺.𝑼.𝑵 TOKYO』 🧧</h1>
+  <p>البنك التفاعلي لمجتمعك — اجمع العملات، ارفع مستواك ونافس الأعضاء.</p>
+ </div>
+
+ <div class="grid">
+  <div class="card">
+   <div class="stat-icon">💰</div>
+   <div class="stat-title">الرصيد</div>
+   <div class="stat-value gold" id="balance">0</div>
+  </div>
+
+  <div class="card">
+   <div class="stat-icon">⭐</div>
+   <div class="stat-title">المستوى</div>
+   <div class="stat-value" id="level">1</div>
+  </div>
+
+  <div class="card">
+   <div class="stat-icon">⚡</div>
+   <div class="stat-title">XP</div>
+   <div class="stat-value" id="xp">0</div>
+  </div>
+
+  <div class="card">
+   <div class="stat-icon">👑</div>
+   <div class="stat-title">الرتبة</div>
+   <div class="stat-value red" id="rankName">عضو</div>
+  </div>
+ </div>
+
+ <div class="section">
+  <div class="section-head"><h2>⚡ العمليات السريعة</h2></div>
+  <div class="actions">
+   <button class="action" onclick="openModal('transferModal')">💸<b>تحويل</b><small>إرسال عملات</small></button>
+   <button class="action" onclick="openModal('depositModal')">💰<b>إيداع</b><small>إضافة رصيد</small></button>
+   <button class="action" onclick="page('games')">🎮<b>الألعاب</b><small>اكسب عملات</small></button>
+   <button class="action" onclick="page('rank')">🏆<b>المتصدرون</b><small>أفضل الأعضاء</small></button>
+  </div>
+ </div>
+
+ <div class="section">
+  <div class="section-head">
+   <h2>📊 تقدم المستوى</h2>
+   <span id="xpText">0 / 100 XP</span>
+  </div>
+  <div class="card">
+   <div class="progress"><i id="xpBar"></i></div>
+  </div>
+ </div>
+
+ <div class="section">
+  <div class="section-head"><h2>📜 آخر العمليات</h2></div>
+  <div class="card">
+   <table class="table">
+    <thead><tr><th>العملية</th><th>المبلغ</th><th>التاريخ</th></tr></thead>
+    <tbody id="recent"></tbody>
+   </table>
+  </div>
+ </div>
 </section>
 
-<!-- =========================
-CHARACTER
-========================= -->
+<!-- WALLET -->
+<section id="wallet" class="page hidden">
+ <div class="hero">
+  <h1>💰 المحفظة</h1>
+  <p>تحكم بأموالك وعملياتك.</p>
+ </div>
 
-<section
-id="character"
-class="page hidden">
+ <div class="grid">
+  <div class="card">
+   <div class="stat-title">الرصيد الحالي</div>
+   <div class="stat-value gold" id="walletBalance">0 🧧</div>
+  </div>
+  <div class="card">
+   <div class="stat-title">إجمالي العمليات</div>
+   <div class="stat-value" id="transactionCount">0</div>
+  </div>
+ </div>
 
-<div class="hero">
-
-<h1>
-👤 شخصيتي
-</h1>
-
-<p>
-طوّر بطلك.
-</p>
-
-</div>
-
-<div class="card character">
-
-<div
-class="char"
-id="charView">
-🧙
-</div>
-
-<div>
-
-<h1 id="charName">
-Player
-</h1>
-
-<p class="muted">
-🌱 عضو
-</p>
-
-<br>
-
-<div class="stats">
-
-<div class="stat">
-❤️ HP
-<h2 id="cHP">
-100
-</h2>
-</div>
-
-<div class="stat">
-⚔️ Attack
-<h2 id="cATK">
-30
-</h2>
-</div>
-
-<div class="stat">
-🛡️ Defense
-<h2 id="cDEF">
-30
-</h2>
-</div>
-
-</div>
-
-<br>
-
-<h3>
-👕 المظهر
-</h3>
-
-<br>
-
-<button
-class="btn"
-onclick="changeAvatar('🧙')">
-🧙
-</button>
-
-<button
-class="btn"
-onclick="changeAvatar('🥷')">
-🥷
-</button>
-
-<button
-class="btn"
-onclick="changeAvatar('👑')">
-👑
-</button>
-
-<button
-class="btn"
-onclick="changeAvatar('⚔️')">
-⚔️
-</button>
-
-<button
-class="btn"
-onclick="changeAvatar('🦸')">
-🦸
-</button>
-
-</div>
-
-</div>
-
+ <div class="actions">
+  <button class="action" onclick="openModal('transferModal')">💸<b>تحويل</b></button>
+  <button class="action" onclick="openModal('depositModal')">💰<b>إيداع</b></button>
+  <button class="action" onclick="openModal('withdrawModal')">🏧<b>سحب</b></button>
+  <button class="action" onclick="openModal('giftModal')">🎁<b>هدية</b></button>
+ </div>
 </section>
 
-<!-- =========================
-CITY
-========================= -->
+<!-- GAMES -->
+<section id="games" class="page hidden">
+ <div class="hero">
+  <h1>🎮 مركز الترفيه</h1>
+  <p>استخدم العملات وجرّب حظك.</p>
+ </div>
 
-<section
-id="city"
-class="page hidden">
+ <div class="grid">
+  <div class="card">
+   <h2>🎁 الصندوق</h2>
+   <p style="color:#888;margin:10px 0">تكلفة فتح الصندوق: 50 🧧</p>
+   <button class="btn goldbtn" onclick="openBox()">فتح الصندوق</button>
+  </div>
 
-<div class="hero">
+  <div class="card">
+   <h2>🎡 عجلة الحظ</h2>
+   <p style="color:#888;margin:10px 0">تكلفة الدور: 100 🧧</p>
+   <button class="btn" onclick="spinWheel()">تدوير العجلة</button>
+  </div>
 
-<h1>
-🏙️ مدينتي
-</h1>
+  <div class="card">
+   <h2>🎲 رمية الحظ</h2>
+   <p style="color:#888;margin:10px 0">تكلفة اللعب: 25 🧧</p>
+   <button class="btn secondary" onclick="dice()">رمي النرد</button>
+  </div>
 
-<p>
-طوّر مدينتك.
-</p>
+  <div class="card">
+   <h2>⚡ مكافأة يومية</h2>
+   <p style="color:#888;margin:10px 0">احصل على مكافأتك اليومية.</p>
+   <button class="btn goldbtn" onclick="daily()">استلام</button>
+  </div>
+ </div>
 
-</div>
-
-<div class="grid">
-
-<div class="card">
-🏙️ المستوى
-<h2 id="cityL">1</h2>
-</div>
-
-<div class="card">
-🏗️ المباني
-<h2 id="buildingCount">0</h2>
-</div>
-
-<div class="card">
-💪 القوة
-<h2 id="cityPower">0</h2>
-</div>
-
-<div class="card">
-💰 الدخل
-<h2 id="cityIncome">0</h2>
-</div>
-
-</div>
-
-<div
-class="citymap"
-id="cityMap">
-</div>
-
-<br>
-
-<button
-class="btn gold full"
-onclick="upgradeCity()">
-
-🏗️ تطوير المدينة
-
-</button>
-
+ <div class="card wheel-wrap">
+  <div class="pointer">▼</div>
+  <div class="wheel" id="wheel"></div>
+ </div>
 </section>
 
-<!-- =========================
-FARM
-========================= -->
-
-<section
-id="farm"
-class="page hidden">
-
-<div class="hero">
-
-<h1>
-🌾 مزرعتي
-</h1>
-
-<p>
-ازرع واحصد.
-</p>
-
-</div>
-
-<div class="grid">
-
-<div class="card">
-🌾 مستوى المزرعة
-<h2 id="farmL">1</h2>
-</div>
-
-<div class="card">
-💰 الدخل
-<h2 id="farmIncome">50</h2>
-</div>
-
-<div class="card">
-🌱 الأراضي
-<h2 id="farmPlots">4</h2>
-</div>
-
-<div class="card">
-🥕 المحاصيل
-<h2 id="crops">0</h2>
-</div>
-
-</div>
-
-<div
-class="citymap"
-id="farmMap">
-</div>
-
-<br>
-
-<button
-class="btn green full"
-onclick="upgradeFarm()">
-
-🌱 تطوير المزرعة
-
-</button>
-
-<br><br>
-
-<button
-class="btn gold full"
-onclick="harvest()">
-
-🌾 حصاد
-
-</button>
-
+<!-- RANK -->
+<section id="rank" class="page hidden">
+ <div class="hero">
+  <h1>🏆 لوحة المتصدرين</h1>
+  <p>أغنى وأعلى أعضاء 『S.U.N TOKYO』.</p>
+ </div>
+ <div class="card">
+  <table class="table">
+   <thead><tr><th>#</th><th>العضو</th><th>المستوى</th><th>الرصيد</th><th>الرتبة</th></tr></thead>
+   <tbody id="leaderboard"></tbody>
+  </table>
+ </div>
 </section>
 
-<!-- =========================
-SHOP
-========================= -->
-
-<section
-id="shop"
-class="page hidden">
-
-<div class="hero">
-
-<h1>
-🛒 المتجر
-</h1>
-
-<p>
-أسلحة وملابس ودروع.
-</p>
-
-</div>
-
-<input
-id="search"
-placeholder="🔎 ابحث..."
-oninput="renderShop()">
-
-<div
-class="shop"
-id="shopGrid">
-</div>
-
+<!-- TRANSACTIONS -->
+<section id="transactions" class="page hidden">
+ <div class="hero">
+  <h1>📜 سجل العمليات</h1>
+  <p>كل عمليات حسابك.</p>
+ </div>
+ <div class="card">
+  <table class="table">
+   <thead><tr><th>العملية</th><th>المبلغ</th><th>التفاصيل</th><th>التاريخ</th></tr></thead>
+   <tbody id="allTransactions"></tbody>
+  </table>
+ </div>
 </section>
 
-<!-- =========================
-INVENTORY
-========================= -->
+<!-- PROFILE -->
+<section id="profile" class="page hidden">
+ <div class="hero">
+  <h1>👤 حسابي</h1>
+  <p>معلومات وإحصائيات العضو.</p>
+ </div>
 
-<section
-id="inventory"
-class="page hidden">
+ <div class="grid">
+  <div class="card">
+   <div class="stat-title">اسم المستخدم</div>
+   <div class="stat-value" id="profileName">-</div>
+  </div>
+  <div class="card">
+   <div class="stat-title">ID</div>
+   <div class="stat-value" id="profileId">-</div>
+  </div>
+  <div class="card">
+   <div class="stat-title">المستوى</div>
+   <div class="stat-value" id="profileLevel">1</div>
+  </div>
+  <div class="card">
+   <div class="stat-title">XP</div>
+   <div class="stat-value" id="profileXP">0</div>
+  </div>
+ </div>
 
-<div class="hero">
-
-<h1>
-🎒 الحقيبة
-</h1>
-
-<p>
-مقتنياتك.
-</p>
-
-</div>
-
-<div
-class="inventory"
-id="invGrid">
-</div>
-
+ <div class="card">
+  <h2>⚙️ الإعدادات</h2>
+  <input id="newName" placeholder="اسم جديد">
+  <button class="btn" onclick="changeName()">تغيير الاسم</button>
+ </div>
 </section>
 
-<!-- =========================
-GAMES
-========================= -->
-
-<section
-id="games"
-class="page hidden">
-
-<div class="hero">
-
-<h1>
-🎮 الألعاب
-</h1>
-
-<p>
-اختبر حظك واربح العملات.
-</p>
-
-</div>
-
-<div class="grid">
-
-<div class="card">
-
-<h2>
-🎲 النرد
-</h2>
-
-<p class="muted">
-تكلفة 25 🧧
-</p>
-
-<br>
-
-<button
-class="btn"
-onclick="dice()">
-
-رمي النرد
-
-</button>
-
-</div>
-
-<div class="card">
-
-<h2>
-🎁 صندوق سريع
-</h2>
-
-<p class="muted">
-تكلفة 50 🧧
-</p>
-
-<br>
-
-<button
-class="btn gold"
-onclick="quickBox()">
-
-فتح
-
-</button>
-
-</div>
-
-<div class="card">
-
-<h2>
-🎡 العجلة
-</h2>
-
-<p class="muted">
-تكلفة 100 🧧
-</p>
-
-<br>
-
-<button
-class="btn"
-onclick="spin()">
-
-تدوير
-
-</button>
-
-</div>
-
-<div class="card">
-
-<h2>
-🎁 اليومية
-</h2>
-
-<br>
-
-<button
-class="btn green"
-onclick="daily()">
-
-استلام
-
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- =========================
-CHAT
-========================= -->
-
-<section
-id="chat"
-class="page hidden">
-
-<div class="hero">
-
-<h1>
-💬 دردشة المجتمع
-</h1>
-
-<p>
-الدردشة مشتركة بين جميع أعضاء الموقع.
-</p>
-
-</div>
-
-<div class="card chat">
-
-<div
-class="messages"
-id="messages">
-</div>
-
-<div class="chatbar">
-
-<input
-id="chatInput"
-placeholder="اكتب رسالتك..."
-onkeydown="if(event.key==='Enter')sendChat()">
-
-<button
-class="btn"
-onclick="sendChat()">
-
-إرسال
-
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- =========================
-PLAYERS
-========================= -->
-
-<section
-id="players"
-class="page hidden">
-
-<div class="hero">
-
-<h1>
-👥 أعضاء المجتمع
-</h1>
-
-<p>
-قائمة الأعضاء العامة.
-</p>
-
-</div>
-
-<div
-class="players"
-id="playersGrid">
-</div>
-
-</section>
-
-<!-- =========================
-RANK
-========================= -->
-
-<section
-id="rank"
-class="page hidden">
-
-<div class="hero">
-
-<h1>
-🏆 المتصدرون
-</h1>
-
-<p>
-أقوى أعضاء S.U.N TOKYO.
-</p>
-
-</div>
-
-<div class="card">
-
-<table class="table">
-
-<thead>
-
-<tr>
-
-<th>
-#
-</th>
-
-<th>
-العضو
-</th>
-
-<th>
-LV
-</th>
-
-<th>
-القوة
-</th>
-
-<th>
-الرتبة
-</th>
-
-</tr>
-
-</thead>
-
-<tbody
-id="rankBody">
-</tbody>
-
-</table>
-
-</div>
-
-</section>
-
-<!-- =========================
-WALLET
-========================= -->
-
-<section
-id="wallet"
-class="page hidden">
-
-<div class="hero">
-
-<h1>
-💰 المحفظة
-</h1>
-
-<p>
-الرصيد والتحويلات.
-</p>
-
-</div>
-
-<div class="grid">
-
-<div class="card">
-
-💰 الرصيد الحالي
-
-<h2
-class="gold"
-id="walletBalance">
-0
-</h2>
-
-</div>
-
-<div class="card">
-
-📜 العمليات
-
-<h2 id="txCount">
-0
-</h2>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h3>
-💳 إيداع رصيد
-</h3>
-
-<input
-id="depositAmount"
-type="number"
-placeholder="أدخل المبلغ">
-
-<button
-class="btn green full"
-onclick="makeDeposit()">
-
-إيداع 💳
-
-</button>
-
-</div>
-
-<br>
-
-<div class="card">
-
-<h3>
-💸 تحويل الأموال
-</h3>
-
-<input
-id="transferUser"
-placeholder="اسم العضو">
-
-<input
-id="transferAmount"
-type="number"
-placeholder="المبلغ">
-
-<button
-class="btn gold full"
-onclick="makeTransfer()">
-
-تحويل 🚀
-
-</button>
-
-</div>
-
-<br>
-
-<div class="card">
-
-<h3>
-📜 سجل العمليات
-</h3>
-
-<div
-id="txHistoryBox"
-style="margin-top:10px">
-</div>
-
-</div>
-
-</section>
-
-<!-- =========================
-LOANS
-========================= -->
-
-<section
-id="loans"
-class="page hidden">
-
-<div class="hero">
-
-<h1>
-🏦 البنك والقروض
-</h1>
-
-<p>
-إدارة القروض.
-</p>
-
-</div>
-
-<div class="grid">
-
-<div class="card">
-
-📋 القرض الحالي
-
-<h2
-class="red"
-id="loanAmount">
-0 🧧
-</h2>
-
-</div>
-
-<div class="card">
-
-⏳ الحالة
-
-<h2 id="loanStatus">
-لا يوجد قرض
-</h2>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h3>
-📥 طلب قرض
-</h3>
-
-<p class="muted">
-قرض 2000 🧧 وفائدة 10%.
-</p>
-
-<br>
-
-<button
-class="btn gold full"
-onclick="takeLoan()">
-
-اقتراض 2,000 🧧
-
-</button>
-
-</div>
-
-<br>
-
-<div class="card">
-
-<h3>
-📤 السداد
-</h3>
-
-<br>
-
-<button
-class="btn green full"
-onclick="payLoan()">
-
-سداد القرض 💳
-
-</button>
-
-</div>
-
-</section>
-
-<!-- =========================
-STOCKS
-========================= -->
-
-<section
-id="stocks"
-class="page hidden">
-
-<div class="hero">
-
-<h1>
-📈 سوق الأسهم
-</h1>
-
-<p>
-استثمار افتراضي.
-</p>
-
-</div>
-
-<div class="grid">
-
-<div class="card">
-
-🏢 تجارة
-
-<h2
-class="gold"
-id="stockPrice1">
-150 🧧
-</h2>
-
-<p
-class="muted"
-id="stockOwned1">
-المملوك: 0 سهم
-</p>
-
-</div>
-
-<div class="card">
-
-⚡ طاقة
-
-<h2
-class="gold"
-id="stockPrice2">
-300 🧧
-</h2>
-
-<p
-class="muted"
-id="stockOwned2">
-المملوك: 0 سهم
-</p>
-
-</div>
-
-</div>
-
-<div
-style="display:flex;gap:10px;margin-bottom:20px">
-
-<button
-class="btn gold full"
-onclick="buyStock(1)">
-
-شراء تجارة
-
-</button>
-
-<button
-class="btn green full"
-onclick="buyStock(2)">
-
-شراء طاقة
-
-</button>
-
-</div>
-
-<div
-style="display:flex;gap:10px;margin-bottom:20px">
-
-<button
-class="btn full"
-onclick="sellStock(1)">
-
-بيع تجارة
-
-</button>
-
-<button
-class="btn full"
-onclick="sellStock(2)">
-
-بيع طاقة
-
-</button>
-
-</div>
-
-<div class="card">
-
-<button
-class="btn full"
-onclick="updateStocksMarket()">
-
-🔄 تحديث السوق
-
-</button>
-
-</div>
-
-</section>
-
-<!-- =========================
-PROFILE
-========================= -->
-
-<section
-id="profile"
-class="page hidden">
-
-<div class="hero">
-
-<h1>
-⚙️ الحساب
-</h1>
-
-<p>
-إعدادات الحساب.
-</p>
-
-</div>
-
-<div class="card">
-
-<p class="muted">
-اسم المستخدم الحالي
-</p>
-
-<h2
-id="profileUsername"
-style="margin:8px 0 18px">
--
-</h2>
-
-<input
-id="newName"
-placeholder="اسم جديد">
-
-<button
-class="btn"
-onclick="rename()">
-
-تغيير الاسم
-
-</button>
-
-<br><br>
-
-<button
-class="btn gray"
-onclick="logout()">
-
-🚪 تسجيل الخروج
-
-</button>
-
-</div>
-
-</section>
-
-<!-- =========================
-ADMIN
-========================= -->
-
-<section
-id="admin"
-class="page hidden">
-
-<div class="hero">
-
-<h1>
-👑 الإدارة
-</h1>
-
-<p>
-لوحة المدير.
-</p>
-
-</div>
-
-<div class="grid">
-
-<div class="card">
-
-👥 الأعضاء
-
-<h2 id="adminUsers">
-0
-</h2>
-
-</div>
-
-<div class="card">
-
-💰 العملات
-
-<h2 id="adminMoney">
-0
-</h2>
-
-</div>
-
-<div class="card">
-
-⚡ الحالة
-
-<h2 class="green">
-ONLINE
-</h2>
-
-</div>
-
-<div class="card">
-
-🛡️ الصلاحية
-
-<h2>
-ADMIN
-</h2>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<table class="table">
-
-<thead>
-
-<tr>
-
-<th>
-العضو
-</th>
-
-<th>
-الرصيد
-</th>
-
-<th>
-القوة
-</th>
-
-<th>
-إضافة
-</th>
-
-</tr>
-
-</thead>
-
-<tbody
-id="adminTable">
-</tbody>
-
-</table>
-
-</div>
-
+<!-- ADMIN -->
+<section id="admin" class="page hidden">
+ <div class="hero">
+  <h1>👑 لوحة الإدارة</h1>
+  <p>إدارة النظام والأعضاء.</p>
+ </div>
+
+ <div class="grid">
+  <div class="card"><div class="stat-title">عدد الأعضاء</div><div class="stat-value" id="usersCount">0</div></div>
+  <div class="card"><div class="stat-title">إجمالي العملات</div><div class="stat-value gold" id="totalMoney">0</div></div>
+  <div class="card"><div class="stat-title">العمليات</div><div class="stat-value" id="adminTransactions">0</div></div>
+  <div class="card"><div class="stat-title">حالة النظام</div><div class="stat-value red">ONLINE</div></div>
+ </div>
+
+ <div class="card">
+  <h2 style="margin-bottom:15px">👥 الأعضاء</h2>
+  <table class="table">
+   <thead><tr><th>العضو</th><th>الرصيد</th><th>المستوى</th><th>إدارة</th></tr></thead>
+   <tbody id="adminUsers"></tbody>
+  </table>
+ </div>
 </section>
 
 </main>
-
 </div>
 
-<!-- =========================
-WIN
-========================= -->
-
-<div
-class="win"
-id="win">
-
-<div class="winbox">
-
-<h1 id="winTitle">
-🎉 فوز!
-</h1>
-
-<p id="winText">
-</p>
-
-<br>
-
-<button
-class="btn gold"
-onclick="closeWin()">
-
-استمرار
-
-</button>
-
+<!-- TRANSFER -->
+<div class="modal" id="transferModal">
+ <div class="modal-box">
+  <div class="modal-head"><h2>💸 تحويل</h2><button class="close" onclick="closeModal('transferModal')">×</button></div>
+  <input id="transferTo" placeholder="اسم العضو">
+  <input id="transferAmount" type="number" placeholder="المبلغ">
+  <button class="btn full" onclick="transfer()">تأكيد التحويل</button>
+ </div>
 </div>
 
+<!-- DEPOSIT -->
+<div class="modal" id="depositModal">
+ <div class="modal-box">
+  <div class="modal-head"><h2>💰 إيداع</h2><button class="close" onclick="closeModal('depositModal')">×</button></div>
+  <input id="depositAmount" type="number" placeholder="المبلغ">
+  <button class="btn goldbtn full" onclick="deposit()">إيداع</button>
+ </div>
 </div>
 
-<div
-class="toast"
-id="toast">
+<!-- WITHDRAW -->
+<div class="modal" id="withdrawModal">
+ <div class="modal-box">
+  <div class="modal-head"><h2>🏧 سحب</h2><button class="close" onclick="closeModal('withdrawModal')">×</button></div>
+  <input id="withdrawAmount" type="number" placeholder="المبلغ">
+  <button class="btn full" onclick="withdraw()">سحب</button>
+ </div>
 </div>
+
+<!-- GIFT -->
+<div class="modal" id="giftModal">
+ <div class="modal-box">
+  <div class="modal-head"><h2>🎁 هدية</h2><button class="close" onclick="closeModal('giftModal')">×</button></div>
+  <input id="giftTo" placeholder="اسم العضو">
+  <input id="giftAmount" type="number" placeholder="قيمة الهدية">
+  <button class="btn goldbtn full" onclick="gift()">إرسال الهدية</button>
+ </div>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
+/* =========================================================
+   S.U.N TOKYO — SINGLE FILE BANK SYSTEM
+   ========================================================= */
 
-/*
-=========================================================
-S.U.N TOKYO
-نسخة بدون Supabase
-Backend: Vercel API
-=========================================================
-*/
+const KEY="SUN_TOKYO_BANK_V1";
+let data=JSON.parse(localStorage.getItem(KEY)||"null");
 
-const API="/api";
-
-let currentUser=null;
-let profile=null;
-let users=[];
-let transactions=[];
-let chatMessages=[];
-
-let stocks={
-    price1:150,
-    price2:300
-};
-
-const catalog=[
-    ["⚔️","كاتانا نارية","attack",30,500],
-    ["🗡️","نصل الظلام","attack",60,1200],
-    ["🔱","رمح التنين","attack",100,3000],
-    ["🏹","قوس القمر","attack",140,6000],
-    ["🛡️","درع ساموراي","defense",30,500],
-    ["🛡️","درع التنين","defense",70,1600],
-    ["🔰","حاجز الإمبراطور","defense",130,5000],
-    ["❤️","جرعة الحياة","hp",50,400],
-    ["🧪","إكسير نادر","hp",120,1200],
-    ["💎","بلورة الحياة","hp",250,5000],
-    ["👕","زي الساموراي","outfit",20,800],
-    ["🥷","زي النينجا","outfit",35,1500],
-    ["👑","تاج الإمبراطور","outfit",80,7000],
-    ["🪽","أجنحة أسطورية","outfit",120,12000]
-];
-
-const buildings=[
-    ["🏦","البنك"],
-    ["🏢","ناطحة السحاب"],
-    ["🏯","قلعة الساموراي"],
-    ["🏪","السوق"],
-    ["🏥","المستشفى"],
-    ["🏫","الأكاديمية"],
-    ["⚓","الميناء"],
-    ["⛩️","المعبد"],
-    ["🏟️","الساحة"],
-    ["🚉","المحطة"]
-];
-
-/* =====================================================
-HELPERS
-===================================================== */
-
-function toast(text){
-
-    const x=document.getElementById("toast");
-
-    x.textContent=text;
-
-    x.classList.add("show");
-
-    setTimeout(()=>{
-        x.classList.remove("show");
-    },2500);
+if(!data){
+ data={
+  current:null,
+  users:[
+   {
+    id:"SUN-0001",
+    name:"Admin",
+    pass:"1234",
+    balance:10000,
+    xp:500,
+    admin:true,
+    daily:null,
+    transactions:[]
+   },
+   {
+    id:"SUN-0002",
+    name:"Nero",
+    pass:"1234",
+    balance:2500,
+    xp:180,
+    admin:false,
+    daily:null,
+    transactions:[]
+   },
+   {
+    id:"SUN-0003",
+    name:"Kaito",
+    pass:"1234",
+    balance:1500,
+    xp:90,
+    admin:false,
+    daily:null,
+    transactions:[]
+   }
+  ]
+ };
+ save();
 }
 
-function showAuthError(text){
-
-    const x=document.getElementById("authError");
-
-    if(x){
-        x.textContent=text;
-    }
-
+function save(){
+ localStorage.setItem(KEY,JSON.stringify(data));
 }
 
-function clearAuthError(){
-
-    const x=document.getElementById("authError");
-
-    if(x){
-        x.textContent="";
-    }
-
+function current(){
+ return data.users.find(u=>u.id===data.current);
 }
 
-function escapeText(text){
-
-    const div=document.createElement("div");
-
-    div.textContent=text ?? "";
-
-    return div.innerHTML;
+function toast(msg){
+ const t=document.getElementById("toast");
+ t.textContent=msg;
+ t.classList.add("show");
+ setTimeout(()=>t.classList.remove("show"),2500);
 }
-
-function level(user){
-
-    return Math.floor((user?.xp||0)/100)+1;
-
-}
-
-function stats(user){
-
-    let attack=30;
-    let defense=30;
-    let hp=100;
-
-    const items=
-        user?.items &&
-        typeof user.items==="object"
-        ?user.items
-        :{};
-
-    catalog.forEach(item=>{
-
-        const quantity=items[item[1]]||0;
-
-        if(item[2]==="attack"){
-            attack+=item[3]*quantity;
-        }
-
-        if(item[2]==="defense"){
-            defense+=item[3]*quantity;
-        }
-
-        if(item[2]==="hp"){
-            hp+=item[3]*quantity;
-        }
-
-        if(item[2]==="outfit"){
-
-            attack+=Math.floor(item[3]/2)*quantity;
-            defense+=Math.floor(item[3]/2)*quantity;
-
-        }
-
-    });
-
-    attack+=(user?.city||1)*20;
-    defense+=(user?.city||1)*20;
-    hp+=(user?.farm||1)*20;
-
-    return{
-        a:attack,
-        d:defense,
-        h:hp,
-        p:attack+defense+hp
-    };
-
-}
-
-/* =====================================================
-API
-===================================================== */
-
-async function apiRequest(url,options={}){
-
-    try{
-
-        const response=
-            await fetch(
-                API+url,
-                {
-                    ...options,
-                    headers:{
-                        "Content-Type":"application/json",
-                        ...(options.headers||{})
-                    }
-                }
-            );
-
-        let data=null;
-
-        try{
-            data=await response.json();
-        }catch(e){
-            data={};
-        }
-
-        if(!response.ok){
-
-            throw new Error(
-                data.message ||
-                "حدث خطأ في الخادم"
-            );
-
-        }
-
-        return data;
-
-    }catch(error){
-
-        console.error(error);
-
-        throw error;
-
-    }
-
-}
-
-/* =====================================================
-AUTH UI
-===================================================== */
 
 function showRegister(){
-
-    clearAuthError();
-
-    document
-        .getElementById("loginForm")
-        .classList
-        .add("hidden");
-
-    document
-        .getElementById("registerForm")
-        .classList
-        .remove("hidden");
-
+ document.getElementById("loginForm").classList.add("hidden");
+ document.getElementById("registerForm").classList.remove("hidden");
 }
 
 function showLogin(){
-
-    clearAuthError();
-
-    document
-        .getElementById("registerForm")
-        .classList
-        .add("hidden");
-
-    document
-        .getElementById("loginForm")
-        .classList
-        .remove("hidden");
-
+ document.getElementById("registerForm").classList.add("hidden");
+ document.getElementById("loginForm").classList.remove("hidden");
 }
 
-/* =====================================================
-REGISTER
-===================================================== */
+function register(){
+ const name=document.getElementById("regName").value.trim();
+ const pass=document.getElementById("regPass").value;
 
-async function register(){
+ if(name.length<3)return toast("❌ الاسم قصير جداً");
+ if(pass.length<4)return toast("❌ كلمة المرور يجب أن تكون 4 أحرف على الأقل");
+ if(data.users.some(u=>u.name.toLowerCase()===name.toLowerCase()))
+  return toast("❌ اسم المستخدم موجود");
 
-    clearAuthError();
+ const id="SUN-"+String(Date.now()).slice(-6);
 
-    const username=
-        document
-        .getElementById("registerUsername")
-        .value
-        .trim();
+ data.users.push({
+  id,name,pass,balance:500,xp:0,admin:false,daily:null,transactions:[]
+ });
 
-    const password=
-        document
-        .getElementById("registerPassword")
-        .value;
-
-    const password2=
-        document
-        .getElementById("registerPassword2")
-        .value;
-
-    if(username.length<3){
-
-        return showAuthError(
-            "❌ اسم المستخدم يجب أن يكون 3 أحرف على الأقل"
-        );
-
-    }
-
-    if(username.length>30){
-
-        return showAuthError(
-            "❌ اسم المستخدم طويل جدًا"
-        );
-
-    }
-
-    if(!/^[a-zA-Z0-9_\u0600-\u06FF]+$/.test(username)){
-
-        return showAuthError(
-            "❌ استخدم الحروف والأرقام و _ فقط"
-        );
-
-    }
-
-    if(password.length<6){
-
-        return showAuthError(
-            "❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل"
-        );
-
-    }
-
-    if(password!==password2){
-
-        return showAuthError(
-            "❌ كلمتا المرور غير متطابقتين"
-        );
-
-    }
-
-    const button=
-        document.querySelector(
-            "#registerForm .btn.gold"
-        );
-
-    if(button){
-        button.disabled=true;
-        button.textContent="⏳ جارٍ إنشاء الحساب...";
-    }
-
-    try{
-
-        const result=
-            await apiRequest(
-                "/register",
-                {
-                    method:"POST",
-                    body:JSON.stringify({
-                        username,
-                        password
-                    })
-                }
-            );
-
-        if(!result.success){
-
-            throw new Error(
-                result.message||
-                "تعذر إنشاء الحساب"
-            );
-
-        }
-
-        toast("🎉 تم إنشاء الحساب بنجاح");
-
-        document
-            .getElementById("registerUsername")
-            .value="";
-
-        document
-            .getElementById("registerPassword")
-            .value="";
-
-        document
-            .getElementById("registerPassword2")
-            .value="";
-
-        document
-            .getElementById("loginUsername")
-            .value=username;
-
-        showLogin();
-
-    }catch(error){
-
-        showAuthError(
-            "❌ "+error.message
-        );
-
-    }finally{
-
-        if(button){
-
-            button.disabled=false;
-            button.textContent="✨ إنشاء الحساب";
-
-        }
-
-    }
-
+ save();
+ toast("✅ تم إنشاء الحساب، رصيد البداية 500 🧧");
+ showLogin();
 }
 
-/* =====================================================
-LOGIN
-===================================================== */
+function login(){
+ const name=document.getElementById("loginName").value.trim();
+ const pass=document.getElementById("loginPass").value;
 
-async function login(){
+ const u=data.users.find(x=>
+  x.name.toLowerCase()===name.toLowerCase() && x.pass===pass
+ );
 
-    clearAuthError();
+ if(!u)return toast("❌ اسم المستخدم أو كلمة المرور خاطئة");
 
-    const username=
-        document
-        .getElementById("loginUsername")
-        .value
-        .trim();
+ data.current=u.id;
+ save();
 
-    const password=
-        document
-        .getElementById("loginPassword")
-        .value;
-
-    if(!username||!password){
-
-        return showAuthError(
-            "❌ أدخل اسم المستخدم وكلمة المرور"
-        );
-
-    }
-
-    const button=
-        document.querySelector(
-            "#loginForm .btn.full"
-        );
-
-    if(button){
-
-        button.disabled=true;
-        button.textContent="⏳ جارٍ الدخول...";
-
-    }
-
-    try{
-
-        const result=
-            await apiRequest(
-                "/login",
-                {
-                    method:"POST",
-                    body:JSON.stringify({
-                        username,
-                        password
-                    })
-                }
-            );
-
-        if(!result.success){
-
-            throw new Error(
-                result.message||
-                "بيانات الدخول غير صحيحة"
-            );
-
-        }
-
-        currentUser=result.user;
-        profile=result.user;
-
-        document
-            .getElementById("auth")
-            .classList
-            .add("hidden");
-
-        toast(
-            "👋 أهلاً بك "+
-            profile.username
-        );
-
-        await loadData();
-
-    }catch(error){
-
-        showAuthError(
-            "❌ "+error.message
-        );
-
-    }finally{
-
-        if(button){
-
-            button.disabled=false;
-            button.textContent="🚀 دخول";
-
-        }
-
-    }
-
+ document.getElementById("auth").classList.add("hidden");
+ update();
+ toast("👋 أهلاً بك "+u.name);
 }
 
-/* =====================================================
-LOGOUT
-===================================================== */
-
-async function logout(){
-
-    try{
-
-        await apiRequest(
-            "/logout",
-            {
-                method:"POST"
-            }
-        );
-
-    }catch(error){
-
-        console.error(error);
-
-    }
-
-    currentUser=null;
-    profile=null;
-    users=[];
-    transactions=[];
-    chatMessages=[];
-
-    document
-        .getElementById("auth")
-        .classList
-        .remove("hidden");
-
-    showLogin();
-
-    document
-        .getElementById("loginPassword")
-        .value="";
-
-    toast("🚪 تم تسجيل الخروج");
-
+function logout(){
+ data.current=null;
+ save();
+ document.getElementById("auth").classList.remove("hidden");
+ showLogin();
 }
 
-/* =====================================================
-LOAD DATA
-===================================================== */
-
-async function loadData(){
-
-    try{
-
-        const result=
-            await apiRequest(
-                "/me",
-                {
-                    method:"GET"
-                }
-            );
-
-        if(!result.success){
-
-            throw new Error(
-                result.message||
-                "تعذر تحميل الحساب"
-            );
-
-        }
-
-        profile=result.user;
-        currentUser=result.user;
-
-        if(result.users){
-            users=result.users;
-        }
-
-        if(result.transactions){
-            transactions=result.transactions;
-        }
-
-        if(result.chat){
-            chatMessages=result.chat;
-        }
-
-        renderAll();
-
-    }catch(error){
-
-        console.error(error);
-
-        if(
-            error.message
-            .toLowerCase()
-            .includes("unauthorized")
-        ){
-
-            await logout();
-
-        }else{
-
-            toast(
-                "❌ "+error.message
-            );
-
-        }
-
-    }
-
+function requireLogin(){
+ if(!current()){
+  document.getElementById("auth").classList.remove("hidden");
+  return false;
+ }
+ return true;
 }
 
-/* =====================================================
-PAGES
-===================================================== */
+function page(id,btn){
+ if(!requireLogin())return;
 
-function page(id,button){
+ document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
+ document.getElementById(id).classList.remove("hidden");
 
-    if(!profile){
-        return;
-    }
+ document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+ if(btn)btn.classList.add("active");
 
-    document
-        .querySelectorAll(".page")
-        .forEach(x=>{
-            x.classList.add("hidden");
-        });
-
-    const target=
-        document.getElementById(id);
-
-    if(target){
-        target.classList.remove("hidden");
-    }
-
-    document
-        .querySelectorAll("nav button")
-        .forEach(x=>{
-            x.classList.remove("active");
-        });
-
-    if(button){
-        button.classList.add("active");
-    }
-
-    renderAll();
-
+ update();
 }
 
-/* =====================================================
-UPDATE PROFILE
-===================================================== */
-
-async function updateProfile(changes){
-
-    if(!profile){
-        return false;
-    }
-
-    try{
-
-        const result=
-            await apiRequest(
-                "/profile",
-                {
-                    method:"PUT",
-                    body:JSON.stringify(changes)
-                }
-            );
-
-        if(!result.success){
-
-            throw new Error(
-                result.message||
-                "تعذر حفظ البيانات"
-            );
-
-        }
-
-        profile=result.user;
-
-        const index=
-            users.findIndex(
-                x=>x.id===profile.id
-            );
-
-        if(index>=0){
-            users[index]=profile;
-        }
-
-        return true;
-
-    }catch(error){
-
-        toast(
-            "❌ "+error.message
-        );
-
-        return false;
-
-    }
-
+function openModal(id){
+ if(!requireLogin())return;
+ document.getElementById(id).classList.add("show");
 }
 
-/* =====================================================
-TRANSACTION
-===================================================== */
-
-async function addTransaction(
-    type,
-    amount,
-    description
-){
-
-    try{
-
-        const result=
-            await apiRequest(
-                "/transactions",
-                {
-                    method:"POST",
-                    body:JSON.stringify({
-                        type,
-                        amount,
-                        description
-                    })
-                }
-            );
-
-        if(result.success&&result.transaction){
-
-            transactions.unshift(
-                result.transaction
-            );
-
-        }
-
-    }catch(error){
-
-        console.error(error);
-
-    }
-
+function closeModal(id){
+ document.getElementById(id).classList.remove("show");
 }
 
-/* =====================================================
-WALLET
-===================================================== */
-
-async function makeDeposit(){
-
-    const amount=
-        parseInt(
-            document
-            .getElementById("depositAmount")
-            .value
-        );
-
-    if(!Number.isFinite(amount)||amount<=0){
-
-        return toast(
-            "❌ أدخل مبلغًا صحيحًا"
-        );
-
-    }
-
-    /*
-    الإيداع هنا يرسل الطلب للخادم.
-    يمكن للخادم تحديد هل الإيداع مسموح
-    للمستخدم أم للإدارة فقط.
-    */
-
-    try{
-
-        const result=
-            await apiRequest(
-                "/wallet/deposit",
-                {
-                    method:"POST",
-                    body:JSON.stringify({
-                        amount
-                    })
-                }
-            );
-
-        if(!result.success){
-
-            throw new Error(
-                result.message||
-                "تعذر الإيداع"
-            );
-
-        }
-
-        profile=result.user;
-
-        await addTransaction(
-            "deposit",
-            amount,
-            "إيداع رصيد"
-        );
-
-        document
-            .getElementById("depositAmount")
-            .value="";
-
-        toast(
-            "✅ تم إضافة "+
-            amount+
-            " 🧧"
-        );
-
-        renderAll();
-
-    }catch(error){
-
-        toast(
-            "❌ "+error.message
-        );
-
-    }
-
+function addTransaction(user,type,amount,details){
+ user.transactions.unshift({
+  type,amount,details,
+  date:new Date().toLocaleString("ar-EG")
+ });
+ user.transactions=user.transactions.slice(0,100);
 }
 
-/* =====================================================
-TRANSFER
-===================================================== */
+function addXP(amount){
+ const u=current();
+ if(!u)return;
 
-async function makeTransfer(){
+ u.xp+=amount;
 
-    const username=
-        document
-        .getElementById("transferUser")
-        .value
-        .trim();
-
-    const amount=
-        parseInt(
-            document
-            .getElementById("transferAmount")
-            .value
-        );
-
-    if(
-        !username||
-        !Number.isFinite(amount)||
-        amount<=0
-    ){
-
-        return toast(
-            "❌ تحقق من البيانات"
-        );
-
-    }
-
-    try{
-
-        const result=
-            await apiRequest(
-                "/wallet/transfer",
-                {
-                    method:"POST",
-                    body:JSON.stringify({
-                        username,
-                        amount
-                    })
-                }
-            );
-
-        if(!result.success){
-
-            throw new Error(
-                result.message||
-                "تعذر التحويل"
-            );
-
-        }
-
-        profile=result.user;
-
-        await loadData();
-
-        document
-            .getElementById("transferUser")
-            .value="";
-
-        document
-            .getElementById("transferAmount")
-            .value="";
-
-        toast(
-            "✅ تم تحويل "+
-            amount+
-            " 🧧"
-        );
-
-    }catch(error){
-
-        toast(
-            "❌ "+error.message
-        );
-
-    }
-
+ while(u.xp>=100){
+  u.xp-=100;
+  u.balance+=100;
+  addTransaction(u,"مكافأة مستوى",100,"🎉 مكافأة رفع المستوى");
+  toast("🎉 ارتفع مستواك! +100 🧧");
+ }
 }
 
-/* =====================================================
-CHARACTER
-===================================================== */
-
-async function changeAvatar(avatar){
-
-    const ok=
-        await updateProfile({
-            avatar
-        });
-
-    if(ok){
-
-        toast(
-            "✨ تم تغيير المظهر"
-        );
-
-        renderAll();
-
-    }
-
+function getLevel(u){
+ return Math.max(1,Math.floor((u.xp)/100)+1);
 }
 
-/* =====================================================
-RENAME
-===================================================== */
-
-async function rename(){
-
-    const name=
-        document
-        .getElementById("newName")
-        .value
-        .trim();
-
-    if(name.length<3){
-
-        return toast(
-            "❌ الاسم قصير"
-        );
-
-    }
-
-    try{
-
-        const result=
-            await apiRequest(
-                "/profile/name",
-                {
-                    method:"PUT",
-                    body:JSON.stringify({
-                        username:name
-                    })
-                }
-            );
-
-        if(!result.success){
-
-            throw new Error(
-                result.message||
-                "تعذر تغيير الاسم"
-            );
-
-        }
-
-        profile=result.user;
-
-        toast(
-            "✅ تم تغيير الاسم"
-        );
-
-        document
-            .getElementById("newName")
-            .value="";
-
-        renderAll();
-
-    }catch(error){
-
-        toast(
-            "❌ "+error.message
-        );
-
-    }
-
+function getRank(u){
+ const l=getLevel(u);
+ if(u.admin)return "👑 المدير";
+ if(l>=20)return "🐉 إمبراطور";
+ if(l>=15)return "⚔️ شوغون";
+ if(l>=10)return "🔥 ساموراي";
+ if(l>=5)return "🛡️ محارب";
+ return "🌱 عضو";
 }
 
-/* =====================================================
-SHOP
-===================================================== */
+function deposit(){
+ const u=current();
+ const amount=Number(document.getElementById("depositAmount").value);
 
-function renderShop(){
+ if(!amount||amount<=0)return toast("❌ أدخل مبلغاً صحيحاً");
 
-    const box=
-        document.getElementById(
-            "shopGrid"
-        );
+ u.balance+=amount;
+ addTransaction(u,"إيداع",amount,"إيداع في المحفظة");
+ addXP(5);
 
-    if(!box){
-        return;
-    }
-
-    const search=
-        (
-            document
-            .getElementById("search")
-            ?.value||
-            ""
-        )
-        .toLowerCase();
-
-    box.innerHTML=
-        catalog
-        .filter(item=>
-            item[1]
-            .toLowerCase()
-            .includes(search)
-        )
-        .map(item=>`
-
-            <div class="item">
-
-                <div class="icon">
-                    ${item[0]}
-                </div>
-
-                <h3>
-                    ${escapeText(item[1])}
-                </h3>
-
-                <span class="badge">
-                    ${escapeText(item[2])}
-                </span>
-
-                <p class="muted">
-                    +${item[3]} قوة
-                </p>
-
-                <div class="price">
-                    ${item[4].toLocaleString()} 🧧
-                </div>
-
-                <button
-                    class="btn gold full"
-                    onclick="buy('${item[1].replace(/'/g,"\\'")}')">
-
-                    شراء
-
-                </button>
-
-            </div>
-
-        `)
-        .join("");
-
+ save();
+ closeModal("depositModal");
+ update();
+ toast("✅ تمت إضافة "+amount+" 🧧");
 }
 
-async function buy(name){
+function withdraw(){
+ const u=current();
+ const amount=Number(document.getElementById("withdrawAmount").value);
 
-    const item=
-        catalog.find(
-            x=>x[1]===name
-        );
+ if(!amount||amount<=0)return toast("❌ أدخل مبلغاً صحيحاً");
+ if(amount>u.balance)return toast("❌ رصيدك غير كافٍ");
 
-    if(!item){
-        return;
-    }
+ u.balance-=amount;
+ addTransaction(u,"سحب",-amount,"سحب من المحفظة");
+ addXP(3);
 
-    try{
-
-        const result=
-            await apiRequest(
-                "/shop/buy",
-                {
-                    method:"POST",
-                    body:JSON.stringify({
-                        name
-                    })
-                }
-            );
-
-        if(!result.success){
-
-            throw new Error(
-                result.message||
-                "تعذر الشراء"
-            );
-
-        }
-
-        profile=result.user;
-
-        await loadData();
-
-        toast(
-            "✅ اشتريت "+
-            name
-        );
-
-    }catch(error){
-
-        toast(
-            "❌ "+error.message
-        );
-
-    }
-
+ save();
+ closeModal("withdrawModal");
+ update();
+ toast("✅ تم السحب");
 }
 
-/* =====================================================
-INVENTORY
-===================================================== */
+function transfer(){
+ const u=current();
+ const name=document.getElementById("transferTo").value.trim();
+ const amount=Number(document.getElementById("transferAmount").value);
 
-function renderInventory(){
+ if(!name||!amount||amount<=0)return toast("❌ تحقق من البيانات");
+ if(amount>u.balance)return toast("❌ رصيدك غير كافٍ");
 
-    const box=
-        document.getElementById(
-            "invGrid"
-        );
+ const to=data.users.find(x=>x.name.toLowerCase()===name.toLowerCase());
 
-    if(!box){
-        return;
-    }
+ if(!to)return toast("❌ العضو غير موجود");
+ if(to.id===u.id)return toast("❌ لا يمكنك التحويل لنفسك");
 
-    const items=
-        profile?.items||{};
+ u.balance-=amount;
+ to.balance+=amount;
 
-    const arr=
-        Object.entries(items)
-        .filter(x=>x[1]>0);
+ addTransaction(u,"تحويل",-amount,"إلى "+to.name);
+ addTransaction(to,"تحويل",amount,"من "+u.name);
 
-    if(!arr.length){
+ addXP(8);
+ save();
 
-        box.innerHTML=`
+ closeModal("transferModal");
+ update();
 
-            <div class="card">
-
-                🎒 الحقيبة فارغة
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-    box.innerHTML=
-        arr
-        .map(([name,quantity])=>{
-
-            const item=
-                catalog.find(
-                    x=>x[1]===name
-                );
-
-            return`
-
-                <div class="item">
-
-                    <div class="icon">
-                        ${item?item[0]:"📦"}
-                    </div>
-
-                    <h3>
-                        ${escapeText(name)}
-                    </h3>
-
-                    <p class="gold">
-                        × ${quantity}
-                    </p>
-
-                    <p class="muted">
-                        +${item?item[3]:0}
-                    </p>
-
-                </div>
-
-            `;
-
-        })
-        .join("");
-
+ toast("✅ تم تحويل "+amount+" 🧧 إلى "+to.name);
 }
 
-/* =====================================================
-CITY
-===================================================== */
+function gift(){
+ const u=current();
+ const name=document.getElementById("giftTo").value.trim();
+ const amount=Number(document.getElementById("giftAmount").value);
 
-function cityCost(){
+ if(!name||!amount||amount<=0)return toast("❌ تحقق من البيانات");
+ if(amount>u.balance)return toast("❌ رصيدك غير كافٍ");
 
-    return Math.floor(
-        1000*
-        Math.pow(
-            1.55,
-            (profile.city||1)-1
-        )
-    );
+ const to=data.users.find(x=>x.name.toLowerCase()===name.toLowerCase());
 
+ if(!to)return toast("❌ العضو غير موجود");
+ if(to.id===u.id)return toast("❌ لا يمكنك إرسال هدية لنفسك");
+
+ u.balance-=amount;
+ to.balance+=amount;
+
+ addTransaction(u,"هدية",-amount,"🎁 إلى "+to.name);
+ addTransaction(to,"هدية",amount,"🎁 من "+u.name);
+
+ addXP(10);
+ save();
+
+ closeModal("giftModal");
+ update();
+ toast("🎁 تم إرسال الهدية");
 }
 
-function renderCity(){
+function openBox(){
+ const u=current();
+ const cost=50;
 
-    const owned=
-        Array.isArray(profile.buildings)
-        ?[...profile.buildings]
-        :[];
+ if(u.balance<cost)return toast("❌ تحتاج 50 🧧");
 
-    document
-        .getElementById("cityL")
-        .textContent=
-        profile.city||1;
+ u.balance-=cost;
 
-    document
-        .getElementById("buildingCount")
-        .textContent=
-        owned.filter(Boolean).length;
+ const rewards=[20,40,70,100,150,250,500];
+ const reward=rewards[Math.floor(Math.random()*rewards.length)];
 
-    document
-        .getElementById("cityPower")
-        .textContent=
-        (profile.city||1)*100+
-        owned.filter(Boolean).length*50;
+ u.balance+=reward;
 
-    document
-        .getElementById("cityIncome")
-        .textContent=
-        (profile.city||1)*100;
+ addTransaction(u,"صندوق",reward-cost,"🎁 صندوق — ربح "+reward);
+ addXP(12);
 
-    let html="";
+ save();
+ update();
 
-    for(let x=0;x<15;x++){
-
-        if(owned[x]){
-
-            const building=
-                buildings.find(
-                    value=>
-                    value[1]===owned[x]
-                );
-
-            html+=`
-
-                <div class="plot">
-
-                    <div style="font-size:45px">
-                        ${building?building[0]:"🏢"}
-                    </div>
-
-                    <b>
-                        ${escapeText(owned[x])}
-                    </b>
-
-                    <small>
-                        مبنى مكتمل
-                    </small>
-
-                </div>
-
-            `;
-
-        }else{
-
-            html+=`
-
-                <div class="plot">
-
-                    <div style="font-size:38px">
-                        🏗️
-                    </div>
-
-                    <button
-                        class="btn"
-                        onclick="build(${x})">
-
-                        بناء
-
-                    </button>
-
-                </div>
-
-            `;
-
-        }
-
-    }
-
-    document
-        .getElementById("cityMap")
-        .innerHTML=html;
-
+ toast("🎁 فتحت الصندوق وربحت "+reward+" 🧧");
 }
 
-async function build(slot){
+let rotation=0;
 
-    const owned=
-        Array.isArray(profile.buildings)
-        ?[...profile.buildings]
-        :[];
+function spinWheel(){
+ const u=current();
+ const cost=100;
 
-    if(owned[slot]){
-        return;
-    }
+ if(u.balance<cost)return toast("❌ تحتاج 100 🧧");
 
-    const name=
-        prompt(
-            "اكتب اسم المبنى:\n"+
-            buildings
-            .map(x=>x[1])
-            .join(" - ")
-        );
+ u.balance-=cost;
 
-    if(!name){
-        return;
-    }
+ const rewards=[0,50,100,150,250,400,700,1000];
+ const reward=rewards[Math.floor(Math.random()*rewards.length)];
 
-    const building=
-        buildings.find(
-            x=>x[1]===name
-        );
+ rotation+=1440+Math.floor(Math.random()*360);
 
-    if(!building){
+ document.getElementById("wheel").style.transform=
+  "rotate("+rotation+"deg)";
 
-        return toast(
-            "❌ اسم مبنى غير صحيح"
-        );
-
-    }
-
-    const cost=
-        500+
-        slot*300;
-
-    try{
-
-        const result=
-            await apiRequest(
-                "/city/build",
-                {
-                    method:"POST",
-                    body:JSON.stringify({
-                        slot,
-                        building:name,
-                        cost
-                    })
-                }
-            );
-
-        if(!result.success){
-
-            throw new Error(
-                result.message||
-                "تعذر البناء"
-            );
-
-        }
-
-        profile=result.user;
-
-        await loadData();
-
-        toast(
-            "🏗️ تم بناء "+
-            name
-        );
-
-    }catch(error){
-
-        toast(
-            "❌ "+error.message
-        );
-
-    }
-
+ setTimeout(()=>{
+  u.balance+=reward;
+  addTransaction(u,"عجلة",reward-cost,"🎡 عجلة الحظ — ربح "+reward);
+  addXP(15);
+  save();
+  update();
+  toast(reward>0?"🎡 ربحت "+reward+" 🧧":"😢 لم تربح شيئاً");
+ },4000);
 }
 
-async function upgradeCity(){
+function dice(){
+ const u=current();
+ const cost=25;
 
-    const cost=
-        cityCost();
+ if(u.balance<cost)return toast("❌ تحتاج 25 🧧");
 
-    try{
+ u.balance-=cost;
 
-        const result=
-            await apiRequest(
-                "/city/upgrade",
-                {
-                    method:"POST"
-                }
-            );
+ const roll=Math.floor(Math.random()*6)+1;
+ let reward=0;
 
-        if(!result.success){
+ if(roll===6)reward=200;
+ else if(roll===5)reward=100;
+ else if(roll>=3)reward=50;
 
-            throw new Error(
-                result.message||
-                "تعذر تطوير المدينة"
-            );
+ u.balance+=reward;
 
-        }
+ addTransaction(u,"نرد",reward-cost,"🎲 النتيجة "+roll);
+ addXP(5);
 
-        profile=result.user;
+ save();
+ update();
 
-        await loadData();
-
-        toast(
-            "🏙️ وصلت المدينة للمستوى "+
-            profile.city
-        );
-
-    }catch(error){
-
-        toast(
-            "❌ "+error.message
-        );
-
-    }
-
+ toast("🎲 النتيجة: "+roll+" — "+(reward?"ربحت "+reward:"لم تربح"));
 }
 
-/* =====================================================
-FARM
-===================================================== */
+function daily(){
+ const u=current();
+ const today=new Date().toISOString().slice(0,10);
 
-function renderFarm(){
+ if(u.daily===today)return toast("⏳ استلمت مكافأتك اليوم");
 
-    const farm=
-        profile.farm||1;
+ const reward=250;
 
-    const crops=
-        profile.crops||0;
+ u.daily=today;
+ u.balance+=reward;
 
-    document
-        .getElementById("farmL")
-        .textContent=farm;
+ addTransaction(u,"يومية",reward,"🎁 المكافأة اليومية");
+ addXP(10);
 
-    document
-        .getElementById("farmIncome")
-        .textContent=
-        farm*50;
+ save();
+ update();
 
-    document
-        .getElementById("farmPlots")
-        .textContent=
-        farm*4;
-
-    document
-        .getElementById("crops")
-        .textContent=
-        crops;
-
-    let html="";
-
-    const total=
-        Math.min(
-            16,
-            farm*4
-        );
-
-    for(let i=0;i<16;i++){
-
-        if(i<total){
-
-            html+=`
-
-                <div class="plot">
-
-                    <div style="font-size:42px">
-                        ${crops>i?"🌾":"🌱"}
-                    </div>
-
-                    <b>
-                        أرض ${i+1}
-                    </b>
-
-                    <button
-                        class="btn green"
-                        onclick="plant()">
-
-                        زراعة
-
-                    </button>
-
-                </div>
-
-            `;
-
-        }else{
-
-            html+=`
-
-                <div class="plot">
-
-                    🔒
-
-                    <small>
-                        طوّر المزرعة
-                    </small>
-
-                </div>
-
-            `;
-
-        }
-
-    }
-
-    document
-        .getElementById("farmMap")
-        .innerHTML=html;
-
+ toast("🎁 استلمت "+reward+" 🧧");
 }
 
-async function plant(){
+function changeName(){
+ const u=current();
+ const n=document.getElementById("newName").value.trim();
 
-    try{
+ if(n.length<3)return toast("❌ الاسم قصير");
+ if(data.users.some(x=>x.id!==u.id&&x.name.toLowerCase()===n.toLowerCase()))
+  return toast("❌ الاسم مستخدم");
 
-        const result=
-            await apiRequest(
-                "/farm/plant",
-                {
-                    method:"POST"
-                }
-            );
-
-        if(!result.success){
-
-            throw new Error(
-                result.message||
-                "تعذر الزرع"
-            );
-
-        }
-
-        profile=result.user;
-
-        toast("🌱 تمت الزراعة");
-
-        renderAll();
-
-    }catch(error){
-
-        toast(
-            "❌ "+error.message
-        );
-
-    }
-
+ u.name=n;
+ save();
+ update();
+ toast("✅ تم تغيير الاسم");
 }
 
-async function harvest(){
+function adminAdd(id){
+ const u=current();
+ if(!u.admin)return toast("❌ غير مصرح");
 
-    try{
+ const target=data.users.find(x=>x.id===id);
+ if(!target)return;
 
-        const result=
-            await apiRequest(
-                "/farm/harvest",
-                {
-                    method:"POST"
-                }
-            );
+ const amount=Number(prompt("أدخل المبلغ الذي تريد إضافته:"));
+ if(!amount||amount<=0)return;
 
-        if(!result.success){
+ target.balance+=amount;
+ addTransaction(target,"إدارة",amount,"👑 إضافة من الإدارة");
 
-            throw new Error(
-                result.message||
-                "تعذر الحصاد"
-            );
-
-        }
-
-        profile=result.user;
-
-        await loadData();
-
-        toast(
-            "🌾 حصلت على "+
-            result.reward+
-            " 🧧"
-        );
-
-    }catch(error){
-
-        toast(
-            "❌ "+error.message
-        );
-
-    }
-
+ save();
+ update();
+ toast("✅ تمت إضافة العملات");
 }
 
-async function upgradeFarm(){
+function adminRemove(id){
+ const u=current();
+ if(!u.admin)return toast("❌ غير مصرح");
 
-    try{
+ const target=data.users.find(x=>x.id===id);
+ if(!target)return;
 
-        const result=
-            await apiRequest(
-                "/farm/upgrade",
-                {
-                    method:"POST"
-                }
-            );
+ const amount=Number(prompt("أدخل المبلغ الذي تريد خصمه:"));
+ if(!amount||amount<=0)return;
 
-        if(!result.success){
+ target.balance=Math.max(0,target.balance-amount);
+ addTransaction(target,"إدارة",-amount,"👑 خصم من الإدارة");
 
-            throw new Error(
-                result.message||
-                "تعذر تطوير المزرعة"
-            );
-
-        }
-
-        profile=result.user;
-
-        await loadData();
-
-        toast(
-            "🌾 أصبحت المزرعة مستوى "+
-            profile.farm
-        );
-
-    }catch(error){
-
-        toast(
-            "❌ "+error.message
-        );
-
-    }
-
+ save();
+ update();
+ toast("✅ تم خصم العملات");
 }
 
-/* =====================================================
-GAMES
-===================================================== */
+function update(){
+ const u=current();
+ if(!u)return;
 
-async function dice(){
+ document.getElementById("headerName").textContent=u.name;
+ document.getElementById("avatar").textContent=u.name.charAt(0).toUpperCase();
 
-    try{
+ const level=getLevel(u);
+ const rank=getRank(u);
 
-        const result=
-            await apiRequest(
-                "/game/dice",
-                {
-                    method:"POST"
-                }
-            );
+ document.getElementById("balance").textContent=u.balance.toLocaleString();
+ document.getElementById("level").textContent=level;
+ document.getElementById("xp").textContent=u.xp;
+ document.getElementById("rankName").textContent=rank;
 
-        if(!result.success){
+ document.getElementById("walletBalance").textContent=
+  u.balance.toLocaleString()+" 🧧";
 
-            throw new Error(
-                result.message||
-                "تعذر تشغيل اللعبة"
-            );
+ document.getElementById("transactionCount").textContent=
+  u.transactions.length;
 
-        }
+ document.getElementById("profileName").textContent=u.name;
+ document.getElementById("profileId").textContent=u.id;
+ document.getElementById("profileLevel").textContent=level;
+ document.getElementById("profileXP").textContent=u.xp;
 
-        profile=result.user;
+ document.getElementById("xpText").textContent=
+  u.xp+" / 100 XP";
 
-        if(result.win){
+ document.getElementById("xpBar").style.width=u.xp+"%";
 
-            showWin(
-                "🎲 فوز!",
-                "ربحت "+
-                result.reward+
-                " 🧧"
-            );
+ const recent=document.getElementById("recent");
 
-        }else{
+ if(!u.transactions.length){
+  recent.innerHTML='<tr><td colspan="3" class="empty">لا توجد عمليات</td></tr>';
+ }else{
+  recent.innerHTML=u.transactions.slice(0,5).map(t=>`
+   <tr>
+    <td>${t.type}</td>
+    <td class="${t.amount>=0?'gold':'red'}">
+     ${t.amount>=0?'+':''}${t.amount.toLocaleString()} 🧧
+    </td>
+    <td>${t.date}</td>
+   </tr>
+  `).join("");
+ }
 
-            toast(
-                "🎲 خسرت الرهان"
-            );
+ document.getElementById("allTransactions").innerHTML=
+  u.transactions.length?
+  u.transactions.map(t=>`
+   <tr>
+    <td>${t.type}</td>
+    <td class="${t.amount>=0?'gold':'red'}">
+     ${t.amount>=0?'+':''}${t.amount.toLocaleString()} 🧧
+    </td>
+    <td>${t.details}</td>
+    <td>${t.date}</td>
+   </tr>
+  `).join("")
+  :
+  '<tr><td colspan="4" class="empty">لا توجد عمليات</td></tr>';
 
-        }
+ const sorted=[...data.users].sort((a,b)=>b.balance-a.balance);
 
-        renderAll();
+ document.getElementById("leaderboard").innerHTML=sorted.map((x,i)=>`
+  <tr>
+   <td>${i===0?"🥇":i===1?"🥈":i===2?"🥉":i+1}</td>
+   <td>${x.name}</td>
+   <td>${getLevel(x)}</td>
+   <td class="gold">${x.balance.toLocaleString()} 🧧</td>
+   <td><span class="badge">${getRank(x)}</span></td>
+  </tr>
+ `).join("");
 
-    }catch(error){
+ document.getElementById("adminNav").style.display=
+  u.admin?"block":"none";
 
-        toast(
-            "❌ "+error.message
-        );
-
-    }
-
+ if(u.admin)updateAdmin();
 }
 
-async function quickBox(){
+function updateAdmin(){
+ const total=data.users.reduce((s,u)=>s+u.balance,0);
+ const transactions=data.users.reduce((s,u)=>s+u.transactions.length,0);
 
-    try{
+ document.getElementById("usersCount").textContent=data.users.length;
+ document.getElementById("totalMoney").textContent=total.toLocaleString();
+ document.getElementById("adminTransactions").textContent=transactions;
 
-        const result=
-            await apiRequest(
-                "/game/box",
-                {
-                    method:"POST"
-                }
-            );
-
-        if(!result.success){
-
-            throw new Error(
-                result.message||
-                "تعذر فتح الصندوق"
-            );
-
-        }
-
-        profile=result.user;
-
-        showWin(
-            "🎁 صندوق!",
-            "ربحت "+
-            result.reward+
-            " 🧧"
-        );
-
-        renderAll();
-
-    }catch(error){
-
-        toast(
-            "❌ "+error.message
-        );
-
-    }
-
+ document.getElementById("adminUsers").innerHTML=data.users.map(u=>`
+  <tr>
+   <td>${u.name}${u.admin?" 👑":""}</td>
+   <td class="gold">${u.balance.toLocaleString()}</td>
+   <td>${getLevel(u)}</td>
+   <td>
+    <button class="btn" onclick="adminAdd('${u.id}')">+</button>
+    <button class="btn secondary" onclick="adminRemove('${u.id}')">−</button>
+   </td>
+  </tr>
+ `).join("");
 }
 
-async function spin(){
-
-    try{
-
-        const result=
-            await apiRequest(
-                "/game/wheel",
-                {
-                    method:"POST"
-                }
-            );
-
-        if(!result.success){
-
-            throw new Error(
-                result.message||
-                "تعذر تدوير العجلة"
-            );
-
-        }
-
-        profile=result.user;
-
-        showWin(
-            "🎡 العجلة!",
-            "ربحت "+
-            result.reward+
-            " 🧧"
-        );
-
-        renderAll();
-
-    }catch(error){
-
-        toast(
-            "❌ "+error.message
-        );
-
-    }
-
+/* بدء النظام */
+if(data.current){
+ document.getElementById("auth").classList.add("hidden");
+ update();
+}else{
+ document.getElementById("auth").classList.remove("hidden");
 }
-
-async function daily(){
-
-    try{
-
-        const result=
-            await apiRequest(
-                "/game/daily",
-                {
-                    method:"POST"
-                }
-            );
-
-        if(!result.success){
-
-            throw new Error(
-                result.message||
-                "تعذر استلام المكافأة"
-            );
-
-        }
-
-        profile=result.user;
-
-        showWin(
-            "🎁 المكافأة اليومية",
-            "حصلت على "+
-            result.reward+
-            " 🧧"
-        );
-
-        renderAll();
-
-    }catch(error){
-
-        toast(
-            "❌ "+error.message
-        );
-
-    }
-
-}
-
-/* =====================================================
-CHAT
-===================================================== */
-
-async function sendChat(){
-
-    const input=
-        document.getElementById(
-            "chatInput"
-        );
-
-    const message=
-        input.value.trim();
-
-    if(!message){
-        return;
-    }
-
-    try{
-
-        const result=
-            await apiRequest(
-                "/chat",
-                {
-                    method:"POST",
-                    body:JSON.stringify({
-                        message
-                    })
-                }
-            );
-
-        if(!result.success){
-
-            throw new Error(
-                result.message||
-                "تعذر إرسال الرسالة"
-            );
-
-        }
-
-        chatMessages.push(
-            result.message
-        );
-
-        input.value="";
-
-        renderChat();
-
-    }catch(error){
-
-        toast(
-            "❌ "+error.message
-        );
-
-    }
-
-}
-
-async function loadChat(){
-
-    try{
-
-        const result=
-            await apiRequest(
-                "/chat",
-                {
-                    method:"GET"
-                }
-            );
-
-        if(result.success){
-
-            chatMessages=
-                result.messages||[];
-
-            renderChat();
-
-        }
-
-    }catch(error){
-
-        console.error(error);
-
-    }
-
-}
-
-function renderChat(){
-
-    const box=
-        document.getElementById(
-            "messages"
-        );
-
-    if(!box){
-        return;
-    }
-
-    box.innerHTML=
-        chatMessages
-        .map(message=>`
-
-            <div class="msg">
-
-                <b>
-                    ${escapeText(message.username)}
-                </b>:
-
-                ${escapeText(message.message)}
-
-            </div>
-
-        `)
-        .join("");
-
-    box.scrollTop=
-        box.scrollHeight;
-
-}
-
-/* =====================================================
-PLAYERS
-===================================================== */
-
-async function loadPlayers(){
-
-    try{
-
-        const result=
-            await apiRequest(
-                "/users",
-                {
-                    method:"GET"
-                }
-            );
-
-        if(result.success){
-
-            users=
-                result.users||[];
-
-            renderPlayers();
-            renderRank();
-
-        }
-
-    }catch(error){
-
-        console.error(error);
-
-    }
-
-}
-
-function renderPlayers(){
-
-    const box=
-        document.getElementById(
-            "playersGrid"
-        );
-
-    if(!box){
-        return;
-    }
-
-    box.innerHTML=
-        users
-        .map(user=>{
-
-            const s=
-                stats(user);
-
-            return`
-
-                <div class="player">
-
-                    <div style="font-size:35px">
-                        ${escapeText(
-                            user.avatar||"🧙"
-                        )}
-                    </div>
-
-                    <h3>
-                        ${escapeText(
-                            user.username
-                        )}
-                    </h3>
-
-                    <p class="muted">
-                        القوة: ${s.p}
-                    </p>
-
-                    <p class="gold">
-                        المستوى: ${level(user)}
-                    </p>
-
-                </div>
-
-            `;
-
-        })
-        .join("");
-
-}
-
-function renderRank(){
-
-    const body=
-        document.getElementById(
-            "rankBody"
-        );
-
-    if(!body){
-        return;
-    }
-
-    const sorted=
-        [...users]
-        .sort(
-            (a,b)=>
-            stats(b).p-
-            stats(a).p
-        );
-
-    body.innerHTML=
-        sorted
-        .map((user,index)=>{
-
-            const s=
-                stats(user);
-
-            return`
-
-                <tr>
-
-                    <td>
-                        #${index+1}
-                    </td>
-
-                    <td>
-                        <b>
-                            ${escapeText(
-                                user.username
-                            )}
-                        </b>
-                    </td>
-
-                    <td>
-                        ${level(user)}
-                    </td>
-
-                    <td class="red">
-                        ${s.p}
-                    </td>
-
-                    <td>
-                        ${
-                            user.admin
-                            ?"👑 مدير"
-                            :"🌱 عضو"
-                        }
-                    </td>
-
-                </tr>
-
-            `;
-
-        })
-        .join("");
-
-}
-
-/* =====================================================
-LOANS
-===================================================== */
-
-async function takeLoan(){
-
-    try{
-
-        const result=
-            await apiRequest(
-                "/loan/take",
-                {
-                    method:"POST"
-                }
-            );
-
-        if(!result.success){
-
-            throw new Error(
-                result.message||
-                "تعذر أخذ القرض"
-            );
-
-        }
-
-        profile=result.user;
-
-        await loadData();
-
-        toast(
-            "✅ تم استلام القرض"
-        );
-
-    }catch(error){
-
-        toast(
-            "❌ "+error.message
-        );
-
-    }
-
-}
-
-async function payLoan(){
-
-    try{
-
-        const result=
-            await apiRequest(
-                "/loan/pay",
-                {
-                    method:"POST"
-                }
-            );
-
-        if(!result.success){
-
-            throw new Error(
-                result.message||
-                "تعذر سداد القرض"
-            );
-
-        }
-
-        profile=result.user;
-
-        await loadData();
-
-        toast(
-            "✅ تم سداد القرض"
-        );
-
-    }catch(error){
-
-        toast(
-            "❌ "+error.message
-        );
-
-    }
-
-}
-
-/* =====================================================
-STOCKS
-===================================================== */
-
-function updateStocksMarket(){
-
-    stocks.price1=
-        Math.max(
-            50,
-            stocks.price1+
-            Math.floor(
-                Math.random()*60
-            )-
-            25
-        );
-
-    stocks.price2=
-        Math.max(
-            100,
-            stocks.price2+
-            Math.floor(
-                Math.random()*100
-            )-
-            45
-        );
-
-    document
-        .getElementById("stockPrice1")
-        .textContent=
-        stocks.price1+
-        " 🧧";
-
-    document
-        .getElementById("stockPrice2")
-        .textContent=
-        stocks.price2+
-        " 🧧";
-
-    toast(
-        "📈 تم تحديث السوق"
-    );
-
-}
-
-async function buyStock(type){
-
-    const price=
-        type===1
-        ?stocks.price1
-        :stocks.price2;
-
-    try{
-
-        const result=
-            await apiRequest(
-                "/stocks/buy",
-                {
-                    method:"POST",
-                    body:JSON.stringify({
-                        type,
-                        price
-                    })
-                }
-            );
-
-        if(!result.success){
-
-            throw new Error(
-                result.message||
-                "تعذر شراء السهم"
-            );
-
-        }
-
-        profile=result.user;
-
-        renderAll();
-
-        toast(
-            "✅ تم شراء السهم"
-        );
-
-    }catch(error){
-
-        toast(
-            "❌ "+error.message
-        );
-
-    }
-
-}
-
-async function sellStock(type){
-
-    const price=
-        type===1
-        ?stocks.price1
-        :stocks.price2;
-
-    try{
-
-        const result=
-            await apiRequest(
-                "/stocks/sell",
-                {
-                    method:"POST",
-                    body:JSON.stringify({
-                        type,
-                        price
-                    })
-                }
-            );
-
-        if(!result.success){
-
-            throw new Error(
-                result.message||
-                "تعذر بيع السهم"
-            );
-
-        }
-
-        profile=result.user;
-
-        renderAll();
-
-        toast(
-            "✅ تم بيع السهم"
-        );
-
-    }catch(error){
-
-        toast(
-            "❌ "+error.message
-        );
-
-    }
-
-}
-
-/* =====================================================
-ADMIN
-===================================================== */
-
-async function renderAdmin(){
-
-    const button=
-        document.getElementById(
-            "adminBtn"
-        );
-
-    if(!button){
-        return;
-    }
-
-    if(!profile?.admin){
-
-        button.style.display="none";
-
-        return;
-
-    }
-
-    button.style.display="block";
-
-    try{
-
-        const result=
-            await apiRequest(
-                "/admin/users",
-                {
-                    method:"GET"
-                }
-            );
-
-        if(!result.success){
-            return;
-        }
-
-        const adminUsers=
-            result.users||[];
-
-        document
-            .getElementById("adminUsers")
-            .textContent=
-            adminUsers.length;
-
-        document
-            .getElementById("adminMoney")
-            .textContent=
-            adminUsers
-            .reduce(
-                (total,user)=>
-                total+
-                Number(user.balance||0),
-                0
-            )
-            .toLocaleString();
-
-        document
-            .getElementById("adminTable")
-            .innerHTML=
-            adminUsers
-            .map(user=>`
-
-                <tr>
-
-                    <td>
-                        ${escapeText(
-                            user.username
-                        )}
-                    </td>
-
-                    <td class="gold">
-                        ${Number(
-                            user.balance||0
-                        ).toLocaleString()}
-                    </td>
-
-                    <td>
-                        ${stats(user).p}
-                    </td>
-
-                    <td>
-
-                        <button
-                            class="btn"
-                            onclick="adminAddMoney('${user.id}')">
-
-                            +1000
-
-                        </button>
-
-                    </td>
-
-                </tr>
-
-            `)
-            .join("");
-
-    }catch(error){
-
-        console.error(error);
-
-    }
-
-}
-
-async function adminAddMoney(id){
-
-    if(!profile?.admin){
-
-        return toast(
-            "❌ لا تملك صلاحية الإدارة"
-        );
-
-    }
-
-    try{
-
-        const result=
-            await apiRequest(
-                "/admin/add-money",
-                {
-                    method:"POST",
-                    body:JSON.stringify({
-                        userId:id,
-                        amount:1000
-                    })
-                }
-            );
-
-        if(!result.success){
-
-            throw new Error(
-                result.message||
-                "تعذر إضافة الرصيد"
-            );
-
-        }
-
-        await loadData();
-
-        toast(
-            "✅ تمت إضافة 1000 🧧"
-        );
-
-    }catch(error){
-
-        toast(
-            "❌ "+error.message
-        );
-
-    }
-
-}
-
-/* =====================================================
-TRANSACTIONS
-===================================================== */
-
-function renderWalletHistory(){
-
-    const box=
-        document.getElementById(
-            "txHistoryBox"
-        );
-
-    if(!box){
-        return;
-    }
-
-    if(!transactions.length){
-
-        box.innerHTML=`
-
-            <p class="muted">
-                لا توجد عمليات سابقة.
-            </p>
-
-        `;
-
-        return;
-
-    }
-
-    box.innerHTML=
-        transactions
-        .map(transaction=>`
-
-            <div
-                style="
-                padding:8px;
-                margin:4px 0;
-                background:rgba(255,255,255,.04);
-                border-radius:8px;
-                font-size:13px;
-                ">
-
-                🔹
-
-                ${escapeText(
-                    transaction.description||
-                    transaction.type||
-                    ""
-                )}
-
-                <span class="muted">
-
-                    (
-                    ${
-                        Number(transaction.amount)>0
-                        ?"+"
-                        :""
-                    }
-                    ${transaction.amount}
-                    )
-
-                </span>
-
-            </div>
-
-        `)
-        .join("");
-
-}
-
-/* =====================================================
-RENDER ALL
-===================================================== */
-
-function renderAll(){
-
-    if(!profile){
-        return;
-    }
-
-    document
-        .getElementById("headName")
-        .textContent=
-        profile.username;
-
-    document
-        .getElementById("avatar")
-        .textContent=
-        profile.avatar||"🧙";
-
-    document
-        .getElementById("balance")
-        .textContent=
-        Number(
-            profile.balance||0
-        ).toLocaleString();
-
-    document
-        .getElementById("walletBalance")
-        .textContent=
-        Number(
-            profile.balance||0
-        ).toLocaleString();
-
-    document
-        .getElementById("txCount")
-        .textContent=
-        transactions.length;
-
-    document
-        .getElementById("level")
-        .textContent=
-        level(profile);
-
-    document
-        .getElementById("xp")
-        .textContent=
-        profile.xp||0;
-
-    const s=
-        stats(profile);
-
-    document
-        .getElementById("power")
-        .textContent=
-        s.p;
-
-    document
-        .getElementById("attack")
-        .textContent=
-        s.a;
-
-    document
-        .getElementById("defense")
-        .textContent=
-        s.d;
-
-    document
-        .getElementById("hp")
-        .textContent=
-        s.h;
-
-    document
-        .getElementById("cityLevel")
-        .textContent=
-        profile.city||1;
-
-    const remainder=
-        (profile.xp||0)%100;
-
-    document
-        .getElementById("xpbar")
-        .style.width=
-        remainder+"%";
-
-    document
-        .getElementById("xptext")
-        .textContent=
-        remainder+
-        " / 100 XP";
-
-    document
-        .getElementById("charView")
-        .textContent=
-        profile.avatar||"🧙";
-
-    document
-        .getElementById("charName")
-        .textContent=
-        profile.username;
-
-    document
-        .getElementById("profileUsername")
-        .textContent=
-        profile.username;
-
-    document
-        .getElementById("cHP")
-        .textContent=
-        s.h;
-
-    document
-        .getElementById("cATK")
-        .textContent=
-        s.a;
-
-    document
-        .getElementById("cDEF")
-        .textContent=
-        s.d;
-
-    document
-        .getElementById("loanAmount")
-        .textContent=
-        Number(
-            profile.loan||0
-        )+
-        " 🧧";
-
-    document
-        .getElementById("loanStatus")
-        .textContent=
-        Number(profile.loan||0)>0
-        ?"عليك سداد: "+
-         Number(
-             profile.loan_due||0
-         ).toLocaleString()
-        :"لا يوجد قرض";
-
-    document
-        .getElementById("stockPrice1")
-        .textContent=
-        stocks.price1+
-        " 🧧";
-
-    document
-        .getElementById("stockPrice2")
-        .textContent=
-        stocks.price2+
-        " 🧧";
-
-    document
-        .getElementById("stockOwned1")
-        .textContent=
-        "المملوك: "+
-        (profile.stocks1||0)+
-        " سهم";
-
-    document
-        .getElementById("stockOwned2")
-        .textContent=
-        "المملوك: "+
-        (profile.stocks2||0)+
-        " سهم";
-
-    renderShop();
-    renderInventory();
-    renderCity();
-    renderFarm();
-    renderChat();
-    renderPlayers();
-    renderRank();
-    renderWalletHistory();
-    renderAdmin();
-
-}
-
-/* =====================================================
-MUSIC
-===================================================== */
-
-function toggleMusic(){
-
-    const music=
-        document.getElementById(
-            "music"
-        );
-
-    const button=
-        document.getElementById(
-            "musicBtn"
-        );
-
-    if(music.paused){
-
-        music
-            .play()
-            .then(()=>{
-                button.textContent="🔊";
-            })
-            .catch(()=>{
-                toast(
-                    "اضغط مرة أخرى لتشغيل الموسيقى"
-                );
-            });
-
-    }else{
-
-        music.pause();
-
-        button.textContent="🔇";
-
-    }
-
-}
-
-/* =====================================================
-WIN
-===================================================== */
-
-function showWin(title,text){
-
-    document
-        .getElementById("winTitle")
-        .textContent=
-        title;
-
-    document
-        .getElementById("winText")
-        .textContent=
-        text;
-
-    document
-        .getElementById("win")
-        .classList
-        .add("show");
-
-    if(typeof confetti==="function"){
-
-        confetti({
-            particleCount:150,
-            spread:100,
-            origin:{
-                y:.6
-            }
-        });
-
-    }
-
-}
-
-function closeWin(){
-
-    document
-        .getElementById("win")
-        .classList
-        .remove("show");
-
-}
-
-/* =====================================================
-START APP
-===================================================== */
-
-async function startApp(){
-
-    try{
-
-        const result=
-            await apiRequest(
-                "/me",
-                {
-                    method:"GET"
-                }
-            );
-
-        if(
-            result &&
-            result.success &&
-            result.user
-        ){
-
-            profile=result.user;
-            currentUser=result.user;
-
-            document
-                .getElementById("auth")
-                .classList
-                .add("hidden");
-
-            await loadData();
-            await loadChat();
-            await loadPlayers();
-
-        }else{
-
-            document
-                .getElementById("auth")
-                .classList
-                .remove("hidden");
-
-        }
-
-    }catch(error){
-
-        /*
-        في حالة عدم وجود جلسة،
-        نظهر شاشة الدخول بشكل طبيعي.
-        */
-
-        document
-            .getElementById("auth")
-            .classList
-            .remove("hidden");
-
-        console.log(
-            "لا توجد جلسة دخول حالية."
-        );
-
-    }
-
-}
-
-startApp();
-
-/*
-تحديث البيانات كل 30 ثانية
-*/
-
-setInterval(async()=>{
-
-    if(profile){
-
-        await loadData();
-
-    }
-
-},30000);
-
-/*
-تحديث الدردشة كل 10 ثوانٍ
-*/
-
-setInterval(async()=>{
-
-    if(profile){
-
-        await loadChat();
-
-    }
-
-},10000);
-
 </script>
 
 </body>
