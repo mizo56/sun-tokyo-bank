@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
@@ -35,13 +36,13 @@ button{
   cursor:pointer;
 }
 
-button:disabled{
-  cursor:not-allowed;
-  opacity:.6;
-}
-
 .hidden{
   display:none !important;
+}
+
+.container{
+  width:min(1200px,calc(100% - 30px));
+  margin:auto;
 }
 
 .card{
@@ -71,6 +72,12 @@ button:disabled{
 
 .btn:hover{
   transform:translateY(-2px);
+}
+
+.btn:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+  transform:none;
 }
 
 .full{
@@ -314,7 +321,6 @@ main{
   .logo{
     font-size:24px;
   }
-
 }
 
 </style>
@@ -322,9 +328,9 @@ main{
 
 <body>
 
-<!-- =========================
+<!-- =====================================================
      AUTH
-========================= -->
+===================================================== -->
 
 <div id="auth">
 
@@ -378,20 +384,14 @@ main{
           📝 إنشاء حساب
         </button>
 
-        <div
-          id="loginMessage"
-          class="message"
-        ></div>
+        <div id="loginMessage" class="message"></div>
 
       </div>
 
 
       <!-- REGISTER -->
 
-      <div
-        id="registerBox"
-        class="hidden"
-      >
+      <div id="registerBox" class="hidden">
 
         <div class="card-title">
           📝 إنشاء حساب جديد
@@ -439,10 +439,7 @@ main{
           ↩️ العودة لتسجيل الدخول
         </button>
 
-        <div
-          id="registerMessage"
-          class="message"
-        ></div>
+        <div id="registerMessage" class="message"></div>
 
       </div>
 
@@ -457,9 +454,9 @@ main{
 </div>
 
 
-<!-- =========================
+<!-- =====================================================
      APP
-========================= -->
+===================================================== -->
 
 <div id="app" class="hidden">
 
@@ -484,6 +481,7 @@ main{
     </div>
 
   </div>
+
 
   <nav>
 
@@ -546,10 +544,7 @@ main{
         💰 الرصيد
       </div>
 
-      <div
-        id="homeBalance"
-        class="big-number green"
-      >
+      <div id="homeBalance" class="big-number green">
         0
       </div>
 
@@ -562,10 +557,7 @@ main{
         ⭐ المستوى
       </div>
 
-      <div
-        id="homeLevel"
-        class="big-number gold"
-      >
+      <div id="homeLevel" class="big-number gold">
         1
       </div>
 
@@ -578,10 +570,7 @@ main{
         ⚔️ القوة
       </div>
 
-      <div
-        id="homePower"
-        class="big-number"
-      >
+      <div id="homePower" class="big-number">
         20
       </div>
 
@@ -590,10 +579,7 @@ main{
   </div>
 
 
-  <div
-    class="card"
-    style="margin-top:15px"
-  >
+  <div class="card" style="margin-top:15px">
 
     <div class="card-title">
       🏯 مرحبًا بك في S.U.N TOKYO
@@ -625,10 +611,7 @@ main{
 
         <h3>❤️ الصحة</h3>
 
-        <div
-          id="characterHP"
-          class="character-stat hp"
-        >
+        <div id="characterHP" class="character-stat hp">
           100
         </div>
 
@@ -639,10 +622,7 @@ main{
 
         <h3>⚔️ الهجوم</h3>
 
-        <div
-          id="characterAttack"
-          class="character-stat attack"
-        >
+        <div id="characterAttack" class="character-stat attack">
           10
         </div>
 
@@ -653,10 +633,7 @@ main{
 
         <h3>🛡️ الدفاع</h3>
 
-        <div
-          id="characterDefense"
-          class="character-stat defense"
-        >
+        <div id="characterDefense" class="character-stat defense">
           10
         </div>
 
@@ -685,10 +662,7 @@ main{
 
         <h3>🏯 مستوى المدينة</h3>
 
-        <div
-          id="cityLevel"
-          class="big-number gold"
-        >
+        <div id="cityLevel" class="big-number gold">
           1
         </div>
 
@@ -706,10 +680,7 @@ main{
 
         <h3>👥 السكان</h3>
 
-        <div
-          id="cityPopulation"
-          class="big-number"
-        >
+        <div id="cityPopulation" class="big-number">
           1
         </div>
 
@@ -858,17 +829,12 @@ main{
       🎒 المخزون
     </div>
 
-    <div
-      id="inventoryList"
-      class="grid"
-    >
+    <div id="inventoryList" class="grid">
 
       <div class="card">
-
         <p class="description">
           لا توجد عناصر حاليًا.
         </p>
-
       </div>
 
     </div>
@@ -1063,7 +1029,6 @@ main{
       👤 الملف الشخصي
     </div>
 
-
     <div class="stat">
 
       <span class="stat-name">
@@ -1123,7 +1088,7 @@ main{
 <script>
 
 /* =====================================================
-   المستخدم الحالي
+   حالة المستخدم
 ===================================================== */
 
 let currentUser = null;
@@ -1246,6 +1211,11 @@ function showRegister(){
     .classList
     .remove("hidden");
 
+  showMessage(
+    "loginMessage",
+    ""
+  );
+
 }
 
 
@@ -1265,11 +1235,16 @@ function showLogin(){
     .classList
     .remove("hidden");
 
+  showMessage(
+    "registerMessage",
+    ""
+  );
+
 }
 
 
 /* =====================================================
-   REGISTER
+   التسجيل
 ===================================================== */
 
 async function register(){
@@ -1343,7 +1318,6 @@ async function register(){
     document.getElementById(
       "registerButton"
     );
-
 
   button.disabled = true;
 
@@ -1423,7 +1397,7 @@ async function register(){
 
 
 /* =====================================================
-   LOGIN
+   تسجيل الدخول
 ===================================================== */
 
 async function login(){
@@ -1457,7 +1431,6 @@ async function login(){
       "loginButton"
     );
 
-
   button.disabled = true;
 
   button.textContent =
@@ -1475,6 +1448,12 @@ async function login(){
 
 
     if(result.success && result.user){
+
+      showMessage(
+        "loginMessage",
+        "✅ تم تسجيل الدخول.",
+        "success"
+      );
 
       loginUser(
         result.user
@@ -1544,7 +1523,7 @@ function loginUser(user){
 
 
 /* =====================================================
-   LOGOUT
+   تسجيل الخروج
 ===================================================== */
 
 function logout(){
@@ -1577,7 +1556,7 @@ function logout(){
 
 
 /* =====================================================
-   UPDATE UI
+   تحديث الواجهة
 ===================================================== */
 
 function updateUI(){
@@ -1655,7 +1634,7 @@ function updateUI(){
       Number(user.city || 1);
 
 
-  renderInventory();
+  updateInventory();
 
 }
 
@@ -1664,13 +1643,12 @@ function updateUI(){
    المخزون
 ===================================================== */
 
-function renderInventory(){
+function updateInventory(){
 
   const list =
     document.getElementById(
       "inventoryList"
     );
-
 
   if(!list) return;
 
@@ -1706,7 +1684,7 @@ function renderInventory(){
 
       return `
         <div class="card">
-          <h3>🎁 ${escapeHtml(name)}</h3>
+          <h3>${escapeHTML(name)}</h3>
           <p class="description">
             الكمية: ${Number(items[name] || 0)}
           </p>
@@ -1722,9 +1700,9 @@ function renderInventory(){
    حماية عرض النص
 ===================================================== */
 
-function escapeHtml(text){
+function escapeHTML(value){
 
-  return String(text)
+  return String(value)
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;")
@@ -1799,7 +1777,7 @@ function page(name){
 
 
 /* =====================================================
-   LOGIN CHECK
+   فحص تسجيل الدخول
 ===================================================== */
 
 function needLogin(){
@@ -1828,7 +1806,7 @@ function playDice(){
   if(!needLogin()) return;
 
   alert(
-    "🎲 النرد جاهز وسيتم ربطه بقاعدة البيانات."
+    "🎲 النرد جاهز للربط مع Backend."
   );
 
 }
@@ -1839,7 +1817,7 @@ function quickBox(){
   if(!needLogin()) return;
 
   alert(
-    "📦 الصندوق جاهز وسيتم ربطه بقاعدة البيانات."
+    "📦 الصندوق جاهز للربط مع Backend."
   );
 
 }
@@ -1850,7 +1828,7 @@ function spinWheel(){
   if(!needLogin()) return;
 
   alert(
-    "🎡 عجلة الحظ جاهزة وسيتم ربطها بقاعدة البيانات."
+    "🎡 عجلة الحظ جاهزة للربط مع Backend."
   );
 
 }
@@ -1861,14 +1839,14 @@ function dailyReward(){
   if(!needLogin()) return;
 
   alert(
-    "🎁 المكافأة اليومية جاهزة وسيتم ربطها بقاعدة البيانات."
+    "🎁 المكافأة اليومية جاهزة للربط مع Backend."
   );
 
 }
 
 
 /* =====================================================
-   CITY
+   المدينة
 ===================================================== */
 
 function upgradeCity(){
@@ -1883,7 +1861,7 @@ function upgradeCity(){
 
 
 /* =====================================================
-   FARM
+   المزرعة
 ===================================================== */
 
 function plantCrop(){
@@ -1909,7 +1887,7 @@ function harvestCrop(){
 
 
 /* =====================================================
-   SHOP
+   المتجر
 ===================================================== */
 
 function buyItem(name,price){
@@ -1928,7 +1906,7 @@ function buyItem(name,price){
 
 
 /* =====================================================
-   WALLET
+   المحفظة
 ===================================================== */
 
 function transferMoney(){
@@ -2050,46 +2028,74 @@ document.addEventListener(
     page("home");
 
 
-    document
-      .getElementById("loginName")
-      .addEventListener(
+    const loginName =
+      document.getElementById(
+        "loginName"
+      );
+
+    const loginPass =
+      document.getElementById(
+        "loginPass"
+      );
+
+    const regPass2 =
+      document.getElementById(
+        "regPass2"
+      );
+
+
+    if(loginName){
+
+      loginName.addEventListener(
         "keydown",
         function(event){
 
           if(event.key === "Enter"){
+
             login();
+
           }
 
         }
       );
 
+    }
 
-    document
-      .getElementById("loginPass")
-      .addEventListener(
+
+    if(loginPass){
+
+      loginPass.addEventListener(
         "keydown",
         function(event){
 
           if(event.key === "Enter"){
+
             login();
+
           }
 
         }
       );
 
+    }
 
-    document
-      .getElementById("regPass2")
-      .addEventListener(
+
+    if(regPass2){
+
+      regPass2.addEventListener(
         "keydown",
         function(event){
 
           if(event.key === "Enter"){
+
             register();
+
           }
 
         }
       );
+
+    }
 
   }
 );
@@ -2098,3 +2104,4 @@ document.addEventListener(
 
 </body>
 </html>
+```
