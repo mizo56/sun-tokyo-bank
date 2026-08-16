@@ -1651,150 +1651,260 @@ textarea:focus{
     placeholder="كلمة المرور"
    >
 
-   <button
-    class="btn full"
-  <div
- id="loginBox"
->
+  <div id="loginBox">
 
- <h3>
-  🔐 تسجيل الدخول
- </h3>
+  <h3>🔐 تسجيل الدخول</h3>
 
- <input
-  id="loginName"
-  placeholder="اسم المستخدم"
- >
+  <input
+    id="loginName"
+    type="text"
+    placeholder="اسم المستخدم"
+    autocomplete="username"
+  >
 
- <input
-  id="loginPass"
-  type="password"
-  placeholder="كلمة المرور"
- >
+  <input
+    id="loginPass"
+    type="password"
+    placeholder="كلمة المرور"
+    autocomplete="current-password"
+  >
 
- <button
-  class="btn goldbtn full"
-  type="button"
-onclick="doLogin()" >
-  دخول
- </button>
+  <button
+    class="btn goldbtn full"
+    type="button"
+    onclick="doLogin()"
+  >
+    دخول
+  </button>
 
- <button
-  class="btn secondary full"
-  type="button"
-  style="margin-top:8px"
-  onclick="window.showRegister()"
- >
-  إنشاء حساب
- </button>
+  <button
+    class="btn secondary full"
+    type="button"
+    style="margin-top:8px"
+    onclick="showRegister()"
+  >
+    إنشاء حساب
+  </button>
 
 </div>
 
 
-<div
- id="registerBox"
- class="hidden"
->
+<div id="registerBox" class="hidden">
 
- <h3>
-  📝 إنشاء حساب
- </h3>
+  <h3>📝 إنشاء حساب</h3>
 
- <input
-  id="regName"
-  placeholder="اسم المستخدم"
- >
+  <input
+    id="regName"
+    type="text"
+    placeholder="اسم المستخدم"
+    autocomplete="username"
+  >
 
- <input
-  id="regPass"
-  type="password"
-  placeholder="كلمة المرور"
- >
+  <input
+    id="regPass"
+    type="password"
+    placeholder="كلمة المرور"
+    autocomplete="new-password"
+  >
 
- <input
-  id="regPass2"
-  type="password"
-  placeholder="تأكيد كلمة المرور"
- >
+  <input
+    id="regPass2"
+    type="password"
+    placeholder="تأكيد كلمة المرور"
+    autocomplete="new-password"
+  >
 
- <button
-  class="btn goldbtn full"
-  type="button"
-  onclick="window.register()"
- >
-  إنشاء الحساب
- </button>
+  <button
+    class="btn goldbtn full"
+    type="button"
+    onclick="doRegister()"
+  >
+    إنشاء الحساب
+  </button>
 
- <button
-  class="btn secondary full"
-  type="button"
-  style="margin-top:8px"
-  onclick="window.showLogin()"
- >
-  العودة لتسجيل الدخول
- </button>
+  <button
+    class="btn secondary full"
+    type="button"
+    style="margin-top:8px"
+    onclick="showLogin()"
+  >
+    العودة لتسجيل الدخول
+  </button>
 
 </div>
 
 
 <script>
- window.login = function(){
 
- const username =
-  document.getElementById('loginName').value.trim();
+window.doLogin = function(){
 
- const pass =
-  document.getElementById('loginPass').value;
+  const nameEl = document.getElementById('loginName');
+  const passEl = document.getElementById('loginPass');
 
- if(!username || !pass){
-  alert('اكتب اسم المستخدم وكلمة المرور');
-  return;
- }
+  const username = nameEl ? nameEl.value.trim() : '';
+  const pass = passEl ? passEl.value : '';
 
- if(
-  typeof db === 'undefined' ||
-  !db ||
-  !Array.isArray(db.users)
- ){
-  alert('بيانات المستخدمين غير متاحة');
-  return;
- }
+  if(!username || !pass){
+    alert('اكتب اسم المستخدم وكلمة المرور');
+    return;
+  }
 
- const user = db.users.find(
-  u =>
-   String(u.username || '').toLowerCase() ===
-   username.toLowerCase() &&
-   String(u.password || '') === pass
- );
+  if(
+    typeof db === 'undefined' ||
+    !db ||
+    !Array.isArray(db.users)
+  ){
+    alert('تعذر تحميل بيانات المستخدمين');
+    return;
+  }
 
- if(!user){
-  alert('اسم المستخدم أو كلمة المرور غير صحيحة');
-  return;
- }
+  const user = db.users.find(function(u){
 
- currentUser = user;
+    return String(u.username || '').toLowerCase() ===
+           username.toLowerCase() &&
+           String(u.password || '') === pass;
 
- localStorage.setItem(
-  'SUN_CURRENT_USER',
-  String(user.id)
- );
+  });
 
- const auth =
-  document.getElementById('auth');
+  if(!user){
+    alert('اسم المستخدم أو كلمة المرور غير صحيحة');
+    return;
+  }
 
- if(auth){
-  auth.classList.add('hidden');
- }
+  currentUser = user;
 
- if(typeof updateHeader === 'function'){
-  updateHeader();
- }
+  localStorage.setItem(
+    'SUN_CURRENT_USER',
+    String(user.id)
+  );
 
- if(typeof page === 'function'){
-  page('home');
- }
+  const auth = document.getElementById('auth');
+
+  if(auth){
+    auth.classList.add('hidden');
+  }
+
+  if(typeof updateHeader === 'function'){
+    updateHeader();
+  }
+
+  if(typeof page === 'function'){
+    page('home');
+  }
 
 };
+
+
+window.showRegister = function(){
+
+  const loginBox =
+    document.getElementById('loginBox');
+
+  const registerBox =
+    document.getElementById('registerBox');
+
+  if(loginBox){
+    loginBox.classList.add('hidden');
+  }
+
+  if(registerBox){
+    registerBox.classList.remove('hidden');
+  }
+
+};
+
+
+window.showLogin = function(){
+
+  const loginBox =
+    document.getElementById('loginBox');
+
+  const registerBox =
+    document.getElementById('registerBox');
+
+  if(registerBox){
+    registerBox.classList.add('hidden');
+  }
+
+  if(loginBox){
+    loginBox.classList.remove('hidden');
+  }
+
+};
+
+
+/* إنشاء الحساب */
+window.doRegister = function(){
+
+  const nameEl = document.getElementById('regName');
+  const passEl = document.getElementById('regPass');
+  const pass2El = document.getElementById('regPass2');
+
+  const username = nameEl ? nameEl.value.trim() : '';
+  const pass = passEl ? passEl.value : '';
+  const pass2 = pass2El ? pass2El.value : '';
+
+  if(!username || !pass || !pass2){
+    alert('أكمل جميع البيانات');
+    return;
+  }
+
+  if(pass !== pass2){
+    alert('كلمتا المرور غير متطابقتين');
+    return;
+  }
+
+  if(
+    typeof db === 'undefined' ||
+    !db ||
+    !Array.isArray(db.users)
+  ){
+    alert('تعذر تحميل بيانات المستخدمين');
+    return;
+  }
+
+  const exists = db.users.some(function(u){
+
+    return String(u.username || '').toLowerCase() ===
+           username.toLowerCase();
+
+  });
+
+  if(exists){
+    alert('اسم المستخدم موجود بالفعل');
+    return;
+  }
+
+  const newUser = {
+    id: Date.now(),
+    username: username,
+    password: pass,
+    balance: 9999
+  };
+
+  db.users.push(newUser);
+
+  if(typeof save === 'function'){
+    save();
+  }else{
+    localStorage.setItem(
+      'SUN_DB',
+      JSON.stringify(db)
+    );
+  }
+
+  alert('تم إنشاء الحساب بنجاح 🎉');
+
+  if(nameEl) nameEl.value = '';
+  if(passEl) passEl.value = '';
+  if(pass2El) pass2El.value = '';
+
+  window.showLogin();
+
+};
+
+
+</script>
 /* =====================================================
    DATA
 ===================================================== */
