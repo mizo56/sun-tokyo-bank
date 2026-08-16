@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
 
 <meta charset="UTF-8">
@@ -9,7 +10,9 @@
   content="width=device-width, initial-scale=1.0"
 >
 
-<title>『S.U.N TOKYO』 Ultimate World</title>
+<title>『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
@@ -19,49 +22,31 @@
   padding:0;
 }
 
-:root{
-  --red:#d00000;
-  --red2:#ff2b2b;
-  --gold:#ffd700;
-  --gold2:#ffb300;
-  --black:#050505;
-  --black2:#0d0d0d;
-  --panel:#111;
-  --panel2:#171717;
-  --white:#fff;
-  --gray:#aaa;
-  --green:#00d26a;
-  --blue:#2196f3;
-  --purple:#9c27b0;
-  --shadow:0 10px 35px rgba(0,0,0,.55);
-}
-
 html,
 body{
-  width:100%;
   min-height:100%;
 }
 
 body{
-  background:
-    radial-gradient(
-      circle at top,
-      #260000 0%,
-      #080000 35%,
-      #000 75%
-    );
-  color:var(--white);
   font-family:
     Arial,
     Tahoma,
     sans-serif;
-  overflow-x:hidden;
+
+  background:
+    radial-gradient(
+      circle at top,
+      #241000 0,
+      #090909 45%,
+      #000 100%
+    );
+
+  color:#fff;
+  min-height:100vh;
 }
 
 button,
-input,
-select,
-textarea{
+input{
   font-family:inherit;
 }
 
@@ -73,158 +58,54 @@ button{
   display:none !important;
 }
 
-/* =========================
-   الخلفية
-========================= */
+.container{
+  width:min(
+    1200px,
+    calc(100% - 30px)
+  );
 
-#bg{
-  position:fixed;
-  inset:0;
-  z-index:-5;
-  background:
-    linear-gradient(
-      rgba(0,0,0,.55),
-      rgba(0,0,0,.8)
-    ),
-    radial-gradient(
-      circle at 50% 0%,
-      rgba(210,0,0,.35),
-      transparent 50%
-    );
+  margin:auto;
 }
 
-#stars{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:-4;
-  opacity:.35;
-  background-image:
-    radial-gradient(
-      1px 1px at 20px 30px,
-      white,
-      transparent
-    ),
-    radial-gradient(
-      1px 1px at 90px 80px,
-      white,
-      transparent
-    ),
-    radial-gradient(
-      1px 1px at 160px 120px,
-      white,
-      transparent
-    ),
-    radial-gradient(
-      1px 1px at 250px 40px,
-      white,
-      transparent
-    );
-  background-size:280px 180px;
-  animation:starsMove 20s linear infinite;
-}
+.card{
+  background:rgba(20,20,20,.94);
 
-@keyframes starsMove{
-  from{
-    transform:translateY(0);
-  }
+  border:
+    1px solid
+    rgba(255,193,7,.18);
 
-  to{
-    transform:translateY(180px);
-  }
-}
+  border-radius:18px;
 
-/* =========================
-   شريط العنوان
-========================= */
-
-.topbar{
-  position:sticky;
-  top:0;
-  z-index:1000;
-
-  width:100%;
-
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-
-  padding:12px 18px;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(15,0,0,.97),
-      rgba(5,5,5,.96)
-    );
-
-  border-bottom:1px solid
-    rgba(255,215,0,.25);
+  padding:20px;
 
   box-shadow:
-    0 5px 25px rgba(0,0,0,.55);
+    0 10px 35px
+    rgba(0,0,0,.35);
 }
 
-.logo{
-  font-size:22px;
+.card-title{
+  font-size:20px;
   font-weight:900;
-  color:var(--gold);
-  text-shadow:
-    0 0 10px rgba(255,215,0,.45);
-  white-space:nowrap;
+  margin-bottom:15px;
+  color:#ffd54f;
 }
-
-.logo span{
-  color:var(--red2);
-}
-
-.top-actions{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
-/* =========================
-   الأزرار
-========================= */
 
 .btn{
   border:0;
-  outline:none;
+  border-radius:12px;
 
-  min-height:42px;
+  padding:13px 18px;
 
-  padding:10px 18px;
+  font-weight:900;
 
-  border-radius:10px;
+  color:#fff;
+  background:#222;
 
-  color:white;
-
-  background:
-    linear-gradient(
-      135deg,
-      #2b2b2b,
-      #111
-    );
-
-  border:1px solid
-    rgba(255,255,255,.12);
-
-  transition:
-    transform .15s ease,
-    filter .15s ease,
-    box-shadow .15s ease;
+  transition:.2s;
 }
 
 .btn:hover{
   transform:translateY(-2px);
-  filter:brightness(1.15);
-}
-
-.btn:active{
-  transform:scale(.97);
 }
 
 .full{
@@ -232,369 +113,207 @@ button{
 }
 
 .goldbtn{
-  color:#080808;
-
-  font-weight:900;
-
   background:
     linear-gradient(
       135deg,
-      var(--gold),
-      var(--gold2)
+      #ff9800,
+      #ffd54f
     );
 
-  border-color:
-    rgba(255,215,0,.6);
-
-  box-shadow:
-    0 5px 20px
-    rgba(255,180,0,.18);
+  color:#111;
 }
 
 .secondary{
-  background:
-    linear-gradient(
-      135deg,
-      #272727,
-      #111
-    );
-}
-
-.danger{
-  background:
-    linear-gradient(
-      135deg,
-      #a00000,
-      #4b0000
-    );
+  background:#252525;
 }
 
 .success{
-  background:
-    linear-gradient(
-      135deg,
-      #00a957,
-      #006b38
-    );
+  background:#087f23;
 }
 
-/* =========================
-   التطبيق
-========================= */
+.danger{
+  background:#a30000;
+}
 
-#app{
+input{
   width:100%;
-  min-height:100vh;
+
+  padding:13px;
+
+  margin:6px 0;
+
+  border:
+    1px solid
+    #333;
+
+  border-radius:11px;
+
+  background:#0d0d0d;
+
+  color:#fff;
+
+  outline:none;
 }
 
-.container{
-  width:min(1400px,94%);
-  margin:auto;
-  padding:20px 0 60px;
+input:focus{
+  border-color:#ffc107;
 }
-
-/* =========================
-   شاشة الدخول
-========================= */
 
 #auth{
   min-height:100vh;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
   padding:20px;
 }
 
-.auth-card{
-  width:min(480px,100%);
-
-  padding:28px;
-
-  border-radius:22px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(30,0,0,.96),
-      rgba(8,8,8,.97)
-    );
-
-  border:1px solid
-    rgba(255,215,0,.25);
-
-  box-shadow:
-    0 20px 70px
-    rgba(0,0,0,.75);
-
-  backdrop-filter:blur(12px);
+.auth-box{
+  width:min(
+    430px,
+    100%
+  );
 }
 
-.auth-logo{
+.logo{
   text-align:center;
-  margin-bottom:25px;
-}
 
-.auth-logo .title{
   font-size:30px;
-  font-weight:1000;
-  color:var(--gold);
-  text-shadow:
-    0 0 18px
-    rgba(255,215,0,.35);
+
+  font-weight:900;
+
+  color:#ffd54f;
+
+  margin-bottom:20px;
 }
 
-.auth-logo .sub{
-  margin-top:8px;
-  color:#aaa;
-  font-size:13px;
-}
-
-.auth-card h3{
-  margin-bottom:15px;
-  color:var(--gold);
-}
-
-.auth-card input{
-  width:100%;
-
-  padding:13px 14px;
-
-  margin-bottom:10px;
-
-  border-radius:10px;
-
-  border:1px solid
-    rgba(255,255,255,.12);
-
-  outline:none;
-
-  color:white;
-
-  background:#080808;
-}
-
-.auth-card input:focus{
-  border-color:
-    rgba(255,215,0,.65);
-
-  box-shadow:
-    0 0 0 3px
-    rgba(255,215,0,.08);
-}
-
-/* =========================
-   الهيدر الداخلي
-========================= */
-
-.header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-
-  padding:18px;
-
-  margin-bottom:18px;
-
-  border-radius:18px;
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:100;
 
   background:
-    linear-gradient(
-      135deg,
-      rgba(35,0,0,.95),
-      rgba(12,12,12,.95)
-    );
+    rgba(5,5,5,.95);
 
-  border:1px solid
-    rgba(255,215,0,.18);
+  backdrop-filter:
+    blur(12px);
 
-  box-shadow:var(--shadow);
+  border-bottom:
+    1px solid
+    rgba(255,193,7,.15);
 }
 
-.header-info{
-  min-width:0;
-}
+.topbar-inner{
 
-.header-name{
-  font-size:22px;
-  font-weight:900;
-  color:var(--gold);
+  width:min(
+    1200px,
+    calc(100% - 30px)
+  );
 
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
+  margin:auto;
 
-.header-rank{
-  margin-top:5px;
-  color:#aaa;
-  font-size:13px;
-}
+  padding:14px 0;
 
-.header-balance{
-  text-align:left;
-}
-
-.balance-label{
-  font-size:12px;
-  color:#888;
-}
-
-.balance-value{
-  margin-top:4px;
-  font-size:22px;
-  font-weight:900;
-  color:#00e676;
-}
-
-/* =========================
-   شبكة البطاقات
-========================= */
-
-.grid{
-  display:grid;
-
-  grid-template-columns:
-    repeat(
-      auto-fit,
-      minmax(220px,1fr)
-    );
-
-  gap:15px;
-}
-
-.card{
-  padding:18px;
-
-  border-radius:16px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(24,24,24,.96),
-      rgba(10,10,10,.96)
-    );
-
-  border:1px solid
-    rgba(255,255,255,.08);
-
-  box-shadow:
-    0 8px 30px
-    rgba(0,0,0,.4);
-}
-
-.card-title{
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
 
-  margin-bottom:12px;
+  gap:10px;
 
-  color:var(--gold);
+}
+
+.brand{
+
+  color:#ffd54f;
+
   font-weight:900;
+
 }
 
-.stat{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+.user-info{
 
-  padding:10px 0;
-
-  border-bottom:1px solid
-    rgba(255,255,255,.06);
-}
-
-.stat:last-child{
-  border-bottom:0;
-}
-
-.stat-name{
-  color:#aaa;
-}
-
-.stat-value{
-  font-weight:900;
-}
-
-/* =========================
-   شريط التقدم
-========================= */
-
-.progress{
-  width:100%;
-  height:10px;
-
-  overflow:hidden;
-
-  border-radius:99px;
-
-  background:#252525;
-}
-
-.progress-bar{
-  height:100%;
-  width:0%;
-
-  border-radius:99px;
-
-  background:
-    linear-gradient(
-      90deg,
-      var(--red),
-      var(--gold)
-    );
-
-  transition:
-    width .4s ease;
-}
-
-/* =========================
-   التنقل
-========================= */
-
-.nav{
-  display:grid;
-
-  grid-template-columns:
-    repeat(
-      auto-fit,
-      minmax(120px,1fr)
-    );
-
-  gap:9px;
-
-  margin-bottom:18px;
-}
-
-.nav button{
-  min-height:45px;
-
-  border-radius:11px;
-
-  border:1px solid
-    rgba(255,255,255,.08);
-
-  color:white;
-
-  background:#101010;
+  color:#ddd;
 
   font-weight:700;
 
-  transition:.15s;
 }
 
-.nav button:hover{
-  border-color:
-    rgba(255,215,0,.35);
+.separator{
 
-  color:var(--gold);
+  margin:0 8px;
+
+  color:#555;
+
 }
 
-/* =========================
-   صفحات الموقع
-========================= */
+nav{
+
+  width:min(
+    1200px,
+    calc(100% - 30px)
+  );
+
+  margin:auto;
+
+  padding:10px 0;
+
+  display:flex;
+
+  gap:8px;
+
+  overflow-x:auto;
+
+  scrollbar-width:thin;
+
+}
+
+nav button{
+
+  white-space:nowrap;
+
+  border:0;
+
+  border-radius:10px;
+
+  padding:10px 14px;
+
+  background:#171717;
+
+  color:#ccc;
+
+  transition:.2s;
+
+}
+
+nav button:hover{
+
+  background:#292929;
+
+  transform:translateY(-1px);
+
+}
+
+nav button.active{
+
+  background:#ffd54f;
+  color:#111;
+
+}
+
+main{
+
+  width:min(
+    1200px,
+    calc(100% - 30px)
+  );
+
+  margin:20px auto;
+
+}
 
 .page{
   display:none;
@@ -604,61 +323,167 @@ button{
   display:block;
 }
 
-/* =========================
-   الجوال
-========================= */
+.grid{
 
-@media(max-width:700px){
+  display:grid;
 
-  .topbar{
-    padding:10px;
-  }
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(220px,1fr)
+    );
 
-  .logo{
-    font-size:17px;
-  }
-
-  .container{
-    width:96%;
-    padding-top:12px;
-  }
-
-  .header{
-    flex-direction:column;
-    align-items:stretch;
-  }
-
-  .header-balance{
-    text-align:right;
-  }
-
-  .auth-card{
-    padding:20px;
-  }
-
-  .auth-logo .title{
-    font-size:24px;
-  }
-
-  .grid{
-    grid-template-columns:
-      repeat(
-        2,
-        minmax(0,1fr)
-      );
-  }
+  gap:15px;
 
 }
 
-@media(max-width:450px){
+.stat{
 
-  .grid{
-    grid-template-columns:1fr;
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  padding:12px 0;
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.08);
+
+}
+
+.stat-name{
+  color:#aaa;
+}
+
+.big-number{
+
+  font-size:32px;
+
+  font-weight:900;
+
+  margin-top:10px;
+
+}
+
+.green{
+  color:#00e676;
+}
+
+.gold{
+  color:#ffd54f;
+}
+
+.character-stat{
+
+  font-size:28px;
+
+  font-weight:900;
+
+  margin-top:10px;
+
+}
+
+.hp{
+  color:#ff5252;
+}
+
+.attack{
+  color:#ffd54f;
+}
+
+.defense{
+  color:#64b5f6;
+}
+
+.description{
+
+  color:#aaa;
+
+  line-height:1.8;
+
+  margin:10px 0;
+
+}
+
+.status{
+
+  text-align:center;
+
+  padding:10px;
+
+  margin-bottom:10px;
+
+  border-radius:10px;
+
+  display:none;
+
+}
+
+.status.error{
+
+  display:block;
+
+  background:#420909;
+
+  color:#ff7777;
+
+}
+
+.status.success{
+
+  display:block;
+
+  background:#073d16;
+
+  color:#7cff9a;
+
+}
+
+.loading{
+
+  text-align:center;
+
+  color:#ffd54f;
+
+  padding:20px;
+
+}
+
+@media(max-width:700px){
+
+  .topbar-inner{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
   }
 
-  .nav{
-    grid-template-columns:
-      repeat(2,1fr);
+  .user-info{
+    font-size:14px;
+  }
+
+  nav{
+    padding-bottom:12px;
+  }
+
+  main{
+
+    width:
+      calc(100% - 20px);
+
+    margin-top:15px;
+
+  }
+
+  .card{
+    padding:15px;
+  }
+
+  .logo{
+    font-size:24px;
   }
 
 }
@@ -669,746 +494,441 @@ button{
 
 <body>
 
-<div id="bg"></div>
-<div id="stars"></div>
 
-<!--
-==================================================
-الجزء الأول
-==================================================
--->
+<!-- =========================
+     تسجيل الدخول
+========================= -->
 
 <div id="auth">
 
-  <div class="auth-card">
+  <div class="auth-box">
 
-    <div class="auth-logo">
-
-      <div class="title">
-        『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』
-      </div>
-
-      <div class="sub">
-        Ultimate Anime World
-      </div>
-
+    <div class="logo">
+      『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』
     </div>
 
-    <div id="loginBox">
+    <div class="card">
 
-      <h3>
-        🔐 تسجيل الدخول
-      </h3>
+      <div
+        id="authStatus"
+        class="status"
+      ></div>
 
-      <input
-        id="loginName"
-        type="text"
-        placeholder="اسم المستخدم"
+
+      <!-- LOGIN -->
+
+      <div id="loginBox">
+
+        <div class="card-title">
+          🔐 تسجيل الدخول
+        </div>
+
+        <input
+          id="loginName"
+          type="text"
+          placeholder="اسم المستخدم"
+          autocomplete="username"
+        >
+
+        <input
+          id="loginPass"
+          type="password"
+          placeholder="كلمة المرور"
+          autocomplete="current-password"
+        >
+
+        <button
+          class="btn goldbtn full"
+          type="button"
+          onclick="login()"
+        >
+          دخول
+        </button>
+
+        <button
+          class="btn secondary full"
+          type="button"
+          style="margin-top:8px"
+          onclick="showRegister()"
+        >
+          إنشاء حساب
+        </button>
+
+      </div>
+
+
+      <!-- REGISTER -->
+
+      <div
+        id="registerBox"
+        class="hidden"
       >
 
-      <input
-        id="loginPass"
-        type="password"
-        placeholder="كلمة المرور"
-      >
+        <div class="card-title">
+          📝 إنشاء حساب
+        </div>
 
-      <button
-        class="btn goldbtn full"
-        type="button"
-        onclick="doLogin()"
-      >
-        دخول
-      </button>
+        <input
+          id="regName"
+          type="text"
+          placeholder="اسم المستخدم"
+          autocomplete="username"
+        >
 
-      <button
-        class="btn secondary full"
-        type="button"
-        style="margin-top:8px"
-        onclick="showRegister()"
-      >
-        📝 إنشاء حساب
-      </button>
+        <input
+          id="regPass"
+          type="password"
+          placeholder="كلمة المرور"
+          autocomplete="new-password"
+        >
 
-    </div>
+        <input
+          id="regPass2"
+          type="password"
+          placeholder="تأكيد كلمة المرور"
+          autocomplete="new-password"
+        >
 
-    <div
-      id="registerBox"
-      class="hidden"
-    >
+        <button
+          class="btn goldbtn full"
+          type="button"
+          onclick="register()"
+        >
+          إنشاء الحساب
+        </button>
 
-      <h3>
-        📝 إنشاء حساب
-      </h3>
+        <button
+          class="btn secondary full"
+          type="button"
+          style="margin-top:8px"
+          onclick="showLogin()"
+        >
+          العودة لتسجيل الدخول
+        </button>
 
-      <input
-        id="regName"
-        type="text"
-        placeholder="اسم المستخدم"
-      >
-
-      <input
-        id="regPass"
-        type="password"
-        placeholder="كلمة المرور"
-      >
-
-      <input
-        id="regPass2"
-        type="password"
-        placeholder="تأكيد كلمة المرور"
-      >
-
-      <button
-        class="btn goldbtn full"
-        type="button"
-        onclick="doRegister()"
-      >
-        إنشاء الحساب
-      </button>
-
-      <button
-        class="btn secondary full"
-        type="button"
-        style="margin-top:8px"
-        onclick="showLogin()"
-      >
-        العودة لتسجيل الدخول
-      </button>
+      </div>
 
     </div>
 
   </div>
 
 </div>
+
+
 <!-- =========================
-     الجزء 2
+     التطبيق
 ========================= -->
 
-<div id="app" class="hidden">
+<div
+  id="app"
+  class="hidden"
+>
 
-  <div class="topbar">
+<header class="topbar">
 
-    <div class="logo">
+  <div class="topbar-inner">
+
+    <div class="brand">
       『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』
     </div>
 
-    <div class="top-actions">
+    <div class="user-info">
 
-      <button
-        class="btn secondary"
-        type="button"
-        onclick="logout()"
-      >
-        🚪 خروج
-      </button>
+      👤
+      <span id="headerName">-</span>
 
-      <button
-        class="btn secondary"
-        type="button"
-        onclick="toggleMusic()"
-      >
-        🎵 موسيقى
-      </button>
+      <span class="separator">|</span>
+
+      💰
+      <span id="headerBalance">0</span>
 
     </div>
 
   </div>
 
 
-  <main class="container">
+  <nav>
 
-    <section class="header">
-
-      <div class="header-info">
-
-        <div
-          id="headerName"
-          class="header-name"
-        >
-          زائر
-        </div>
-
-        <div
-          id="headerRank"
-          class="header-rank"
-        >
-          مبتدئ
-        </div>
-
-      </div>
-
-
-      <div class="header-balance">
-
-        <div class="balance-label">
-          الرصيد
-        </div>
-
-        <div
-          id="headerBalance"
-          class="balance-value"
-        >
-          0
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <nav class="nav">
-
-      <button
-        type="button"
-        onclick="page('home')"
-      >
-        🏠 الرئيسية
-      </button>
-
-      <button
-        type="button"
-        onclick="page('character')"
-      >
-        ⚔️ الشخصية
-      </button>
-
-      <button
-        type="button"
-        onclick="page('city')"
-      >
-        🏙️ المدينة
-      </button>
-
-      <button
-        type="button"
-        onclick="page('farm')"
-      >
-        🌾 المزرعة
-      </button>
-
-      <button
-        type="button"
-        onclick="page('shop')"
-      >
-        🛒 المتجر
-      </button>
-
-      <button
-        type="button"
-        onclick="page('inventory')"
-      >
-        🎒 الحقيبة
-      </button>
-
-      <button
-        type="button"
-        onclick="page('games')"
-      >
-        🎮 الألعاب
-      </button>
-
-      <button
-        type="button"
-        onclick="page('chat')"
-      >
-        💬 الدردشة
-      </button>
-
-      <button
-        type="button"
-        onclick="page('players')"
-      >
-        👥 اللاعبين
-      </button>
-
-      <button
-        type="button"
-        onclick="page('rank')"
-      >
-        🏆 الترتيب
-      </button>
-
-      <button
-        type="button"
-        onclick="page('wallet')"
-      >
-        💰 المحفظة
-      </button>
-
-      <button
-        type="button"
-        onclick="page('loans')"
-      >
-        🏦 القروض
-      </button>
-
-      <button
-        type="button"
-        onclick="page('stocks')"
-      >
-        📈 الأسهم
-      </button>
-
-      <button
-        type="button"
-        onclick="page('profile')"
-      >
-        👤 الملف
-      </button>
-
-      <button
-        id="adminNav"
-        type="button"
-        class="hidden"
-        onclick="page('admin')"
-      >
-        👑 الإدارة
-      </button>
-
-    </nav>
-
-
-    <!-- =========================
-         الرئيسية
-    ========================= -->
-
-    <section
-      id="page-home"
-      class="page active"
+    <button
+      type="button"
+      data-page="home"
+      onclick="page('home')"
     >
-
-      <div class="grid">
-
-        <div class="card">
-
-          <div class="card-title">
-            💰 الرصيد
-          </div>
-
-          <div
-            id="homeBalance"
-            style="
-              font-size:30px;
-              font-weight:900;
-              color:#00e676;
-            "
-          >
-            0
-          </div>
-
-          <div
-            style="
-              margin-top:8px;
-              color:#888;
-            "
-          >
-            عملات S.U.N
-          </div>
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="card-title">
-            ⭐ المستوى
-          </div>
-
-          <div
-            id="homeLevel"
-            style="
-              font-size:30px;
-              font-weight:900;
-              color:#ffd700;
-            "
-          >
-            1
-          </div>
-
-          <div
-            style="
-              margin-top:8px;
-              color:#888;
-            "
-          >
-            مستوى الشخصية
-          </div>
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="card-title">
-            ⚡ القوة
-          </div>
-
-          <div
-            id="homePower"
-            style="
-              font-size:30px;
-              font-weight:900;
-              color:#ff5252;
-            "
-          >
-            0
-          </div>
-
-          <div
-            style="
-              margin-top:8px;
-              color:#888;
-            "
-          >
-            قوة الشخصية
-          </div>
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="card-title">
-            🏙️ مستوى المدينة
-          </div>
-
-          <div
-            id="homeCity"
-            style="
-              font-size:30px;
-              font-weight:900;
-              color:#2196f3;
-            "
-          >
-            1
-          </div>
-
-          <div
-            style="
-              margin-top:8px;
-              color:#888;
-            "
-          >
-            تطوير المدينة
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div
-        class="card"
-        style="margin-top:15px"
-      >
-
-        <div class="card-title">
-          📊 تقدم المستوى
-        </div>
-
-        <div
-          style="
-            display:flex;
-            justify-content:space-between;
-            margin-bottom:8px;
-          "
-        >
-
-          <span>
-            XP
-          </span>
-
-          <span id="homeXP">
-            0 / 100
-          </span>
-
-        </div>
-
-        <div class="progress">
-
-          <div
-            id="homeXPBar"
-            class="progress-bar"
-          ></div>
-
-        </div>
-
-      </div>
-
-
-      <div
-        class="grid"
-        style="margin-top:15px"
-      >
-
-        <div class="card">
-
-          <div class="card-title">
-            ⚔️ الهجوم
-          </div>
-
-          <div
-            id="homeAttack"
-            class="stat-value"
-          >
-            10
-          </div>
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="card-title">
-            🛡️ الدفاع
-          </div>
-
-          <div
-            id="homeDefense"
-            class="stat-value"
-          >
-            10
-          </div>
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="card-title">
-            ❤️ الصحة
-          </div>
-
-          <div
-            id="homeHP"
-            class="stat-value"
-          >
-            100
-          </div>
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="card-title">
-            🎖️ الرتبة
-          </div>
-
-          <div
-            id="homeRank"
-            class="stat-value"
-          >
-            مبتدئ
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div
-        class="card"
-        style="margin-top:15px"
-      >
-
-        <div class="card-title">
-          ⚡ اختصارات سريعة
-        </div>
-
-        <div class="grid">
-
-          <button
-            class="btn goldbtn"
-            type="button"
-            onclick="page('games')"
-          >
-            🎮 الألعاب
-          </button>
-
-          <button
-            class="btn secondary"
-            type="button"
-            onclick="page('shop')"
-          >
-            🛒 المتجر
-          </button>
-
-          <button
-            class="btn secondary"
-            type="button"
-            onclick="page('wallet')"
-          >
-            💰 المحفظة
-          </button>
-
-          <button
-            class="btn secondary"
-            type="button"
-            onclick="page('character')"
-          >
-            ⚔️ الشخصية
-          </button>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         الشخصية
-    ========================= -->
-
-    <section
-      id="page-character"
-      class="page"
+      🏠 الرئيسية
+    </button>
+
+    <button
+      type="button"
+      data-page="character"
+      onclick="page('character')"
     >
+      🧙 الشخصية
+    </button>
+
+    <button
+      type="button"
+      data-page="city"
+      onclick="page('city')"
+    >
+      🏯 المدينة
+    </button>
+
+    <button
+      type="button"
+      data-page="farm"
+      onclick="page('farm')"
+    >
+      🌾 المزرعة
+    </button>
+
+    <button
+      type="button"
+      data-page="shop"
+      onclick="page('shop')"
+    >
+      🛒 المتجر
+    </button>
+
+    <button
+      type="button"
+      data-page="inventory"
+      onclick="page('inventory')"
+    >
+      🎒 المخزون
+    </button>
+
+    <button
+      type="button"
+      data-page="games"
+      onclick="page('games')"
+    >
+      🎮 الألعاب
+    </button>
+
+    <button
+      type="button"
+      data-page="chat"
+      onclick="page('chat')"
+    >
+      💬 الدردشة
+    </button>
+
+    <button
+      type="button"
+      data-page="players"
+      onclick="page('players')"
+    >
+      👥 اللاعبين
+    </button>
+
+    <button
+      type="button"
+      data-page="rank"
+      onclick="page('rank')"
+    >
+      🏆 الترتيب
+    </button>
+
+    <button
+      type="button"
+      data-page="wallet"
+      onclick="page('wallet')"
+    >
+      💰 المحفظة
+    </button>
+
+    <button
+      type="button"
+      data-page="profile"
+      onclick="page('profile')"
+    >
+      👤 الملف
+    </button>
+
+    <button
+      type="button"
+      onclick="logout()"
+    >
+      🚪 خروج
+    </button>
+
+  </nav>
+
+</header>
+
+
+<main>
+
+
+<!-- HOME -->
+
+<section
+  id="page-home"
+  class="page active"
+>
+
+  <div class="grid">
+
+    <div class="card">
+
+      <div class="card-title">
+        💰 الرصيد
+      </div>
+
+      <div
+        id="homeBalance"
+        class="big-number green"
+      >
+        0
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="card-title">
+        ⭐ المستوى
+      </div>
+
+      <div
+        id="homeLevel"
+        class="big-number gold"
+      >
+        1
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="card-title">
+        ⚔️ القوة
+      </div>
+
+      <div
+        id="homePower"
+        class="big-number"
+      >
+        20
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div
+    class="card"
+    style="margin-top:15px"
+  >
+
+    <div class="card-title">
+      🏯 مرحبًا بك في S.U.N TOKYO
+    </div>
+
+    <p class="description">
+
+      عالم مصرفي تفاعلي مليء بالألعاب
+      والمتجر والتحويلات والتطوير.
+
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- CHARACTER -->
+
+<section
+  id="page-character"
+  class="page"
+>
+
+  <div class="card">
+
+    <div class="card-title">
+      🧙 الشخصية
+    </div>
+
+    <div class="grid">
 
       <div class="card">
 
-        <div class="card-title">
-          ⚔️ شخصية اللاعب
-        </div>
+        <h3>❤️ الصحة</h3>
 
-        <div class="grid">
-
-          <div class="card">
-
-            <div class="card-title">
-              ❤️ الصحة
-            </div>
-
-            <div
-              id="charHP"
-              class="stat-value"
-            >
-              100
-            </div>
-
-          </div>
-
-          <div class="card">
-
-            <div class="card-title">
-              ⚔️ الهجوم
-            </div>
-
-            <div
-              id="charAttack"
-              class="stat-value"
-            >
-              10
-            </div>
-
-          </div>
-
-          <div class="card">
-
-            <div class="card-title">
-              🛡️ الدفاع
-            </div>
-
-            <div
-              id="charDefense"
-              class="stat-value"
-            >
-              10
-            </div>
-
-          </div>
-
-          <div class="card">
-
-            <div class="card-title">
-              ⚡ القوة
-            </div>
-
-            <div
-              id="charPower"
-              class="stat-value"
-            >
-              0
-            </div>
-
-          </div>
-
+        <div
+          id="characterHP"
+          class="character-stat hp"
+        >
+          100
         </div>
 
       </div>
 
-
-      <div
-        class="card"
-        style="margin-top:15px"
-      >
-
-        <div class="card-title">
-          ⭐ تطوير الشخصية
-        </div>
-
-        <p
-          style="
-            color:#aaa;
-            line-height:1.8;
-            margin-bottom:15px;
-          "
-        >
-          طور شخصيتك وارفع مستواك للحصول
-          على قوة أكبر ومكافآت أفضل.
-        </p>
-
-        <button
-          class="btn goldbtn full"
-          type="button"
-          onclick="upgradeCharacter()"
-        >
-          ⚡ تطوير الشخصية
-        </button>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         المدينة
-    ========================= -->
-
-    <section
-      id="page-city"
-      class="page"
-    >
 
       <div class="card">
 
-        <div class="card-title">
-          🏙️ مدينة S.U.N TOKYO
+        <h3>⚔️ الهجوم</h3>
+
+        <div
+          id="characterAttack"
+          class="character-stat attack"
+        >
+          10
         </div>
 
-        <div class="stat">
+      </div>
 
-          <span class="stat-name">
-            مستوى المدينة
-          </span>
 
-          <strong id="cityLevel">
-            1
-          </strong>
+      <div class="card">
 
+        <h3>🛡️ الدفاع</h3>
+
+        <div
+          id="characterDefense"
+          class="character-stat defense"
+        >
+          10
         </div>
 
-        <div class="stat">
+      </div>
 
-          <span class="stat-name">
-            قيمة التطوير
-          </span>
+    </div>
 
-          <strong id="cityCost">
-            100
-          </strong>
+  </div>
 
+</section>
+
+
+<!-- CITY -->
+
+<section
+  id="page-city"
+  class="page"
+>
+
+  <div class="card">
+
+    <div class="card-title">
+      🏯 المدينة
+    </div>
+
+    <div class="grid">
+
+      <div class="card">
+
+        <h3>
+          🏯 مستوى المدينة
+        </h3>
+
+        <div
+          id="cityLevel"
+          class="big-number gold"
+        >
+          1
         </div>
 
         <button
@@ -1416,141 +936,63 @@ button{
           type="button"
           onclick="upgradeCity()"
         >
-          🏗️ تطوير المدينة
+          ⬆️ تطوير المدينة
         </button>
 
       </div>
 
-    </section>
 
+      <div class="card">
 
-    <!-- =========================
-         المزرعة
-    ========================= -->
+        <h3>
+          👥 السكان
+        </h3>
 
-    <section
-      id="page-farm"
-      class="page"
-    >
-
-      <div class="grid">
-
-        <div class="card">
-
-          <div class="card-title">
-            🌾 المزرعة
-          </div>
-
-          <div class="stat">
-
-            <span class="stat-name">
-              مستوى المزرعة
-            </span>
-
-            <strong id="farmLevel">
-              1
-            </strong>
-
-          </div>
-
-          <div class="stat">
-
-            <span class="stat-name">
-              المحصول
-            </span>
-
-            <strong id="farmCrop">
-              0
-            </strong>
-
-          </div>
-
-          <button
-            class="btn success full"
-            type="button"
-            onclick="farmPlant()"
-          >
-            🌱 زراعة
-          </button>
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="card-title">
-            💧 الري
-          </div>
-
-          <p
-            style="
-              color:#aaa;
-              line-height:1.7;
-              margin-bottom:12px;
-            "
-          >
-            اسقِ المزرعة لتحصل على محصول
-            أفضل.
-          </p>
-
-          <button
-            class="btn blue full"
-            type="button"
-            onclick="farmWater()"
-          >
-            💧 ري المزرعة
-          </button>
-
+        <div
+          id="cityPopulation"
+          class="big-number"
+        >
+          1
         </div>
 
       </div>
 
-    </section>
+    </div>
 
-  </main>
+  </div>
 
-</div>
- <section
-  id="page-shop"
+</section>
+
+
+<!-- FARM -->
+
+<section
+  id="page-farm"
   class="page"
 >
 
   <div class="card">
 
     <div class="card-title">
-      🛒 متجر S.U.N TOKYO
+      🌾 المزرعة
     </div>
 
     <div class="grid">
 
       <div class="card">
 
-        <div class="card-title">
-          ⚔️ سيف ساموراي
-        </div>
+        <h3>🌱 الزراعة</h3>
 
-        <p style="color:#aaa;margin-bottom:12px">
-          يزيد الهجوم.
+        <p class="description">
+          ازرع محصولًا وانتظر حتى ينضج.
         </p>
-
-        <div class="stat">
-
-          <span class="stat-name">
-            السعر
-          </span>
-
-          <strong>
-            250 💰
-          </strong>
-
-        </div>
 
         <button
           class="btn goldbtn full"
           type="button"
-          onclick="buyItem('sword',250)"
+          onclick="plantCrop()"
         >
-          شراء
+          🌱 زراعة
         </button>
 
       </div>
@@ -1558,98 +1000,18 @@ button{
 
       <div class="card">
 
-        <div class="card-title">
-          🛡️ درع أسطوري
-        </div>
+        <h3>🌾 الحصاد</h3>
 
-        <p style="color:#aaa;margin-bottom:12px">
-          يزيد الدفاع.
+        <p class="description">
+          احصد محصولك واربح العملات.
         </p>
 
-        <div class="stat">
-
-          <span class="stat-name">
-            السعر
-          </span>
-
-          <strong>
-            350 💰
-          </strong>
-
-        </div>
-
         <button
-          class="btn goldbtn full"
+          class="btn success full"
           type="button"
-          onclick="buyItem('shield',350)"
+          onclick="harvestCrop()"
         >
-          شراء
-        </button>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="card-title">
-          ❤️ جرعة صحة
-        </div>
-
-        <p style="color:#aaa;margin-bottom:12px">
-          تستعيد الصحة.
-        </p>
-
-        <div class="stat">
-
-          <span class="stat-name">
-            السعر
-          </span>
-
-          <strong>
-            100 💰
-          </strong>
-
-        </div>
-
-        <button
-          class="btn goldbtn full"
-          type="button"
-          onclick="buyItem('potion',100)"
-        >
-          شراء
-        </button>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="card-title">
-          ⚡ بلورة القوة
-        </div>
-
-        <p style="color:#aaa;margin-bottom:12px">
-          تزيد القوة.
-        </p>
-
-        <div class="stat">
-
-          <span class="stat-name">
-            السعر
-          </span>
-
-          <strong>
-            500 💰
-          </strong>
-
-        </div>
-
-        <button
-          class="btn goldbtn full"
-          type="button"
-          onclick="buyItem('crystal',500)"
-        >
-          شراء
+          🌾 حصاد
         </button>
 
       </div>
@@ -1660,6 +1022,83 @@ button{
 
 </section>
 
+
+<!-- SHOP -->
+
+<section
+  id="page-shop"
+  class="page"
+>
+
+  <div class="card">
+
+    <div class="card-title">
+      🛒 المتجر
+    </div>
+
+    <div class="grid">
+
+      <div class="card">
+
+        <h3>⚔️ سيف أسطوري</h3>
+
+        <p class="description">
+          يزيد الهجوم.
+        </p>
+
+        <button
+          class="btn goldbtn full"
+          onclick="buyItem('⚔️ سيف أسطوري',500)"
+        >
+          شراء — 500 💰
+        </button>
+
+      </div>
+
+
+      <div class="card">
+
+        <h3>🛡️ درع أسطوري</h3>
+
+        <p class="description">
+          يزيد الدفاع.
+        </p>
+
+        <button
+          class="btn goldbtn full"
+          onclick="buyItem('🛡️ درع أسطوري',750)"
+        >
+          شراء — 750 💰
+        </button>
+
+      </div>
+
+
+      <div class="card">
+
+        <h3>❤️ جرعة صحة</h3>
+
+        <p class="description">
+          تزيد الصحة.
+        </p>
+
+        <button
+          class="btn goldbtn full"
+          onclick="buyItem('❤️ جرعة صحة',250)"
+        >
+          شراء — 250 💰
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- INVENTORY -->
 
 <section
   id="page-inventory"
@@ -1669,184 +1108,105 @@ button{
   <div class="card">
 
     <div class="card-title">
-      🎒 حقيبة اللاعب
+      🎒 المخزون
     </div>
 
     <div
       id="inventoryList"
       class="grid"
     >
-
-      <div class="card">
-
-        <div class="card-title">
-          🎒 الحقيبة فارغة
-        </div>
-
-        <p style="color:#888">
-          المشتريات ستظهر هنا.
-        </p>
-
-      </div>
-
     </div>
 
   </div>
 
 </section>
 
+
+<!-- GAMES -->
 
 <section
   id="page-games"
   class="page"
 >
 
-  <div class="grid">
+  <div class="card">
 
-    <div class="card">
-
-      <div class="card-title">
-        🎲 النرد
-      </div>
-
-      <p
-        style="
-          color:#aaa;
-          line-height:1.7;
-          margin-bottom:12px;
-        "
-      >
-        راهن بـ 25 عملة وارمِ النرد.
-      </p>
-
-      <div
-        id="diceResult"
-        style="
-          text-align:center;
-          font-size:35px;
-          font-weight:900;
-          margin:15px 0;
-          color:#ffd700;
-        "
-      >
-        🎲
-      </div>
-
-      <button
-        class="btn goldbtn full"
-        type="button"
-        onclick="playDice()"
-      >
-        🎲 رمي النرد — 25 💰
-      </button>
-
+    <div class="card-title">
+      🎮 الألعاب
     </div>
 
+    <div class="grid">
 
-    <div class="card">
+      <div class="card">
 
-      <div class="card-title">
-        📦 الصندوق السريع
+        <h3>🎲 النرد</h3>
+
+        <p class="description">
+          التكلفة: 25 💰
+        </p>
+
+        <button
+          class="btn goldbtn full"
+          onclick="playDice()"
+        >
+          🎲 لعب
+        </button>
+
       </div>
 
-      <p
-        style="
-          color:#aaa;
-          line-height:1.7;
-          margin-bottom:12px;
-        "
-      >
-        افتح الصندوق واحصل على مكافأة
-        عشوائية.
-      </p>
 
-      <div
-        id="boxResult"
-        style="
-          text-align:center;
-          font-size:28px;
-          font-weight:900;
-          margin:15px 0;
-          color:#ffd700;
-        "
-      >
-        📦
+      <div class="card">
+
+        <h3>📦 الصندوق</h3>
+
+        <p class="description">
+          التكلفة: 50 💰
+        </p>
+
+        <button
+          class="btn goldbtn full"
+          onclick="quickBox()"
+        >
+          📦 فتح
+        </button>
+
       </div>
 
-      <button
-        class="btn goldbtn full"
-        type="button"
-        onclick="openQuickBox()"
-      >
-        📦 فتح الصندوق — 50 💰
-      </button>
 
-    </div>
+      <div class="card">
 
+        <h3>🎡 عجلة الحظ</h3>
 
-    <div class="card">
+        <p class="description">
+          التكلفة: 100 💰
+        </p>
 
-      <div class="card-title">
-        🎡 عجلة الحظ
+        <button
+          class="btn goldbtn full"
+          onclick="spinWheel()"
+        >
+          🎡 تدوير
+        </button>
+
       </div>
 
-      <p
-        style="
-          color:#aaa;
-          line-height:1.7;
-          margin-bottom:12px;
-        "
-      >
-        جرّب حظك واربح جائزة.
-      </p>
 
-      <div
-        id="wheelResult"
-        style="
-          text-align:center;
-          font-size:28px;
-          font-weight:900;
-          margin:15px 0;
-          color:#ffd700;
-        "
-      >
-        🎡
+      <div class="card">
+
+        <h3>🎁 المكافأة اليومية</h3>
+
+        <p class="description">
+          مكافأة مجانية كل يوم.
+        </p>
+
+        <button
+          class="btn goldbtn full"
+          onclick="dailyReward()"
+        >
+          🎁 استلام
+        </button>
+
       </div>
-
-      <button
-        class="btn goldbtn full"
-        type="button"
-        onclick="spinWheel()"
-      >
-        🎡 تدوير العجلة
-      </button>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="card-title">
-        🎁 المكافأة اليومية
-      </div>
-
-      <p
-        style="
-          color:#aaa;
-          line-height:1.7;
-          margin-bottom:12px;
-        "
-      >
-        احصل على مكافأتك اليومية.
-      </p>
-
-      <button
-        class="btn success full"
-        type="button"
-        onclick="dailyReward()"
-      >
-        🎁 استلام المكافأة
-      </button>
 
     </div>
 
@@ -1854,6 +1214,8 @@ button{
 
 </section>
 
+
+<!-- CHAT -->
 
 <section
   id="page-chat"
@@ -1863,69 +1225,38 @@ button{
   <div class="card">
 
     <div class="card-title">
-      💬 دردشة S.U.N TOKYO
+      💬 الدردشة العامة
     </div>
 
     <div
       id="chatMessages"
       style="
-        height:350px;
+        max-height:450px;
         overflow-y:auto;
-        padding:10px;
-        background:#080808;
-        border-radius:12px;
-        margin-bottom:12px;
+        margin-bottom:15px;
       "
     >
-
-      <div
-        style="
-          text-align:center;
-          color:#666;
-          padding:30px;
-        "
-      >
-        لا توجد رسائل بعد
-      </div>
-
     </div>
 
-    <div
-      style="
-        display:flex;
-        gap:8px;
-      "
+    <input
+      id="chatInput"
+      type="text"
+      placeholder="اكتب رسالتك..."
     >
 
-      <input
-        id="chatInput"
-        type="text"
-        placeholder="اكتب رسالتك..."
-        style="
-          flex:1;
-          padding:12px;
-          border-radius:10px;
-          border:1px solid #333;
-          background:#080808;
-          color:white;
-          outline:none;
-        "
-      >
-
-      <button
-        class="btn goldbtn"
-        type="button"
-        onclick="sendChat()"
-      >
-        إرسال
-      </button>
-
-    </div>
+    <button
+      class="btn goldbtn full"
+      onclick="sendChat()"
+    >
+      إرسال 💬
+    </button>
 
   </div>
 
 </section>
 
+
+<!-- PLAYERS -->
 
 <section
   id="page-players"
@@ -1942,21 +1273,14 @@ button{
       id="playersList"
       class="grid"
     >
-
-      <div class="card">
-
-        <div class="card-title">
-          👤 لا يوجد لاعبين
-        </div>
-
-      </div>
-
     </div>
 
   </div>
 
 </section>
 
+
+<!-- RANK -->
 
 <section
   id="page-rank"
@@ -1969,18 +1293,10 @@ button{
       🏆 ترتيب اللاعبين
     </div>
 
-    <div id="rankList">
-
-      <div
-        style="
-          text-align:center;
-          color:#888;
-          padding:25px;
-        "
-      >
-        سيتم تحميل الترتيب...
-      </div>
-
+    <div
+      id="rankList"
+      class="grid"
+    >
     </div>
 
   </div>
@@ -1988,31 +1304,14 @@ button{
 </section>
 
 
+<!-- WALLET -->
+
 <section
   id="page-wallet"
   class="page"
 >
 
   <div class="grid">
-
-    <div class="card">
-
-      <div class="card-title">
-        💰 رصيد المحفظة
-      </div>
-
-      <div
-        id="walletBalance"
-        style="
-          font-size:32px;
-          font-weight:900;
-          color:#00e676;
-        "
-      >
-        0
-      </div>
-
-    </div>
 
 
     <div class="card">
@@ -2025,15 +1324,6 @@ button{
         id="transferUser"
         type="text"
         placeholder="اسم المستخدم"
-        style="
-          width:100%;
-          padding:12px;
-          margin-bottom:8px;
-          border-radius:10px;
-          border:1px solid #333;
-          background:#080808;
-          color:white;
-        "
       >
 
       <input
@@ -2041,23 +1331,13 @@ button{
         type="number"
         min="1"
         placeholder="المبلغ"
-        style="
-          width:100%;
-          padding:12px;
-          margin-bottom:8px;
-          border-radius:10px;
-          border:1px solid #333;
-          background:#080808;
-          color:white;
-        "
       >
 
       <button
         class="btn goldbtn full"
-        type="button"
         onclick="transferMoney()"
       >
-        💸 تحويل
+        تحويل 💸
       </button>
 
     </div>
@@ -2066,7 +1346,7 @@ button{
     <div class="card">
 
       <div class="card-title">
-        ➕ إيداع
+        💰 إيداع
       </div>
 
       <input
@@ -2074,23 +1354,13 @@ button{
         type="number"
         min="1"
         placeholder="المبلغ"
-        style="
-          width:100%;
-          padding:12px;
-          margin-bottom:8px;
-          border-radius:10px;
-          border:1px solid #333;
-          background:#080808;
-          color:white;
-        "
       >
 
       <button
         class="btn success full"
-        type="button"
         onclick="depositMoney()"
       >
-        ➕ إيداع
+        إيداع
       </button>
 
     </div>
@@ -2099,7 +1369,7 @@ button{
     <div class="card">
 
       <div class="card-title">
-        ➖ سحب
+        💳 سحب
       </div>
 
       <input
@@ -2107,163 +1377,24 @@ button{
         type="number"
         min="1"
         placeholder="المبلغ"
-        style="
-          width:100%;
-          padding:12px;
-          margin-bottom:8px;
-          border-radius:10px;
-          border:1px solid #333;
-          background:#080808;
-          color:white;
-        "
       >
 
       <button
         class="btn danger full"
-        type="button"
         onclick="withdrawMoney()"
       >
-        ➖ سحب
+        سحب
       </button>
 
     </div>
 
-  </div>
-
-</section>
-
-
-<section
-  id="page-loans"
-  class="page"
->
-
-  <div class="card">
-
-    <div class="card-title">
-      🏦 القروض
-    </div>
-
-    <div class="stat">
-
-      <span class="stat-name">
-        القرض الحالي
-      </span>
-
-      <strong id="loanAmount">
-        0
-      </strong>
-
-    </div>
-
-    <input
-      id="loanRequestAmount"
-      type="number"
-      min="1"
-      placeholder="مبلغ القرض"
-      style="
-        width:100%;
-        padding:12px;
-        margin:12px 0;
-        border-radius:10px;
-        border:1px solid #333;
-        background:#080808;
-        color:white;
-      "
-    >
-
-    <button
-      class="btn goldbtn full"
-      type="button"
-      onclick="requestLoan()"
-    >
-      🏦 طلب قرض
-    </button>
 
   </div>
 
 </section>
 
 
-<section
-  id="page-stocks"
-  class="page"
->
-
-  <div class="card">
-
-    <div class="card-title">
-      📈 سوق الأسهم
-    </div>
-
-    <div
-      id="stocksList"
-      class="grid"
-    >
-
-      <div class="card">
-
-        <div class="card-title">
-          🏢 SUN
-        </div>
-
-        <div class="stat">
-
-          <span class="stat-name">
-            السعر
-          </span>
-
-          <strong id="stockSUN">
-            100
-          </strong>
-
-        </div>
-
-        <button
-          class="btn goldbtn full"
-          type="button"
-          onclick="buyStock('SUN')"
-        >
-          شراء
-        </button>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="card-title">
-          🏢 TOKYO
-        </div>
-
-        <div class="stat">
-
-          <span class="stat-name">
-            السعر
-          </span>
-
-          <strong id="stockTOKYO">
-            150
-          </strong>
-
-        </div>
-
-        <button
-          class="btn goldbtn full"
-          type="button"
-          onclick="buyStock('TOKYO')"
-        >
-          شراء
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
+<!-- PROFILE -->
 
 <section
   id="page-profile"
@@ -2275,6 +1406,7 @@ button{
     <div class="card-title">
       👤 الملف الشخصي
     </div>
+
 
     <div class="stat">
 
@@ -2288,17 +1420,19 @@ button{
 
     </div>
 
+
     <div class="stat">
 
       <span class="stat-name">
-        الرتبة
+        الرصيد
       </span>
 
-      <strong id="profileRank">
-        مبتدئ
+      <strong id="profileBalance">
+        0
       </strong>
 
     </div>
+
 
     <div class="stat">
 
@@ -2312,87 +1446,26 @@ button{
 
     </div>
 
+
     <div class="stat">
 
       <span class="stat-name">
-        الخبرة
+        الرتبة
       </span>
 
-      <strong id="profileXP">
-        0
+      <strong id="profileRank">
+        🌱 مبتدئ
       </strong>
 
     </div>
 
-  </div>
-
-</section>
-
-
-<section
-  id="page-admin"
-  class="page"
->
-
-  <div class="grid">
-
-    <div class="card">
-
-      <div class="card-title">
-        👥 عدد المستخدمين
-      </div>
-
-      <div
-        id="adminUsers"
-        style="
-          font-size:30px;
-          font-weight:900;
-          color:#ffd700;
-        "
-      >
-        0
-      </div>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="card-title">
-        💰 إجمالي الأموال
-      </div>
-
-      <div
-        id="adminMoney"
-        style="
-          font-size:30px;
-          font-weight:900;
-          color:#00e676;
-        "
-      >
-        0
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div
-    class="card"
-    style="margin-top:15px"
-  >
-
-    <div class="card-title">
-      👑 لوحة الإدارة
-    </div>
 
     <button
-      class="btn goldbtn full"
-      type="button"
-      onclick="adminGiveMoney()"
+      class="btn danger full"
+      style="margin-top:15px"
+      onclick="logout()"
     >
-      💰 إضافة رصيد
+      🚪 تسجيل الخروج
     </button>
 
   </div>
@@ -2403,81 +1476,168 @@ button{
 </main>
 
 </div>
- <script>
 
-let db = {
-  users: [],
-  chat: [],
-  guilds: []
-};
+
+<script>
+
+/* =========================================================
+   SUPABASE
+========================================================= */
+
+const SUPABASE_URL =
+  'https://xmavwrtlwfkvqkpfiirr.supabase.co';
+
+const SUPABASE_ANON_KEY =
+  'YOUR_SUPABASE_ANON_KEY';
+
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
+
+
+/* =========================================================
+   المتغيرات
+========================================================= */
 
 let currentUser = null;
 
-const DB_KEY = 'SUN_DB';
-const CURRENT_USER_KEY = 'SUN_CURRENT_USER';
+let currentUserId = null;
 
 
-function loadDB(){
+/*
+  بيانات إضافية للحساب.
+  يتم تحميلها من قاعدة البيانات إذا كانت الأعمدة
+  موجودة.
+*/
 
-  try{
+const DEFAULT_USER_DATA = {
 
-    const saved =
-      localStorage.getItem(DB_KEY);
+  level:1,
 
-    if(saved){
+  xp:0,
 
-      const parsed =
-        JSON.parse(saved);
+  attack:10,
 
-      if(parsed && typeof parsed === 'object'){
+  defense:10,
 
-        db = parsed;
+  hp:100,
 
-      }
+  rank:'🌱 مبتدئ',
 
-    }
+  city_level:1,
 
-  }catch(error){
+  population:1,
 
-    console.error(
-      'Database load error:',
-      error
+  farm_planted:false,
+
+  farm_time:0,
+
+  last_daily_reward:null,
+
+  last_login_bonus:null
+
+};
+
+
+/* =========================================================
+   الرسائل
+========================================================= */
+
+function showStatus(message,type='error'){
+
+  const box =
+    document.getElementById(
+      'authStatus'
     );
 
+  if(!box){
+    return;
   }
 
-  if(!Array.isArray(db.users)){
-    db.users = [];
-  }
+  box.textContent =
+    message;
 
-  if(!Array.isArray(db.chat)){
-    db.chat = [];
-  }
+  box.className =
+    'status ' + type;
 
-  if(!Array.isArray(db.guilds)){
-    db.guilds = [];
+}
+
+
+function clearStatus(){
+
+  const box =
+    document.getElementById(
+      'authStatus'
+    );
+
+  if(box){
+
+    box.textContent = '';
+
+    box.className =
+      'status';
+
   }
 
 }
 
 
-function save(){
+/* =========================================================
+   تشفير كلمة المرور
+========================================================= */
 
-  try{
+async function hashPassword(password){
 
-    localStorage.setItem(
-      DB_KEY,
-      JSON.stringify(db)
+  const data =
+    new TextEncoder()
+      .encode(password);
+
+  const hash =
+    await crypto.subtle.digest(
+      'SHA-256',
+      data
     );
 
-  }catch(error){
+  return Array.from(
+    new Uint8Array(hash)
+  )
+  .map(
+    byte =>
+      byte
+        .toString(16)
+        .padStart(2,'0')
+  )
+  .join('');
 
-    console.error(
-      'Database save error:',
-      error
-    );
+}
 
-  }
+
+/* =========================================================
+   أدوات
+========================================================= */
+
+function formatMoney(amount){
+
+  return Number(
+    amount || 0
+  ).toLocaleString('ar-EG');
+
+}
+
+
+function escapeHTML(text){
+
+  return String(
+    text ?? ''
+  )
+  .replace(/&/g,'&amp;')
+  .replace(/</g,'&lt;')
+  .replace(/>/g,'&gt;')
+  .replace(/"/g,'&quot;')
+  .replace(/'/g,'&#039;');
 
 }
 
@@ -2485,435 +1645,1016 @@ function save(){
 function normalizeUser(user){
 
   if(!user){
-    return null;
+    return;
   }
 
-  if(typeof user.id === 'undefined'){
-    user.id = Date.now();
-  }
+  user.balance =
+    Number(user.balance || 0);
 
-  if(typeof user.username !== 'string'){
-    user.username = '';
-  }
+  user.level =
+    Number(
+      user.level ??
+      DEFAULT_USER_DATA.level
+    );
 
-  if(typeof user.password !== 'string'){
-    user.password = '';
-  }
+  user.xp =
+    Number(
+      user.xp ??
+      DEFAULT_USER_DATA.xp
+    );
 
-  if(typeof user.balance !== 'number'){
-    user.balance =
-      Number(user.balance) || 9999;
-  }
+  user.attack =
+    Number(
+      user.attack ??
+      DEFAULT_USER_DATA.attack
+    );
 
-  if(typeof user.level !== 'number'){
-    user.level =
-      Number(user.level) || 1;
-  }
+  user.defense =
+    Number(
+      user.defense ??
+      DEFAULT_USER_DATA.defense
+    );
 
-  if(typeof user.xp !== 'number'){
-    user.xp =
-      Number(user.xp) || 0;
-  }
+  user.hp =
+    Number(
+      user.hp ??
+      DEFAULT_USER_DATA.hp
+    );
 
-  if(typeof user.rank !== 'string'){
-    user.rank = 'مبتدئ';
-  }
+  user.rank =
+    user.rank ||
+    DEFAULT_USER_DATA.rank;
 
-  if(typeof user.attack !== 'number'){
-    user.attack =
-      Number(user.attack) || 10;
-  }
+  user.city_level =
+    Number(
+      user.city_level ??
+      DEFAULT_USER_DATA.city_level
+    );
 
-  if(typeof user.defense !== 'number'){
-    user.defense =
-      Number(user.defense) || 10;
-  }
+  user.population =
+    Number(
+      user.population ??
+      DEFAULT_USER_DATA.population
+    );
 
-  if(typeof user.hp !== 'number'){
-    user.hp =
-      Number(user.hp) || 100;
-  }
+  user.farm_planted =
+    Boolean(
+      user.farm_planted
+    );
 
-  if(typeof user.cityLevel !== 'number'){
-    user.cityLevel =
-      Number(user.cityLevel) || 1;
-  }
-
-  if(typeof user.farmLevel !== 'number'){
-    user.farmLevel =
-      Number(user.farmLevel) || 1;
-  }
-
-  if(typeof user.farmCrop !== 'number'){
-    user.farmCrop =
-      Number(user.farmCrop) || 0;
-  }
-
-  if(typeof user.loan !== 'number'){
-    user.loan =
-      Number(user.loan) || 0;
-  }
-
-  if(!Array.isArray(user.inventory)){
-    user.inventory = [];
-  }
-
-  if(!user.stocks ||
-     typeof user.stocks !== 'object'){
-
-    user.stocks = {};
-
-  }
-
-  return user;
+  user.farm_time =
+    Number(
+      user.farm_time || 0
+    );
 
 }
 
 
-function normalizeAllUsers(){
+/* =========================================================
+   البحث عن المستخدم
+========================================================= */
 
-  db.users.forEach(function(user){
+async function findUserByName(username){
 
-    normalizeUser(user);
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from('users')
+      .select('*')
+      .ilike(
+        'username',
+        username
+      )
+      .limit(1);
 
-  });
+  if(error){
 
-}
+    console.error(error);
 
+    throw error;
 
-function findUserByName(username){
-
-  if(!username){
-    return null;
   }
 
-  const name =
-    String(username)
-      .trim()
-      .toLowerCase();
-
-  return db.users.find(function(user){
-
-    return String(
-      user.username || ''
-    ).toLowerCase() === name;
-
-  }) || null;
+  return data && data.length
+    ? data[0]
+    : null;
 
 }
 
 
-function getCurrentUser(){
+/* =========================================================
+   تحديث المستخدم في Supabase
+========================================================= */
+
+async function updateUser(updates){
 
   if(!currentUser){
-    return null;
+    return false;
   }
 
-  return currentUser;
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from('users')
+      .update(updates)
+      .eq(
+        'id',
+        currentUser.id
+      )
+      .select()
+      .single();
 
-}
+  if(error){
 
+    console.error(
+      'Supabase update:',
+      error
+    );
 
-function formatMoney(value){
+    alert(
+      '❌ حدث خطأ أثناء حفظ البيانات:\n' +
+      error.message
+    );
 
-  const number =
-    Number(value) || 0;
+    return false;
 
-  return number.toLocaleString(
-    'en-US'
+  }
+
+  currentUser =
+    data;
+
+  normalizeUser(
+    currentUser
   );
 
+  updateAllUI();
+
+  return true;
+
 }
 
 
-function updateHeader(){
+/* =========================================================
+   إنشاء الحساب
+========================================================= */
+
+async function register(){
+
+  clearStatus();
+
+  const username =
+    document
+      .getElementById('regName')
+      .value
+      .trim();
+
+  const password =
+    document
+      .getElementById('regPass')
+      .value;
+
+  const password2 =
+    document
+      .getElementById('regPass2')
+      .value;
+
+
+  if(
+    !username ||
+    !password ||
+    !password2
+  ){
+
+    showStatus(
+      'أكمل جميع البيانات'
+    );
+
+    return;
+
+  }
+
+
+  if(username.length < 3){
+
+    showStatus(
+      'اسم المستخدم يجب أن يكون 3 أحرف على الأقل'
+    );
+
+    return;
+
+  }
+
+
+  if(password.length < 4){
+
+    showStatus(
+      'كلمة المرور يجب أن تكون 4 أحرف على الأقل'
+    );
+
+    return;
+
+  }
+
+
+  if(password !== password2){
+
+    showStatus(
+      'كلمتا المرور غير متطابقتين'
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    const exists =
+      await findUserByName(
+        username
+      );
+
+    if(exists){
+
+      showStatus(
+        'اسم المستخدم موجود بالفعل'
+      );
+
+      return;
+
+    }
+
+
+    const passwordHash =
+      await hashPassword(
+        password
+      );
+
+
+    /*
+      balance = 9999
+    */
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from('users')
+        .insert({
+
+          username:
+            username,
+
+          password_hash:
+            passwordHash,
+
+          balance:
+            9999
+
+        })
+        .select()
+        .single();
+
+
+    if(error){
+
+      console.error(error);
+
+      showStatus(
+        error.message
+      );
+
+      return;
+
+    }
+
+
+    currentUser =
+      data;
+
+    normalizeUser(
+      currentUser
+    );
+
+
+    /*
+      محاولة حفظ البيانات الإضافية
+      إذا كانت الأعمدة موجودة.
+    */
+
+    await saveExtendedData();
+
+
+    enterApp();
+
+
+    document.getElementById(
+      'regName'
+    ).value = '';
+
+    document.getElementById(
+      'regPass'
+    ).value = '';
+
+    document.getElementById(
+      'regPass2'
+    ).value = '';
+
+
+    alert(
+      '🎉 تم إنشاء الحساب بنجاح!\n\n' +
+      '👤 المستخدم: ' +
+      username +
+      '\n' +
+      '💰 الرصيد الابتدائي: 9,999'
+    );
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showStatus(
+      'حدث خطأ في الاتصال بقاعدة البيانات'
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   تسجيل الدخول
+========================================================= */
+
+async function login(){
+
+  clearStatus();
+
+  const username =
+    document
+      .getElementById('loginName')
+      .value
+      .trim();
+
+  const password =
+    document
+      .getElementById('loginPass')
+      .value;
+
+
+  if(
+    !username ||
+    !password
+  ){
+
+    showStatus(
+      'اكتب اسم المستخدم وكلمة المرور'
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    const user =
+      await findUserByName(
+        username
+      );
+
+
+    if(!user){
+
+      showStatus(
+        'اسم المستخدم أو كلمة المرور غير صحيحة'
+      );
+
+      return;
+
+    }
+
+
+    const passwordHash =
+      await hashPassword(
+        password
+      );
+
+
+    if(
+      String(
+        user.password_hash || ''
+      ) !==
+      passwordHash
+    ){
+
+      showStatus(
+        'اسم المستخدم أو كلمة المرور غير صحيحة'
+      );
+
+      return;
+
+    }
+
+
+    currentUser =
+      user;
+
+    normalizeUser(
+      currentUser
+    );
+
+
+    await saveExtendedData();
+
+
+    enterApp();
+
+
+    document.getElementById(
+      'loginName'
+    ).value = '';
+
+    document.getElementById(
+      'loginPass'
+    ).value = '';
+
+
+    await loginBonus();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showStatus(
+      'تعذر الاتصال بقاعدة البيانات'
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   الدخول للتطبيق
+========================================================= */
+
+function enterApp(){
+
+  const auth =
+    document.getElementById(
+      'auth'
+    );
+
+  const app =
+    document.getElementById(
+      'app'
+    );
+
+
+  if(auth){
+
+    auth.classList.add(
+      'hidden'
+    );
+
+  }
+
+
+  if(app){
+
+    app.classList.remove(
+      'hidden'
+    );
+
+  }
+
+
+  updateAllUI();
+
+  page('home');
+
+}
+
+
+/* =========================================================
+   تسجيل الخروج
+========================================================= */
+
+function logout(){
+
+  currentUser = null;
+
+  currentUserId = null;
+
+
+  document
+    .getElementById('app')
+    .classList.add(
+      'hidden'
+    );
+
+
+  document
+    .getElementById('auth')
+    .classList.remove(
+      'hidden'
+    );
+
+
+  showLogin();
+
+}
+
+
+/* =========================================================
+   تبديل النوافذ
+========================================================= */
+
+function showRegister(){
+
+  clearStatus();
+
+  document
+    .getElementById('loginBox')
+    .classList.add(
+      'hidden'
+    );
+
+  document
+    .getElementById('registerBox')
+    .classList.remove(
+      'hidden'
+    );
+
+}
+
+
+function showLogin(){
+
+  clearStatus();
+
+  document
+    .getElementById('registerBox')
+    .classList.add(
+      'hidden'
+    );
+
+  document
+    .getElementById('loginBox')
+    .classList.remove(
+      'hidden'
+    );
+
+}
+
+
+/* =========================================================
+   حفظ البيانات الإضافية
+========================================================= */
+
+async function saveExtendedData(){
 
   if(!currentUser){
     return;
   }
 
-  normalizeUser(currentUser);
 
-  const headerName =
-    document.getElementById(
-      'headerName'
+  /*
+    نحاول حفظ الأعمدة الإضافية.
+    إذا لم تكن موجودة في جدول users
+    لن نوقف تسجيل الدخول.
+  */
+
+  const updates = {
+
+    level:
+      Number(
+        currentUser.level || 1
+      ),
+
+    xp:
+      Number(
+        currentUser.xp || 0
+      ),
+
+    attack:
+      Number(
+        currentUser.attack || 10
+      ),
+
+    defense:
+      Number(
+        currentUser.defense || 10
+      ),
+
+    hp:
+      Number(
+        currentUser.hp || 100
+      ),
+
+    rank:
+      currentUser.rank ||
+      '🌱 مبتدئ',
+
+    city_level:
+      Number(
+        currentUser.city_level || 1
+      ),
+
+    population:
+      Number(
+        currentUser.population || 1
+      ),
+
+    farm_planted:
+      Boolean(
+        currentUser.farm_planted
+      ),
+
+    farm_time:
+      Number(
+        currentUser.farm_time || 0
+      ),
+
+    last_daily_reward:
+      currentUser.last_daily_reward ||
+      null,
+
+    last_login_bonus:
+      currentUser.last_login_bonus ||
+      null
+
+  };
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from('users')
+      .update(updates)
+      .eq(
+        'id',
+        currentUser.id
+      )
+      .select()
+      .single();
+
+
+  if(!error && data){
+
+    currentUser =
+      data;
+
+    normalizeUser(
+      currentUser
     );
 
-  const headerRank =
-    document.getElementById(
-      'headerRank'
-    );
-
-  const headerBalance =
-    document.getElementById(
-      'headerBalance'
-    );
-
-  if(headerName){
-
-    headerName.textContent =
-      currentUser.username;
+    return true;
 
   }
 
-  if(headerRank){
 
-    headerRank.textContent =
-      currentUser.rank;
+  console.warn(
+    'لم يتم حفظ الأعمدة الإضافية:',
+    error
+  );
 
+
+  return false;
+
+}
+
+
+/* =========================================================
+   تحديث الواجهة
+========================================================= */
+
+function updateAllUI(){
+
+  if(!currentUser){
+    return;
   }
 
-  if(headerBalance){
+  normalizeUser(
+    currentUser
+  );
 
-    headerBalance.textContent =
-      formatMoney(
-        currentUser.balance
-      );
 
-  }
+  document.getElementById(
+    'headerName'
+  ).textContent =
+    currentUser.username;
 
-  updateHome();
 
-  updateProfile();
+  document.getElementById(
+    'headerBalance'
+  ).textContent =
+    formatMoney(
+      currentUser.balance
+    );
 
-  updateWallet();
+
+  document.getElementById(
+    'homeBalance'
+  ).textContent =
+    formatMoney(
+      currentUser.balance
+    );
+
+
+  document.getElementById(
+    'homeLevel'
+  ).textContent =
+    currentUser.level;
+
+
+  document.getElementById(
+    'homePower'
+  ).textContent =
+    Number(
+      currentUser.attack
+    ) +
+    Number(
+      currentUser.defense
+    );
+
+
+  document.getElementById(
+    'profileName'
+  ).textContent =
+    currentUser.username;
+
+
+  document.getElementById(
+    'profileBalance'
+  ).textContent =
+    formatMoney(
+      currentUser.balance
+    );
+
+
+  document.getElementById(
+    'profileLevel'
+  ).textContent =
+    currentUser.level;
+
+
+  document.getElementById(
+    'profileRank'
+  ).textContent =
+    currentUser.rank;
+
+
+  updateCharacter();
 
   updateCity();
 
-  updateFarm();
-
-  updateInventory();
-
-  updatePlayers();
-
-  updateRank();
-
-  updateAdmin();
-
 }
 
 
-function updateHome(){
+/* =========================================================
+   الصفحات
+========================================================= */
 
-  if(!currentUser){
-    return;
-  }
+function page(pageName){
 
-  const balance =
-    document.getElementById(
-      'homeBalance'
-    );
-
-  const level =
-    document.getElementById(
-      'homeLevel'
-    );
-
-  const power =
-    document.getElementById(
-      'homePower'
-    );
-
-  const city =
-    document.getElementById(
-      'homeCity'
-    );
-
-  const xp =
-    document.getElementById(
-      'homeXP'
-    );
-
-  const xpBar =
-    document.getElementById(
-      'homeXPBar'
-    );
-
-  const attack =
-    document.getElementById(
-      'homeAttack'
-    );
-
-  const defense =
-    document.getElementById(
-      'homeDefense'
-    );
-
-  const hp =
-    document.getElementById(
-      'homeHP'
-    );
-
-  const rank =
-    document.getElementById(
-      'homeRank'
-    );
-
-  if(balance){
-
-    balance.textContent =
-      formatMoney(
-        currentUser.balance
-      );
-
-  }
-
-  if(level){
-
-    level.textContent =
-      currentUser.level;
-
-  }
-
-  if(power){
-
-    power.textContent =
-      currentUser.attack +
-      currentUser.defense;
-
-  }
-
-  if(city){
-
-    city.textContent =
-      currentUser.cityLevel;
-
-  }
-
-  if(xp){
-
-    xp.textContent =
-      currentUser.xp +
-      ' / 100';
-
-  }
-
-  if(xpBar){
-
-    const percent =
-      Math.min(
-        100,
-        Math.max(
-          0,
-          currentUser.xp
+  document
+    .querySelectorAll('.page')
+    .forEach(
+      item =>
+        item.classList.remove(
+          'active'
         )
-      );
+    );
 
-    xpBar.style.width =
-      percent + '%';
 
-  }
+  const target =
+    document.getElementById(
+      'page-' +
+      pageName
+    );
 
-  if(attack){
 
-    attack.textContent =
-      currentUser.attack;
+  if(target){
 
-  }
-
-  if(defense){
-
-    defense.textContent =
-      currentUser.defense;
+    target.classList.add(
+      'active'
+    );
 
   }
 
-  if(hp){
 
-    hp.textContent =
-      currentUser.hp;
+  document
+    .querySelectorAll(
+      'nav button[data-page]'
+    )
+    .forEach(
+      button => {
 
+        button.classList.remove(
+          'active'
+        );
+
+
+        if(
+          button.dataset.page ===
+          pageName
+        ){
+
+          button.classList.add(
+            'active'
+          );
+
+        }
+
+      }
+    );
+
+
+  if(pageName === 'character'){
+    updateCharacter();
   }
 
-  if(rank){
+  if(pageName === 'city'){
+    updateCity();
+  }
 
-    rank.textContent =
-      currentUser.rank;
+  if(pageName === 'inventory'){
+    renderInventory();
+  }
 
+  if(pageName === 'players'){
+    renderPlayers();
+  }
+
+  if(pageName === 'rank'){
+    renderRank();
+  }
+
+  if(pageName === 'chat'){
+    loadChat();
+  }
+
+  if(pageName === 'profile'){
+    updateAllUI();
   }
 
 }
 
 
-function updateProfile(){
+/* =========================================================
+   الشخصية
+========================================================= */
+
+function updateCharacter(){
 
   if(!currentUser){
     return;
   }
 
-  const name =
-    document.getElementById(
-      'profileName'
-    );
 
-  const rank =
-    document.getElementById(
-      'profileRank'
-    );
+  document.getElementById(
+    'characterHP'
+  ).textContent =
+    currentUser.hp;
 
-  const level =
-    document.getElementById(
-      'profileLevel'
-    );
 
-  const xp =
-    document.getElementById(
-      'profileXP'
-    );
+  document.getElementById(
+    'characterAttack'
+  ).textContent =
+    currentUser.attack;
 
-  if(name){
 
-    name.textContent =
-      currentUser.username;
-
-  }
-
-  if(rank){
-
-    rank.textContent =
-      currentUser.rank;
-
-  }
-
-  if(level){
-
-    level.textContent =
-      currentUser.level;
-
-  }
-
-  if(xp){
-
-    xp.textContent =
-      currentUser.xp;
-
-  }
+  document.getElementById(
+    'characterDefense'
+  ).textContent =
+    currentUser.defense;
 
 }
 
 
-function updateWallet(){
+/* =========================================================
+   XP
+========================================================= */
+
+async function addXP(amount){
 
   if(!currentUser){
     return;
   }
 
-  const balance =
-    document.getElementById(
-      'walletBalance'
+
+  currentUser.xp +=
+    Number(amount || 0);
+
+
+  let required =
+    currentUser.level *
+    100;
+
+
+  let leveled = false;
+
+
+  while(
+    currentUser.xp >=
+    required
+  ){
+
+    currentUser.xp -=
+      required;
+
+    currentUser.level++;
+
+    currentUser.attack += 2;
+
+    currentUser.defense += 2;
+
+    currentUser.hp += 10;
+
+    leveled = true;
+
+
+    if(
+      currentUser.level >= 50
+    ){
+
+      currentUser.rank =
+        '👑 إمبراطور';
+
+    }
+    else if(
+      currentUser.level >= 30
+    ){
+
+      currentUser.rank =
+        '⚔️ محارب أسطوري';
+
+    }
+    else if(
+      currentUser.level >= 20
+    ){
+
+      currentUser.rank =
+        '🔥 محارب';
+
+    }
+    else if(
+      currentUser.level >= 10
+    ){
+
+      currentUser.rank =
+        '🥷 نينجا';
+
+    }
+    else if(
+      currentUser.level >= 5
+    ){
+
+      currentUser.rank =
+        '⚔️ مقاتل';
+
+    }
+
+
+    required =
+      currentUser.level *
+      100;
+
+  }
+
+
+  await saveExtendedData();
+
+  updateAllUI();
+
+
+  if(leveled){
+
+    alert(
+      '🎉 مبروك!\n' +
+      'وصلت إلى المستوى ' +
+      currentUser.level
     );
-
-  if(balance){
-
-    balance.textContent =
-      formatMoney(
-        currentUser.balance
-      );
 
   }
 
 }
 
+
+/* =========================================================
+   المدينة
+========================================================= */
 
 function updateCity(){
 
@@ -2921,371 +2662,713 @@ function updateCity(){
     return;
   }
 
-  const level =
-    document.getElementById(
-      'cityLevel'
+
+  document.getElementById(
+    'cityLevel'
+  ).textContent =
+    currentUser.city_level;
+
+
+  document.getElementById(
+    'cityPopulation'
+  ).textContent =
+    Number(
+      currentUser.population
+    ).toLocaleString(
+      'ar-EG'
     );
+
+}
+
+
+async function upgradeCity(){
+
+  if(!currentUser){
+    return;
+  }
+
+
+  const level =
+    Number(
+      currentUser.city_level ||
+      1
+    );
+
 
   const cost =
-    document.getElementById(
-      'cityCost'
+    level * 1000;
+
+
+  if(
+    Number(
+      currentUser.balance
+    ) <
+    cost
+  ){
+
+    alert(
+      '❌ رصيدك غير كافٍ.\n' +
+      'التكلفة: ' +
+      formatMoney(cost)
     );
 
-  if(level){
-
-    level.textContent =
-      currentUser.cityLevel;
+    return;
 
   }
 
-  if(cost){
 
-    cost.textContent =
-      formatMoney(
-        currentUser.cityLevel * 100
+  currentUser.balance -=
+    cost;
+
+
+  currentUser.city_level =
+    level + 1;
+
+
+  currentUser.population =
+    Number(
+      currentUser.population || 1
+    ) + 10;
+
+
+  await addXP(50);
+
+  await saveExtendedData();
+
+  updateAllUI();
+
+  alert(
+    '🏯 تم تطوير المدينة بنجاح!'
+  );
+
+}
+
+
+/* =========================================================
+   المزرعة
+========================================================= */
+
+async function plantCrop(){
+
+  if(!currentUser){
+    return;
+  }
+
+
+  if(
+    currentUser.farm_planted
+  ){
+
+    alert(
+      '🌱 لديك محصول مزروع بالفعل.'
+    );
+
+    return;
+
+  }
+
+
+  currentUser.farm_planted =
+    true;
+
+
+  currentUser.farm_time =
+    Date.now();
+
+
+  await saveExtendedData();
+
+
+  alert(
+    '🌱 تمت الزراعة بنجاح!\n' +
+    'انتظر 30 ثانية للحصاد.'
+  );
+
+}
+
+
+async function harvestCrop(){
+
+  if(!currentUser){
+    return;
+  }
+
+
+  if(
+    !currentUser.farm_planted
+  ){
+
+    alert(
+      '❌ لا يوجد محصول مزروع.'
+    );
+
+    return;
+
+  }
+
+
+  const required =
+    30 * 1000;
+
+
+  const elapsed =
+    Date.now() -
+    Number(
+      currentUser.farm_time || 0
+    );
+
+
+  if(elapsed < required){
+
+    const remaining =
+      Math.ceil(
+        (
+          required -
+          elapsed
+        ) /
+        1000
       );
 
+
+    alert(
+      '🌱 المحصول لم ينضج بعد.\n' +
+      'المتبقي: ' +
+      remaining +
+      ' ثانية'
+    );
+
+    return;
+
   }
+
+
+  const reward =
+    200 +
+    Math.floor(
+      Math.random() *
+      301
+    );
+
+
+  currentUser.balance +=
+    reward;
+
+
+  currentUser.farm_planted =
+    false;
+
+
+  currentUser.farm_time =
+    0;
+
+
+  await addXP(20);
+
+  await saveExtendedData();
+
+  updateAllUI();
+
+
+  alert(
+    '🌾 تم الحصاد!\n\n' +
+    '💰 +' +
+    formatMoney(reward)
+  );
 
 }
 
 
-function updateFarm(){
+/* =========================================================
+   المتجر
+========================================================= */
+
+async function buyItem(
+  name,
+  price
+){
 
   if(!currentUser){
     return;
   }
 
-  const level =
-    document.getElementById(
-      'farmLevel'
+
+  price =
+    Number(price);
+
+
+  if(
+    currentUser.balance <
+    price
+  ){
+
+    alert(
+      '❌ رصيدك غير كافٍ.'
     );
 
-  const crop =
-    document.getElementById(
-      'farmCrop'
-    );
-
-  if(level){
-
-    level.textContent =
-      currentUser.farmLevel;
+    return;
 
   }
 
-  if(crop){
 
-    crop.textContent =
-      currentUser.farmCrop;
+  /*
+    يحتاج جدول inventory
+    لحفظ العناصر فعليًا.
+  */
+
+  const {
+    error
+  } =
+    await supabaseClient
+      .from('inventory')
+      .insert({
+
+        user_id:
+          currentUser.id,
+
+        item_name:
+          name,
+
+        price:
+          price
+
+      });
+
+
+  if(error){
+
+    alert(
+      '❌ لم يتم حفظ العنصر في قاعدة البيانات.\n\n' +
+      'تأكد من وجود جدول inventory.'
+    );
+
+    console.error(error);
+
+    return;
 
   }
+
+
+  currentUser.balance -=
+    price;
+
+
+  if(
+    name.includes('سيف')
+  ){
+
+    currentUser.attack += 5;
+
+  }
+
+
+  if(
+    name.includes('درع')
+  ){
+
+    currentUser.defense += 5;
+
+  }
+
+
+  if(
+    name.includes('جرعة')
+  ){
+
+    currentUser.hp += 20;
+
+  }
+
+
+  await addXP(10);
+
+  await saveExtendedData();
+
+  updateAllUI();
+
+
+  alert(
+    '🛒 تم شراء:\n' +
+    name
+  );
 
 }
 
 
-function updateInventory(){
+/* =========================================================
+   المخزون
+========================================================= */
 
-  if(!currentUser){
-    return;
-  }
+async function renderInventory(){
 
   const list =
     document.getElementById(
       'inventoryList'
     );
 
-  if(!list){
+
+  if(!list || !currentUser){
     return;
   }
 
-  if(!currentUser.inventory.length){
+
+  list.innerHTML =
+    '<div class="loading">جاري تحميل المخزون...</div>';
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from('inventory')
+      .select('*')
+      .eq(
+        'user_id',
+        currentUser.id
+      )
+      .order(
+        'created_at',
+        {
+          ascending:false
+        }
+      );
+
+
+  if(error){
 
     list.innerHTML = `
+
       <div class="card">
-        <div class="card-title">
-          🎒 الحقيبة فارغة
-        </div>
-        <p style="color:#888">
-          المشتريات ستظهر هنا.
+
+        <p class="description">
+          ❌ لم يتم تحميل المخزون.
         </p>
+
       </div>
+
     `;
 
     return;
 
   }
 
-  list.innerHTML =
-    currentUser.inventory.map(
-      function(item){
 
-        return `
-          <div class="card">
-            <div class="card-title">
-              🎁 ${item}
-            </div>
-          </div>
-        `;
+  if(
+    !data ||
+    data.length === 0
+  ){
 
-      }
-    ).join('');
+    list.innerHTML = `
+
+      <div class="card">
+
+        <div class="card-title">
+          🎒 المخزون فارغ
+        </div>
+
+        <p class="description">
+          اذهب إلى المتجر لشراء العناصر.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  list.innerHTML = '';
+
+
+  data.forEach(
+    function(item,index){
+
+      const box =
+        document.createElement(
+          'div'
+        );
+
+
+      box.className =
+        'card';
+
+
+      box.innerHTML = `
+
+        <h3>
+          🎁 ${escapeHTML(
+            item.item_name
+          )}
+        </h3>
+
+        <p class="description">
+          💰 السعر:
+          ${formatMoney(item.price)}
+        </p>
+
+        <p class="description">
+          📦 عنصر رقم:
+          ${index + 1}
+        </p>
+
+      `;
+
+
+      list.appendChild(box);
+
+    }
+  );
 
 }
 
 
-function updatePlayers(){
+/* =========================================================
+   اللاعبين
+========================================================= */
+
+async function renderPlayers(){
 
   const list =
     document.getElementById(
       'playersList'
     );
 
+
   if(!list){
     return;
   }
 
-  if(!db.users.length){
 
-    list.innerHTML = `
-      <div class="card">
-        لا يوجد لاعبين
-      </div>
-    `;
+  list.innerHTML =
+    '<div class="loading">جاري تحميل اللاعبين...</div>';
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from('users')
+      .select(
+        'id,username,balance,level,rank'
+      )
+      .order(
+        'level',
+        {
+          ascending:false
+        }
+      );
+
+
+  if(error){
+
+    list.innerHTML =
+      '<div class="card">❌ تعذر تحميل اللاعبين</div>';
 
     return;
 
   }
 
-  list.innerHTML =
-    db.users.map(
-      function(user){
 
-        normalizeUser(user);
+  list.innerHTML = '';
 
-        return `
-          <div class="card">
-            <div class="card-title">
-              👤 ${user.username}
-            </div>
 
-            <div class="stat">
-              <span class="stat-name">
-                المستوى
-              </span>
+  if(!data || !data.length){
 
-              <strong>
-                ${user.level}
-              </strong>
-            </div>
+    list.innerHTML =
+      '<div class="card">لا يوجد لاعبين.</div>';
 
-            <div class="stat">
-              <span class="stat-name">
-                الرتبة
-              </span>
+    return;
 
-              <strong>
-                ${user.rank}
-              </strong>
-            </div>
-          </div>
-        `;
+  }
 
-      }
-    ).join('');
+
+  data.forEach(
+    function(user){
+
+      const box =
+        document.createElement(
+          'div'
+        );
+
+
+      box.className =
+        'card';
+
+
+      box.innerHTML = `
+
+        <h3>
+          👤 ${escapeHTML(
+            user.username
+          )}
+        </h3>
+
+        <p class="description">
+          💰 الرصيد:
+          ${formatMoney(
+            user.balance
+          )}
+        </p>
+
+        <p class="description">
+          ⭐ المستوى:
+          ${user.level || 1}
+        </p>
+
+        <p class="description">
+          🏆 الرتبة:
+          ${escapeHTML(
+            user.rank ||
+            '🌱 مبتدئ'
+          )}
+        </p>
+
+      `;
+
+
+      list.appendChild(box);
+
+    }
+  );
 
 }
 
 
-function updateRank(){
+/* =========================================================
+   الترتيب
+========================================================= */
+
+async function renderRank(){
 
   const list =
     document.getElementById(
       'rankList'
     );
 
+
   if(!list){
     return;
   }
 
-  const users =
-    [...db.users].sort(
-      function(a,b){
 
-        return (
-          Number(b.level || 1) -
-          Number(a.level || 1)
-        ) ||
-        (
-          Number(b.balance || 0) -
-          Number(a.balance || 0)
-        );
+  list.innerHTML =
+    '<div class="loading">جاري تحميل الترتيب...</div>';
 
-      }
-    );
 
-  if(!users.length){
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from('users')
+      .select(
+        'username,balance,level,rank'
+      )
+      .order(
+        'level',
+        {
+          ascending:false
+        }
+      )
+      .order(
+        'balance',
+        {
+          ascending:false
+        }
+      );
 
-    list.innerHTML = `
-      <div style="
-        text-align:center;
-        color:#888;
-        padding:25px;
-      ">
-        لا يوجد لاعبين
-      </div>
-    `;
+
+  if(error){
+
+    list.innerHTML =
+      '<div class="card">❌ تعذر تحميل الترتيب</div>';
 
     return;
 
   }
 
-  list.innerHTML =
-    users.map(
-      function(user,index){
 
-        normalizeUser(user);
-
-        return `
-          <div class="stat">
-
-            <span>
-              #${index + 1}
-              👤 ${user.username}
-            </span>
-
-            <strong>
-              Lv.${user.level}
-            </strong>
-
-          </div>
-        `;
-
-      }
-    ).join('');
-
-}
+  list.innerHTML = '';
 
 
-function updateAdmin(){
+  data.forEach(
+    function(user,index){
 
-  const users =
-    document.getElementById(
-      'adminUsers'
-    );
-
-  const money =
-    document.getElementById(
-      'adminMoney'
-    );
-
-  if(users){
-
-    users.textContent =
-      db.users.length;
-
-  }
-
-  if(money){
-
-    const total =
-      db.users.reduce(
-        function(sum,user){
-
-          return sum +
-            (Number(user.balance) || 0);
-
-        },
-        0
-      );
-
-    money.textContent =
-      formatMoney(total);
-
-  }
-
-}
+      let medal =
+        '🏅';
 
 
-loadDB();
-
-normalizeAllUsers();
-
-save();
-
-</script>
- <script>
-
-function page(name){
-
-  document
-    .querySelectorAll('.page')
-    .forEach(function(section){
-
-      section.classList.remove('active');
-
-    });
-
-  const target =
-    document.getElementById(
-      'page-' + name
-    );
-
-  if(target){
-
-    target.classList.add('active');
-
-  }
-
-  document
-    .querySelectorAll('[data-page]')
-    .forEach(function(button){
-
-      button.classList.remove('active');
-
-      if(
-        button.getAttribute('data-page') ===
-        name
-      ){
-
-        button.classList.add('active');
-
+      if(index === 0){
+        medal = '🥇';
       }
 
-    });
+      if(index === 1){
+        medal = '🥈';
+      }
 
-  if(name === 'chat'){
-    loadChat();
-  }
+      if(index === 2){
+        medal = '🥉';
+      }
 
-  if(name === 'players'){
-    updatePlayers();
-  }
 
-  if(name === 'rank'){
-    updateRank();
-  }
+      const box =
+        document.createElement(
+          'div'
+        );
 
-  if(name === 'admin'){
-    updateAdmin();
-  }
+
+      box.className =
+        'card';
+
+
+      box.innerHTML = `
+
+        <h3>
+          ${medal}
+          #${index + 1}
+          —
+          ${escapeHTML(
+            user.username
+          )}
+        </h3>
+
+        <p class="description">
+          ⭐ المستوى:
+          ${user.level || 1}
+        </p>
+
+        <p class="description">
+          💰 الرصيد:
+          ${formatMoney(
+            user.balance
+          )}
+        </p>
+
+      `;
+
+
+      list.appendChild(box);
+
+    }
+  );
 
 }
 
 
-function requireLogin(){
+/* =========================================================
+   الألعاب
+========================================================= */
+
+function requireUser(){
 
   if(!currentUser){
 
-    const auth =
-      document.getElementById('auth');
-
-    if(auth){
-
-      auth.classList.remove('hidden');
-
-    }
-
-    alert('يجب تسجيل الدخول أولاً');
+    alert(
+      '❌ يجب تسجيل الدخول أولًا.'
+    );
 
     return false;
 
@@ -3296,817 +3379,20 @@ function requireLogin(){
 }
 
 
-function buyItem(item,price){
+/* =========================================================
+   النرد
+========================================================= */
 
-  if(!requireLogin()){
+async function playDice(){
+
+  if(!requireUser()){
     return;
   }
 
-  price =
-    Number(price) || 0;
-
-  if(currentUser.balance < price){
-
-    alert('رصيدك غير كافٍ');
-
-    return;
-
-  }
-
-  currentUser.balance -= price;
-
-  currentUser.inventory.push(item);
-
-  save();
-
-  updateHeader();
-
-  alert(
-    'تم شراء ' +
-    item +
-    ' بنجاح 🎉'
-  );
-
-}
-
-
-function playDice(){
-
-  if(!requireLogin()){
-    return;
-  }
-
-  const cost = 25;
-
-  if(currentUser.balance < cost){
-
-    alert('تحتاج إلى 25 💰');
-
-    return;
-
-  }
-
-  currentUser.balance -= cost;
-
-  const result =
-    Math.floor(
-      Math.random() * 6
-    ) + 1;
-
-  const reward =
-    result * 10;
-
-  currentUser.balance += reward;
-
-  const output =
-    document.getElementById(
-      'diceResult'
-    );
-
-  if(output){
-
-    output.textContent =
-      '🎲 ' +
-      result +
-      ' — +' +
-      reward +
-      ' 💰';
-
-  }
-
-  save();
-
-  updateHeader();
-
-}
-
-
-function openQuickBox(){
-
-  if(!requireLogin()){
-    return;
-  }
-
-  const cost = 50;
-
-  if(currentUser.balance < cost){
-
-    alert('تحتاج إلى 50 💰');
-
-    return;
-
-  }
-
-  currentUser.balance -= cost;
-
-  const rewards = [
-    10,
-    25,
-    50,
-    100,
-    250,
-    500
-  ];
-
-  const reward =
-    rewards[
-      Math.floor(
-        Math.random() *
-        rewards.length
-      )
-    ];
-
-  currentUser.balance += reward;
-
-  const output =
-    document.getElementById(
-      'boxResult'
-    );
-
-  if(output){
-
-    output.textContent =
-      '📦 ربحت ' +
-      reward +
-      ' 💰';
-
-  }
-
-  save();
-
-  updateHeader();
-
-}
-
-
-function spinWheel(){
-
-  if(!requireLogin()){
-    return;
-  }
-
-  const rewards = [
-    25,
-    50,
-    100,
-    250,
-    500,
-    1000
-  ];
-
-  const reward =
-    rewards[
-      Math.floor(
-        Math.random() *
-        rewards.length
-      )
-    ];
-
-  currentUser.balance += reward;
-
-  const output =
-    document.getElementById(
-      'wheelResult'
-    );
-
-  if(output){
-
-    output.textContent =
-      '🎡 ربحت ' +
-      reward +
-      ' 💰';
-
-  }
-
-  save();
-
-  updateHeader();
-
-}
-
-
-function dailyReward(){
-
-  if(!requireLogin()){
-    return;
-  }
-
-  const today =
-    new Date()
-      .toISOString()
-      .slice(0,10);
-
-  if(
-    currentUser.lastDaily ===
-    today
-  ){
-
-    alert(
-      'لقد استلمت المكافأة اليومية اليوم 🎁'
-    );
-
-    return;
-
-  }
-
-  const reward = 250;
-
-  currentUser.balance += reward;
-
-  currentUser.lastDaily =
-    today;
-
-  save();
-
-  updateHeader();
-
-  alert(
-    '🎁 حصلت على ' +
-    reward +
-    ' 💰'
-  );
-
-}
-
-
-function transferMoney(){
-
-  if(!requireLogin()){
-    return;
-  }
-
-  const userInput =
-    document.getElementById(
-      'transferUser'
-    );
-
-  const amountInput =
-    document.getElementById(
-      'transferAmount'
-    );
-
-  const username =
-    userInput ?
-    userInput.value.trim() :
-    '';
-
-  const amount =
-    Number(
-      amountInput ?
-      amountInput.value :
-      0
-    );
-
-  if(!username || amount <= 0){
-
-    alert(
-      'أدخل اسم المستخدم والمبلغ'
-    );
-
-    return;
-
-  }
-
-  if(
-    amount >
-    currentUser.balance
-  ){
-
-    alert('رصيدك غير كافٍ');
-
-    return;
-
-  }
-
-  const target =
-    findUserByName(username);
-
-  if(!target){
-
-    alert(
-      'المستخدم غير موجود'
-    );
-
-    return;
-
-  }
-
-  if(
-    String(target.id) ===
-    String(currentUser.id)
-  ){
-
-    alert(
-      'لا يمكنك التحويل إلى نفسك'
-    );
-
-    return;
-
-  }
-
-  currentUser.balance -= amount;
-
-  target.balance =
-    Number(target.balance || 0) +
-    amount;
-
-  save();
-
-  updateHeader();
-
-  if(userInput){
-    userInput.value = '';
-  }
-
-  if(amountInput){
-    amountInput.value = '';
-  }
-
-  alert(
-    'تم تحويل ' +
-    formatMoney(amount) +
-    ' 💰 إلى ' +
-    target.username
-  );
-
-}
-
-
-function depositMoney(){
-
-  if(!requireLogin()){
-    return;
-  }
-
-  const input =
-    document.getElementById(
-      'depositAmount'
-    );
-
-  const amount =
-    Number(
-      input ?
-      input.value :
-      0
-    );
-
-  if(amount <= 0){
-
-    alert(
-      'أدخل مبلغًا صحيحًا'
-    );
-
-    return;
-
-  }
-
-  currentUser.balance += amount;
-
-  save();
-
-  updateHeader();
-
-  if(input){
-    input.value = '';
-  }
-
-  alert(
-    'تم إيداع ' +
-    formatMoney(amount) +
-    ' 💰'
-  );
-
-}
-
-
-function withdrawMoney(){
-
-  if(!requireLogin()){
-    return;
-  }
-
-  const input =
-    document.getElementById(
-      'withdrawAmount'
-    );
-
-  const amount =
-    Number(
-      input ?
-      input.value :
-      0
-    );
-
-  if(amount <= 0){
-
-    alert(
-      'أدخل مبلغًا صحيحًا'
-    );
-
-    return;
-
-  }
-
-  if(
-    amount >
-    currentUser.balance
-  ){
-
-    alert(
-      'رصيدك غير كافٍ'
-    );
-
-    return;
-
-  }
-
-  currentUser.balance -= amount;
-
-  save();
-
-  updateHeader();
-
-  if(input){
-    input.value = '';
-  }
-
-  alert(
-    'تم سحب ' +
-    formatMoney(amount) +
-    ' 💰'
-  );
-
-}
-
-
-function requestLoan(){
-
-  if(!requireLogin()){
-    return;
-  }
-
-  const input =
-    document.getElementById(
-      'loanRequestAmount'
-    );
-
-  const amount =
-    Number(
-      input ?
-      input.value :
-      0
-    );
-
-  if(amount <= 0){
-
-    alert(
-      'أدخل مبلغ القرض'
-    );
-
-    return;
-
-  }
-
-  if(
-    Number(currentUser.loan || 0) > 0
-  ){
-
-    alert(
-      'لديك قرض قائم بالفعل'
-    );
-
-    return;
-
-  }
-
-  currentUser.loan = amount;
-
-  currentUser.balance += amount;
-
-  save();
-
-  updateHeader();
-
-  const loan =
-    document.getElementById(
-      'loanAmount'
-    );
-
-  if(loan){
-
-    loan.textContent =
-      formatMoney(amount);
-
-  }
-
-  if(input){
-    input.value = '';
-  }
-
-  alert(
-    'تمت الموافقة على القرض بقيمة ' +
-    formatMoney(amount) +
-    ' 💰'
-  );
-
-}
-
-
-function buyStock(symbol){
-
-  if(!requireLogin()){
-    return;
-  }
-
-  const prices = {
-    SUN: 100,
-    TOKYO: 150
-  };
-
-  const price =
-    prices[symbol];
-
-  if(!price){
-
-    alert(
-      'السهم غير موجود'
-    );
-
-    return;
-
-  }
-
-  if(
-    currentUser.balance <
-    price
-  ){
-
-    alert(
-      'رصيدك غير كافٍ'
-    );
-
-    return;
-
-  }
-
-  currentUser.balance -= price;
-
-  if(
-    typeof currentUser.stocks[symbol] !==
-    'number'
-  ){
-
-    currentUser.stocks[symbol] = 0;
-
-  }
-
-  currentUser.stocks[symbol]++;
-
-  save();
-
-  updateHeader();
-
-  alert(
-    'تم شراء سهم ' +
-    symbol +
-    ' 📈'
-  );
-
-}
-
-
-function sendChat(){
-
-  if(!requireLogin()){
-    return;
-  }
-
-  const input =
-    document.getElementById(
-      'chatInput'
-    );
-
-  if(!input){
-    return;
-  }
-
-  const message =
-    input.value.trim();
-
-  if(!message){
-    return;
-  }
-
-  db.chat.push({
-
-    id: Date.now(),
-
-    username:
-      currentUser.username,
-
-    message: message,
-
-    time:
-      new Date().toLocaleTimeString(
-        'ar-EG',
-        {
-          hour: '2-digit',
-          minute: '2-digit'
-        }
-      )
-
-  });
-
-  save();
-
-  input.value = '';
-
-  loadChat();
-
-}
-
-
-function loadChat(){
-
-  const box =
-    document.getElementById(
-      'chatMessages'
-    );
-
-  if(!box){
-    return;
-  }
-
-  if(!db.chat.length){
-
-    box.innerHTML = `
-      <div style="
-        text-align:center;
-        color:#666;
-        padding:30px;
-      ">
-        لا توجد رسائل بعد
-      </div>
-    `;
-
-    return;
-
-  }
-
-  box.innerHTML =
-    db.chat.map(
-      function(chat){
-
-        return `
-          <div
-            style="
-              padding:10px;
-              margin-bottom:8px;
-              background:#111;
-              border-radius:10px;
-            "
-          >
-
-            <strong>
-              👤 ${chat.username}
-            </strong>
-
-            <div
-              style="
-                color:#ddd;
-                margin-top:5px;
-              "
-            >
-              ${chat.message}
-            </div>
-
-            <small
-              style="
-                color:#666;
-              "
-            >
-              ${chat.time || ''}
-            </small>
-
-          </div>
-        `;
-
-      }
-    ).join('');
-
-  box.scrollTop =
-    box.scrollHeight;
-
-}
-
-
-function adminGiveMoney(){
-
-  if(!requireLogin()){
-    return;
-  }
-
-  const amount =
-    Number(
-      prompt(
-        'أدخل المبلغ الذي تريد إضافته:'
-      )
-    );
-
-  if(
-    !Number.isFinite(amount) ||
-    amount <= 0
-  ){
-
-    return;
-
-  }
-
-  currentUser.balance += amount;
-
-  save();
-
-  updateHeader();
-
-  alert(
-    'تمت إضافة ' +
-    formatMoney(amount) +
-    ' 💰'
-  );
-
-}
-
-
-function addXP(amount){
-
-  if(!currentUser){
-    return;
-  }
-
-  amount =
-    Number(amount) || 0;
-
-  currentUser.xp += amount;
-
-  while(
-    currentUser.xp >= 100
-  ){
-
-    currentUser.xp -= 100;
-
-    currentUser.level++;
-
-    currentUser.attack += 5;
-
-    currentUser.defense += 5;
-
-    currentUser.hp += 10;
-
-  }
-
-  if(
-    currentUser.level >= 50
-  ){
-
-    currentUser.rank =
-      '👑 أسطورة';
-
-  }else if(
-    currentUser.level >= 25
-  ){
-
-    currentUser.rank =
-      '⚔️ قائد';
-
-  }else if(
-    currentUser.level >= 10
-  ){
-
-    currentUser.rank =
-      '🛡️ محارب';
-
-  }else{
-
-    currentUser.rank =
-      '🌱 مبتدئ';
-
-  }
-
-  save();
-
-  updateHeader();
-
-}
-
-
-function upgradeCity(){
-
-  if(!requireLogin()){
-    return;
-  }
 
   const cost =
-    currentUser.cityLevel * 100;
+    25;
+
 
   if(
     currentUser.balance <
@@ -4114,690 +3400,1324 @@ function upgradeCity(){
   ){
 
     alert(
-      'رصيدك غير كافٍ'
+      '❌ رصيدك غير كافٍ.'
     );
 
     return;
 
   }
 
-  currentUser.balance -= cost;
 
-  currentUser.cityLevel++;
-
-  addXP(25);
-
-  save();
-
-  updateHeader();
-
-  alert(
-    '🏙️ تم تطوير المدينة'
-  );
-
-}
+  const playerRoll =
+    Math.floor(
+      Math.random() * 6
+    ) + 1;
 
 
-function harvestFarm(){
-
-  if(!requireLogin()){
-    return;
-  }
-
-  const reward =
-    currentUser.farmLevel * 50;
-
-  currentUser.balance += reward;
-
-  currentUser.farmCrop = 0;
-
-  addXP(15);
-
-  save();
-
-  updateHeader();
-
-  alert(
-    '🌾 حصلت على ' +
-    formatMoney(reward) +
-    ' 💰'
-  );
-
-}
+  const otherRoll =
+    Math.floor(
+      Math.random() * 6
+    ) + 1;
 
 
-function plantFarm(){
+  let reward =
+    10;
 
-  if(!requireLogin()){
-    return;
-  }
 
   if(
-    currentUser.farmCrop > 0
+    playerRoll >
+    otherRoll
+  ){
+
+    reward = 100;
+
+  }
+  else if(
+    playerRoll ===
+    otherRoll
+  ){
+
+    reward = 50;
+
+  }
+
+
+  currentUser.balance -=
+    cost;
+
+
+  currentUser.balance +=
+    reward;
+
+
+  await addXP(5);
+
+  await saveExtendedData();
+
+  updateAllUI();
+
+
+  alert(
+    '🎲 نتيجة النرد\n\n' +
+    '🎯 رقمك: ' +
+    playerRoll +
+    '\n' +
+    '🎯 الرقم الآخر: ' +
+    otherRoll +
+    '\n\n' +
+    '💰 المكافأة: ' +
+    formatMoney(reward)
+  );
+
+}
+
+
+/* =========================================================
+   الصندوق
+========================================================= */
+
+async function quickBox(){
+
+  if(!requireUser()){
+    return;
+  }
+
+
+  const cost =
+    50;
+
+
+  if(
+    currentUser.balance <
+    cost
   ){
 
     alert(
-      'المزرعة مزروعة بالفعل'
+      '❌ رصيدك غير كافٍ.'
     );
 
     return;
 
   }
 
-  currentUser.farmCrop = 1;
 
-  save();
-
-  updateHeader();
-
-  alert(
-    '🌱 تمت الزراعة بنجاح'
-  );
-
-}
+  currentUser.balance -=
+    cost;
 
 
-function restoreSession(){
+  const rewards = [
 
-  const id =
-    localStorage.getItem(
-      CURRENT_USER_KEY
-    );
+    {
+      name:'💰 مكافأة مالية',
+      money:100
+    },
 
-  if(!id){
-    return;
-  }
+    {
+      name:'💰 مكافأة كبيرة',
+      money:250
+    },
 
-  const user =
-    db.users.find(
-      function(u){
+    {
+      name:'⭐ خبرة',
+      xp:50
+    },
 
-        return String(u.id) ===
-          String(id);
+    {
+      name:'⚔️ قوة هجومية',
+      attack:3
+    },
 
-      }
-    );
+    {
+      name:'🛡️ قوة دفاعية',
+      defense:3
+    },
 
-  if(!user){
-    return;
-  }
-
-  normalizeUser(user);
-
-  currentUser = user;
-
-  const auth =
-    document.getElementById(
-      'auth'
-    );
-
-  if(auth){
-
-    auth.classList.add(
-      'hidden'
-    );
-
-  }
-
-  updateHeader();
-
-}
-
-
-document.addEventListener(
-  'DOMContentLoaded',
-  function(){
-
-    loadDB();
-
-    normalizeAllUsers();
-
-    restoreSession();
-
-    if(
-      typeof page ===
-      'function'
-    ){
-
-      page('home');
-
+    {
+      name:'🎁 جائزة نادرة',
+      money:500
     }
 
-  }
-);
-
-</script><script>
-
-window.showRegister = function(){
-
-  const loginBox =
-    document.getElementById('loginBox');
-
-  const registerBox =
-    document.getElementById('registerBox');
-
-  if(loginBox){
-    loginBox.classList.add('hidden');
-  }
-
-  if(registerBox){
-    registerBox.classList.remove('hidden');
-  }
-
-};
+  ];
 
 
-window.showLogin = function(){
+  const reward =
+    rewards[
+      Math.floor(
+        Math.random() *
+        rewards.length
+      )
+    ];
 
-  const loginBox =
-    document.getElementById('loginBox');
 
-  const registerBox =
-    document.getElementById('registerBox');
+  let message =
+    '📦 فتحت الصندوق!\n\n' +
+    reward.name;
 
-  if(registerBox){
-    registerBox.classList.add('hidden');
+
+  if(reward.money){
+
+    currentUser.balance +=
+      reward.money;
+
+    message +=
+      '\n💰 +' +
+      formatMoney(
+        reward.money
+      );
+
   }
 
-  if(loginBox){
-    loginBox.classList.remove('hidden');
-  }
 
-};
+  if(reward.xp){
 
-
-window.doLogin = function(){
-
-  const nameEl =
-    document.getElementById('loginName');
-
-  const passEl =
-    document.getElementById('loginPass');
-
-  const username =
-    nameEl ?
-    nameEl.value.trim() :
-    '';
-
-  const password =
-    passEl ?
-    passEl.value :
-    '';
-
-  if(!username || !password){
-
-    alert(
-      'اكتب اسم المستخدم وكلمة المرور'
+    await addXP(
+      reward.xp
     );
 
-    return;
+    message +=
+      '\n⭐ +' +
+      reward.xp +
+      ' XP';
 
   }
 
+
+  if(reward.attack){
+
+    currentUser.attack +=
+      reward.attack;
+
+    message +=
+      '\n⚔️ +' +
+      reward.attack;
+
+  }
+
+
+  if(reward.defense){
+
+    currentUser.defense +=
+      reward.defense;
+
+    message +=
+      '\n🛡️ +' +
+      reward.defense;
+
+  }
+
+
+  await saveExtendedData();
+
+  updateAllUI();
+
+
+  alert(message);
+
+}
+
+
+/* =========================================================
+   عجلة الحظ
+========================================================= */
+
+async function spinWheel(){
+
+  if(!requireUser()){
+    return;
+  }
+
+
+  const cost =
+    100;
+
+
   if(
-    typeof db === 'undefined' ||
-    !db ||
-    !Array.isArray(db.users)
+    currentUser.balance <
+    cost
   ){
 
     alert(
-      'تعذر تحميل بيانات المستخدمين'
+      '❌ تحتاج إلى 100 💰.'
     );
 
     return;
 
   }
 
-  const user =
-    db.users.find(
-      function(u){
 
-        return String(
-          u.username || ''
-        ).toLowerCase() ===
-        username.toLowerCase() &&
-        String(
-          u.password || ''
-        ) ===
-        String(password);
+  currentUser.balance -=
+    cost;
 
-      }
-    );
 
-  if(!user){
+  const rewards = [
 
-    alert(
-      'اسم المستخدم أو كلمة المرور غير صحيحة'
-    );
+    {
+      text:'💰 +100',
+      money:100
+    },
 
-    return;
+    {
+      text:'💰 +250',
+      money:250
+    },
+
+    {
+      text:'💰 +500',
+      money:500
+    },
+
+    {
+      text:'⭐ +100 XP',
+      xp:100
+    },
+
+    {
+      text:'⚔️ +5 هجوم',
+      attack:5
+    },
+
+    {
+      text:'🛡️ +5 دفاع',
+      defense:5
+    },
+
+    {
+      text:'💎 +1000',
+      money:1000
+    },
+
+    {
+      text:'😢 لا شيء'
+    }
+
+  ];
+
+
+  const reward =
+    rewards[
+      Math.floor(
+        Math.random() *
+        rewards.length
+      )
+    ];
+
+
+  if(reward.money){
+
+    currentUser.balance +=
+      reward.money;
 
   }
 
-  normalizeUser(user);
 
-  currentUser = user;
+  if(reward.xp){
 
-  localStorage.setItem(
-    CURRENT_USER_KEY,
-    String(user.id)
+    await addXP(
+      reward.xp
+    );
+
+  }
+
+
+  if(reward.attack){
+
+    currentUser.attack +=
+      reward.attack;
+
+  }
+
+
+  if(reward.defense){
+
+    currentUser.defense +=
+      reward.defense;
+
+  }
+
+
+  await saveExtendedData();
+
+  updateAllUI();
+
+
+  alert(
+    '🎡 عجلة الحظ\n\n' +
+    reward.text
   );
 
-  const auth =
-    document.getElementById('auth');
+}
 
-  if(auth){
 
-    auth.classList.add('hidden');
+/* =========================================================
+   المكافأة اليومية
+========================================================= */
 
+async function dailyReward(){
+
+  if(!requireUser()){
+    return;
   }
 
-  updateHeader();
+
+  const now =
+    Date.now();
+
+
+  const last =
+    Number(
+      currentUser.last_daily_reward ||
+      0
+    );
+
+
+  const day =
+    24 *
+    60 *
+    60 *
+    1000;
+
 
   if(
-    typeof page ===
-    'function'
+    last &&
+    now - last <
+    day
   ){
 
-    page('home');
+    const remaining =
+      day -
+      (
+        now -
+        last
+      );
+
+
+    const hours =
+      Math.floor(
+        remaining /
+        (
+          60 *
+          60 *
+          1000
+        )
+      );
+
+
+    const minutes =
+      Math.floor(
+        (
+          remaining %
+          (
+            60 *
+            60 *
+            1000
+          )
+        ) /
+        (
+          60 *
+          1000
+        )
+      );
+
+
+    alert(
+      '🎁 استلمت المكافأة بالفعل.\n\n' +
+      '⏳ المتبقي: ' +
+      hours +
+      ' ساعة و ' +
+      minutes +
+      ' دقيقة'
+    );
+
+    return;
 
   }
 
-};
+
+  const reward =
+    500 +
+    Math.floor(
+      Math.random() *
+      501
+    );
 
 
-window.login = window.doLogin;
+  currentUser.balance +=
+    reward;
 
 
-window.doRegister = function(){
+  currentUser.last_daily_reward =
+    now;
 
-  const nameEl =
-    document.getElementById('regName');
 
-  const passEl =
-    document.getElementById('regPass');
+  await addXP(25);
 
-  const pass2El =
-    document.getElementById('regPass2');
+  await saveExtendedData();
+
+  updateAllUI();
+
+
+  alert(
+    '🎁 المكافأة اليومية\n\n' +
+    '💰 +' +
+    formatMoney(reward) +
+    '\n' +
+    '⭐ +25 XP'
+  );
+
+}
+
+
+/* =========================================================
+   مكافأة تسجيل الدخول
+========================================================= */
+
+async function loginBonus(){
+
+  if(!currentUser){
+    return;
+  }
+
+
+  const today =
+    new Date()
+      .toISOString()
+      .slice(
+        0,
+        10
+      );
+
+
+  if(
+    currentUser.last_login_bonus ===
+    today
+  ){
+
+    return;
+
+  }
+
+
+  currentUser.balance +=
+    100;
+
+
+  currentUser.last_login_bonus =
+    today;
+
+
+  await saveExtendedData();
+
+  updateAllUI();
+
+
+  setTimeout(
+    function(){
+
+      alert(
+        '🌅 مكافأة الدخول!\n\n' +
+        '💰 +100'
+      );
+
+    },
+    300
+  );
+
+}
+
+
+/* =========================================================
+   التحويل
+========================================================= */
+
+async function transferMoney(){
+
+  if(!requireUser()){
+    return;
+  }
+
 
   const username =
-    nameEl ?
-    nameEl.value.trim() :
-    '';
+    document
+      .getElementById(
+        'transferUser'
+      )
+      .value
+      .trim();
 
-  const password =
-    passEl ?
-    passEl.value :
-    '';
 
-  const password2 =
-    pass2El ?
-    pass2El.value :
-    '';
+  const amount =
+    Number(
+      document
+        .getElementById(
+          'transferAmount'
+        )
+        .value
+    );
+
 
   if(
     !username ||
-    !password ||
-    !password2
+    !Number.isFinite(amount) ||
+    amount <= 0
   ){
 
     alert(
-      'أكمل جميع البيانات'
+      '❌ أدخل اسم المستخدم والمبلغ.'
     );
 
     return;
 
   }
 
-  if(username.length < 3){
-
-    alert(
-      'اسم المستخدم يجب أن يكون 3 أحرف على الأقل'
-    );
-
-    return;
-
-  }
-
-  if(password.length < 4){
-
-    alert(
-      'كلمة المرور يجب أن تكون 4 أحرف على الأقل'
-    );
-
-    return;
-
-  }
-
-  if(password !== password2){
-
-    alert(
-      'كلمتا المرور غير متطابقتين'
-    );
-
-    return;
-
-  }
 
   if(
-    typeof db === 'undefined' ||
-    !db ||
-    !Array.isArray(db.users)
+    amount >
+    currentUser.balance
   ){
 
     alert(
-      'تعذر تحميل بيانات المستخدمين'
+      '❌ رصيدك غير كافٍ.'
     );
 
     return;
 
   }
 
-  const exists =
-    db.users.some(
-      function(u){
 
-        return String(
-          u.username || ''
-        ).toLowerCase() ===
-        username.toLowerCase();
-
-      }
+  const receiver =
+    await findUserByName(
+      username
     );
 
-  if(exists){
+
+  if(!receiver){
 
     alert(
-      'اسم المستخدم موجود بالفعل'
+      '❌ المستخدم غير موجود.'
     );
 
     return;
 
   }
 
-  const newUser = {
-
-    id: Date.now(),
-
-    username: username,
-
-    password: password,
-
-    balance: 9999,
-
-    level: 1,
-
-    xp: 0,
-
-    rank: '🌱 مبتدئ',
-
-    attack: 10,
-
-    defense: 10,
-
-    hp: 100,
-
-    cityLevel: 1,
-
-    farmLevel: 1,
-
-    farmCrop: 0,
-
-    loan: 0,
-
-    inventory: [],
-
-    stocks: {}
-
-  };
-
-  db.users.push(newUser);
-
-  save();
-
-  currentUser =
-    newUser;
-
-  localStorage.setItem(
-    CURRENT_USER_KEY,
-    String(newUser.id)
-  );
-
-  const auth =
-    document.getElementById('auth');
-
-  if(auth){
-
-    auth.classList.add(
-      'hidden'
-    );
-
-  }
-
-  if(nameEl){
-    nameEl.value = '';
-  }
-
-  if(passEl){
-    passEl.value = '';
-  }
-
-  if(pass2El){
-    pass2El.value = '';
-  }
-
-  updateHeader();
 
   if(
-    typeof page ===
-    'function'
+    String(receiver.id) ===
+    String(currentUser.id)
   ){
 
-    page('home');
+    alert(
+      '❌ لا يمكنك التحويل لنفسك.'
+    );
+
+    return;
 
   }
+
+
+  const senderNewBalance =
+    Number(
+      currentUser.balance
+    ) -
+    amount;
+
+
+  const receiverNewBalance =
+    Number(
+      receiver.balance || 0
+    ) +
+    amount;
+
+
+  const senderResult =
+    await supabaseClient
+      .from('users')
+      .update({
+
+        balance:
+          senderNewBalance
+
+      })
+      .eq(
+        'id',
+        currentUser.id
+      );
+
+
+  if(senderResult.error){
+
+    alert(
+      '❌ فشل التحويل.'
+    );
+
+    return;
+
+  }
+
+
+  const receiverResult =
+    await supabaseClient
+      .from('users')
+      .update({
+
+        balance:
+          receiverNewBalance
+
+      })
+      .eq(
+        'id',
+        receiver.id
+      );
+
+
+  if(receiverResult.error){
+
+    /*
+      إعادة رصيد المرسل في حالة فشل تحديث المستقبل.
+    */
+
+    await supabaseClient
+      .from('users')
+      .update({
+
+        balance:
+          currentUser.balance
+
+      })
+      .eq(
+        'id',
+        currentUser.id
+      );
+
+
+    alert(
+      '❌ فشل تحويل المبلغ.'
+    );
+
+    return;
+
+  }
+
+
+  currentUser.balance =
+    senderNewBalance;
+
+
+  updateAllUI();
+
+
+  document.getElementById(
+    'transferUser'
+  ).value = '';
+
+
+  document.getElementById(
+    'transferAmount'
+  ).value = '';
+
 
   alert(
-    'تم إنشاء الحساب بنجاح 🎉\nرصيدك الابتدائي: 9999 💰'
+    '✅ تم التحويل بنجاح!\n\n' +
+    '👤 إلى: ' +
+    receiver.username +
+    '\n' +
+    '💰 المبلغ: ' +
+    formatMoney(amount)
   );
 
-};
+}
 
 
-window.register =
-  window.doRegister;
+/* =========================================================
+   الإيداع
+========================================================= */
+
+async function depositMoney(){
+
+  if(!requireUser()){
+    return;
+  }
 
 
-window.logout = function(){
-
-  currentUser = null;
-
-  localStorage.removeItem(
-    CURRENT_USER_KEY
-  );
-
-  const auth =
-    document.getElementById('auth');
-
-  if(auth){
-
-    auth.classList.remove(
-      'hidden'
+  const amount =
+    Number(
+      document
+        .getElementById(
+          'depositAmount'
+        )
+        .value
     );
 
+
+  if(
+    !Number.isFinite(amount) ||
+    amount <= 0
+  ){
+
+    alert(
+      '❌ أدخل مبلغًا صحيحًا.'
+    );
+
+    return;
+
   }
 
-  window.showLogin();
 
-};
+  currentUser.balance +=
+    amount;
 
 
-document.addEventListener(
-  'keydown',
-  function(event){
+  const success =
+    await updateUser({
 
-    if(
-      event.key === 'Enter'
-    ){
+      balance:
+        currentUser.balance
 
-      const loginBox =
-        document.getElementById(
-          'loginBox'
+    });
+
+
+  if(!success){
+    return;
+  }
+
+
+  document.getElementById(
+    'depositAmount'
+  ).value = '';
+
+
+  alert(
+    '✅ تم الإيداع.\n' +
+    '💰 +' +
+    formatMoney(amount)
+  );
+
+}
+
+
+/* =========================================================
+   السحب
+========================================================= */
+
+async function withdrawMoney(){
+
+  if(!requireUser()){
+    return;
+  }
+
+
+  const amount =
+    Number(
+      document
+        .getElementById(
+          'withdrawAmount'
+        )
+        .value
+    );
+
+
+  if(
+    !Number.isFinite(amount) ||
+    amount <= 0
+  ){
+
+    alert(
+      '❌ أدخل مبلغًا صحيحًا.'
+    );
+
+    return;
+
+  }
+
+
+  if(
+    amount >
+    currentUser.balance
+  ){
+
+    alert(
+      '❌ رصيدك غير كافٍ.'
+    );
+
+    return;
+
+  }
+
+
+  currentUser.balance -=
+    amount;
+
+
+  const success =
+    await updateUser({
+
+      balance:
+        currentUser.balance
+
+    });
+
+
+  if(!success){
+    return;
+  }
+
+
+  document.getElementById(
+    'withdrawAmount'
+  ).value = '';
+
+
+  alert(
+    '✅ تم السحب.\n' +
+    '💰 -' +
+    formatMoney(amount)
+  );
+
+}
+
+
+/* =========================================================
+   الدردشة
+========================================================= */
+
+async function loadChat(){
+
+  const box =
+    document.getElementById(
+      'chatMessages'
+    );
+
+
+  if(!box){
+    return;
+  }
+
+
+  box.innerHTML =
+    '<div class="loading">جاري تحميل الدردشة...</div>';
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from('chat')
+      .select('*')
+      .order(
+        'created_at',
+        {
+          ascending:true
+        }
+      )
+      .limit(100);
+
+
+  if(error){
+
+    box.innerHTML = `
+
+      <div class="card">
+
+        <p class="description">
+          ❌ تعذر تحميل الدردشة.
+        </p>
+
+      </div>
+
+    `;
+
+    console.error(error);
+
+    return;
+
+  }
+
+
+  box.innerHTML = '';
+
+
+  if(!data || !data.length){
+
+    box.innerHTML = `
+
+      <div class="card">
+
+        <p class="description">
+          لا توجد رسائل حتى الآن.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  data.forEach(
+    function(message){
+
+      const div =
+        document.createElement(
+          'div'
         );
 
-      if(
-        loginBox &&
-        !loginBox.classList.contains(
-          'hidden'
-        )
-      ){
 
-        window.doLogin();
+      div.className =
+        'card';
 
-      }
+
+      const username =
+        message.username ||
+        message.user_name ||
+        'عضو';
+
+
+      const text =
+        message.message ||
+        message.content ||
+        '';
+
+
+      div.innerHTML = `
+
+        <strong>
+          👤 ${escapeHTML(username)}
+        </strong>
+
+        <p class="description">
+          ${escapeHTML(text)}
+        </p>
+
+      `;
+
+
+      box.appendChild(div);
 
     }
+  );
+
+
+  box.scrollTop =
+    box.scrollHeight;
+
+}
+
+
+/* =========================================================
+   إرسال الدردشة
+========================================================= */
+
+async function sendChat(){
+
+  if(!requireUser()){
+    return;
+  }
+
+
+  const input =
+    document.getElementById(
+      'chatInput'
+    );
+
+
+  const message =
+    input.value.trim();
+
+
+  if(!message){
+    return;
+  }
+
+
+  const {
+    error
+  } =
+    await supabaseClient
+      .from('chat')
+      .insert({
+
+        username:
+          currentUser.username,
+
+        message:
+          message
+
+      });
+
+
+  if(error){
+
+    alert(
+      '❌ تعذر إرسال الرسالة.\n\n' +
+      error.message
+    );
+
+    console.error(error);
+
+    return;
 
   }
-);
 
-</script>
- <style>
 
-.page{
-  display:none;
+  input.value = '';
+
+
+  await loadChat();
+
 }
 
-.page.active{
-  display:block;
-}
 
-.hidden{
-  display:none !important;
-}
+/* =========================================================
+   تحديث الدردشة تلقائيًا
+========================================================= */
 
-button{
-  cursor:pointer;
-}
-
-button:disabled{
-  opacity:.5;
-  cursor:not-allowed;
-}
-
-input{
-  font-family:inherit;
-}
-
-.stat{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  padding:10px 0;
-  border-bottom:1px solid rgba(255,255,255,.06);
-}
-
-.stat:last-child{
-  border-bottom:0;
-}
-
-.stat-name{
-  color:#aaa;
-}
-
-</style>
-
-<script>
-
-document.addEventListener(
-  'DOMContentLoaded',
+setInterval(
   function(){
 
-    loadDB();
-
-    normalizeAllUsers();
-
-    save();
-
-    restoreSession();
-
-    if(!currentUser){
-
-      const auth =
-        document.getElementById('auth');
-
-      if(auth){
-
-        auth.classList.remove(
-          'hidden'
-        );
-
-      }
-
-    }
-
     if(
-      typeof updateHeader ===
-      'function'
+      currentUser &&
+      document
+        .getElementById(
+          'page-chat'
+        )
+        .classList
+        .contains('active')
     ){
-
-      updateHeader();
-
-    }
-
-  }
-);
-
-
-window.addEventListener(
-  'storage',
-  function(event){
-
-    if(
-      event.key === DB_KEY
-    ){
-
-      loadDB();
-
-      normalizeAllUsers();
-
-      if(currentUser){
-
-        const updated =
-          db.users.find(
-            function(user){
-
-              return String(user.id) ===
-                String(currentUser.id);
-
-            }
-          );
-
-        if(updated){
-
-          currentUser =
-            updated;
-
-        }
-
-      }
-
-      updateHeader();
 
       loadChat();
 
     }
 
-  }
+  },
+  5000
 );
 
 
-window.addEventListener(
-  'beforeunload',
+/* =========================================================
+   تدريب الهجوم
+========================================================= */
+
+async function trainAttack(){
+
+  if(!requireUser()){
+    return;
+  }
+
+
+  const cost =
+    300;
+
+
+  if(
+    currentUser.balance <
+    cost
+  ){
+
+    alert(
+      '❌ تحتاج إلى 300 💰.'
+    );
+
+    return;
+
+  }
+
+
+  currentUser.balance -=
+    cost;
+
+
+  currentUser.attack +=
+    2;
+
+
+  await addXP(15);
+
+  await saveExtendedData();
+
+  updateAllUI();
+
+
+  alert(
+    '⚔️ تم تدريب الهجوم!\n' +
+    'الهجوم: ' +
+    currentUser.attack
+  );
+
+}
+
+
+/* =========================================================
+   تدريب الدفاع
+========================================================= */
+
+async function trainDefense(){
+
+  if(!requireUser()){
+    return;
+  }
+
+
+  const cost =
+    300;
+
+
+  if(
+    currentUser.balance <
+    cost
+  ){
+
+    alert(
+      '❌ تحتاج إلى 300 💰.'
+    );
+
+    return;
+
+  }
+
+
+  currentUser.balance -=
+    cost;
+
+
+  currentUser.defense +=
+    2;
+
+
+  await addXP(15);
+
+  await saveExtendedData();
+
+  updateAllUI();
+
+
+  alert(
+    '🛡️ تم تدريب الدفاع!\n' +
+    'الدفاع: ' +
+    currentUser.defense
+  );
+
+}
+
+
+/* =========================================================
+   استخدام جرعة الصحة
+========================================================= */
+
+async function useHealthPotion(){
+
+  if(!requireUser()){
+    return;
+  }
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from('inventory')
+      .select('*')
+      .eq(
+        'user_id',
+        currentUser.id
+      );
+
+
+  if(error){
+    return;
+  }
+
+
+  const potion =
+    data.find(
+      item =>
+        String(
+          item.item_name || ''
+        ).includes(
+          'جرعة صحة'
+        )
+    );
+
+
+  if(!potion){
+
+    alert(
+      '❌ لا تملك جرعة صحة.'
+    );
+
+    return;
+
+  }
+
+
+  const {
+    error:deleteError
+  } =
+    await supabaseClient
+      .from('inventory')
+      .delete()
+      .eq(
+        'id',
+        potion.id
+      );
+
+
+  if(deleteError){
+
+    alert(
+      '❌ تعذر استخدام الجرعة.'
+    );
+
+    return;
+
+  }
+
+
+  currentUser.hp +=
+    20;
+
+
+  if(
+    currentUser.hp >
+    100
+  ){
+
+    currentUser.hp =
+      100;
+
+  }
+
+
+  await saveExtendedData();
+
+  updateAllUI();
+
+  renderInventory();
+
+
+  alert(
+    '❤️ تم استخدام جرعة الصحة.\n' +
+    'الصحة: ' +
+    currentUser.hp
+  );
+
+}
+
+
+/* =========================================================
+   تشغيل الموقع
+========================================================= */
+
+document.addEventListener(
+  'DOMContentLoaded',
   function(){
 
-    save();
+    console.log(
+      '『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』 جاهز'
+    );
 
   }
 );
@@ -4806,5 +4726,3 @@ window.addEventListener(
 
 </body>
 </html>
-
- 
