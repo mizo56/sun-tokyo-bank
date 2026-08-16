@@ -35,6 +35,11 @@ button{
   cursor:pointer;
 }
 
+button:disabled{
+  cursor:not-allowed;
+  opacity:.6;
+}
+
 .hidden{
   display:none !important;
 }
@@ -309,6 +314,7 @@ main{
   .logo{
     font-size:24px;
   }
+
 }
 
 </style>
@@ -316,9 +322,9 @@ main{
 
 <body>
 
-<!-- =====================================================
+<!-- =========================
      AUTH
-===================================================== -->
+========================= -->
 
 <div id="auth">
 
@@ -451,14 +457,11 @@ main{
 </div>
 
 
-<!-- =====================================================
+<!-- =========================
      APP
-===================================================== -->
+========================= -->
 
-<div
-  id="app"
-  class="hidden"
->
+<div id="app" class="hidden">
 
 <header class="topbar">
 
@@ -481,7 +484,6 @@ main{
     </div>
 
   </div>
-
 
   <nav>
 
@@ -862,9 +864,11 @@ main{
     >
 
       <div class="card">
+
         <p class="description">
           لا توجد عناصر حاليًا.
         </p>
+
       </div>
 
     </div>
@@ -1119,7 +1123,7 @@ main{
 <script>
 
 /* =====================================================
-   حالة المستخدم
+   المستخدم الحالي
 ===================================================== */
 
 let currentUser = null;
@@ -1131,60 +1135,78 @@ let currentUser = null;
 
 async function api(action, username="", password=""){
 
-  const response = await fetch("/api/auth",{
-
-    method:"POST",
-
-    headers:{
-      "Content-Type":"application/json"
-    },
-
-    body:JSON.stringify({
-      action:action,
-      username:username,
-      password:password
-    })
-
-  });
-
-
-  let data;
-
   try{
 
-    data = await response.json();
+    const response = await fetch("/api/auth",{
+
+      method:"POST",
+
+      headers:{
+        "Content-Type":"application/json"
+      },
+
+      body:JSON.stringify({
+
+        action:action,
+        username:username,
+        password:password
+
+      })
+
+    });
+
+
+    let data;
+
+    try{
+
+      data = await response.json();
+
+    }catch(error){
+
+      throw new Error(
+        "الخادم أعاد استجابة غير صحيحة."
+      );
+
+    }
+
+
+    if(!response.ok){
+
+      throw new Error(
+        data.message ||
+        data.error ||
+        "حدث خطأ في الخادم."
+      );
+
+    }
+
+
+    if(data.success === false){
+
+      throw new Error(
+        data.message ||
+        "فشلت العملية."
+      );
+
+    }
+
+
+    return data;
 
   }catch(error){
 
+    console.error(
+      "API ERROR:",
+      error
+    );
+
     throw new Error(
-      "الخادم أعاد استجابة غير صحيحة."
+      error.message ||
+      "حدث خطأ في الاتصال بالخادم."
     );
 
   }
-
-
-  if(!response.ok){
-
-    throw new Error(
-      data.message ||
-      data.error ||
-      "حدث خطأ في الخادم."
-    );
-
-  }
-
-
-  if(data.success === false){
-
-    throw new Error(
-      data.message ||
-      "فشلت العملية."
-    );
-
-  }
-
-
-  return data;
 
 }
 
@@ -1209,7 +1231,7 @@ function showMessage(id,text,type="error"){
 
 
 /* =====================================================
-   LOGIN / REGISTER UI
+   إظهار التسجيل
 ===================================================== */
 
 function showRegister(){
@@ -1224,13 +1246,12 @@ function showRegister(){
     .classList
     .remove("hidden");
 
-  showMessage(
-    "loginMessage",
-    ""
-  );
-
 }
 
+
+/* =====================================================
+   إظهار الدخول
+===================================================== */
 
 function showLogin(){
 
@@ -1243,11 +1264,6 @@ function showLogin(){
     .getElementById("loginBox")
     .classList
     .remove("hidden");
-
-  showMessage(
-    "registerMessage",
-    ""
-  );
 
 }
 
@@ -1299,11 +1315,11 @@ async function register(){
   }
 
 
-  if(password.length < 4){
+  if(password.length < 6){
 
     showMessage(
       "registerMessage",
-      "❌ كلمة المرور يجب أن تكون 4 أحرف على الأقل."
+      "❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل."
     );
 
     return;
@@ -1327,6 +1343,7 @@ async function register(){
     document.getElementById(
       "registerButton"
     );
+
 
   button.disabled = true;
 
@@ -1355,7 +1372,7 @@ async function register(){
 
       if(result.user){
 
-        setTimeout(()=>{
+        setTimeout(function(){
 
           loginUser(
             result.user
@@ -1365,7 +1382,7 @@ async function register(){
 
       }else{
 
-        setTimeout(()=>{
+        setTimeout(function(){
 
           showLogin();
 
@@ -1440,6 +1457,7 @@ async function login(){
       "loginButton"
     );
 
+
   button.disabled = true;
 
   button.textContent =
@@ -1457,12 +1475,6 @@ async function login(){
 
 
     if(result.success && result.user){
-
-      showMessage(
-        "loginMessage",
-        "✅ تم تسجيل الدخول.",
-        "success"
-      );
 
       loginUser(
         result.user
@@ -1630,18 +1642,107 @@ function updateUI(){
     .textContent =
       level;
 
+
+  document
+    .getElementById("cityLevel")
+    .textContent =
+      Number(user.city || 1);
+
+
+  document
+    .getElementById("cityPopulation")
+    .textContent =
+      Number(user.city || 1);
+
+
+  renderInventory();
+
 }
 
 
 /* =====================================================
-   PAGES
+   المخزون
+===================================================== */
+
+function renderInventory(){
+
+  const list =
+    document.getElementById(
+      "inventoryList"
+    );
+
+
+  if(!list) return;
+
+
+  const items =
+    currentUser &&
+    currentUser.items
+      ? currentUser.items
+      : {};
+
+
+  const keys =
+    Object.keys(items);
+
+
+  if(keys.length === 0){
+
+    list.innerHTML = `
+      <div class="card">
+        <p class="description">
+          لا توجد عناصر حاليًا.
+        </p>
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  list.innerHTML =
+    keys.map(function(name){
+
+      return `
+        <div class="card">
+          <h3>🎁 ${escapeHtml(name)}</h3>
+          <p class="description">
+            الكمية: ${Number(items[name] || 0)}
+          </p>
+        </div>
+      `;
+
+    }).join("");
+
+}
+
+
+/* =====================================================
+   حماية عرض النص
+===================================================== */
+
+function escapeHtml(text){
+
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+   الصفحات
 ===================================================== */
 
 function page(name){
 
   document
     .querySelectorAll(".page")
-    .forEach(item=>{
+    .forEach(function(item){
 
       item.classList.remove(
         "active"
@@ -1654,7 +1755,7 @@ function page(name){
     .querySelectorAll(
       "nav button[data-page]"
     )
-    .forEach(button=>{
+    .forEach(function(button){
 
       button.classList.remove(
         "active"
@@ -1727,7 +1828,7 @@ function playDice(){
   if(!needLogin()) return;
 
   alert(
-    "🎲 النرد جاهز للربط مع نظام الألعاب في Backend."
+    "🎲 النرد جاهز وسيتم ربطه بقاعدة البيانات."
   );
 
 }
@@ -1738,7 +1839,7 @@ function quickBox(){
   if(!needLogin()) return;
 
   alert(
-    "📦 الصندوق جاهز للربط مع قاعدة البيانات."
+    "📦 الصندوق جاهز وسيتم ربطه بقاعدة البيانات."
   );
 
 }
@@ -1749,7 +1850,7 @@ function spinWheel(){
   if(!needLogin()) return;
 
   alert(
-    "🎡 عجلة الحظ جاهزة للربط مع قاعدة البيانات."
+    "🎡 عجلة الحظ جاهزة وسيتم ربطها بقاعدة البيانات."
   );
 
 }
@@ -1760,7 +1861,7 @@ function dailyReward(){
   if(!needLogin()) return;
 
   alert(
-    "🎁 المكافأة اليومية جاهزة للربط مع قاعدة البيانات."
+    "🎁 المكافأة اليومية جاهزة وسيتم ربطها بقاعدة البيانات."
   );
 
 }
@@ -1775,7 +1876,7 @@ function upgradeCity(){
   if(!needLogin()) return;
 
   alert(
-    "🏯 تطوير المدينة جاهز للربط مع قاعدة البيانات."
+    "🏯 تطوير المدينة جاهز للربط مع Backend."
   );
 
 }
@@ -1790,7 +1891,7 @@ function plantCrop(){
   if(!needLogin()) return;
 
   alert(
-    "🌱 الزراعة جاهزة للربط مع قاعدة البيانات."
+    "🌱 الزراعة جاهزة للربط مع Backend."
   );
 
 }
@@ -1801,7 +1902,7 @@ function harvestCrop(){
   if(!needLogin()) return;
 
   alert(
-    "🌾 الحصاد جاهز للربط مع قاعدة البيانات."
+    "🌾 الحصاد جاهز للربط مع Backend."
   );
 
 }
@@ -1820,7 +1921,7 @@ function buyItem(name,price){
     name +
     " بسعر " +
     price +
-    " 💰 جاهز للربط مع قاعدة البيانات."
+    " 💰 جاهز للربط مع Backend."
   );
 
 }
@@ -1948,6 +2049,7 @@ document.addEventListener(
 
     page("home");
 
+
     document
       .getElementById("loginName")
       .addEventListener(
@@ -1955,9 +2057,7 @@ document.addEventListener(
         function(event){
 
           if(event.key === "Enter"){
-
             login();
-
           }
 
         }
@@ -1971,9 +2071,7 @@ document.addEventListener(
         function(event){
 
           if(event.key === "Enter"){
-
             login();
-
           }
 
         }
@@ -1987,9 +2085,7 @@ document.addEventListener(
         function(event){
 
           if(event.key === "Enter"){
-
             register();
-
           }
 
         }
