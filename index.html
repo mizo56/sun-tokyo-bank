@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>S.U.N TOKYO — Ultimate Community</title>
+
+<title>『S.U.N TOKYO』 Ultimate World</title>
 
 <style>
 *{
@@ -14,19 +15,20 @@
 
 :root{
  --red:#d7193f;
- --red2:#8d0925;
+ --red2:#ff3159;
  --gold:#e4b04a;
- --gold2:#b77d20;
- --green:#25c281;
- --blue:#3d8bfd;
- --purple:#9b59ff;
- --dark:#070709;
- --dark2:#0d0d12;
- --card:rgba(255,255,255,.055);
- --card2:rgba(255,255,255,.08);
+ --green:#22c77a;
+ --blue:#4b9cff;
+ --purple:#9b6cff;
+ --orange:#ff8c32;
+ --pink:#ff6fa8;
+
+ --bg:#050507;
+ --panel:rgba(18,18,25,.78);
+ --panel2:rgba(255,255,255,.045);
  --border:rgba(255,255,255,.10);
  --text:#fff;
- --muted:#92929c;
+ --muted:#888;
 }
 
 html{
@@ -34,93 +36,33 @@ html{
 }
 
 body{
- font-family:Tahoma,Arial,sans-serif;
- background:#050507;
- color:#fff;
- min-height:100vh;
- overflow-x:hidden;
-}
+ font-family:
+ Tahoma,
+ Arial,
+ sans-serif;
 
-/* ================= BACKGROUND ================= */
-
-#bgCanvas{
- position:fixed;
- inset:0;
- z-index:-5;
- width:100%;
- height:100%;
  background:
- radial-gradient(circle at 20% 20%,rgba(215,25,63,.18),transparent 28%),
- radial-gradient(circle at 80% 80%,rgba(228,176,74,.10),transparent 28%),
+ radial-gradient(
+  circle at 15% 20%,
+  rgba(120,0,30,.35),
+  transparent 30%
+ ),
+ radial-gradient(
+  circle at 85% 80%,
+  rgba(70,30,0,.22),
+  transparent 30%
+ ),
  #050507;
+
+ color:var(--text);
+ min-height:100vh;
+ overflow-x:hidden
 }
 
-.bg-orb{
- position:fixed;
- width:350px;
- height:350px;
- border-radius:50%;
- filter:blur(80px);
- opacity:.15;
- pointer-events:none;
- z-index:-3;
-}
-
-.orb1{
- background:#d7193f;
- top:10%;
- left:-100px;
- animation:orb1 14s infinite alternate ease-in-out
-}
-
-.orb2{
- background:#e4b04a;
- bottom:0;
- right:-120px;
- animation:orb2 17s infinite alternate ease-in-out
-}
-
-.orb3{
- background:#5933ff;
- top:50%;
- left:50%;
- animation:orb3 20s infinite alternate ease-in-out
-}
-
-@keyframes orb1{
- to{transform:translate(250px,120px)}
-}
-
-@keyframes orb2{
- to{transform:translate(-220px,-160px)}
-}
-
-@keyframes orb3{
- to{transform:translate(-180px,100px)}
-}
-
-.sakura{
- position:fixed;
- top:-30px;
- z-index:-1;
- color:#ffb8c9;
- opacity:.45;
- pointer-events:none;
- animation:fall linear infinite;
-}
-
-@keyframes fall{
- 0%{
-  transform:translateY(-50px) rotate(0)
- }
- 100%{
-  transform:translateY(110vh) rotate(360deg)
- }
-}
-
-/* ================= GLOBAL ================= */
-
-button,input,select,textarea{
+button,
+input,
+select,
+textarea{
  font:inherit
 }
 
@@ -133,90 +75,213 @@ button{
  display:none!important
 }
 
-.gold{
- color:var(--gold)!important
+/* =====================================================
+   ANIMATED JAPANESE BACKGROUND
+===================================================== */
+
+#japanBackground{
+ position:fixed;
+ inset:0;
+ z-index:-10;
+ overflow:hidden;
+ pointer-events:none;
+ background:
+ radial-gradient(
+  circle at 50% 0%,
+  rgba(110,0,30,.22),
+  transparent 40%
+ ),
+ #050507
 }
 
-.red{
- color:#ff4c6d!important
+.moon{
+ position:absolute;
+ width:220px;
+ height:220px;
+ border-radius:50%;
+ background:
+ radial-gradient(
+  circle at 35% 35%,
+  #fff8dc,
+  #e8c878 45%,
+  rgba(228,176,74,.15) 70%,
+  transparent 72%
+ );
+ right:12%;
+ top:10%;
+ opacity:.12;
+ filter:blur(1px);
+ animation:moonFloat 10s ease-in-out infinite
 }
 
-.green{
- color:var(--green)!important
+@keyframes moonFloat{
+ 0%,100%{
+  transform:translateY(0)
+ }
+ 50%{
+  transform:translateY(15px)
+ }
 }
 
-.blue{
- color:#5d9cff!important
+.star{
+ position:absolute;
+ width:3px;
+ height:3px;
+ background:#e4b04a;
+ border-radius:50%;
+ opacity:.5;
+ animation:starMove linear infinite
 }
 
-.muted{
- color:var(--muted)
+@keyframes starMove{
+ from{
+  transform:translateY(-50px);
+  opacity:0
+ }
+ 20%{
+  opacity:.7
+ }
+ 80%{
+  opacity:.4
+ }
+ to{
+  transform:translateY(110vh);
+  opacity:0
+ }
 }
 
-.small{
- font-size:12px
+.sakura{
+ position:absolute;
+ color:#ff83ae;
+ opacity:.55;
+ font-size:20px;
+ animation:sakuraFall linear infinite;
+ filter:drop-shadow(0 0 5px rgba(255,100,160,.4))
 }
 
-/* ================= HEADER ================= */
+@keyframes sakuraFall{
+ 0%{
+  transform:
+   translate3d(0,-10vh,0)
+   rotate(0deg)
+ }
+ 50%{
+  transform:
+   translate3d(80px,50vh,0)
+   rotate(180deg)
+ }
+ 100%{
+  transform:
+   translate3d(-50px,110vh,0)
+   rotate(360deg)
+ }
+}
+
+.wave{
+ position:absolute;
+ left:-10%;
+ width:120%;
+ height:200px;
+ bottom:-80px;
+ border-radius:50%;
+ border-top:1px solid rgba(100,150,255,.10);
+ transform:rotate(-3deg);
+ box-shadow:
+ 0 -20px 40px rgba(30,80,160,.08);
+ animation:waveMove 12s ease-in-out infinite
+}
+
+@keyframes waveMove{
+ 0%,100%{
+  transform:translateX(0) rotate(-3deg)
+ }
+ 50%{
+  transform:translateX(-30px) rotate(-1deg)
+ }
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
 
 header{
  position:sticky;
  top:0;
- z-index:50;
- min-height:70px;
- padding:13px 25px;
+ z-index:100;
+
+ height:70px;
+
  display:flex;
  align-items:center;
  justify-content:space-between;
- background:rgba(5,5,8,.78);
+
+ padding:0 24px;
+
+ background:rgba(5,5,8,.82);
  backdrop-filter:blur(20px);
- border-bottom:1px solid var(--border);
+
+ border-bottom:1px solid var(--border)
 }
 
 .logo{
  font-size:21px;
  font-weight:900;
  color:var(--gold);
- letter-spacing:1px;
+ letter-spacing:1px
 }
 
 .logo span{
  color:white
 }
 
-.header-actions{
+.header-left{
  display:flex;
  align-items:center;
  gap:10px
+}
+
+.header-user{
+ display:flex;
+ align-items:center;
+ gap:10px
+}
+
+.avatar{
+ width:42px;
+ height:42px;
+ border-radius:50%;
+
+ display:grid;
+ place-items:center;
+
+ background:
+ linear-gradient(
+  135deg,
+  var(--red),
+  #65091d
+ );
+
+ font-weight:bold;
+ border:2px solid rgba(255,255,255,.12)
 }
 
 .music-btn{
  width:42px;
  height:42px;
  border-radius:50%;
- background:rgba(255,255,255,.08);
- color:#fff;
- border:1px solid var(--border);
+ background:#181820;
+ color:white;
+ border:1px solid var(--border)
 }
 
-.header-user{
- display:flex;
- align-items:center;
- gap:10px;
+.music-btn.active{
+ background:linear-gradient(135deg,var(--purple),#42237b);
+ box-shadow:0 0 20px rgba(155,108,255,.3)
 }
 
-.avatar{
- width:40px;
- height:40px;
- border-radius:50%;
- display:grid;
- place-items:center;
- background:linear-gradient(135deg,var(--red),#65091d);
- font-weight:bold;
- border:1px solid rgba(255,255,255,.15);
-}
-
-/* ================= LAYOUT ================= */
+/* =====================================================
+   LAYOUT
+===================================================== */
 
 .layout{
  display:flex;
@@ -225,70 +290,118 @@ header{
 
 .sidebar{
  width:255px;
- padding:18px;
- background:rgba(8,8,12,.68);
+ flex-shrink:0;
+
+ padding:15px;
+
  border-left:1px solid var(--border);
- backdrop-filter:blur(18px);
+
+ background:rgba(7,7,10,.72);
+ backdrop-filter:blur(16px);
+
+ position:sticky;
+ top:70px;
+ height:calc(100vh - 70px);
+
+ overflow-y:auto
 }
 
 .nav-title{
- font-size:11px;
+ font-size:10px;
  color:#666;
- margin:18px 10px 7px;
+ margin:18px 8px 7px
 }
 
 .nav button{
  width:100%;
  padding:12px 14px;
  margin:3px 0;
+
  background:transparent;
  color:#aaa;
+
  border-radius:12px;
  text-align:right;
- transition:.2s;
+
+ transition:.2s
 }
 
-.nav button:hover,
+.nav button:hover{
+ background:rgba(215,25,63,.12);
+ color:white
+}
+
 .nav button.active{
- color:#fff;
- background:linear-gradient(90deg,rgba(215,25,63,.28),transparent);
+ background:
+ linear-gradient(
+  90deg,
+  rgba(215,25,63,.35),
+  rgba(215,25,63,.04)
+ );
+ color:white;
+ border-right:3px solid var(--red)
 }
 
 .main{
  flex:1;
  width:100%;
- max-width:1550px;
+ max-width:1600px;
  margin:auto;
- padding:25px;
+ padding:25px
 }
 
-/* ================= HERO ================= */
+/* =====================================================
+   COMMON
+===================================================== */
+
+.page{
+ animation:pageIn .3s ease
+}
+
+@keyframes pageIn{
+ from{
+  opacity:0;
+  transform:translateY(8px)
+ }
+ to{
+  opacity:1;
+  transform:none
+ }
+}
 
 .hero{
  position:relative;
  overflow:hidden;
- border:1px solid var(--border);
- border-radius:25px;
+
  padding:30px;
- margin-bottom:20px;
+
+ border-radius:25px;
+
  background:
- linear-gradient(135deg,rgba(215,25,63,.24),rgba(228,176,74,.06)),
- var(--card);
- box-shadow:0 20px 80px rgba(0,0,0,.12);
+ linear-gradient(
+  135deg,
+  rgba(215,25,63,.25),
+  rgba(228,176,74,.06)
+ ),
+ var(--panel);
+
+ border:1px solid var(--border);
+
+ margin-bottom:20px
 }
 
 .hero:after{
- content:"🧧";
+ content:"🌸";
  position:absolute;
- left:25px;
- bottom:-45px;
- font-size:150px;
- opacity:.05;
+ left:30px;
+ bottom:-40px;
+ font-size:160px;
+ opacity:.05
 }
 
 .hero h1{
- font-size:30px;
- margin-bottom:8px;
+ font-size:29px;
+ margin-bottom:8px
 }
 
 .hero p{
@@ -296,35 +409,34 @@ header{
  line-height:1.8
 }
 
-/* ================= CARDS ================= */
-
 .grid{
  display:grid;
  grid-template-columns:repeat(4,1fr);
- gap:14px;
- margin-bottom:20px;
+ gap:15px;
+ margin-bottom:20px
 }
 
 .card{
- background:var(--card);
+ background:var(--panel);
  border:1px solid var(--border);
- border-radius:18px;
+ border-radius:19px;
  padding:20px;
- backdrop-filter:blur(12px);
- box-shadow:0 10px 40px rgba(0,0,0,.08);
+ backdrop-filter:blur(14px);
+ box-shadow:
+ 0 10px 40px rgba(0,0,0,.08)
 }
 
 .card:hover{
- border-color:rgba(255,255,255,.14)
+ border-color:rgba(255,255,255,.15)
 }
 
 .stat-icon{
- font-size:26px
+ font-size:27px
 }
 
 .stat-title{
- color:#999;
- font-size:13px;
+ color:#888;
+ font-size:12px;
  margin-top:8px
 }
 
@@ -334,14 +446,38 @@ header{
  margin-top:5px
 }
 
+.gold{
+ color:var(--gold)
+}
+
+.red{
+ color:#ff4c6d
+}
+
+.green{
+ color:var(--green)
+}
+
+.blue{
+ color:var(--blue)
+}
+
+.purple{
+ color:var(--purple)
+}
+
+.orange{
+ color:var(--orange)
+}
+
 .section{
  margin-top:25px
 }
 
 .section-head{
  display:flex;
- align-items:center;
  justify-content:space-between;
+ align-items:center;
  gap:10px;
  margin-bottom:12px
 }
@@ -350,27 +486,114 @@ header{
  font-size:19px
 }
 
-/* ================= ACTIONS ================= */
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.btn{
+ padding:11px 17px;
+ border-radius:12px;
+
+ background:
+ linear-gradient(
+  135deg,
+  var(--red),
+  #8d0925
+ );
+
+ color:white;
+ font-weight:bold;
+
+ transition:.2s
+}
+
+.btn:hover{
+ transform:translateY(-2px);
+ filter:brightness(1.1)
+}
+
+.btn.goldbtn{
+ background:
+ linear-gradient(
+  135deg,
+  #b77d20,
+  var(--gold)
+ );
+ color:#130d02
+}
+
+.btn.greenbtn{
+ background:
+ linear-gradient(
+  135deg,
+  #159c5d,
+  var(--green)
+ )
+}
+
+.btn.bluebtn{
+ background:
+ linear-gradient(
+  135deg,
+  #286dcc,
+  var(--blue)
+ )
+}
+
+.btn.purplebtn{
+ background:
+ linear-gradient(
+  135deg,
+  #6337c7,
+  var(--purple)
+ )
+}
+
+.btn.secondary{
+ background:#22232b;
+ color:#ddd
+}
+
+.btn.danger{
+ background:#7c1127
+}
+
+.btn.full{
+ width:100%
+}
+
+.btn.small{
+ padding:7px 10px;
+ font-size:12px
+}
+
+/* =====================================================
+   ACTIONS
+===================================================== */
 
 .actions{
  display:grid;
  grid-template-columns:repeat(4,1fr);
- gap:12px;
+ gap:12px
 }
 
 .action{
- padding:18px;
+ padding:19px;
+
  border-radius:16px;
+
  background:rgba(255,255,255,.045);
  border:1px solid var(--border);
- color:#fff;
+
+ color:white;
  text-align:center;
- transition:.2s;
+
+ transition:.2s
 }
 
 .action:hover{
- transform:translateY(-3px);
  border-color:var(--red);
+ transform:translateY(-3px);
  background:rgba(215,25,63,.08)
 }
 
@@ -380,148 +603,122 @@ header{
 }
 
 .action small{
- color:#888
+ color:#777
 }
 
-/* ================= BUTTONS ================= */
-
-.btn{
- padding:11px 17px;
- border-radius:12px;
- background:linear-gradient(135deg,var(--red),var(--red2));
- color:white;
- font-weight:bold;
- transition:.2s;
-}
-
-.btn:hover{
- transform:translateY(-1px);
- filter:brightness(1.1)
-}
-
-.btn.goldbtn{
- background:linear-gradient(135deg,var(--gold2),var(--gold));
- color:#160f03;
-}
-
-.btn.greenbtn{
- background:linear-gradient(135deg,#0c8f5a,#25c281);
- color:#fff;
-}
-
-.btn.bluebtn{
- background:linear-gradient(135deg,#245db8,#3d8bfd);
-}
-
-.btn.secondary{
- background:#24242c;
- color:#ddd;
-}
-
-.btn.danger{
- background:#671426;
- color:#fff;
-}
-
-.btn.full{
- width:100%
-}
-
-/* ================= PROGRESS ================= */
-
-.progress{
- height:9px;
- background:#222;
- border-radius:20px;
- overflow:hidden;
- margin-top:10px;
-}
-
-.progress i{
- display:block;
- height:100%;
- width:0;
- background:linear-gradient(90deg,var(--red),var(--gold));
- transition:width .5s;
-}
-
-/* ================= TABLE ================= */
+/* =====================================================
+   TABLE
+===================================================== */
 
 .table{
  width:100%;
- border-collapse:collapse;
+ border-collapse:collapse
 }
 
 .table th,
 .table td{
- padding:12px;
+ padding:13px;
  border-bottom:1px solid var(--border);
- text-align:right;
+ text-align:right
 }
 
 .table th{
  color:#777;
- font-size:12px;
+ font-size:11px
 }
 
 .table tr:hover td{
- background:rgba(255,255,255,.018)
+ background:rgba(255,255,255,.02)
 }
 
 .badge{
  display:inline-block;
  padding:5px 10px;
  border-radius:20px;
+
  background:rgba(228,176,74,.12);
  color:var(--gold);
- font-size:11px;
+
+ font-size:11px
 }
 
-/* ================= FORMS ================= */
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+.progress{
+ height:9px;
+ background:#222;
+ border-radius:30px;
+ overflow:hidden;
+ margin-top:10px
+}
+
+.progress i{
+ display:block;
+ height:100%;
+ width:0;
+
+ background:
+ linear-gradient(
+  90deg,
+  var(--red),
+  var(--gold)
+ );
+
+ transition:width .5s
+}
+
+/* =====================================================
+   INPUT
+===================================================== */
 
 input,
 select,
 textarea{
  width:100%;
- padding:13px;
- margin:6px 0 12px;
+
+ padding:12px;
+
+ margin:7px 0 12px;
+
  border:1px solid var(--border);
  border-radius:12px;
+
  background:#08080c;
- color:#fff;
- outline:none;
+ color:white;
+
+ outline:none
 }
 
 textarea{
- min-height:100px;
+ min-height:90px;
  resize:vertical
 }
 
 input:focus,
-textarea:focus,
-select:focus{
+select:focus,
+textarea:focus{
  border-color:var(--red)
 }
 
-label{
- display:block;
- color:#aaa;
- font-size:12px;
- margin-top:5px;
-}
-
-/* ================= MODAL ================= */
+/* =====================================================
+   MODAL
+===================================================== */
 
 .modal{
  position:fixed;
  inset:0;
- z-index:200;
+ z-index:500;
+
  background:rgba(0,0,0,.78);
- backdrop-filter:blur(9px);
+ backdrop-filter:blur(8px);
+
  display:none;
  align-items:center;
  justify-content:center;
- padding:20px;
+
+ padding:20px
 }
 
 .modal.show{
@@ -529,325 +726,445 @@ label{
 }
 
 .modal-box{
- width:min(550px,100%);
- max-height:90vh;
- overflow:auto;
+ width:min(520px,100%);
+
  background:#111116;
  border:1px solid var(--border);
- border-radius:22px;
+
+ border-radius:23px;
  padding:25px;
+
  box-shadow:0 25px 100px #000;
+
+ max-height:90vh;
+ overflow:auto
 }
 
 .modal-head{
  display:flex;
  justify-content:space-between;
  align-items:center;
- margin-bottom:18px;
+ margin-bottom:20px
 }
 
 .close{
  background:none;
  color:#aaa;
- font-size:25px;
+ font-size:27px
 }
 
-/* ================= AUTH ================= */
+/* =====================================================
+   AUTH
+===================================================== */
 
 .auth{
  position:fixed;
  inset:0;
- z-index:300;
+ z-index:1000;
+
+ background:
+ radial-gradient(
+  circle at 50% 15%,
+  #500919,
+  transparent 35%
+ ),
+ #060609;
+
  display:flex;
  align-items:center;
  justify-content:center;
- padding:20px;
- background:
- radial-gradient(circle at 50% 20%,#500919,transparent 35%),
- #050507;
+
+ padding:20px
 }
 
 .auth-box{
- width:min(440px,100%);
- padding:32px;
- background:rgba(17,17,22,.92);
+ width:min(450px,100%);
+
+ background:rgba(17,17,22,.94);
+
  border:1px solid var(--border);
- border-radius:25px;
- box-shadow:0 25px 100px #000;
+ border-radius:27px;
+
+ padding:30px;
+
+ box-shadow:0 25px 100px #000
 }
 
 .auth-logo{
  text-align:center;
- font-size:26px;
+ font-size:27px;
  font-weight:900;
- color:var(--gold);
-}
-
-.auth-logo span{
- color:#fff
+ color:var(--gold)
 }
 
 .auth-sub{
  text-align:center;
  color:#777;
- margin:8px 0 25px;
+ margin:8px 0 25px
 }
 
-/* ================= WHEEL ================= */
+/* =====================================================
+   SHOP
+===================================================== */
 
-.wheel-wrap{
- text-align:center
+.shop-filters{
+ display:flex;
+ gap:8px;
+ flex-wrap:wrap;
+ margin-bottom:15px
 }
 
-.pointer{
- font-size:30px;
+.filter{
+ padding:9px 13px;
+ border-radius:20px;
+
+ background:#191920;
+ color:#aaa;
+
+ border:1px solid var(--border)
+}
+
+.filter.active{
  color:white;
+ background:rgba(215,25,63,.25);
+ border-color:var(--red)
 }
 
-.wheel{
- width:240px;
- height:240px;
- border-radius:50%;
- margin:15px auto;
- background:conic-gradient(
- #d7193f 0 45deg,
- #e4b04a 45deg 90deg,
- #8d0925 90deg 135deg,
- #b77d20 135deg 180deg,
- #d7193f 180deg 225deg,
- #e4b04a 225deg 270deg,
- #8d0925 270deg 315deg,
- #b77d20 315deg 360deg
- );
- border:10px solid #191920;
- box-shadow:0 0 50px rgba(215,25,63,.25);
- transition:transform 4s cubic-bezier(.15,.75,.2,1);
-}
-
-/* ================= STORE ================= */
-
-.product-grid{
+.products{
  display:grid;
  grid-template-columns:repeat(5,1fr);
- gap:12px;
+ gap:13px
 }
 
 .product{
  position:relative;
- padding:15px;
- border-radius:17px;
  background:rgba(255,255,255,.045);
  border:1px solid var(--border);
- transition:.2s;
+ border-radius:17px;
+ padding:15px;
+ transition:.2s
 }
 
 .product:hover{
  transform:translateY(-4px);
- border-color:var(--gold);
+ border-color:rgba(228,176,74,.5)
 }
 
 .product-icon{
- font-size:36px;
- margin-bottom:8px;
+ font-size:38px;
+ margin-bottom:8px
 }
 
-.product h3{
- font-size:15px;
- margin-bottom:5px;
+.product-name{
+ font-weight:bold;
+ margin-bottom:5px
 }
 
-.product p{
- font-size:11px;
+.product-desc{
  color:#777;
+ font-size:11px;
  min-height:30px;
+ margin-bottom:10px
 }
 
 .product-price{
  color:var(--gold);
  font-weight:bold;
- margin:8px 0;
+ margin-bottom:10px
 }
 
-.product button{
- width:100%;
+.product-category{
+ position:absolute;
+ top:10px;
+ left:10px;
+
+ font-size:9px;
+ color:#888
 }
 
-/* ================= CHAT ================= */
+/* =====================================================
+   INVENTORY
+===================================================== */
 
-.chat-box{
- height:500px;
+.inventory-grid{
+ display:grid;
+ grid-template-columns:repeat(6,1fr);
+ gap:12px
+}
+
+.inventory-item{
+ padding:16px;
+ background:rgba(255,255,255,.045);
+ border:1px solid var(--border);
+ border-radius:16px;
+ text-align:center
+}
+
+.inventory-item .icon{
+ font-size:35px
+}
+
+.inventory-count{
+ color:var(--gold);
+ font-weight:bold;
+ margin-top:7px
+}
+
+/* =====================================================
+   FARM
+===================================================== */
+
+.farm-grid{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:14px
+}
+
+.farm-plot{
+ min-height:170px;
+ padding:18px;
+
+ border-radius:20px;
+
+ background:
+ linear-gradient(
+  180deg,
+  rgba(30,100,60,.15),
+  rgba(20,50,30,.3)
+ );
+
+ border:1px solid rgba(34,199,122,.2);
+
+ text-align:center
+}
+
+.farm-plot.empty{
+ border-style:dashed
+}
+
+.crop-icon{
+ font-size:48px;
+ margin:15px
+}
+
+/* =====================================================
+   CITY
+===================================================== */
+
+.city-grid{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:15px
+}
+
+.building{
+ position:relative;
+ padding:22px;
+ min-height:190px;
+
+ border-radius:20px;
+
+ background:
+ linear-gradient(
+  135deg,
+  rgba(75,156,255,.10),
+  rgba(155,108,255,.05)
+ );
+
+ border:1px solid rgba(75,156,255,.15)
+}
+
+.building-icon{
+ font-size:50px
+}
+
+.level-pill{
+ position:absolute;
+ top:15px;
+ left:15px;
+
+ background:rgba(75,156,255,.15);
+ color:var(--blue);
+
+ padding:5px 9px;
+ border-radius:20px;
+
+ font-size:10px
+}
+
+/* =====================================================
+   CHAT
+===================================================== */
+
+.chat-layout{
+ display:grid;
+ grid-template-columns:260px 1fr;
+ min-height:560px
+}
+
+.chat-users{
+ border-left:1px solid var(--border);
+ padding:10px;
+ background:rgba(0,0,0,.12)
+}
+
+.chat-user{
+ padding:11px;
+ border-radius:10px;
+ margin-bottom:4px;
+ cursor:pointer
+}
+
+.chat-user:hover,
+.chat-user.active{
+ background:rgba(215,25,63,.15)
+}
+
+.chat-area{
  display:flex;
  flex-direction:column;
+ min-height:560px
 }
 
 .chat-messages{
  flex:1;
+ padding:20px;
  overflow:auto;
- padding:15px;
- background:rgba(0,0,0,.18);
- border-radius:15px;
+ max-height:460px
 }
 
 .message{
- max-width:75%;
- margin-bottom:12px;
+ max-width:70%;
  padding:10px 13px;
+ margin-bottom:10px;
  border-radius:15px;
- background:#202027;
+ background:#1b1b22
 }
 
 .message.mine{
  margin-right:auto;
- background:linear-gradient(135deg,#741128,#45101d);
+ background:linear-gradient(135deg,#75132b,#481020)
 }
 
 .message-name{
- font-size:11px;
+ font-size:10px;
  color:var(--gold);
- margin-bottom:4px;
-}
-
-.message-text{
- line-height:1.6;
- word-break:break-word;
+ margin-bottom:4px
 }
 
 .message-time{
+ font-size:8px;
  color:#666;
- font-size:9px;
- margin-top:5px;
+ margin-top:5px
 }
 
-.chat-send{
+.chat-input{
  display:flex;
  gap:8px;
- margin-top:10px;
+ padding:12px;
+ border-top:1px solid var(--border)
 }
 
-.chat-send input{
- margin:0
-}
+/* =====================================================
+   GAMES
+===================================================== */
 
-/* ================= FARM ================= */
-
-.farm-grid{
- display:grid;
- grid-template-columns:repeat(5,1fr);
- gap:12px;
-}
-
-.farm-plot{
- min-height:145px;
- display:flex;
- flex-direction:column;
- align-items:center;
- justify-content:center;
- gap:7px;
- border-radius:17px;
- border:1px solid var(--border);
- background:
- linear-gradient(180deg,rgba(70,35,10,.2),rgba(20,15,10,.8));
-}
-
-.farm-plot.locked{
- opacity:.45
-}
-
-.crop{
- font-size:40px
-}
-
-/* ================= CITY ================= */
-
-.city-grid{
+.games-grid{
  display:grid;
  grid-template-columns:repeat(4,1fr);
- gap:14px;
-}
-
-.building{
- min-height:180px;
- padding:18px;
- border-radius:18px;
- background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.025));
- border:1px solid var(--border);
-}
-
-.building-icon{
- font-size:45px
-}
-
-.building h3{
- margin:8px 0
-}
-
-/* ================= GAME CARDS ================= */
-
-.game-grid{
- display:grid;
- grid-template-columns:repeat(4,1fr);
- gap:14px;
+ gap:15px
 }
 
 .game-card{
- padding:20px;
- border-radius:18px;
- background:rgba(255,255,255,.05);
- border:1px solid var(--border);
+ padding:22px;
+ min-height:210px;
+
+ border-radius:20px;
+
+ background:
+ linear-gradient(
+  135deg,
+  rgba(255,255,255,.05),
+  rgba(255,255,255,.015)
+ );
+
+ border:1px solid var(--border)
 }
 
 .game-icon{
- font-size:40px
+ font-size:45px;
+ margin-bottom:10px
 }
 
-.game-card h3{
- margin:8px 0
+.game-result{
+ min-height:28px;
+ margin:10px 0;
+ color:var(--gold);
+ font-weight:bold
 }
 
-.game-card p{
- color:#777;
- font-size:12px;
- line-height:1.6;
- margin-bottom:12px;
+/* =====================================================
+   MATCHES
+===================================================== */
+
+.match-card{
+ padding:18px;
+ border:1px solid var(--border);
+ border-radius:17px;
+ background:rgba(255,255,255,.035);
+ margin-bottom:10px
 }
 
-/* ================= QUESTS ================= */
-
-.quest{
+.match-vs{
  display:flex;
  align-items:center;
- gap:12px;
- padding:13px;
- border-radius:14px;
+ justify-content:center;
+ gap:25px;
+ font-size:18px;
+ margin:15px 0
+}
+
+/* =====================================================
+   QUESTS
+===================================================== */
+
+.quest{
+ padding:15px;
+ margin-bottom:10px;
+
  background:rgba(255,255,255,.04);
- margin:8px 0;
+
+ border:1px solid var(--border);
+ border-radius:15px
 }
 
-.quest-icon{
- font-size:25px
+.quest.done{
+ border-color:rgba(34,199,122,.4)
 }
 
-.quest-info{
- flex:1
-}
-
-/* ================= TOAST ================= */
+/* =====================================================
+   NOTIFICATION
+===================================================== */
 
 .toast{
  position:fixed;
  left:20px;
  bottom:20px;
- z-index:500;
+
+ z-index:2000;
+
  background:#17171d;
  border:1px solid var(--border);
  border-right:4px solid var(--red);
+
  padding:13px 18px;
+
  border-radius:12px;
+
  transform:translateY(100px);
  opacity:0;
- transition:.3s;
- pointer-events:none;
- max-width:350px;
+
+ transition:.3s
 }
 
 .toast.show{
@@ -855,27 +1172,64 @@ label{
  opacity:1
 }
 
-/* ================= MOBILE ================= */
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.empty{
+ text-align:center;
+ padding:35px;
+ color:#666
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
 
 @media(max-width:1200px){
- .product-grid{grid-template-columns:repeat(4,1fr)}
- .farm-grid{grid-template-columns:repeat(4,1fr)}
- .game-grid{grid-template-columns:repeat(3,1fr)}
- .city-grid{grid-template-columns:repeat(3,1fr)}
+
+ .products{
+  grid-template-columns:repeat(4,1fr)
+ }
+
+ .inventory-grid{
+  grid-template-columns:repeat(4,1fr)
+ }
+
+ .games-grid{
+  grid-template-columns:repeat(3,1fr)
+ }
+
 }
 
 @media(max-width:1000px){
- .grid{grid-template-columns:repeat(2,1fr)}
- .actions{grid-template-columns:repeat(2,1fr)}
- .sidebar{width:215px}
- .product-grid{grid-template-columns:repeat(3,1fr)}
- .game-grid{grid-template-columns:repeat(2,1fr)}
- .city-grid{grid-template-columns:repeat(2,1fr)}
+
+ .grid{
+  grid-template-columns:repeat(2,1fr)
+ }
+
+ .actions{
+  grid-template-columns:repeat(2,1fr)
+ }
+
+ .products{
+  grid-template-columns:repeat(3,1fr)
+ }
+
+ .farm-grid{
+  grid-template-columns:repeat(2,1fr)
+ }
+
+ .city-grid{
+  grid-template-columns:repeat(2,1fr)
+ }
+
 }
 
 @media(max-width:700px){
+
  header{
-  padding:11px 13px
+  padding:0 12px
  }
 
  .logo{
@@ -891,17 +1245,24 @@ label{
  }
 
  .sidebar{
+  position:sticky;
+  top:70px;
+
   width:100%;
+  height:auto;
+
   padding:7px;
+
   border-left:0;
   border-bottom:1px solid var(--border);
-  overflow-x:auto;
+
+  z-index:90
  }
 
  .nav{
   display:flex;
-  gap:5px;
-  min-width:max-content;
+  overflow-x:auto;
+  gap:4px
  }
 
  .nav-title{
@@ -909,13 +1270,14 @@ label{
  }
 
  .nav button{
-  width:auto;
   white-space:nowrap;
+  width:auto;
   padding:9px 11px;
+  font-size:11px
  }
 
  .main{
-  padding:14px
+  padding:12px
  }
 
  .hero{
@@ -927,77 +1289,80 @@ label{
  }
 
  .grid{
-  grid-template-columns:1fr 1fr;
-  gap:9px
- }
-
- .card{
-  padding:15px
+  grid-template-columns:1fr 1fr
  }
 
  .actions{
   grid-template-columns:1fr 1fr
  }
 
- .product-grid{
-  grid-template-columns:repeat(2,1fr)
- }
-
- .farm-grid{
-  grid-template-columns:repeat(2,1fr)
- }
-
- .game-grid{
+ .products{
   grid-template-columns:1fr 1fr
  }
 
- .city-grid{
+ .inventory-grid{
+  grid-template-columns:repeat(3,1fr)
+ }
+
+ .games-grid{
   grid-template-columns:1fr 1fr
  }
 
- .table{
-  min-width:650px
- }
-
- .card{
-  overflow-x:auto
- }
-
- .chat-box{
-  height:450px
- }
-}
-
-@media(max-width:420px){
- .grid,
- .actions,
- .game-grid,
+ .farm-grid,
  .city-grid{
   grid-template-columns:1fr
  }
 
- .product-grid{
-  grid-template-columns:1fr 1fr
+ .chat-layout{
+  grid-template-columns:1fr
  }
+
+ .chat-users{
+  border-left:0;
+  border-bottom:1px solid var(--border);
+  max-height:130px;
+  overflow:auto
+ }
+
+ .chat-area{
+  min-height:500px
+ }
+
+ .table{
+  font-size:11px
+ }
+
+ .table th,
+ .table td{
+  padding:8px
+ }
+
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="bgCanvas"></canvas>
+<!-- =====================================================
+     BACKGROUND
+===================================================== -->
 
-<div class="bg-orb orb1"></div>
-<div class="bg-orb orb2"></div>
-<div class="bg-orb orb3"></div>
+<div id="japanBackground">
+ <div class="moon"></div>
+ <div class="wave"></div>
 
-<!-- ================= MUSIC ================= -->
+ <div class="sakura" style="left:5%;animation-duration:14s">🌸</div>
+ <div class="sakura" style="left:15%;animation-duration:18s;animation-delay:2s">🌸</div>
+ <div class="sakura" style="left:27%;animation-duration:15s;animation-delay:5s">🌸</div>
+ <div class="sakura" style="left:43%;animation-duration:20s;animation-delay:1s">🌸</div>
+ <div class="sakura" style="left:58%;animation-duration:17s;animation-delay:4s">🌸</div>
+ <div class="sakura" style="left:73%;animation-duration:21s;animation-delay:2s">🌸</div>
+ <div class="sakura" style="left:88%;animation-duration:16s;animation-delay:6s">🌸</div>
+</div>
 
-<audio id="bgMusic" loop>
- <source src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_946e5a1a44.mp3" type="audio/mpeg">
-</audio>
-
-<!-- ================= AUTH ================= -->
+<!-- =====================================================
+     AUTH
+===================================================== -->
 
 <div class="auth" id="auth">
 
@@ -1008,60 +1373,75 @@ label{
   </div>
 
   <div class="auth-sub">
-   Ultimate Interactive Community
+   Ultimate Japanese Community World
   </div>
 
   <div id="loginForm">
 
-   <input id="loginName" placeholder="اسم المستخدم">
+   <input
+    id="loginName"
+    placeholder="اسم المستخدم"
+   >
 
-   <input id="loginPass"
-          type="password"
-          placeholder="كلمة المرور">
+   <input
+    id="loginPass"
+    type="password"
+    placeholder="كلمة المرور"
+   >
 
-   <button class="btn full" onclick="login()">
-    دخول إلى المدينة
+   <button
+    class="btn full"
+    onclick="login()"
+   >
+    🏮 دخول إلى العالم
    </button>
 
-   <button class="btn secondary full"
-           style="margin-top:8px"
-           onclick="showRegister()">
-    إنشاء حساب جديد
+   <button
+    class="btn secondary full"
+    style="margin-top:8px"
+    onclick="showRegister()"
+   >
+    ✨ إنشاء حساب
    </button>
 
   </div>
 
   <div id="registerForm" class="hidden">
 
-   <input id="regName"
-          placeholder="اسم المستخدم">
+   <input
+    id="regName"
+    placeholder="اسم المستخدم"
+   >
 
-   <input id="regPass"
-          type="password"
-          placeholder="كلمة المرور">
+   <input
+    id="regPass"
+    type="password"
+    placeholder="كلمة المرور"
+   >
 
-   <button class="btn goldbtn full"
-           onclick="register()">
-    إنشاء الحساب
+   <button
+    class="btn goldbtn full"
+    onclick="register()"
+   >
+    🎌 إنشاء الحساب
    </button>
 
-   <button class="btn secondary full"
-           style="margin-top:8px"
-           onclick="showLogin()">
+   <button
+    class="btn secondary full"
+    style="margin-top:8px"
+    onclick="showLogin()"
+   >
     لدي حساب بالفعل
    </button>
 
   </div>
 
-  <div style="margin-top:18px;text-align:center;color:#555;font-size:11px">
-   بيانات الحساب تحفظ على هذا المتصفح
-  </div>
-
  </div>
-
 </div>
 
-<!-- ================= HEADER ================= -->
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <header>
 
@@ -1069,1132 +1449,1447 @@ label{
   『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』
  </div>
 
- <div class="header-actions">
+ <div class="header-left">
 
-  <button class="music-btn"
-          id="musicBtn"
-          onclick="toggleMusic()">
+  <button
+   class="music-btn"
+   id="musicBtn"
+   onclick="toggleMusic()"
+  >
    🎵
   </button>
 
   <div class="header-user">
-   <span id="headerName">Guest</span>
-   <div class="avatar" id="avatar">?</div>
+
+   <span id="headerName">
+    Guest
+   </span>
+
+   <div
+    class="avatar"
+    id="avatar"
+   >
+    ?
+   </div>
+
   </div>
 
  </div>
 
 </header>
 
-<!-- ================= LAYOUT ================= -->
+<!-- =====================================================
+     LAYOUT
+===================================================== -->
 
 <div class="layout">
 
 <aside class="sidebar">
 
- <div class="nav">
+<div class="nav">
 
-  <button class="active"
-          onclick="page('home',this)">
-   🏠 الرئيسية
-  </button>
+<button class="active"
+ onclick="page('home',this)">
+🏠 الرئيسية
+</button>
 
-  <button onclick="page('wallet',this)">
-   💰 المحفظة
-  </button>
+<button onclick="page('wallet',this)">
+💰 المحفظة
+</button>
 
-  <button onclick="page('store',this)">
-   🛍️ المتجر
-  </button>
+<button onclick="page('shop',this)">
+🛒 المتجر
+</button>
 
-  <button onclick="page('games',this)">
-   🎮 الألعاب
-  </button>
+<button onclick="page('inventory',this)">
+🎒 المخزون
+</button>
 
-  <button onclick="page('farm',this)">
-   🌾 المزرعة
-  </button>
+<button onclick="page('games',this)">
+🎮 الألعاب
+</button>
 
-  <button onclick="page('city',this)">
-   🏙️ مدينتي
-  </button>
+<button onclick="page('farm',this)">
+🌾 المزرعة
+</button>
 
-  <button onclick="page('matches',this)">
-   ⚔️ المباريات
-  </button>
+<button onclick="page('city',this)">
+🏙️ مدينتي
+</button>
 
-  <button onclick="page('chat',this)">
-   💬 الدردشة
-  </button>
+<button onclick="page('matches',this)">
+⚔️ المباريات
+</button>
 
-  <button onclick="page('quests',this)">
-   🎯 المهام
-  </button>
+<button onclick="page('chat',this)">
+💬 الدردشة
+</button>
 
-  <button onclick="page('rank',this)">
-   🏆 الترتيب
-  </button>
+<button onclick="page('missions',this)">
+🎯 المهام
+</button>
 
-  <button onclick="page('transactions',this)">
-   📜 العمليات
-  </button>
+<button onclick="page('rank',this)">
+🏆 الترتيب
+</button>
 
-  <button onclick="page('profile',this)">
-   👤 الحساب
-  </button>
+<button onclick="page('transactions',this)">
+📜 العمليات
+</button>
 
-  <div class="nav-title">
-   الإدارة
-  </div>
+<button onclick="page('profile',this)">
+👤 الحساب
+</button>
 
-  <button id="adminNav"
-          onclick="page('admin',this)">
-   👑 الإدارة
-  </button>
+<div class="nav-title">
+الإدارة
+</div>
 
-  <div class="nav-title">
-   النظام
-  </div>
+<button
+ id="adminNav"
+ onclick="page('admin',this)"
+>
+👑 الإدارة
+</button>
 
-  <button onclick="logout()">
-   🚪 تسجيل الخروج
-  </button>
+<div class="nav-title">
+النظام
+</div>
 
- </div>
+<button onclick="logout()">
+🚪 تسجيل الخروج
+</button>
 
+</div>
 </aside>
 
 <main class="main">
 
-<!-- ===================================================== -->
-<!-- HOME -->
-<!-- ===================================================== -->
+<!-- =====================================================
+     HOME
+===================================================== -->
 
 <section id="home" class="page">
 
- <div class="hero">
+<div class="hero">
 
-  <h1>
-   مرحباً بك في 『𝑺.𝑼.𝑵 TOKYO』 🧧
-  </h1>
+<h1>
+مرحباً بك في عالم 『S.U.N TOKYO』 🧧
+</h1>
 
-  <p>
-   مجتمع تفاعلي كامل: بنك، متجر، ألعاب، مزرعة، مدينة،
-   مباريات، دردشة، مهام وترتيب.
-  </p>
+<p>
+بنك + متجر + ألعاب + مزرعة + مدينة + مباريات + مجتمع.
+ابنِ إمبراطوريتك، اجمع العملات، طوّر مدينتك ونافس باقي الأعضاء.
+</p>
 
- </div>
+</div>
 
- <div class="grid">
+<div class="grid">
 
-  <div class="card">
-   <div class="stat-icon">💰</div>
-   <div class="stat-title">الرصيد</div>
-   <div class="stat-value gold" id="balance">0</div>
-  </div>
+<div class="card">
+<div class="stat-icon">💰</div>
+<div class="stat-title">الرصيد</div>
+<div class="stat-value gold" id="balance">0</div>
+</div>
 
-  <div class="card">
-   <div class="stat-icon">⭐</div>
-   <div class="stat-title">المستوى</div>
-   <div class="stat-value" id="level">1</div>
-  </div>
+<div class="card">
+<div class="stat-icon">⭐</div>
+<div class="stat-title">المستوى</div>
+<div class="stat-value" id="level">1</div>
+</div>
 
-  <div class="card">
-   <div class="stat-icon">⚡</div>
-   <div class="stat-title">XP</div>
-   <div class="stat-value" id="xp">0</div>
-  </div>
+<div class="card">
+<div class="stat-icon">⚡</div>
+<div class="stat-title">XP</div>
+<div class="stat-value" id="xp">0</div>
+</div>
 
-  <div class="card">
-   <div class="stat-icon">👑</div>
-   <div class="stat-title">الرتبة</div>
-   <div class="stat-value red" id="rankName">
-    عضو
-   </div>
-  </div>
+<div class="card">
+<div class="stat-icon">👑</div>
+<div class="stat-title">الرتبة</div>
+<div class="stat-value red" id="rankName">عضو</div>
+</div>
 
- </div>
+</div>
 
- <div class="section">
+<div class="grid">
 
-  <div class="section-head">
-   <h2>⚡ العمليات السريعة</h2>
-  </div>
+<div class="card">
+<div class="stat-icon">🌾</div>
+<div class="stat-title">قيمة المزرعة</div>
+<div class="stat-value green" id="homeFarm">0</div>
+</div>
 
-  <div class="actions">
+<div class="card">
+<div class="stat-icon">🏙️</div>
+<div class="stat-title">قيمة المدينة</div>
+<div class="stat-value blue" id="homeCity">0</div>
+</div>
 
-   <button class="action"
-           onclick="openModal('transferModal')">
-    💸
-    <b>تحويل</b>
-    <small>إرسال العملات</small>
-   </button>
+<div class="card">
+<div class="stat-icon">🎒</div>
+<div class="stat-title">عناصر المخزون</div>
+<div class="stat-value purple" id="homeInventory">0</div>
+</div>
 
-   <button class="action"
-           onclick="openModal('depositModal')">
-    💰
-    <b>إيداع</b>
-    <small>إضافة الرصيد</small>
-   </button>
+<div class="card">
+<div class="stat-icon">🏆</div>
+<div class="stat-title">الإنجازات</div>
+<div class="stat-value gold" id="homeAchievements">0</div>
+</div>
 
-   <button class="action"
-           onclick="page('store')">
-    🛍️
-    <b>المتجر</b>
-    <small>100 منتج</small>
-   </button>
+</div>
 
-   <button class="action"
-           onclick="page('games')">
-    🎮
-    <b>الألعاب</b>
-    <small>اربح العملات</small>
-   </button>
+<div class="section">
 
-  </div>
+<div class="section-head">
+<h2>⚡ العمليات السريعة</h2>
+</div>
 
- </div>
+<div class="actions">
 
- <div class="section">
+<button class="action"
+ onclick="openModal('transferModal')">
+💸
+<b>تحويل</b>
+<small>إرسال عملات</small>
+</button>
 
-  <div class="section-head">
-   <h2>📊 تقدم المستوى</h2>
-   <span id="xpText">
-    0 / 100 XP
-   </span>
-  </div>
+<button class="action"
+ onclick="openModal('depositModal')">
+💰
+<b>إيداع</b>
+<small>إضافة رصيد</small>
+</button>
 
-  <div class="card">
-   <div class="progress">
-    <i id="xpBar"></i>
-   </div>
-  </div>
+<button class="action"
+ onclick="pageById('shop')">
+🛒
+<b>المتجر</b>
+<small>شراء المنتجات</small>
+</button>
 
- </div>
+<button class="action"
+ onclick="pageById('games')">
+🎮
+<b>الألعاب</b>
+<small>اربح العملات</small>
+</button>
 
- <div class="section">
+</div>
 
-  <div class="section-head">
-   <h2>📜 آخر العمليات</h2>
-  </div>
+</div>
 
-  <div class="card">
+<div class="section">
 
-   <table class="table">
+<div class="section-head">
 
-    <thead>
-     <tr>
-      <th>العملية</th>
-      <th>المبلغ</th>
-      <th>التاريخ</th>
-     </tr>
-    </thead>
+<h2>📊 تقدم المستوى</h2>
 
-    <tbody id="recent"></tbody>
+<span id="xpText">
+0 / 100 XP
+</span>
 
-   </table>
+</div>
 
-  </div>
+<div class="card">
 
- </div>
+<div class="progress">
+<i id="xpBar"></i>
+</div>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<div class="section-head">
+<h2>📜 آخر العمليات</h2>
+</div>
+
+<div class="card">
+
+<table class="table">
+
+<thead>
+<tr>
+<th>العملية</th>
+<th>المبلغ</th>
+<th>التاريخ</th>
+</tr>
+</thead>
+
+<tbody id="recent"></tbody>
+
+</table>
+
+</div>
+
+</div>
 
 </section>
 
-<!-- ===================================================== -->
-<!-- WALLET -->
-<!-- ===================================================== -->
+<!-- =====================================================
+     WALLET
+===================================================== -->
 
 <section id="wallet" class="page hidden">
 
- <div class="hero">
-  <h1>💰 المحفظة</h1>
-  <p>إدارة أموالك وتحويلاتك.</p>
- </div>
+<div class="hero">
 
- <div class="grid">
+<h1>💰 المحفظة</h1>
 
-  <div class="card">
-   <div class="stat-title">الرصيد</div>
-   <div class="stat-value gold" id="walletBalance">
-    0 🧧
-   </div>
-  </div>
+<p>
+تحكم بأموالك وتحويلاتك.
+</p>
 
-  <div class="card">
-   <div class="stat-title">العمليات</div>
-   <div class="stat-value" id="transactionCount">
-    0
-   </div>
-  </div>
+</div>
 
-  <div class="card">
-   <div class="stat-title">قيمة المزرعة</div>
-   <div class="stat-value green" id="farmValue">
-    0
-   </div>
-  </div>
+<div class="grid">
 
-  <div class="card">
-   <div class="stat-title">قيمة المدينة</div>
-   <div class="stat-value blue" id="cityValue">
-    0
-   </div>
-  </div>
+<div class="card">
 
- </div>
+<div class="stat-title">
+الرصيد الحالي
+</div>
 
- <div class="actions">
+<div class="stat-value gold"
+ id="walletBalance">
+0 🧧
+</div>
 
-  <button class="action"
-          onclick="openModal('transferModal')">
-   💸
-   <b>تحويل</b>
-  </button>
+</div>
 
-  <button class="action"
-          onclick="openModal('depositModal')">
-   💰
-   <b>إيداع</b>
-  </button>
+<div class="card">
 
-  <button class="action"
-          onclick="openModal('withdrawModal')">
-   🏧
-   <b>سحب</b>
-  </button>
+<div class="stat-title">
+إجمالي العمليات
+</div>
 
-  <button class="action"
-          onclick="openModal('giftModal')">
-   🎁
-   <b>هدية</b>
-  </button>
+<div class="stat-value"
+ id="transactionCount">
+0
+</div>
 
- </div>
+</div>
 
-</section>
+<div class="card">
 
-<!-- ===================================================== -->
-<!-- STORE -->
-<!-- ===================================================== -->
+<div class="stat-title">
+دخل المزرعة
+</div>
 
-<section id="store" class="page hidden">
+<div class="stat-value green"
+ id="farmIncome">
+0
+</div>
 
- <div class="hero">
+</div>
 
-  <h1>🛍️ متجر S.U.N TOKYO</h1>
+<div class="card">
 
-  <p>
-   100 منتج ومقتنى قابل للشراء.
-  </p>
+<div class="stat-title">
+قيمة المدينة
+</div>
 
- </div>
+<div class="stat-value blue"
+ id="cityValue">
+0
+</div>
 
- <div class="section">
+</div>
 
-  <div class="section-head">
+</div>
 
-   <h2>
-    🏪 المنتجات
-   </h2>
+<div class="actions">
 
-   <span class="gold">
-    رصيدك:
-    <b id="storeBalance">0</b>
-    🧧
-   </span>
+<button class="action"
+ onclick="openModal('transferModal')">
+💸
+<b>تحويل</b>
+</button>
 
-  </div>
+<button class="action"
+ onclick="openModal('depositModal')">
+💰
+<b>إيداع</b>
+</button>
 
-  <div class="product-grid"
-       id="productGrid">
-  </div>
+<button class="action"
+ onclick="openModal('withdrawModal')">
+🏧
+<b>سحب</b>
+</button>
 
- </div>
+<button class="action"
+ onclick="openModal('giftModal')">
+🎁
+<b>هدية</b>
+</button>
+
+</div>
 
 </section>
 
-<!-- ===================================================== -->
-<!-- GAMES -->
-<!-- ===================================================== -->
+<!-- =====================================================
+     SHOP
+===================================================== -->
+
+<section id="shop" class="page hidden">
+
+<div class="hero">
+
+<h1>🛒 سوق طوكيو</h1>
+
+<p>
+100 منتج قابل للشراء والاستخدام والتجميع.
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="shop-filters">
+
+<button class="filter active"
+ onclick="filterShop('all',this)">
+الكل
+</button>
+
+<button class="filter"
+ onclick="filterShop('food',this)">
+🍜 الطعام
+</button>
+
+<button class="filter"
+ onclick="filterShop('farm',this)">
+🌾 المزرعة
+</button>
+
+<button class="filter"
+ onclick="filterShop('city',this)">
+🏙️ المدينة
+</button>
+
+<button class="filter"
+ onclick="filterShop('game',this)">
+🎮 الألعاب
+</button>
+
+<button class="filter"
+ onclick="filterShop('collect',this)">
+💎 المقتنيات
+</button>
+
+</div>
+
+<div
+ id="products"
+ class="products"
+></div>
+
+</div>
+
+</section>
+
+<!-- =====================================================
+     INVENTORY
+===================================================== -->
+
+<section id="inventory" class="page hidden">
+
+<div class="hero">
+
+<h1>🎒 مخزوني</h1>
+
+<p>
+كل المنتجات والعناصر التي حصلت عليها.
+</p>
+
+</div>
+
+<div class="grid">
+
+<div class="card">
+
+<div class="stat-title">
+عدد أنواع العناصر
+</div>
+
+<div class="stat-value purple"
+ id="inventoryTypes">
+0
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="stat-title">
+إجمالي العناصر
+</div>
+
+<div class="stat-value gold"
+ id="inventoryTotal">
+0
+</div>
+
+</div>
+
+</div>
+
+<div
+ id="inventoryGrid"
+ class="inventory-grid"
+></div>
+
+</section>
+
+<!-- =====================================================
+     GAMES
+===================================================== -->
 
 <section id="games" class="page hidden">
 
- <div class="hero">
+<div class="hero">
 
-  <h1>🎮 مركز الألعاب</h1>
+<h1>🎮 مركز الألعاب</h1>
 
-  <p>
-   العب واربح العملات وXP.
-  </p>
+<p>
+ألعاب كثيرة، جوائز مختلفة، ومستويات أعلى.
+</p>
 
- </div>
+</div>
 
- <div class="game-grid">
+<div class="games-grid">
 
-  <div class="game-card">
-   <div class="game-icon">🎁</div>
-   <h3>الصندوق</h3>
-   <p>تكلفة اللعب 50 🧧</p>
-   <button class="btn goldbtn"
-           onclick="openBox()">
-    فتح
-   </button>
-  </div>
+<div class="game-card">
 
-  <div class="game-card">
-   <div class="game-icon">🎡</div>
-   <h3>عجلة الحظ</h3>
-   <p>تكلفة الدور 100 🧧</p>
-   <button class="btn"
-           onclick="spinWheel()">
-    تدوير
-   </button>
-  </div>
+<div class="game-icon">🎲</div>
 
-  <div class="game-card">
-   <div class="game-icon">🎲</div>
-   <h3>النرد</h3>
-   <p>تكلفة اللعب 25 🧧</p>
-   <button class="btn secondary"
-           onclick="dice()">
-    رمي
-   </button>
-  </div>
+<h2>نرد الحظ</h2>
 
-  <div class="game-card">
-   <div class="game-icon">🪙</div>
-   <h3>عملة الحظ</h3>
-   <p>تكلفة اللعب 20 🧧</p>
-   <button class="btn"
-           onclick="coinGame()">
-    لعب
-   </button>
-  </div>
+<p class="product-desc">
+تكلفة اللعب 25 🧧
+</p>
 
-  <div class="game-card">
-   <div class="game-icon">✊</div>
-   <h3>حجر ورق مقص</h3>
-   <p>تكلفة اللعب 30 🧧</p>
-   <button class="btn bluebtn"
-           onclick="rpsGame()">
-    لعب
-   </button>
-  </div>
+<div class="game-result"
+ id="diceResult">
+</div>
 
-  <div class="game-card">
-   <div class="game-icon">🎯</div>
-   <h3>التصويب</h3>
-   <p>تكلفة اللعب 40 🧧</p>
-   <button class="btn greenbtn"
-           onclick="targetGame()">
-    تصويب
-   </button>
-  </div>
+<button
+ class="btn"
+ onclick="dice()">
+رمي النرد
+</button>
 
-  <div class="game-card">
-   <div class="game-icon">🏇</div>
-   <h3>سباق</h3>
-   <p>تكلفة السباق 60 🧧</p>
-   <button class="btn"
-           onclick="raceGame()">
-    ابدأ
-   </button>
-  </div>
+</div>
 
-  <div class="game-card">
-   <div class="game-icon">🎣</div>
-   <h3>صيد السمك</h3>
-   <p>تكلفة الصيد 35 🧧</p>
-   <button class="btn bluebtn"
-           onclick="fishingGame()">
-    اصطد
-   </button>
-  </div>
+<div class="game-card">
 
-  <div class="game-card">
-   <div class="game-icon">🍀</div>
-   <h3>الحظ السريع</h3>
-   <p>تكلفة اللعب 10 🧧</p>
-   <button class="btn goldbtn"
-           onclick="luckyGame()">
-    جرب
-   </button>
-  </div>
+<div class="game-icon">🪙</div>
 
-  <div class="game-card">
-   <div class="game-icon">💎</div>
-   <h3>منجم الذهب</h3>
-   <p>تكلفة التعدين 75 🧧</p>
-   <button class="btn goldbtn"
-           onclick="mineGame()">
-    تعدين
-   </button>
-  </div>
+<h2>عملة الحظ</h2>
 
-  <div class="game-card">
-   <div class="game-icon">🌸</div>
-   <h3>زهرة الحظ</h3>
-   <p>اختبر حظك الياباني.</p>
-   <button class="btn"
-           onclick="flowerGame()">
-    اختيار
-   </button>
-  </div>
+<p class="product-desc">
+تكلفة اللعب 20 🧧
+</p>
 
-  <div class="game-card">
-   <div class="game-icon">🔥</div>
-   <h3>تحدي النار</h3>
-   <p>لعبة عالية المخاطرة.</p>
-   <button class="btn danger"
-           onclick="fireGame()">
-    تحدي
-   </button>
-  </div>
+<div class="game-result"
+ id="coinResult">
+</div>
 
- </div>
+<button
+ class="btn goldbtn"
+ onclick="coinGame()">
+ارم العملة
+</button>
 
- <div class="card wheel-wrap"
-      style="margin-top:20px">
+</div>
 
-  <div class="pointer">
-   ▼
-  </div>
+<div class="game-card">
 
-  <div class="wheel"
-       id="wheel">
-  </div>
+<div class="game-icon">🎰</div>
 
-  <small class="muted">
-   عجلة الحظ
-  </small>
+<h2>السلوت</h2>
 
- </div>
+<p class="product-desc">
+تكلفة اللعب 50 🧧
+</p>
+
+<div class="game-result"
+ id="slotResult">
+</div>
+
+<button
+ class="btn redbtn"
+ onclick="slots()">
+تشغيل
+</button>
+
+</div>
+
+<div class="game-card">
+
+<div class="game-icon">🔢</div>
+
+<h2>خمن الرقم</h2>
+
+<p class="product-desc">
+خمن رقم من 1 إلى 5
+</p>
+
+<input
+ id="guessInput"
+ type="number"
+ min="1"
+ max="5"
+ placeholder="رقم"
+/>
+
+<div class="game-result"
+ id="guessResult">
+</div>
+
+<button
+ class="btn bluebtn"
+ onclick="guessGame()">
+خمن
+</button>
+
+</div>
+
+<div class="game-card">
+
+<div class="game-icon">🎁</div>
+
+<h2>الصندوق</h2>
+
+<p class="product-desc">
+تكلفة 50 🧧
+</p>
+
+<div class="game-result"
+ id="boxResult">
+</div>
+
+<button
+ class="btn goldbtn"
+ onclick="openBox()">
+فتح الصندوق
+</button>
+
+</div>
+
+<div class="game-card">
+
+<div class="game-icon">🎡</div>
+
+<h2>عجلة الحظ</h2>
+
+<p class="product-desc">
+تكلفة 100 🧧
+</p>
+
+<div class="game-result"
+ id="wheelResult">
+</div>
+
+<button
+ class="btn purplebtn"
+ onclick="spinWheel()">
+تدوير
+</button>
+
+</div>
+
+<div class="game-card">
+
+<div class="game-icon">⚡</div>
+
+<h2>الضغط السريع</h2>
+
+<p class="product-desc">
+اضغط بأسرع ما تستطيع
+</p>
+
+<div class="game-result"
+ id="clickResult">
+</div>
+
+<button
+ class="btn greenbtn"
+ onclick="startClickGame()">
+ابدأ
+</button>
+
+</div>
+
+<div class="game-card">
+
+<div class="game-icon">🧠</div>
+
+<h2>اختبار الذكاء</h2>
+
+<p class="product-desc">
+اختر الإجابة الصحيحة
+</p>
+
+<div id="quizBox">
+
+<button
+ class="btn small"
+ onclick="quiz(1)">
+12
+</button>
+
+<button
+ class="btn small"
+ onclick="quiz(2)">
+15
+</button>
+
+<button
+ class="btn small"
+ onclick="quiz(3)">
+18
+</button>
+
+</div>
+
+<div
+ class="game-result"
+ id="quizResult">
+</div>
+
+</div>
+
+</div>
 
 </section>
 
-<!-- ===================================================== -->
-<!-- FARM -->
-<!-- ===================================================== -->
+<!-- =====================================================
+     FARM
+===================================================== -->
 
 <section id="farm" class="page hidden">
 
- <div class="hero">
+<div class="hero">
 
-  <h1>🌾 مزرعتي</h1>
+<h1>🌾 مزرعتي</h1>
 
-  <p>
-   ازرع، احصد، طوّر الأرض واشترِ الحيوانات.
-  </p>
+<p>
+ازرع، اسقِ، احصد، طوّر المزرعة وارفع إنتاجك.
+</p>
 
- </div>
+</div>
 
- <div class="grid">
+<div class="grid">
 
-  <div class="card">
-   <div class="stat-title">مستوى المزرعة</div>
-   <div class="stat-value green" id="farmLevel">
-    1
-   </div>
-  </div>
+<div class="card">
 
-  <div class="card">
-   <div class="stat-title">الأرض</div>
-   <div class="stat-value" id="farmLand">
-    4
-   </div>
-  </div>
+<div class="stat-title">
+مستوى المزرعة
+</div>
 
-  <div class="card">
-   <div class="stat-title">الحيوانات</div>
-   <div class="stat-value" id="animalCount">
-    0
-   </div>
-  </div>
+<div class="stat-value green"
+ id="farmLevel">
+1
+</div>
 
-  <div class="card">
-   <div class="stat-title">قيمة المزرعة</div>
-   <div class="stat-value gold" id="farmValue2">
-    0
-   </div>
-  </div>
+</div>
 
- </div>
+<div class="card">
 
- <div class="actions">
+<div class="stat-title">
+قيمة المزرعة
+</div>
 
-  <button class="action"
-          onclick="buyFarmLand()">
-   🌱
-   <b>شراء أرض</b>
-  </button>
+<div class="stat-value gold"
+ id="farmValue">
+0
+</div>
 
-  <button class="action"
-          onclick="buyAnimal('cow')">
-   🐄
-   <b>بقرة</b>
-  </button>
+</div>
 
-  <button class="action"
-          onclick="buyAnimal('chicken')">
-   🐔
-   <b>دجاجة</b>
-  </button>
+<div class="card">
 
-  <button class="action"
-          onclick="upgradeFarm()">
-   🔨
-   <b>تطوير المزرعة</b>
-  </button>
+<div class="stat-title">
+إجمالي الحصاد
+</div>
 
- </div>
+<div class="stat-value"
+ id="farmHarvest">
+0
+</div>
 
- <div class="section">
+</div>
 
-  <div class="section-head">
-   <h2>🌱 الأراضي</h2>
-  </div>
+<div class="card">
 
-  <div class="farm-grid"
-       id="farmPlots">
-  </div>
+<button
+ class="btn greenbtn full"
+ onclick="upgradeFarm()">
+⬆️ تطوير المزرعة
+</button>
 
- </div>
+</div>
+
+</div>
+
+<div class="farm-grid"
+ id="farmPlots">
+</div>
 
 </section>
 
-<!-- ===================================================== -->
-<!-- CITY -->
-<!-- ===================================================== -->
+<!-- =====================================================
+     CITY
+===================================================== -->
 
 <section id="city" class="page hidden">
 
- <div class="hero">
+<div class="hero">
 
-  <h1>🏙️ مدينتي</h1>
+<h1>🏙️ مدينتي</h1>
 
-  <p>
-   ابنِ مدينتك وطوّر المباني واجعلها أغنى مدينة في S.U.N TOKYO.
-  </p>
+<p>
+ابنِ مدينتك الخاصة وطوّر مبانيها حتى تصبح أقوى مدينة.
+</p>
 
- </div>
+</div>
 
- <div class="grid">
+<div class="grid">
 
-  <div class="card">
-   <div class="stat-title">مستوى المدينة</div>
-   <div class="stat-value blue"
-        id="cityLevel">
-    1
-   </div>
-  </div>
+<div class="card">
 
-  <div class="card">
-   <div class="stat-title">السكان</div>
-   <div class="stat-value"
-        id="cityPopulation">
-    100
-   </div>
-  </div>
+<div class="stat-title">
+مستوى المدينة
+</div>
 
-  <div class="card">
-   <div class="stat-title">دخل المدينة</div>
-   <div class="stat-value gold"
-        id="cityIncome">
-    0
-   </div>
-  </div>
+<div class="stat-value blue"
+ id="cityLevel">
+1
+</div>
 
-  <div class="card">
-   <div class="stat-title">قيمة المدينة</div>
-   <div class="stat-value"
-        id="cityValue2">
-    0
-   </div>
-  </div>
+</div>
 
- </div>
+<div class="card">
 
- <div class="actions">
+<div class="stat-title">
+قيمة المدينة
+</div>
 
-  <button class="action"
-          onclick="upgradeCity()">
-   🏗️
-   <b>تطوير المدينة</b>
-  </button>
+<div class="stat-value gold"
+ id="cityValue2">
+0
+</div>
 
-  <button class="action"
-          onclick="collectCityIncome()">
-   💰
-   <b>تحصيل الدخل</b>
-  </button>
+</div>
 
- </div>
+<div class="card">
 
- <div class="section">
+<div class="stat-title">
+السكان
+</div>
 
-  <div class="city-grid"
-       id="cityBuildings">
-  </div>
+<div class="stat-value"
+ id="cityPopulation">
+100
+</div>
 
- </div>
+</div>
+
+<div class="card">
+
+<button
+ class="btn bluebtn full"
+ onclick="upgradeCity()">
+🏗️ تطوير المدينة
+</button>
+
+</div>
+
+</div>
+
+<div
+ id="cityBuildings"
+ class="city-grid">
+</div>
 
 </section>
 
-<!-- ===================================================== -->
-<!-- MATCHES -->
-<!-- ===================================================== -->
+<!-- =====================================================
+     MATCHES
+===================================================== -->
 
 <section id="matches" class="page hidden">
 
- <div class="hero">
+<div class="hero">
 
-  <h1>⚔️ المباريات</h1>
+<h1>⚔️ المباريات</h1>
 
-  <p>
-   تحدَّ أعضاء المجتمع واربح العملات وXP.
-  </p>
+<p>
+تحدَّ أعضاء المجتمع واربح العملات وXP.
+</p>
 
- </div>
+</div>
 
- <div class="card">
+<div class="card">
 
-  <h2 style="margin-bottom:12px">
-   👥 اختر خصمك
-  </h2>
+<h2 style="margin-bottom:12px">
+إنشاء مباراة
+</h2>
 
-  <div id="matchUsers">
-  </div>
+<select id="matchOpponent"></select>
 
- </div>
+<select id="matchGame">
 
- <div class="card"
-      style="margin-top:15px">
+<option value="dice">
+🎲 نرد
+</option>
 
-  <h2 style="margin-bottom:12px">
-   📜 آخر المباريات
-  </h2>
+<option value="coin">
+🪙 عملة
+</option>
 
-  <div id="matchHistory">
-  </div>
+<option value="power">
+⚡ قوة
+</option>
 
- </div>
+</select>
+
+<input
+ id="matchBet"
+ type="number"
+ placeholder="قيمة الرهان"
+/>
+
+<button
+ class="btn full"
+ onclick="createMatch()">
+⚔️ إرسال التحدي
+</button>
+
+</div>
+
+<div class="section">
+
+<div class="section-head">
+<h2>📨 التحديات</h2>
+</div>
+
+<div
+ id="matchList">
+</div>
+
+</div>
 
 </section>
 
-<!-- ===================================================== -->
-<!-- CHAT -->
-<!-- ===================================================== -->
+<!-- =====================================================
+     CHAT
+===================================================== -->
 
 <section id="chat" class="page hidden">
 
- <div class="hero">
+<div class="hero">
 
-  <h1>💬 دردشة المجتمع</h1>
+<h1>💬 مجتمع S.U.N TOKYO</h1>
 
-  <p>
-   تحدث مع أعضاء S.U.N TOKYO.
-  </p>
+<p>
+تحدث مع أعضاء المجتمع.
+</p>
 
- </div>
+</div>
 
- <div class="card chat-box">
+<div class="card chat-layout">
 
-  <div class="chat-messages"
-       id="chatMessages">
-  </div>
+<div class="chat-users">
 
-  <div class="chat-send">
+<h3 style="margin-bottom:10px">
+👥 الأعضاء
+</h3>
 
-   <input id="chatInput"
-          placeholder="اكتب رسالتك..."
-          onkeydown="if(event.key==='Enter')sendMessage()">
+<div id="chatUsers"></div>
 
-   <button class="btn"
-           onclick="sendMessage()">
-    إرسال
-   </button>
+</div>
 
-  </div>
+<div class="chat-area">
 
- </div>
+<div
+ class="chat-messages"
+ id="chatMessages">
+</div>
 
-</section>
+<div class="chat-input">
 
-<!-- ===================================================== -->
-<!-- QUESTS -->
-<!-- ===================================================== -->
+<input
+ id="chatInput"
+ placeholder="اكتب رسالتك..."
+ onkeydown="if(event.key==='Enter')sendMessage()"
+>
 
-<section id="quests" class="page hidden">
+<button
+ class="btn"
+ onclick="sendMessage()">
+إرسال
+</button>
 
- <div class="hero">
+</div>
 
-  <h1>🎯 المهام اليومية</h1>
+</div>
 
-  <p>
-   أكمل المهام واحصل على مكافآت إضافية.
-  </p>
-
- </div>
-
- <div class="card"
-      id="questList">
- </div>
+</div>
 
 </section>
 
-<!-- ===================================================== -->
-<!-- RANK -->
-<!-- ===================================================== -->
+<!-- =====================================================
+     MISSIONS
+===================================================== -->
+
+<section id="missions" class="page hidden">
+
+<div class="hero">
+
+<h1>🎯 المهام والإنجازات</h1>
+
+<p>
+أكمل المهام لتحصل على العملات وXP.
+</p>
+
+</div>
+
+<div class="section">
+
+<div class="section-head">
+<h2>🎯 المهام اليومية</h2>
+</div>
+
+<div id="quests"></div>
+
+</div>
+
+<div class="section">
+
+<div class="section-head">
+<h2>🏆 الإنجازات</h2>
+</div>
+
+<div id="achievements"></div>
+
+</div>
+
+</section>
+
+<!-- =====================================================
+     RANK
+===================================================== -->
 
 <section id="rank" class="page hidden">
 
- <div class="hero">
+<div class="hero">
 
-  <h1>🏆 لوحة المتصدرين</h1>
+<h1>🏆 لوحة المتصدرين</h1>
 
-  <p>
-   أغنى وأقوى أعضاء المجتمع.
-  </p>
+<p>
+أفضل أعضاء عالم S.U.N TOKYO.
+</p>
 
- </div>
+</div>
 
- <div class="card">
+<div class="card">
 
-  <table class="table">
+<table class="table">
 
-   <thead>
+<thead>
 
-    <tr>
-     <th>#</th>
-     <th>العضو</th>
-     <th>المستوى</th>
-     <th>الرصيد</th>
-     <th>المدينة</th>
-     <th>الرتبة</th>
-    </tr>
+<tr>
+<th>#</th>
+<th>العضو</th>
+<th>المستوى</th>
+<th>الرصيد</th>
+<th>المدينة</th>
+<th>الرتبة</th>
+</tr>
 
-   </thead>
+</thead>
 
-   <tbody id="leaderboard">
-   </tbody>
+<tbody id="leaderboard"></tbody>
 
-  </table>
+</table>
 
- </div>
+</div>
 
 </section>
 
-<!-- ===================================================== -->
-<!-- TRANSACTIONS -->
-<!-- ===================================================== -->
+<!-- =====================================================
+     TRANSACTIONS
+===================================================== -->
 
 <section id="transactions" class="page hidden">
 
- <div class="hero">
+<div class="hero">
 
-  <h1>📜 سجل العمليات</h1>
+<h1>📜 سجل العمليات</h1>
 
-  <p>
-   جميع عمليات حسابك.
-  </p>
+<p>
+كل العمليات الخاصة بحسابك.
+</p>
 
- </div>
+</div>
 
- <div class="card">
+<div class="card">
 
-  <table class="table">
+<table class="table">
 
-   <thead>
+<thead>
 
-    <tr>
-     <th>العملية</th>
-     <th>المبلغ</th>
-     <th>التفاصيل</th>
-     <th>التاريخ</th>
-    </tr>
+<tr>
+<th>العملية</th>
+<th>المبلغ</th>
+<th>التفاصيل</th>
+<th>التاريخ</th>
+</tr>
 
-   </thead>
+</thead>
 
-   <tbody id="allTransactions">
-   </tbody>
+<tbody id="allTransactions"></tbody>
 
-  </table>
+</table>
 
- </div>
+</div>
 
 </section>
 
-<!-- ===================================================== -->
-<!-- PROFILE -->
-<!-- ===================================================== -->
+<!-- =====================================================
+     PROFILE
+===================================================== -->
 
 <section id="profile" class="page hidden">
 
- <div class="hero">
+<div class="hero">
 
-  <h1>👤 حسابي</h1>
+<h1>👤 حسابي</h1>
 
-  <p>
-   معلومات وإحصائيات حسابك.
-  </p>
+<p>
+ملفك وإحصائياتك.
+</p>
 
- </div>
+</div>
 
- <div class="grid">
+<div class="grid">
 
-  <div class="card">
-   <div class="stat-title">الاسم</div>
-   <div class="stat-value"
-        id="profileName">
-    -
-   </div>
-  </div>
+<div class="card">
 
-  <div class="card">
-   <div class="stat-title">ID</div>
-   <div class="stat-value"
-        id="profileId">
-    -
-   </div>
-  </div>
+<div class="stat-title">
+اسم المستخدم
+</div>
 
-  <div class="card">
-   <div class="stat-title">المستوى</div>
-   <div class="stat-value"
-        id="profileLevel">
-    1
-   </div>
-  </div>
+<div
+ class="stat-value"
+ id="profileName">
+-
+</div>
 
-  <div class="card">
-   <div class="stat-title">XP</div>
-   <div class="stat-value"
-        id="profileXP">
-    0
-   </div>
-  </div>
+</div>
 
- </div>
+<div class="card">
 
- <div class="card">
+<div class="stat-title">
+ID
+</div>
 
-  <h2>
-   ⚙️ تغيير الاسم
-  </h2>
+<div
+ class="stat-value"
+ id="profileId">
+-
+</div>
 
-  <input id="newName"
-         placeholder="الاسم الجديد">
+</div>
 
-  <button class="btn"
-          onclick="changeName()">
-   تغيير الاسم
-  </button>
+<div class="card">
 
- </div>
+<div class="stat-title">
+المستوى
+</div>
+
+<div
+ class="stat-value"
+ id="profileLevel">
+1
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="stat-title">
+XP
+</div>
+
+<div
+ class="stat-value"
+ id="profileXP">
+0
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2 style="margin-bottom:12px">
+⚙️ إعدادات الحساب
+</h2>
+
+<input
+ id="newName"
+ placeholder="اسم جديد"
+>
+
+<button
+ class="btn"
+ onclick="changeName()">
+تغيير الاسم
+</button>
+
+</div>
 
 </section>
 
-<!-- ===================================================== -->
-<!-- ADMIN -->
-<!-- ===================================================== -->
+<!-- =====================================================
+     ADMIN
+===================================================== -->
 
 <section id="admin" class="page hidden">
 
- <div class="hero">
+<div class="hero">
 
-  <h1>👑 لوحة الإدارة</h1>
+<h1>👑 لوحة الإدارة</h1>
 
-  <p>
-   إدارة أعضاء النظام.
-  </p>
+<p>
+إدارة أعضاء النظام والعملات.
+</p>
 
- </div>
+</div>
 
- <div class="grid">
+<div class="grid">
 
-  <div class="card">
-   <div class="stat-title">الأعضاء</div>
-   <div class="stat-value"
-        id="usersCount">
-    0
-   </div>
-  </div>
+<div class="card">
+<div class="stat-title">الأعضاء</div>
+<div class="stat-value" id="usersCount">0</div>
+</div>
 
-  <div class="card">
-   <div class="stat-title">إجمالي العملات</div>
-   <div class="stat-value gold"
-        id="totalMoney">
-    0
-   </div>
-  </div>
+<div class="card">
+<div class="stat-title">إجمالي العملات</div>
+<div class="stat-value gold" id="totalMoney">0</div>
+</div>
 
-  <div class="card">
-   <div class="stat-title">العمليات</div>
-   <div class="stat-value"
-        id="adminTransactions">
-    0
-   </div>
-  </div>
+<div class="card">
+<div class="stat-title">العمليات</div>
+<div class="stat-value" id="adminTransactions">0</div>
+</div>
 
-  <div class="card">
-   <div class="stat-title">الحالة</div>
-   <div class="stat-value green">
-    ONLINE
-   </div>
-  </div>
+<div class="card">
+<div class="stat-title">الحالة</div>
+<div class="stat-value green">ONLINE</div>
+</div>
 
- </div>
+</div>
 
- <div class="card">
+<div class="card">
 
-  <h2 style="margin-bottom:15px">
-   👥 الأعضاء
-  </h2>
+<h2 style="margin-bottom:15px">
+👥 الأعضاء
+</h2>
 
-  <table class="table">
+<table class="table">
 
-   <thead>
+<thead>
 
-    <tr>
-     <th>العضو</th>
-     <th>الرصيد</th>
-     <th>المستوى</th>
-     <th>إدارة</th>
-    </tr>
+<tr>
+<th>العضو</th>
+<th>الرصيد</th>
+<th>المستوى</th>
+<th>إدارة</th>
+</tr>
 
-   </thead>
+</thead>
 
-   <tbody id="adminUsers">
-   </tbody>
+<tbody id="adminUsers"></tbody>
 
-  </table>
+</table>
 
- </div>
+</div>
 
 </section>
 
 </main>
 </div>
 
-<!-- ===================================================== -->
-<!-- MODALS -->
-<!-- ===================================================== -->
+<!-- =====================================================
+     TRANSFER MODAL
+===================================================== -->
 
 <div class="modal" id="transferModal">
 
- <div class="modal-box">
+<div class="modal-box">
 
-  <div class="modal-head">
-   <h2>💸 تحويل</h2>
-   <button class="close"
-           onclick="closeModal('transferModal')">
-    ×
-   </button>
-  </div>
+<div class="modal-head">
 
-  <input id="transferTo"
-         placeholder="اسم العضو">
+<h2>💸 تحويل</h2>
 
-  <input id="transferAmount"
-         type="number"
-         placeholder="المبلغ">
-
-  <button class="btn full"
-          onclick="transfer()">
-   تأكيد التحويل
-  </button>
-
- </div>
+<button
+ class="close"
+ onclick="closeModal('transferModal')">
+×
+</button>
 
 </div>
+
+<input
+ id="transferTo"
+ placeholder="اسم العضو"
+>
+
+<input
+ id="transferAmount"
+ type="number"
+ placeholder="المبلغ"
+>
+
+<button
+ class="btn full"
+ onclick="transfer()">
+تأكيد التحويل
+</button>
+
+</div>
+</div>
+
+<!-- =====================================================
+     DEPOSIT MODAL
+===================================================== -->
 
 <div class="modal" id="depositModal">
 
- <div class="modal-box">
+<div class="modal-box">
 
-  <div class="modal-head">
-   <h2>💰 إيداع</h2>
-   <button class="close"
-           onclick="closeModal('depositModal')">
-    ×
-   </button>
-  </div>
+<div class="modal-head">
 
-  <input id="depositAmount"
-         type="number"
-         placeholder="المبلغ">
+<h2>💰 إيداع</h2>
 
-  <button class="btn goldbtn full"
-          onclick="deposit()">
-   إيداع
-  </button>
-
- </div>
+<button
+ class="close"
+ onclick="closeModal('depositModal')">
+×
+</button>
 
 </div>
+
+<input
+ id="depositAmount"
+ type="number"
+ placeholder="المبلغ"
+>
+
+<button
+ class="btn goldbtn full"
+ onclick="deposit()">
+إيداع
+</button>
+
+</div>
+</div>
+
+<!-- =====================================================
+     WITHDRAW MODAL
+===================================================== -->
 
 <div class="modal" id="withdrawModal">
 
- <div class="modal-box">
+<div class="modal-box">
 
-  <div class="modal-head">
-   <h2>🏧 سحب</h2>
-   <button class="close"
-           onclick="closeModal('withdrawModal')">
-    ×
-   </button>
-  </div>
+<div class="modal-head">
 
-  <input id="withdrawAmount"
-         type="number"
-         placeholder="المبلغ">
+<h2>🏧 سحب</h2>
 
-  <button class="btn full"
-          onclick="withdraw()">
-   سحب
-  </button>
-
- </div>
+<button
+ class="close"
+ onclick="closeModal('withdrawModal')">
+×
+</button>
 
 </div>
+
+<input
+ id="withdrawAmount"
+ type="number"
+ placeholder="المبلغ"
+>
+
+<button
+ class="btn full"
+ onclick="withdraw()">
+سحب
+</button>
+
+</div>
+</div>
+
+<!-- =====================================================
+     GIFT MODAL
+===================================================== -->
 
 <div class="modal" id="giftModal">
 
- <div class="modal-box">
+<div class="modal-box">
 
-  <div class="modal-head">
-   <h2>🎁 هدية</h2>
-   <button class="close"
-           onclick="closeModal('giftModal')">
-    ×
-   </button>
-  </div>
+<div class="modal-head">
 
-  <input id="giftTo"
-         placeholder="اسم العضو">
+<h2>🎁 هدية</h2>
 
-  <input id="giftAmount"
-         type="number"
-         placeholder="قيمة الهدية">
-
-  <button class="btn goldbtn full"
-          onclick="gift()">
-   إرسال الهدية
-  </button>
-
- </div>
+<button
+ class="close"
+ onclick="closeModal('giftModal')">
+×
+</button>
 
 </div>
 
-<div class="toast"
-     id="toast">
+<input
+ id="giftTo"
+ placeholder="اسم العضو"
+>
+
+<input
+ id="giftAmount"
+ type="number"
+ placeholder="قيمة الهدية"
+>
+
+<button
+ class="btn goldbtn full"
+ onclick="gift()">
+إرسال الهدية
+</button>
+
+</div>
+</div>
+
+<div
+ class="toast"
+ id="toast">
 </div>
 
 <script>
 
-/* =========================================================
-   S.U.N TOKYO ULTIMATE SYSTEM
-   ========================================================= */
+/* =====================================================
+   S.U.N TOKYO ULTIMATE ENGINE
+===================================================== */
 
 const KEY="SUN_TOKYO_ULTIMATE_V3";
 
@@ -2202,13 +2897,143 @@ let data=JSON.parse(
  localStorage.getItem(KEY)||"null"
 );
 
-/* =========================================================
-   DEFAULT DATA
-   ========================================================= */
+let currentChatUser=null;
+let shopFilter="all";
+let musicOn=false;
+let audioCtx=null;
+let wheelRotation=0;
+
+/* =====================================================
+   PRODUCTS — 100 ITEMS
+===================================================== */
+
+const products=[];
+
+const productTemplates=[
+ ["🍜","رامن طوكيو","food",30],
+ ["🍣","سوشي فاخر","food",60],
+ ["🍙","أونيغيري","food",25],
+ ["🍵","شاي ياباني","food",40],
+ ["🥟","جيوزا","food",35],
+ ["🍱","بينتو","food",55],
+ ["🍡","دانغو","food",30],
+ ["🍥","ناروتوماكي","food",35],
+ ["🥢","عيدان ذهبية","collect",120],
+ ["🍶","كوب ساكي فاخر","collect",150],
+ ["🌱","بذور أرز","farm",40],
+ ["🌽","بذور ذرة","farm",50],
+ ["🥕","بذور جزر","farm",45],
+ ["🍓","بذور فراولة","farm",70],
+ ["🍅","بذور طماطم","farm",55],
+ ["🌾","بذور قمح","farm",45],
+ ["🍎","بذور تفاح","farm",80],
+ ["🎋","شتلة بامبو","farm",100],
+ ["🌸","شجرة ساكورا","farm",200],
+ ["💧","مياه زراعية","farm",25],
+ ["🪴","نبتة صغيرة","farm",60],
+ ["🧺","سلة حصاد","farm",120],
+ ["⛏️","فأس المزارع","farm",150],
+ ["🪓","بلطة قوية","farm",180],
+ ["🚜","جرار صغير","farm",700],
+ ["💦","رشاش ماء","farm",350],
+ ["🏠","بيت ريفي","city",500],
+ ["🏪","متجر صغير","city",800],
+ ["🏯","معبد ياباني","city",1500],
+ ["🏥","مستشفى","city",1800],
+ ["🏫","مدرسة","city",1300],
+ ["🏭","مصنع","city",2500],
+ ["🏦","بنك","city",3500],
+ ["🏟️","ملعب","city",2800],
+ ["🚉","محطة قطار","city",3200],
+ ["🌉","جسر المدينة","city",4000],
+ ["🗼","برج طوكيو","city",7000],
+ ["🌳","حديقة عامة","city",900],
+ ["⛩️","بوابة تورِي","city",600],
+ ["🛣️","طريق سريع","city",1100],
+ ["🚦","إشارة مرور","city",350],
+ ["🚓","مركز شرطة","city",1400],
+ ["🚒","إطفائية","city",1300],
+ ["💡","محطة طاقة","city",2100],
+ ["💎","كريستالة حمراء","collect",500],
+ ["💠","كريستالة زرقاء","collect",600],
+ ["🔮","كرة غامضة","collect",900],
+ ["👑","تاج الساموراي","collect",2500],
+ ["⚔️","سيف ساموراي","collect",1800],
+ ["🛡️","درع شوغون","collect",1600],
+ ["🎴","بطاقة قديمة","collect",400],
+ ["🏮","فانوس ياباني","collect",250],
+ ["🧧","ظرف أحمر فاخر","collect",300],
+ ["🎎","دمى يابانية","collect",700],
+ ["🪭","مروحة تقليدية","collect",450],
+ ["🥋","زي قتالي","collect",850],
+ ["🎌","علم اليابان","collect",250],
+ ["🗡️","كاتانا أسطوري","collect",5000],
+ ["🎮","يد تحكم","game",250],
+ ["🕹️","آلة أركيد","game",800],
+ ["🎯","لوحة أهداف","game",300],
+ ["🎲","نرد ذهبي","game",450],
+ ["🃏","بطاقات حظ","game",350],
+ ["🎰","آلة سلوت صغيرة","game",1000],
+ ["🏆","كأس البطولة","game",1200],
+ ["🥇","ميدالية ذهبية","game",900],
+ ["🥈","ميدالية فضية","game",600],
+ ["🥉","ميدالية برونزية","game",400],
+ ["🎟️","تذكرة VIP","game",700],
+ ["🎫","تذكرة مباراة","game",300],
+ ["🚀","تذكرة فضائية","game",1500],
+ ["⭐","نجمة حظ","game",1000],
+ ["⚡","طاقة سريعة","game",350],
+ ["🔥","شعلة القوة","game",500],
+ ["❄️","جوهرة الجليد","collect",700],
+ ["🌙","قمر الليل","collect",1200],
+ ["☀️","شمس الصباح","collect",1200],
+ ["🌌","مجرة صغيرة","collect",2500],
+ ["🐉","تمثال التنين","collect",4000],
+ ["🦊","تمثال الثعلب","collect",1800],
+ ["🐼","تمثال الباندا","collect",1300],
+ ["🐯","تمثال النمر","collect",1700],
+ ["🦅","تمثال النسر","collect",2000],
+ ["🦁","تمثال الأسد","collect",2200],
+ ["🐺","تمثال الذئب","collect",1900],
+ ["🐰","تمثال الأرنب","collect",900],
+ ["🐸","تمثال الضفدع","collect",750],
+ ["🐱","تمثال القط","collect",800],
+ ["🐟","سمكة كوي","farm",500],
+ ["🦋","فراشة نادرة","farm",600],
+ ["🍀","نبتة الحظ","farm",450],
+ ["🌻","زهرة عباد الشمس","farm",300],
+ ["🌹","وردة حمراء","farm",280],
+ ["🌷","زهرة يابانية","farm",320],
+ ["🌿","عشب طبي","farm",350],
+ ["🍄","فطر نادر","farm",700],
+ ["🪵","خشب فاخر","city",300],
+ ["🧱","طوب بناء","city",250],
+ ["🔧","عدة صيانة","city",450],
+ ["⚙️","قطعة ميكانيكية","city",500],
+ ["🔋","بطارية طاقة","city",650],
+ ["📡","هوائي اتصال","city",900],
+ ["🛰️","قمر صناعي","city",3000]
+];
+
+productTemplates.forEach((p,i)=>{
+ products.push({
+  id:"P"+String(i+1).padStart(3,"0"),
+  icon:p[0],
+  name:p[1],
+  category:p[2],
+  price:p[3],
+  desc:"عنصر مميز من عالم S.U.N TOKYO"
+ });
+});
+
+/* =====================================================
+   INITIAL DATA
+===================================================== */
 
 if(!data){
 
  data={
+
   current:null,
 
   users:[
@@ -2220,17 +3045,19 @@ if(!data){
     balance:10000,
     xp:500,
     admin:true,
+
     daily:null,
+
     transactions:[],
+
+    inventory:{},
 
     farm:{
      level:1,
-     land:4,
-     plots:[],
-     animals:{
-      cow:0,
-      chicken:0
-     }
+     harvest:0,
+     plots:[
+      null,null,null,null
+     ]
     },
 
     city:{
@@ -2238,17 +3065,25 @@ if(!data){
      population:100,
      buildings:{
       house:1,
-      shop:1,
-      farm:1,
-      factory:0,
+      shop:0,
       temple:0,
-      school:0
+      hospital:0,
+      school:0,
+      factory:0
      }
     },
 
-    inventory:[],
     quests:{},
-    matches:[]
+    achievements:{},
+
+    stats:{
+     games:0,
+     transfers:0,
+     purchases:0,
+     messages:0,
+     matches:0
+    }
+
    },
 
    {
@@ -2260,30 +3095,33 @@ if(!data){
     admin:false,
     daily:null,
     transactions:[],
-
+    inventory:{},
     farm:{
      level:1,
-     land:4,
-     plots:[],
-     animals:{cow:0,chicken:0}
+     harvest:0,
+     plots:[null,null,null,null]
     },
-
     city:{
      level:1,
      population:100,
      buildings:{
       house:1,
-      shop:1,
-      farm:1,
-      factory:0,
+      shop:0,
       temple:0,
-      school:0
+      hospital:0,
+      school:0,
+      factory:0
      }
     },
-
-    inventory:[],
     quests:{},
-    matches:[]
+    achievements:{},
+    stats:{
+     games:0,
+     transfers:0,
+     purchases:0,
+     messages:0,
+     matches:0
+    }
    },
 
    {
@@ -2295,39 +3133,42 @@ if(!data){
     admin:false,
     daily:null,
     transactions:[],
-
+    inventory:{},
     farm:{
      level:1,
-     land:4,
-     plots:[],
-     animals:{cow:0,chicken:0}
+     harvest:0,
+     plots:[null,null,null,null]
     },
-
     city:{
      level:1,
      population:100,
      buildings:{
       house:1,
-      shop:1,
-      farm:1,
-      factory:0,
+      shop:0,
       temple:0,
-      school:0
+      hospital:0,
+      school:0,
+      factory:0
      }
     },
-
-    inventory:[],
     quests:{},
-    matches:[]
+    achievements:{},
+    stats:{
+     games:0,
+     transfers:0,
+     purchases:0,
+     messages:0,
+     matches:0
+    }
    }
 
   ],
 
   chat:[],
 
-  settings:{
-   music:false
-  }
+  matches:[],
+
+  currentChat:null
 
  };
 
@@ -2335,139 +3176,9 @@ if(!data){
 
 }
 
-/* =========================================================
-   PRODUCTS — 100
-   ========================================================= */
-
-const productIcons=[
- "🧧","🌸","🗡️","🏯","🍵","🎎","🐉","🦊","🌙","⭐",
- "💎","👘","🎴","🏮","🎋","🪭","🍣","🍜","🍙","🍡"
-];
-
-const productNames=[
- "فانوس طوكيو",
- "زهرة ساكورا",
- "قناع الساموراي",
- "معبد صغير",
- "طقم الشاي",
- "دمية يابانية",
- "تمثال التنين",
- "ثعلب كيتسوني",
- "قمر ياباني",
- "نجمة ذهبية",
- "جوهرة حمراء",
- "كيمونو فاخر",
- "بطاقة حظ",
- "فانوس أحمر",
- "شجرة بامبو",
- "مروحة يابانية",
- "سوشي فاخر",
- "رامن نادر",
- "أونيغيري",
- "دانغو",
- "سيف أسطوري",
- "خوذة ساموراي",
- "درع طوكيو",
- "حصان ذهبي",
- "قارب صغير",
- "بيت ياباني",
- "حديقة ساكورا",
- "تمثال بوذا",
- "جرس المعبد",
- "مظلة يابانية",
- "قطة الحظ",
- "صندوق نادر",
- "صندوق أسطوري",
- "تذكرة VIP",
- "شارة الإمبراطور",
- "شارة الشوغون",
- "شارة الساموراي",
- "شارة المحارب",
- "تاج ذهبي",
- "خاتم التنين",
- "قلادة ساكورا",
- "حجر الحظ",
- "بلورة زرقاء",
- "بلورة حمراء",
- "بلورة بنفسجية",
- "بلورة ذهبية",
- "كيس العملات",
- "صندوق العملات",
- "خزنة صغيرة",
- "خزنة ذهبية",
- "سيارة طوكيو",
- "دراجة يابانية",
- "قطار سريع",
- "تذكرة قطار",
- "تذكرة طيران",
- "بيت عطلات",
- "فندق صغير",
- "مطعم رامن",
- "متجر سوشي",
- "مقهى ياباني",
- "متجر كيمونو",
- "مزرعة صغيرة",
- "حقل أرز",
- "حديقة عامة",
- "مكتبة",
- "مدرسة",
- "مستشفى",
- "مركز شرطة",
- "محطة قطار",
- "مصنع",
- "مركز تجاري",
- "برج طوكيو",
- "قلعة",
- "قصر",
- "جزيرة خاصة",
- "جبل فوجي مصغر",
- "ينبوع ساخن",
- "حديقة حيوانات",
- "أكواريوم",
- "معبد ذهبي",
- "معبد فضي",
- "بوابة تورّي",
- "شجرة معمرة",
- "بذرة نادرة",
- "بذرة ذهبية",
- "سمكة كوي",
- "حصان عربي",
- "بقرة ذهبية",
- "دجاجة ذهبية",
- "روبوت مساعد",
- "روبوت ساموراي",
- "درع الطاقة",
- "بلورة الزمن",
- "ساعة يابانية",
- "صندوق الإمبراطور",
- "تاج طوكيو",
- "كنز أسطوري"
-];
-
-const products=[];
-
-for(let i=0;i<100;i++){
-
- products.push({
-
-  id:i+1,
-
-  name:productNames[i],
-
-  icon:productIcons[i%productIcons.length],
-
-  price:50+(i*37),
-
-  description:
-   "مقتنى رقم "+(i+1)+" في متجر S.U.N TOKYO."
-
- });
-
-}
-
-/* =========================================================
+/* =====================================================
    SAVE
-   ========================================================= */
+===================================================== */
 
 function save(){
 
@@ -2478,9 +3189,9 @@ function save(){
 
 }
 
-/* =========================================================
+/* =====================================================
    CURRENT USER
-   ========================================================= */
+===================================================== */
 
 function current(){
 
@@ -2490,9 +3201,9 @@ function current(){
 
 }
 
-/* =========================================================
+/* =====================================================
    TOAST
-   ========================================================= */
+===================================================== */
 
 function toast(msg){
 
@@ -2502,17 +3213,17 @@ function toast(msg){
 
  t.classList.add("show");
 
- clearTimeout(window.toastTimer);
+ clearTimeout(t._timer);
 
- window.toastTimer=setTimeout(()=>{
+ t._timer=setTimeout(()=>{
   t.classList.remove("show");
- },2600);
+ },2800);
 
 }
 
-/* =========================================================
+/* =====================================================
    AUTH
-   ========================================================= */
+===================================================== */
 
 function showRegister(){
 
@@ -2543,7 +3254,8 @@ function register(){
  const name=
   document
   .getElementById("regName")
-  .value.trim();
+  .value
+  .trim();
 
  const pass=
   document
@@ -2551,15 +3263,17 @@ function register(){
   .value;
 
  if(name.length<3)
-  return toast("❌ الاسم يجب أن يكون 3 أحرف على الأقل");
+  return toast("❌ الاسم قصير جداً");
 
  if(pass.length<4)
   return toast("❌ كلمة المرور قصيرة");
 
- if(data.users.some(
-  u=>u.name.toLowerCase()===name.toLowerCase()
- ))
-  return toast("❌ الاسم مستخدم بالفعل");
+ if(
+  data.users.some(
+   u=>u.name.toLowerCase()===name.toLowerCase()
+  )
+ )
+  return toast("❌ اسم المستخدم موجود");
 
  const id=
   "SUN-"+String(Date.now()).slice(-7);
@@ -2571,21 +3285,21 @@ function register(){
   pass,
 
   balance:500,
+
   xp:0,
 
   admin:false,
+
   daily:null,
 
   transactions:[],
 
+  inventory:{},
+
   farm:{
    level:1,
-   land:4,
-   plots:[],
-   animals:{
-    cow:0,
-    chicken:0
-   }
+   harvest:0,
+   plots:[null,null,null,null]
   },
 
   city:{
@@ -2593,23 +3307,32 @@ function register(){
    population:100,
    buildings:{
     house:1,
-    shop:1,
-    farm:1,
-    factory:0,
+    shop:0,
     temple:0,
-    school:0
+    hospital:0,
+    school:0,
+    factory:0
    }
   },
 
-  inventory:[],
   quests:{},
-  matches:[]
+  achievements:{},
+
+  stats:{
+   games:0,
+   transfers:0,
+   purchases:0,
+   messages:0,
+   matches:0
+  }
 
  });
 
  save();
 
- toast("✅ تم إنشاء الحساب +500 🧧");
+ toast(
+  "🎉 تم إنشاء الحساب! رصيد البداية 500 🧧"
+ );
 
  showLogin();
 
@@ -2620,21 +3343,23 @@ function login(){
  const name=
   document
   .getElementById("loginName")
-  .value.trim();
+  .value
+  .trim();
 
  const pass=
   document
   .getElementById("loginPass")
   .value;
 
- const u=data.users.find(x=>
-  x.name.toLowerCase()===name.toLowerCase()
-  &&
-  x.pass===pass
+ const u=data.users.find(
+  x=>
+   x.name.toLowerCase()===name.toLowerCase()
+   &&
+   x.pass===pass
  );
 
  if(!u)
-  return toast("❌ بيانات الدخول خاطئة");
+  return toast("❌ بيانات الدخول غير صحيحة");
 
  data.current=u.id;
 
@@ -2646,7 +3371,7 @@ function login(){
 
  update();
 
- toast("👋 أهلاً "+u.name);
+ toast("👋 أهلاً بك "+u.name);
 
 }
 
@@ -2664,9 +3389,9 @@ function logout(){
 
 }
 
-/* =========================================================
+/* =====================================================
    NAVIGATION
-   ========================================================= */
+===================================================== */
 
 function requireLogin(){
 
@@ -2686,8 +3411,7 @@ function requireLogin(){
 
 function page(id,btn){
 
- if(!requireLogin())
-  return;
+ if(!requireLogin())return;
 
  document
   .querySelectorAll(".page")
@@ -2706,34 +3430,25 @@ function page(id,btn){
 
  update();
 
- if(id==="chat")
-  renderChat();
+}
 
- if(id==="farm")
-  renderFarm();
+function pageById(id){
 
- if(id==="city")
-  renderCity();
+ const button=
+  [...document.querySelectorAll(".nav button")]
+  .find(b=>b.getAttribute("onclick")?.includes("'"+id+"'"));
 
- if(id==="store")
-  renderStore();
-
- if(id==="matches")
-  renderMatches();
-
- if(id==="quests")
-  renderQuests();
+ page(id,button);
 
 }
 
-/* =========================================================
+/* =====================================================
    MODALS
-   ========================================================= */
+===================================================== */
 
 function openModal(id){
 
- if(!requireLogin())
-  return;
+ if(!requireLogin())return;
 
  document
   .getElementById(id)
@@ -2749,9 +3464,9 @@ function closeModal(id){
 
 }
 
-/* =========================================================
+/* =====================================================
    TRANSACTIONS
-   ========================================================= */
+===================================================== */
 
 function addTransaction(
  user,
@@ -2772,20 +3487,19 @@ function addTransaction(
  });
 
  user.transactions=
-  user.transactions.slice(0,150);
+  user.transactions.slice(0,200);
 
 }
 
-/* =========================================================
+/* =====================================================
    XP
-   ========================================================= */
+===================================================== */
 
 function addXP(amount){
 
  const u=current();
 
- if(!u)
-  return;
+ if(!u)return;
 
  u.xp+=amount;
 
@@ -2797,20 +3511,22 @@ function addXP(amount){
 
   addTransaction(
    u,
-   "مستوى",
+   "مكافأة مستوى",
    100,
-   "🎉 مكافأة مستوى"
+   "🎉 مكافأة رفع المستوى"
   );
 
-  toast("🎉 ارتفع مستواك +100 🧧");
+  toast(
+   "🎉 ارتفع مستواك! +100 🧧"
+  );
 
  }
 
 }
 
-/* =========================================================
-   LEVEL / RANK
-   ========================================================= */
+/* =====================================================
+   LEVEL
+===================================================== */
 
 function getLevel(u){
 
@@ -2832,13 +3548,13 @@ function getRank(u){
   return "🐉 إمبراطور أسطوري";
 
  if(l>=20)
-  return "👑 إمبراطور";
-
- if(l>=15)
   return "⚔️ شوغون";
 
+ if(l>=15)
+  return "🔥 ساموراي النخبة";
+
  if(l>=10)
-  return "🔥 ساموراي";
+  return "🏯 دايميو";
 
  if(l>=5)
   return "🛡️ محارب";
@@ -2847,9 +3563,9 @@ function getRank(u){
 
 }
 
-/* =========================================================
+/* =====================================================
    DEPOSIT
-   ========================================================= */
+===================================================== */
 
 function deposit(){
 
@@ -2880,13 +3596,15 @@ function deposit(){
 
  update();
 
- toast("✅ تمت إضافة "+amount+" 🧧");
+ toast(
+  "✅ تمت إضافة "+amount+" 🧧"
+ );
 
 }
 
-/* =========================================================
+/* =====================================================
    WITHDRAW
-   ========================================================= */
+===================================================== */
 
 function withdraw(){
 
@@ -2898,7 +3616,7 @@ function withdraw(){
   );
 
  if(!amount||amount<=0)
-  return toast("❌ مبلغ غير صحيح");
+  return toast("❌ أدخل مبلغاً صحيحاً");
 
  if(amount>u.balance)
   return toast("❌ الرصيد غير كافٍ");
@@ -2924,9 +3642,9 @@ function withdraw(){
 
 }
 
-/* =========================================================
+/* =====================================================
    TRANSFER
-   ========================================================= */
+===================================================== */
 
 function transfer(){
 
@@ -2935,7 +3653,8 @@ function transfer(){
  const name=
   document
   .getElementById("transferTo")
-  .value.trim();
+  .value
+  .trim();
 
  const amount=
   Number(
@@ -2978,6 +3697,8 @@ function transfer(){
   "من "+u.name
  );
 
+ u.stats.transfers++;
+
  addXP(8);
 
  save();
@@ -2987,26 +3708,27 @@ function transfer(){
  update();
 
  toast(
-  "✅ تم تحويل "+amount+
-  " 🧧 إلى "+to.name
+  "✅ تم تحويل "+amount+" 🧧 إلى "+to.name
  );
 
 }
 
-/* =========================================================
+/* =====================================================
    GIFT
-   ========================================================= */
+===================================================== */
 
 function gift(){
 
  const u=current();
 
  const name=
-  document.getElementById("giftTo").value.trim();
+  document.getElementById("giftTo")
+  .value.trim();
 
  const amount=
   Number(
-   document.getElementById("giftAmount").value
+   document.getElementById("giftAmount")
+   .value
   );
 
  if(!name||!amount||amount<=0)
@@ -3015,16 +3737,15 @@ function gift(){
  if(amount>u.balance)
   return toast("❌ الرصيد غير كافٍ");
 
- const to=
-  data.users.find(
-   x=>x.name.toLowerCase()===name.toLowerCase()
-  );
+ const to=data.users.find(
+  x=>x.name.toLowerCase()===name.toLowerCase()
+ );
 
  if(!to)
   return toast("❌ العضو غير موجود");
 
  if(to.id===u.id)
-  return toast("❌ لا يمكنك إهداء نفسك");
+  return toast("❌ لا يمكنك إرسال هدية لنفسك");
 
  u.balance-=amount;
  to.balance+=amount;
@@ -3055,47 +3776,69 @@ function gift(){
 
 }
 
-/* =========================================================
-   STORE
-   ========================================================= */
+/* =====================================================
+   SHOP
+===================================================== */
 
-function renderStore(){
+function filterShop(cat,btn){
 
- const grid=
-  document.getElementById("productGrid");
+ shopFilter=cat;
 
- grid.innerHTML=
-  products.map(p=>`
+ document
+  .querySelectorAll(".filter")
+  .forEach(x=>x.classList.remove("active"));
 
-   <div class="product">
+ btn.classList.add("active");
 
-    <div class="product-icon">
-     ${p.icon}
-    </div>
+ renderShop();
 
-    <h3>
-     ${p.name}
-    </h3>
+}
 
-    <p>
-     ${p.description}
-    </p>
+function renderShop(){
 
-    <div class="product-price">
-     ${p.price.toLocaleString()} 🧧
-    </div>
+ const box=
+  document.getElementById("products");
 
-    <button
-     class="btn goldbtn"
-     onclick="buyProduct(${p.id})">
+ let list=products;
 
-     شراء
+ if(shopFilter!=="all")
+  list=list.filter(
+   p=>p.category===shopFilter
+  );
 
-    </button>
+ box.innerHTML=list.map(p=>`
 
+  <div class="product">
+
+   <div class="product-category">
+    ${p.category}
    </div>
 
-  `).join("");
+   <div class="product-icon">
+    ${p.icon}
+   </div>
+
+   <div class="product-name">
+    ${escapeHTML(p.name)}
+   </div>
+
+   <div class="product-desc">
+    ${escapeHTML(p.desc)}
+   </div>
+
+   <div class="product-price">
+    ${p.price.toLocaleString()} 🧧
+   </div>
+
+   <button
+    class="btn goldbtn small"
+    onclick="buyProduct('${p.id}')">
+    شراء
+   </button>
+
+  </div>
+
+ `).join("");
 
 }
 
@@ -3107,132 +3850,121 @@ function buyProduct(id){
   x=>x.id===id
  );
 
- if(!p)
-  return;
+ if(!p)return;
 
  if(u.balance<p.price)
-  return toast("❌ لا تملك ما يكفي");
+  return toast("❌ لا تملك عملات كافية");
 
  u.balance-=p.price;
 
- if(!u.inventory)
-  u.inventory=[];
+ u.inventory[p.id]=
+  (u.inventory[p.id]||0)+1;
 
- u.inventory.push({
-  id:p.id,
-  name:p.name,
-  icon:p.icon
- });
+ u.stats.purchases++;
 
  addTransaction(
   u,
-  "متجر",
+  "شراء",
   -p.price,
-  "🛍️ شراء "+p.name
+  "🛒 "+p.name
  );
 
- addXP(5);
+ addXP(4);
 
  save();
 
  update();
 
  toast(
-  "🛍️ تم شراء "+p.name
+  "🛒 تم شراء "+p.icon+" "+p.name
  );
 
 }
 
-/* =========================================================
-   GAMES
-   ========================================================= */
+/* =====================================================
+   INVENTORY
+===================================================== */
 
-function gameCost(cost){
+function renderInventory(){
 
  const u=current();
 
- if(u.balance<cost){
+ const ids=Object.keys(u.inventory)
+  .filter(id=>u.inventory[id]>0);
 
-  toast(
-   "❌ تحتاج "+cost+" 🧧"
-  );
+ const total=ids.reduce(
+  (s,id)=>s+u.inventory[id],
+  0
+ );
 
-  return false;
+ document.getElementById(
+  "inventoryTypes"
+ ).textContent=ids.length;
+
+ document.getElementById(
+  "inventoryTotal"
+ ).textContent=total;
+
+ const box=
+  document.getElementById("inventoryGrid");
+
+ if(!ids.length){
+
+  box.innerHTML=
+   `<div class="card empty">
+    🎒 المخزون فارغ
+   </div>`;
+
+  return;
 
  }
 
- u.balance-=cost;
+ box.innerHTML=ids.map(id=>{
 
- return true;
+  const p=products.find(
+   x=>x.id===id
+  );
 
-}
+  if(!p)return "";
 
-function finishGame(
- type,
- reward,
- details,
- xp=5
-){
+  return `
 
- const u=current();
+   <div class="inventory-item">
 
- u.balance+=reward;
+    <div class="icon">
+     ${p.icon}
+    </div>
 
- addTransaction(
-  u,
-  type,
-  reward,
-  details
- );
+    <div>
+     ${escapeHTML(p.name)}
+    </div>
 
- addXP(xp);
+    <div class="inventory-count">
+     × ${u.inventory[id]}
+    </div>
 
- save();
+   </div>
 
- update();
+  `;
 
-}
-
-/* BOX */
-
-function openBox(){
-
- if(!gameCost(50))
-  return;
-
- const rewards=[
-  0,20,40,70,100,150,
-  250,400,600,1000
- ];
-
- const reward=
-  rewards[
-   Math.floor(
-    Math.random()*rewards.length
-   )
-  ];
-
- finishGame(
-  "صندوق",
-  reward,
-  "🎁 صندوق — "+reward,
-  12
- );
-
- toast(
-  reward
-  ?"🎁 ربحت "+reward+" 🧧"
-  :"😢 الصندوق فارغ"
- );
+ }).join("");
 
 }
 
-/* DICE */
+/* =====================================================
+   DICE
+===================================================== */
 
 function dice(){
 
- if(!gameCost(25))
-  return;
+ const u=current();
+
+ const cost=25;
+
+ if(u.balance<cost)
+  return toast("❌ تحتاج 25 🧧");
+
+ u.balance-=cost;
 
  const roll=
   Math.floor(Math.random()*6)+1;
@@ -3240,351 +3972,239 @@ function dice(){
  let reward=0;
 
  if(roll===6)
-  reward=250;
+  reward=200;
  else if(roll===5)
-  reward=120;
+  reward=100;
  else if(roll>=3)
   reward=50;
 
- finishGame(
+ u.balance+=reward;
+
+ addTransaction(
+  u,
   "نرد",
-  reward,
-  "🎲 النتيجة "+roll,
-  5
+  reward-cost,
+  "🎲 النتيجة "+roll
  );
 
- toast(
-  "🎲 النتيجة "+roll+
-  " — ربح "+reward
- );
+ u.stats.games++;
+
+ addXP(5);
+
+ save();
+
+ document.getElementById(
+  "diceResult"
+ ).textContent=
+  "🎲 "+roll+" — "+
+  (reward?
+   "ربحت "+reward+" 🧧":
+   "لم تربح");
+
+ update();
 
 }
 
-/* COIN */
+/* =====================================================
+   COIN
+===================================================== */
 
 function coinGame(){
 
- if(!gameCost(20))
-  return;
+ const u=current();
 
- const win=Math.random()>.48;
+ const cost=20;
 
- const reward=
-  win?50:0;
+ if(u.balance<cost)
+  return toast("❌ تحتاج 20 🧧");
 
- finishGame(
+ u.balance-=cost;
+
+ const win=Math.random()<.48;
+
+ const result=
+  Math.random()<.5?
+  "وجه":
+  "كتابة";
+
+ const reward=win?45:0;
+
+ u.balance+=reward;
+
+ addTransaction(
+  u,
   "عملة",
-  reward,
-  win?"🪙 فوز":"🪙 خسارة",
-  4
+  reward-cost,
+  "🪙 "+result
  );
 
- toast(
-  win
-  ?"🪙 فزت +50"
-  :"🪙 خسرت"
- );
+ u.stats.games++;
+
+ addXP(4);
+
+ save();
+
+ document.getElementById(
+  "coinResult"
+ ).textContent=
+  "🪙 "+result+
+  " — "+
+  (win?"ربحت 45 🧧":"خسرت");
+
+ update();
 
 }
 
-/* RPS */
+/* =====================================================
+   SLOTS
+===================================================== */
 
-function rpsGame(){
+function slots(){
 
- if(!gameCost(30))
-  return;
+ const u=current();
 
- const options=[
-  "حجر",
-  "ورق",
-  "مقص"
+ const cost=50;
+
+ if(u.balance<cost)
+  return toast("❌ تحتاج 50 🧧");
+
+ u.balance-=cost;
+
+ const icons=[
+  "🍒",
+  "🍋",
+  "⭐",
+  "💎",
+  "7️⃣"
  ];
 
- const me=
-  options[
-   Math.floor(Math.random()*3)
-  ];
+ const a=
+  icons[Math.floor(Math.random()*icons.length)];
 
- const bot=
-  options[
-   Math.floor(Math.random()*3)
-  ];
+ const b=
+  icons[Math.floor(Math.random()*icons.length)];
+
+ const c=
+  icons[Math.floor(Math.random()*icons.length)];
 
  let reward=0;
 
- if(me===bot){
+ if(a===b&&b===c){
 
-  reward=30;
+  if(a==="7️⃣")
+   reward=1000;
+  else if(a==="💎")
+   reward=600;
+  else
+   reward=300;
 
-  toast(
-   "✊ تعادل! استرددت 30"
-  );
-
- }else if(
-  (me==="حجر"&&bot==="مقص")||
-  (me==="ورق"&&bot==="حجر")||
-  (me==="مقص"&&bot==="ورق")
- ){
+ }else if(a===b||a===c||b===c){
 
   reward=100;
-
-  toast(
-   "🏆 فزت! +100"
-  );
-
- }else{
-
-  reward=0;
-
-  toast(
-   "😢 خسرت"
-  );
 
  }
 
- finishGame(
-  "حجر ورق مقص",
-  reward,
-  "أنت: "+me+" / الخصم: "+bot,
-  7
+ u.balance+=reward;
+
+ addTransaction(
+  u,
+  "سلوت",
+  reward-cost,
+  "🎰 "+a+" "+b+" "+c
  );
+
+ u.stats.games++;
+
+ addXP(7);
+
+ save();
+
+ document.getElementById(
+  "slotResult"
+ ).textContent=
+  `${a} ${b} ${c} — `+
+  (reward?
+   "ربحت "+reward+" 🧧":
+   "حظ أوفر");
+
+ update();
 
 }
 
-/* TARGET */
+/* =====================================================
+   GUESS
+===================================================== */
 
-function targetGame(){
+function guessGame(){
 
- if(!gameCost(40))
-  return;
+ const u=current();
 
- const score=
-  Math.floor(Math.random()*101);
+ const guess=
+  Number(
+   document.getElementById("guessInput").value
+  );
 
- let reward=0;
+ if(guess<1||guess>5)
+  return toast("❌ اختر من 1 إلى 5");
 
- if(score>=90)
-  reward=250;
- else if(score>=70)
-  reward=120;
- else if(score>=40)
-  reward=60;
-
- finishGame(
-  "تصويب",
-  reward,
-  "🎯 دقة "+score+"%",
-  8
- );
-
- toast(
-  "🎯 دقتك "+score+
-  "% — +"+reward
- );
-
-}
-
-/* RACE */
-
-function raceGame(){
-
- if(!gameCost(60))
-  return;
-
- const position=
+ const secret=
   Math.floor(Math.random()*5)+1;
 
- let reward=0;
+ const reward=
+  guess===secret?150:0;
 
- if(position===1)
-  reward=400;
- else if(position===2)
-  reward=200;
- else if(position===3)
-  reward=100;
+ u.balance+=reward;
 
- finishGame(
-  "سباق",
+ addTransaction(
+  u,
+  "تخمين",
   reward,
-  "🏇 المركز "+position,
-  10
+  "🔢 الرقم "+secret
  );
 
- toast(
-  "🏇 وصلت للمركز "+
-  position+" — "+reward
- );
+ u.stats.games++;
+
+ addXP(5);
+
+ save();
+
+ document.getElementById(
+  "guessResult"
+ ).textContent=
+  "الرقم كان "+secret+
+  " — "+
+  (reward?
+   "🎉 ربحت 150":
+   "❌ لم تصب");
+
+ update();
 
 }
 
-/* FISH */
+/* =====================================================
+   BOX
+===================================================== */
 
-function fishingGame(){
+function openBox(){
 
- if(!gameCost(35))
-  return;
+ const u=current();
+
+ const cost=50;
+
+ if(u.balance<cost)
+  return toast("❌ تحتاج 50 🧧");
+
+ u.balance-=cost;
 
  const rewards=[
-  0,20,40,60,100,150,250
- ];
-
- const reward=
-  rewards[
-   Math.floor(Math.random()*rewards.length)
-  ];
-
- finishGame(
-  "صيد",
-  reward,
-  "🎣 صيد السمك",
-  6
- );
-
- toast(
-  reward
-  ?"🎣 اصطدت وربحت "+reward
-  :"🎣 لم تصطد شيئاً"
- );
-
-}
-
-/* LUCKY */
-
-function luckyGame(){
-
- if(!gameCost(10))
-  return;
-
- const reward=
-  Math.random()>.5
-  ?Math.floor(Math.random()*100)+10
-  :0;
-
- finishGame(
-  "حظ سريع",
-  reward,
-  "🍀 حظ سريع",
-  3
- );
-
- toast(
-  reward
-  ?"🍀 +"+reward
-  :"🍀 حظ سيئ"
- );
-
-}
-
-/* MINE */
-
-function mineGame(){
-
- if(!gameCost(75))
-  return;
-
- const rewards=[
-  0,0,50,100,150,
-  250,400,700,1200
- ];
-
- const reward=
-  rewards[
-   Math.floor(Math.random()*rewards.length)
-  ];
-
- finishGame(
-  "منجم",
-  reward,
-  "💎 تعدين",
-  12
- );
-
- toast(
-  reward
-  ?"💎 وجدت "+reward
-  :"⛏️ لم تجد شيئاً"
- );
-
-}
-
-/* FLOWER */
-
-function flowerGame(){
-
- if(!gameCost(15))
-  return;
-
- const flowers=[
-  "🌸",
-  "🌺",
-  "🌹",
-  "🌻",
-  "🌼"
- ];
-
- const f=
-  flowers[
-   Math.floor(Math.random()*flowers.length)
-  ];
-
- const reward=
-  f==="🌸"
-  ?200
-  :50;
-
- finishGame(
-  "زهرة",
-  reward,
-  f+" زهرة الحظ",
-  5
- );
-
- toast(
-  f+" ربحت "+reward
- );
-
-}
-
-/* FIRE */
-
-function fireGame(){
-
- if(!gameCost(100))
-  return;
-
- const win=
-  Math.random()>.6;
-
- const reward=
-  win?500:0;
-
- finishGame(
-  "تحدي النار",
-  reward,
-  win?"🔥 فوز":"🔥 خسارة",
-  15
- );
-
- toast(
-  win
-  ?"🔥 فوز +500"
-  :"🔥 خسارة"
- );
-
-}
-
-/* WHEEL */
-
-let rotation=0;
-
-function spinWheel(){
-
- if(!gameCost(100))
-  return;
-
- const rewards=[
-  0,50,100,150,
-  250,400,700,1000
+  10,
+  30,
+  60,
+  100,
+  200,
+  350,
+  700,
+  1500
  ];
 
  const reward=
@@ -3594,103 +4214,272 @@ function spinWheel(){
    )
   ];
 
- rotation+=
+ u.balance+=reward;
+
+ addTransaction(
+  u,
+  "صندوق",
+  reward-cost,
+  "🎁 ربح "+reward
+ );
+
+ u.stats.games++;
+
+ addXP(12);
+
+ save();
+
+ document.getElementById(
+  "boxResult"
+ ).textContent=
+  "🎁 ربحت "+reward+" 🧧";
+
+ update();
+
+}
+
+/* =====================================================
+   WHEEL
+===================================================== */
+
+function spinWheel(){
+
+ const u=current();
+
+ const cost=100;
+
+ if(u.balance<cost)
+  return toast("❌ تحتاج 100 🧧");
+
+ u.balance-=cost;
+
+ const rewards=[
+  0,
+  50,
+  100,
+  150,
+  250,
+  400,
+  700,
+  1000
+ ];
+
+ const reward=
+  rewards[
+   Math.floor(
+    Math.random()*rewards.length
+   )
+  ];
+
+ wheelRotation+=
   1440+
   Math.floor(Math.random()*360);
 
- document
-  .getElementById("wheel")
-  .style.transform=
-  "rotate("+rotation+"deg)";
+ document.getElementById(
+  "wheelResult"
+ ).textContent="🎡 تدور...";
 
  setTimeout(()=>{
-
-  const u=current();
-
-  if(!u)
-   return;
 
   u.balance+=reward;
 
   addTransaction(
    u,
    "عجلة",
-   reward-100,
+   reward-cost,
    "🎡 ربح "+reward
   );
+
+  u.stats.games++;
 
   addXP(15);
 
   save();
 
+  document.getElementById(
+   "wheelResult"
+  ).textContent=
+   reward?
+   "🎉 ربحت "+reward+" 🧧":
+   "😢 لم تربح";
+
   update();
 
-  toast(
-   reward
-   ?"🎡 ربحت "+reward+" 🧧"
-   :"😢 لم تربح"
-  );
-
- },4000);
+ },1500);
 
 }
 
-/* =========================================================
-   DAILY
-   ========================================================= */
+/* =====================================================
+   CLICK GAME
+===================================================== */
 
-function daily(){
+let clickGameActive=false;
+let clickCount=0;
+let clickTimer=null;
+
+function startClickGame(){
+
+ if(clickGameActive)return;
+
+ clickGameActive=true;
+ clickCount=0;
+
+ const btn=
+  document.querySelector(
+   '[onclick="startClickGame()"]'
+  );
+
+ btn.textContent="اضغط!";
+
+ const end=
+  Date.now()+5000;
+
+ const handler=()=>{
+
+  clickCount++;
+
+  document.getElementById(
+   "clickResult"
+  ).textContent=
+   "⚡ "+clickCount;
+
+ };
+
+ btn.onclick=handler;
+
+ clickTimer=setInterval(()=>{
+
+  if(Date.now()>=end){
+
+   clearInterval(clickTimer);
+
+   btn.onclick=startClickGame;
+
+   btn.textContent="ابدأ";
+
+   const reward=
+    Math.min(300,clickCount*10);
+
+   const u=current();
+
+   u.balance+=reward;
+
+   addTransaction(
+    u,
+    "ضغط سريع",
+    reward,
+    "⚡ "+clickCount+" ضغطة"
+   );
+
+   u.stats.games++;
+
+   addXP(8);
+
+   save();
+
+   update();
+
+   toast(
+    "⚡ حصلت على "+reward+" 🧧"
+   );
+
+   clickGameActive=false;
+
+  }
+
+ },100);
+
+}
+
+/* =====================================================
+   QUIZ
+===================================================== */
+
+function quiz(answer){
 
  const u=current();
 
- const today=
-  new Date()
-  .toISOString()
-  .slice(0,10);
+ const correct=2;
 
- if(u.daily===today)
-  return toast(
-   "⏳ استلمت مكافأتك اليوم"
+ if(answer===correct){
+
+  u.balance+=100;
+
+  addXP(15);
+
+  addTransaction(
+   u,
+   "ذكاء",
+   100,
+   "🧠 إجابة صحيحة"
   );
 
- const reward=250;
+  document.getElementById(
+   "quizResult"
+  ).textContent=
+   "🎉 صحيح! +100 🧧";
 
- u.daily=today;
+ }else{
 
- u.balance+=reward;
+  document.getElementById(
+   "quizResult"
+  ).textContent=
+   "❌ خطأ! حاول مرة أخرى";
 
- addTransaction(
-  u,
-  "يومية",
-  reward,
-  "🎁 المكافأة اليومية"
- );
+ }
 
- addXP(10);
+ u.stats.games++;
 
  save();
 
  update();
 
- toast(
-  "🎁 +"+reward+" 🧧"
- );
-
 }
 
-/* =========================================================
+/* =====================================================
    FARM
-   ========================================================= */
+===================================================== */
+
+const crops=[
+ {
+  id:"wheat",
+  icon:"🌾",
+  name:"قمح",
+  time:20000,
+  reward:100
+ },
+ {
+  id:"corn",
+  icon:"🌽",
+  name:"ذرة",
+  time:30000,
+  reward:150
+ },
+ {
+  id:"carrot",
+  icon:"🥕",
+  name:"جزر",
+  time:25000,
+  reward:130
+ },
+ {
+  id:"strawberry",
+  icon:"🍓",
+  name:"فراولة",
+  time:40000,
+  reward:250
+ }
+];
 
 function farmCost(){
 
  const u=current();
 
- return 500+(u.farm.land*250);
+ return 500*u.farm.level;
 
 }
 
-function buyFarmLand(){
+function upgradeFarm(){
 
  const u=current();
 
@@ -3703,88 +4492,19 @@ function buyFarmLand(){
 
  u.balance-=cost;
 
- u.farm.land++;
-
- addTransaction(
-  u,
-  "مزرعة",
-  -cost,
-  "🌱 شراء أرض"
- );
-
- addXP(15);
-
- save();
-
- update();
-
- toast(
-  "🌱 تم شراء أرض جديدة"
- );
-
-}
-
-function buyAnimal(type){
-
- const u=current();
-
- const cost=
-  type==="cow"
-  ?500
-  :150;
-
- if(u.balance<cost)
-  return toast(
-   "❌ تحتاج "+cost+" 🧧"
-  );
-
- u.balance-=cost;
-
- u.farm.animals[type]++;
-
- addTransaction(
-  u,
-  "مزرعة",
-  -cost,
-  type==="cow"
-  ?"🐄 شراء بقرة"
-  :"🐔 شراء دجاجة"
- );
-
- addXP(8);
-
- save();
-
- update();
-
- toast("🐾 تم شراء الحيوان");
-
-}
-
-function upgradeFarm(){
-
- const u=current();
-
- const cost=
-  1000*u.farm.level;
-
- if(u.balance<cost)
-  return toast(
-   "❌ تحتاج "+cost+" 🧧"
-  );
-
- u.balance-=cost;
-
  u.farm.level++;
 
+ if(u.farm.level%2===0)
+  u.farm.plots.push(null);
+
  addTransaction(
   u,
-  "مزرعة",
+  "تطوير مزرعة",
   -cost,
-  "🔨 تطوير المزرعة"
+  "🌾 مستوى "+u.farm.level
  );
 
- addXP(25);
+ addXP(20);
 
  save();
 
@@ -3797,87 +4517,23 @@ function upgradeFarm(){
 
 }
 
-function plantPlot(index){
+function plantCrop(index,cropId){
 
  const u=current();
 
- if(index>=u.farm.land)
-  return;
-
- const existing=
-  u.farm.plots[index];
-
- if(existing){
-
-  const ready=
-   Date.now()-existing.time
-   >existing.duration;
-
-  if(!ready)
-   return toast(
-    "⏳ المحصول لم ينضج بعد"
-   );
-
-  const reward=existing.reward;
-
-  u.balance+=reward;
-
-  u.farm.plots[index]=null;
-
-  addTransaction(
-   u,
-   "مزرعة",
-   reward,
-   "🌾 حصاد"
-  );
-
-  addXP(12);
-
-  save();
-
-  renderFarm();
-
-  update();
-
-  toast(
-   "🌾 حصاد +"+reward
-  );
-
-  return;
-
- }
-
- const crops=[
-  {
-   icon:"🌾",
-   reward:120,
-   duration:15000
-  },
-  {
-   icon:"🌽",
-   reward:180,
-   duration:20000
-  },
-  {
-   icon:"🍅",
-   reward:220,
-   duration:25000
-  },
-  {
-   icon:"🍓",
-   reward:300,
-   duration:30000
-  }
- ];
+ if(u.farm.plots[index])
+  return toast("❌ الأرض مشغولة");
 
  const crop=
-  crops[
-   Math.floor(Math.random()*crops.length)
-  ];
+  crops.find(
+   c=>c.id===cropId
+  );
+
+ if(!crop)return;
 
  u.farm.plots[index]={
-  ...crop,
-  time:Date.now()
+  crop:cropId,
+  planted:Date.now()
  };
 
  save();
@@ -3885,7 +4541,65 @@ function plantPlot(index){
  renderFarm();
 
  toast(
-  crop.icon+" تمت الزراعة"
+  "🌱 تمت زراعة "+crop.name
+ );
+
+}
+
+function harvestCrop(index){
+
+ const u=current();
+
+ const plot=u.farm.plots[index];
+
+ if(!plot)return;
+
+ const crop=
+  crops.find(
+   c=>c.id===plot.crop
+  );
+
+ const elapsed=
+  Date.now()-plot.planted;
+
+ if(elapsed<crop.time){
+
+  const left=
+   Math.ceil(
+    (crop.time-elapsed)/1000
+   );
+
+  return toast(
+   "⏳ انتظر "+left+" ثانية"
+  );
+
+ }
+
+ const reward=
+  crop.reward+
+  u.farm.level*20;
+
+ u.balance+=reward;
+
+ u.farm.harvest++;
+
+ u.farm.plots[index]=null;
+
+ addTransaction(
+  u,
+  "حصاد",
+  reward,
+  "🌾 "+crop.name
+ );
+
+ addXP(10);
+
+ save();
+
+ update();
+
+ toast(
+  "🌾 حصاد ناجح +"+reward+" 🧧"
  );
 
 }
@@ -3894,193 +4608,179 @@ function renderFarm(){
 
  const u=current();
 
- document.getElementById("farmLevel")
-  .textContent=u.farm.level;
+ document.getElementById(
+  "farmLevel"
+ ).textContent=u.farm.level;
 
- document.getElementById("farmLand")
-  .textContent=u.farm.land;
+ document.getElementById(
+  "farmValue"
+ ).textContent=
+  (
+   u.farm.level*500+
+   u.farm.plots.length*200
+  ).toLocaleString();
 
- document.getElementById("animalCount")
-  .textContent=
-  u.farm.animals.cow+
-  u.farm.animals.chicken;
+ document.getElementById(
+  "farmHarvest"
+ ).textContent=u.farm.harvest;
 
- const value=
-  u.farm.level*1000+
-  u.farm.land*500+
-  u.farm.animals.cow*500+
-  u.farm.animals.chicken*150;
-
- document.getElementById("farmValue2")
-  .textContent=value.toLocaleString();
-
- document.getElementById("farmValue")
-  .textContent=value.toLocaleString();
-
- const grid=
+ const box=
   document.getElementById("farmPlots");
 
- grid.innerHTML="";
+ box.innerHTML=u.farm.plots.map(
+  (plot,i)=>{
 
- for(let i=0;i<u.farm.land;i++){
+   if(!plot){
 
-  const plot=
-   u.farm.plots[i];
+    return `
 
-  let html="";
+     <div class="farm-plot empty">
 
-  if(!plot){
+      <div class="crop-icon">
+       🌱
+      </div>
 
-   html=`
-    <div class="crop">🟫</div>
-    <b>أرض فارغة</b>
-    <button class="btn greenbtn"
-            onclick="plantPlot(${i})">
-     زراعة
-    </button>
-   `;
+      <select
+       id="crop-${i}">
 
-  }else{
+       <option value="wheat">
+        🌾 قمح
+       </option>
+
+       <option value="corn">
+        🌽 ذرة
+       </option>
+
+       <option value="carrot">
+        🥕 جزر
+       </option>
+
+       <option value="strawberry">
+        🍓 فراولة
+       </option>
+
+      </select>
+
+      <button
+       class="btn greenbtn small"
+       onclick="plantCrop(
+        ${i},
+        document.getElementById('crop-${i}').value
+       )">
+       زراعة
+      </button>
+
+     </div>
+
+    `;
+
+   }
+
+   const crop=
+    crops.find(
+     c=>c.id===plot.crop
+    );
 
    const ready=
-    Date.now()-plot.time>
-    plot.duration;
+    Date.now()-plot.planted>=crop.time;
 
-   html=`
-    <div class="crop">
-     ${ready?"🌾":plot.icon}
+   return `
+
+    <div class="farm-plot">
+
+     <div class="crop-icon">
+      ${ready?"🌾":crop.icon}
+     </div>
+
+     <h3>
+      ${crop.name}
+     </h3>
+
+     <p style="color:#888;margin:8px">
+      ${ready?
+       "جاهز للحصاد":
+       "ينمو..."}
+     </p>
+
+     <button
+      class="btn ${
+       ready?"greenbtn":"secondary"
+      } small"
+      onclick="harvestCrop(${i})">
+      ${ready?"🌾 حصاد":"⏳ فحص"}
+     </button>
+
     </div>
 
-    <b>
-     ${ready?"جاهز للحصاد":"ينمو..."}
-    </b>
-
-    <button
-     class="btn ${ready?"goldbtn":"secondary"}"
-     onclick="plantPlot(${i})">
-
-     ${ready?"حصاد":"انتظر"}
-
-    </button>
    `;
 
   }
-
-  grid.innerHTML+=`
-   <div class="farm-plot">
-    ${html}
-   </div>
-  `;
-
- }
+ ).join("");
 
 }
 
-/* =========================================================
+/* =====================================================
    CITY
-   ========================================================= */
+===================================================== */
 
-const buildingInfo={
+const buildings=[
 
- house:{
+ {
+  id:"house",
   icon:"🏠",
-  name:"منازل",
+  name:"المنازل",
   base:500,
-  population:100,
-  income:30
+  pop:100
  },
 
- shop:{
+ {
+  id:"shop",
   icon:"🏪",
-  name:"متاجر",
+  name:"المتاجر",
   base:800,
-  population:20,
-  income:80
+  pop:0
  },
 
- farm:{
-  icon:"🌾",
-  name:"مزارع",
-  base:1000,
-  population:10,
-  income:120
- },
-
- factory:{
-  icon:"🏭",
-  name:"مصانع",
-  base:2000,
-  population:50,
-  income:300
- },
-
- temple:{
+ {
+  id:"temple",
   icon:"⛩️",
-  name:"معابد",
-  base:1500,
-  population:30,
-  income:180
+  name:"المعبد",
+  base:1200,
+  pop:0
  },
 
- school:{
-  icon:"🏫",
-  name:"مدارس",
+ {
+  id:"hospital",
+  icon:"🏥",
+  name:"المستشفى",
   base:1800,
-  population:60,
-  income:100
+  pop:0
+ },
+
+ {
+  id:"school",
+  icon:"🏫",
+  name:"المدرسة",
+  base:1500,
+  pop:50
+ },
+
+ {
+  id:"factory",
+  icon:"🏭",
+  name:"المصنع",
+  base:2500,
+  pop:0
  }
 
-};
-
-function upgradeBuilding(type){
-
- const u=current();
-
- const level=
-  u.city.buildings[type];
-
- const info=
-  buildingInfo[type];
-
- const cost=
-  info.base*(level+1);
-
- if(u.balance<cost)
-  return toast(
-   "❌ تحتاج "+cost+" 🧧"
-  );
-
- u.balance-=cost;
-
- u.city.buildings[type]++;
-
- addTransaction(
-  u,
-  "مدينة",
-  -cost,
-  "🏙️ تطوير "+info.name
- );
-
- addXP(15);
-
- save();
-
- renderCity();
-
- update();
-
- toast(
-  "🏙️ تم تطوير "+info.name
- );
-
-}
+];
 
 function upgradeCity(){
 
  const u=current();
 
  const cost=
-  2500*u.city.level;
+  1000*u.city.level;
 
  if(u.balance<cost)
   return toast(
@@ -4091,65 +4791,72 @@ function upgradeCity(){
 
  u.city.level++;
 
- u.city.population+=
-  100*u.city.level;
+ u.city.population+=100;
 
  addTransaction(
   u,
-  "مدينة",
+  "تطوير مدينة",
   -cost,
-  "🏗️ تطوير المدينة"
+  "🏙️ مستوى "+u.city.level
  );
 
- addXP(30);
+ addXP(25);
 
  save();
-
- renderCity();
 
  update();
 
  toast(
-  "🏙️ المدينة مستوى "+
+  "🏙️ المدينة الآن مستوى "+
   u.city.level
  );
 
 }
 
-function collectCityIncome(){
+function upgradeBuilding(id){
 
  const u=current();
 
- let income=0;
+ const b=
+  buildings.find(
+   x=>x.id===id
+  );
 
- for(const key in buildingInfo){
+ if(!b)return;
 
-  income+=
-   buildingInfo[key].income*
-   u.city.buildings[key];
+ const lvl=
+  u.city.buildings[id]||0;
 
- }
+ const cost=
+  b.base*(lvl+1);
 
- income*=
-  u.city.level;
+ if(u.balance<cost)
+  return toast(
+   "❌ تحتاج "+cost+" 🧧"
+  );
 
- u.balance+=income;
+ u.balance-=cost;
+
+ u.city.buildings[id]=lvl+1;
+
+ u.city.population+=
+  b.pop;
 
  addTransaction(
   u,
-  "مدينة",
-  income,
-  "💰 دخل المدينة"
+  "مبنى",
+  -cost,
+  "🏗️ تطوير "+b.name
  );
 
- addXP(10);
+ addXP(15);
 
  save();
 
  update();
 
  toast(
-  "💰 دخل المدينة +"+income
+  "🏗️ تم تطوير "+b.name
  );
 
 }
@@ -4158,106 +4865,520 @@ function renderCity(){
 
  const u=current();
 
- let population=100;
+ document.getElementById(
+  "cityLevel"
+ ).textContent=u.city.level;
 
- let income=0;
+ document.getElementById(
+  "cityPopulation"
+ ).textContent=
+  u.city.population.toLocaleString();
 
- let value=
-  u.city.level*3000;
+ const value=
+  u.city.level*1000+
+  buildings.reduce(
+   (sum,b)=>
+    sum+
+    (u.city.buildings[b.id]||0)
+    *b.base,
+   0
+  );
 
- for(const key in buildingInfo){
+ document.getElementById(
+  "cityValue2"
+ ).textContent=
+  value.toLocaleString();
 
-  const info=
-   buildingInfo[key];
+ document.getElementById(
+  "cityValue"
+ ).textContent=
+  value.toLocaleString();
 
-  const level=
-   u.city.buildings[key];
+ const box=
+  document.getElementById(
+   "cityBuildings"
+  );
 
-  population+=
-   info.population*level;
+ box.innerHTML=buildings.map(b=>{
 
-  income+=
-   info.income*level;
+  const lvl=
+   u.city.buildings[b.id]||0;
 
-  value+=
-   info.base*level;
+  const cost=
+   b.base*(lvl+1);
+
+  return `
+
+   <div class="building">
+
+    <div class="level-pill">
+     مستوى ${lvl}
+    </div>
+
+    <div class="building-icon">
+     ${b.icon}
+    </div>
+
+    <h2>
+     ${b.name}
+    </h2>
+
+    <p style="color:#777;margin:8px 0">
+     قيمة المبنى: ${b.base.toLocaleString()}
+    </p>
+
+    <button
+     class="btn bluebtn small"
+     onclick="upgradeBuilding('${b.id}')">
+     ⬆️ تطوير — ${cost.toLocaleString()} 🧧
+    </button>
+
+   </div>
+
+  `;
+
+ }).join("");
+
+}
+
+/* =====================================================
+   MATCHES
+===================================================== */
+
+function populateOpponents(){
+
+ const u=current();
+
+ const select=
+  document.getElementById(
+   "matchOpponent"
+  );
+
+ select.innerHTML=
+  data.users
+  .filter(x=>x.id!==u.id)
+  .map(x=>
+   `<option value="${x.id}">
+    ${escapeHTML(x.name)}
+   </option>`
+  )
+  .join("");
+
+}
+
+function createMatch(){
+
+ const u=current();
+
+ const opponent=
+  data.users.find(
+   x=>x.id===
+   document.getElementById(
+    "matchOpponent"
+   ).value
+  );
+
+ const bet=
+  Number(
+   document.getElementById(
+    "matchBet"
+   ).value
+  );
+
+ if(!opponent)
+  return toast("❌ اختر عضواً");
+
+ if(!bet||bet<=0)
+  return toast("❌ أدخل الرهان");
+
+ if(bet>u.balance)
+  return toast("❌ رصيدك غير كافٍ");
+
+ data.matches.unshift({
+
+  id:"M"+Date.now(),
+
+  from:u.id,
+  to:opponent.id,
+
+  bet,
+
+  game:
+   document.getElementById(
+    "matchGame"
+   ).value,
+
+  status:"pending",
+
+  winner:null,
+
+  date:new Date()
+   .toLocaleString("ar-EG")
+
+ });
+
+ save();
+
+ renderMatches();
+
+ toast(
+  "⚔️ تم إرسال التحدي إلى "+
+  opponent.name
+ );
+
+}
+
+function acceptMatch(id){
+
+ const u=current();
+
+ const match=
+  data.matches.find(
+   m=>m.id===id
+  );
+
+ if(!match)return;
+
+ if(match.to!==u.id)
+  return;
+
+ if(u.balance<match.bet)
+  return toast("❌ لا تملك قيمة الرهان");
+
+ const from=
+  data.users.find(
+   x=>x.id===match.from
+  );
+
+ if(!from||from.balance<match.bet)
+  return toast("❌ الخصم لا يملك الرهان");
+
+ let winner;
+
+ if(match.game==="dice"){
+
+  const a=
+   Math.floor(Math.random()*6)+1;
+
+  const b=
+   Math.floor(Math.random()*6)+1;
+
+  winner=
+   a===b?
+   (Math.random()<.5?from:u):
+   (a>b?from:u);
+
+ }else if(match.game==="coin"){
+
+  winner=
+   Math.random()<.5?
+   from:
+   u;
+
+ }else{
+
+  const a=Math.random();
+  const b=Math.random();
+
+  winner=a>=b?from:u;
 
  }
 
- population*=
-  u.city.level;
+ const total=
+  match.bet*2;
 
- income*=
-  u.city.level;
+ from.balance-=match.bet;
+ u.balance-=match.bet;
 
- value*=
-  u.city.level;
+ winner.balance+=total;
 
- u.city.population=population;
+ match.status="done";
+ match.winner=winner.id;
 
- document.getElementById("cityLevel")
-  .textContent=u.city.level;
+ addTransaction(
+  from,
+  "مباراة",
+  winner.id===from.id?
+  match.bet:
+  -match.bet,
+  "⚔️ مباراة ضد "+u.name
+ );
 
- document.getElementById("cityPopulation")
-  .textContent=population.toLocaleString();
+ addTransaction(
+  u,
+  "مباراة",
+  winner.id===u.id?
+  match.bet:
+  -match.bet,
+  "⚔️ مباراة ضد "+from.name
+ );
 
- document.getElementById("cityIncome")
-  .textContent=income.toLocaleString();
+ from.stats.matches++;
+ u.stats.matches++;
 
- document.getElementById("cityValue2")
-  .textContent=value.toLocaleString();
+ addXP(12);
 
- document.getElementById("cityValue")
-  .textContent=value.toLocaleString();
+ save();
+
+ update();
+
+ toast(
+  "🏆 الفائز: "+winner.name+
+  " — "+total+" 🧧"
+ );
+
+}
+
+function declineMatch(id){
+
+ const u=current();
+
+ const match=
+  data.matches.find(
+   m=>m.id===id
+  );
+
+ if(!match)return;
+
+ if(match.to!==u.id)return;
+
+ match.status="declined";
+
+ save();
+
+ renderMatches();
+
+ toast("❌ تم رفض التحدي");
+
+}
+
+function renderMatches(){
+
+ const u=current();
 
  const box=
-  document.getElementById("cityBuildings");
+  document.getElementById(
+   "matchList"
+  );
+
+ const list=
+  data.matches.filter(
+   m=>
+    m.from===u.id||
+    m.to===u.id
+  );
+
+ if(!list.length){
+
+  box.innerHTML=
+   `<div class="card empty">
+    ⚔️ لا توجد مباريات
+   </div>`;
+
+  return;
+
+ }
+
+ box.innerHTML=list.map(m=>{
+
+  const from=
+   data.users.find(
+    x=>x.id===m.from
+   );
+
+  const to=
+   data.users.find(
+    x=>x.id===m.to
+   );
+
+  const winner=
+   m.winner?
+   data.users.find(
+    x=>x.id===m.winner
+   ):
+   null;
+
+  return `
+
+   <div class="match-card">
+
+    <div class="match-vs">
+
+     <b>
+      ${escapeHTML(from?.name||"?")}
+     </b>
+
+     <span>
+      ⚔️
+     </span>
+
+     <b>
+      ${escapeHTML(to?.name||"?")}
+     </b>
+
+    </div>
+
+    <p style="text-align:center;color:#888">
+     الرهان: ${m.bet.toLocaleString()} 🧧
+     <br>
+     اللعبة: ${m.game}
+    </p>
+
+    <div style="text-align:center;margin-top:10px">
+
+    ${
+     m.status==="pending" &&
+     m.to===u.id
+     ?
+
+     `
+      <button
+       class="btn greenbtn small"
+       onclick="acceptMatch('${m.id}')">
+       قبول
+      </button>
+
+      <button
+       class="btn secondary small"
+       onclick="declineMatch('${m.id}')">
+       رفض
+      </button>
+     `
+
+     :
+
+     m.status==="done"
+     ?
+     `<span class="badge">
+      🏆 الفائز:
+      ${escapeHTML(winner?.name||"?")}
+     </span>`
+
+     :
+
+     `<span class="badge">
+      ${m.status}
+     </span>`
+    }
+
+    </div>
+
+   </div>
+
+  `;
+
+ }).join("");
+
+}
+
+/* =====================================================
+   CHAT
+===================================================== */
+
+function renderChatUsers(){
+
+ const u=current();
+
+ const box=
+  document.getElementById(
+   "chatUsers"
+  );
 
  box.innerHTML=
-  Object.keys(buildingInfo)
-  .map(key=>{
+  data.users
+  .filter(x=>x.id!==u.id)
+  .map(x=>`
 
-   const info=
-    buildingInfo[key];
+   <div
+    class="chat-user ${
+     currentChatUser===x.id?
+     "active":
+     ""
+    }"
+    onclick="selectChat('${x.id}')">
 
-   const level=
-    u.city.buildings[key];
+    👤 ${escapeHTML(x.name)}
 
-   const cost=
-    info.base*(level+1);
+   </div>
 
-   return`
+  `)
+  .join("");
 
-    <div class="building">
+}
 
-     <div class="building-icon">
-      ${info.icon}
+function selectChat(id){
+
+ currentChatUser=id;
+
+ renderChatUsers();
+ renderMessages();
+
+}
+
+function renderMessages(){
+
+ const u=current();
+
+ const box=
+  document.getElementById(
+   "chatMessages"
+  );
+
+ if(!currentChatUser){
+
+  box.innerHTML=
+   `<div class="empty">
+    💬 اختر عضواً لبدء الدردشة
+   </div>`;
+
+  return;
+
+ }
+
+ const messages=
+  data.chat.filter(
+   m=>
+    (m.from===u.id&&m.to===currentChatUser)
+    ||
+    (m.from===currentChatUser&&m.to===u.id)
+  );
+
+ if(!messages.length){
+
+  box.innerHTML=
+   `<div class="empty">
+    لا توجد رسائل بعد 🌸
+   </div>`;
+
+  return;
+
+ }
+
+ box.innerHTML=
+  messages.map(m=>{
+
+   const sender=
+    data.users.find(
+     x=>x.id===m.from
+    );
+
+   return `
+
+    <div class="message ${
+     m.from===u.id?"mine":""
+    }">
+
+     <div class="message-name">
+      ${escapeHTML(sender?.name||"?")}
      </div>
 
-     <h3>
-      ${info.name}
-     </h3>
-
-     <div class="muted">
-      المستوى: ${level}
+     <div>
+      ${escapeHTML(m.text)}
      </div>
 
-     <div class="small gold"
-          style="margin:8px 0">
-
-      دخل:
-      ${info.income*level}
-      🧧
-
+     <div class="message-time">
+      ${m.date}
      </div>
-
-     <button
-      class="btn"
-      onclick="upgradeBuilding('${key}')">
-
-      تطوير — ${cost.toLocaleString()} 🧧
-
-     </button>
 
     </div>
 
@@ -4265,36 +5386,34 @@ function renderCity(){
 
   }).join("");
 
-}
+ box.scrollTop=box.scrollHeight;
 
-/* =========================================================
-   CHAT
-   ========================================================= */
+}
 
 function sendMessage(){
 
  const u=current();
 
+ if(!currentChatUser)
+  return toast("❌ اختر عضواً");
+
  const input=
-  document.getElementById("chatInput");
-
- const text=
-  input.value.trim();
-
- if(!text)
-  return;
-
- if(text.length>300)
-  return toast(
-   "❌ الرسالة طويلة جداً"
+  document.getElementById(
+   "chatInput"
   );
+
+ const text=input.value.trim();
+
+ if(!text)return;
 
  data.chat.push({
 
-  id:Date.now(),
-  userId:u.id,
-  name:u.name,
-  text:text,
+  from:u.id,
+
+  to:currentChatUser,
+
+  text,
+
   date:new Date()
    .toLocaleTimeString("ar-EG",{
     hour:"2-digit",
@@ -4304,418 +5423,350 @@ function sendMessage(){
  });
 
  data.chat=
-  data.chat.slice(-200);
+  data.chat.slice(-1000);
+
+ u.stats.messages++;
 
  input.value="";
 
  save();
 
- renderChat();
-
-}
-
-function renderChat(){
-
- const u=current();
-
- const box=
-  document.getElementById("chatMessages");
-
- if(!box)
-  return;
-
- if(!data.chat.length){
-
-  box.innerHTML=`
-   <div class="empty">
-    لا توجد رسائل بعد 🌸
-   </div>
-  `;
-
-  return;
-
- }
-
- box.innerHTML=
-  data.chat.map(m=>`
-
-   <div class="message
-    ${m.userId===u.id?"mine":""}">
-
-    <div class="message-name">
-     ${escapeHTML(m.name)}
-    </div>
-
-    <div class="message-text">
-     ${escapeHTML(m.text)}
-    </div>
-
-    <div class="message-time">
-     ${m.date}
-    </div>
-
-   </div>
-
-  `).join("");
-
- box.scrollTop=box.scrollHeight;
-
-}
-
-function escapeHTML(text){
-
- const div=
-  document.createElement("div");
-
- div.textContent=text;
-
- return div.innerHTML;
-
-}
-
-/* =========================================================
-   MATCHES
-   ========================================================= */
-
-function renderMatches(){
-
- const u=current();
-
- const box=
-  document.getElementById("matchUsers");
-
- const opponents=
-  data.users.filter(
-   x=>x.id!==u.id
-  );
-
- if(!opponents.length){
-
-  box.innerHTML=
-   "<div class='empty'>لا يوجد خصوم</div>";
-
- }else{
-
-  box.innerHTML=
-   opponents.map(x=>`
-
-    <div class="quest">
-
-     <div class="quest-icon">
-      ⚔️
-     </div>
-
-     <div class="quest-info">
-
-      <b>
-       ${escapeHTML(x.name)}
-      </b>
-
-      <div class="small muted">
-       المستوى ${getLevel(x)}
-       — ${x.balance.toLocaleString()} 🧧
-      </div>
-
-     </div>
-
-     <button
-      class="btn"
-      onclick="challenge('${x.id}')">
-
-      تحدي
-
-     </button>
-
-    </div>
-
-   `).join("");
-
- }
-
- const history=
-  document.getElementById("matchHistory");
-
- const matches=
-  u.matches||[];
-
- if(!matches.length){
-
-  history.innerHTML=
-   "<div class='empty'>لا توجد مباريات</div>";
-
- }else{
-
-  history.innerHTML=
-   matches.slice().reverse()
-   .slice(0,20)
-   .map(m=>`
-
-    <div class="quest">
-
-     <div class="quest-icon">
-      ${m.win?"🏆":"💥"}
-     </div>
-
-     <div class="quest-info">
-
-      <b>
-       ضد ${escapeHTML(m.opponent)}
-      </b>
-
-      <div class="small muted">
-       ${m.win?"فوز":"خسارة"}
-       —
-       ${m.reward} 🧧
-      </div>
-
-     </div>
-
-    </div>
-
-   `).join("");
-
- }
-
-}
-
-function challenge(id){
-
- const u=current();
-
- const opponent=
-  data.users.find(
-   x=>x.id===id
-  );
-
- if(!opponent)
-  return;
-
- const cost=50;
-
- if(u.balance<cost)
-  return toast(
-   "❌ تحتاج 50 🧧 لدخول المباراة"
-  );
-
- u.balance-=cost;
-
- const powerA=
-  getLevel(u)*10+
-  Math.random()*100;
-
- const powerB=
-  getLevel(opponent)*10+
-  Math.random()*100;
-
- const win=
-  powerA>=powerB;
-
- const reward=
-  win?150:0;
-
- u.balance+=reward;
-
- if(!u.matches)
-  u.matches=[];
-
- u.matches.push({
-
-  opponent:opponent.name,
-  win,
-  reward
-
- });
-
- if(!opponent.matches)
-  opponent.matches=[];
-
- opponent.matches.push({
-
-  opponent:u.name,
-  win:!win,
-  reward:!win?150:0
-
- });
-
- addTransaction(
-  u,
-  "مباراة",
-  reward-cost,
-  "⚔️ ضد "+opponent.name
- );
-
- addXP(
-  win?15:5
- );
-
- save();
+ renderMessages();
 
  update();
 
- renderMatches();
-
- toast(
-  win
-  ?"🏆 فزت بالمباراة +"+reward
-  :"💥 خسرت المباراة"
- );
-
 }
 
-/* =========================================================
-   QUESTS
-   ========================================================= */
+/* =====================================================
+   MISSIONS
+===================================================== */
 
-function questKey(){
+const quests=[
 
- return new Date()
-  .toISOString()
-  .slice(0,10);
+ {
+  id:"games5",
+  title:"🎮 العب 5 ألعاب",
+  target:5,
+  reward:300,
+  xp:20,
+  stat:"games"
+ },
 
-}
+ {
+  id:"buy3",
+  title:"🛒 اشترِ 3 منتجات",
+  target:3,
+  reward:250,
+  xp:15,
+  stat:"purchases"
+ },
+
+ {
+  id:"transfer1",
+  title:"💸 قم بتحويل واحد",
+  target:1,
+  reward:200,
+  xp:10,
+  stat:"transfers"
+ },
+
+ {
+  id:"message3",
+  title:"💬 أرسل 3 رسائل",
+  target:3,
+  reward:150,
+  xp:10,
+  stat:"messages"
+ },
+
+ {
+  id:"match1",
+  title:"⚔️ شارك في مباراة",
+  target:1,
+  reward:400,
+  xp:25,
+  stat:"matches"
+ }
+
+];
 
 function renderQuests(){
 
  const u=current();
 
- const key=questKey();
+ const box=
+  document.getElementById("quests");
 
- if(!u.quests[key]){
-
-  u.quests[key]={};
-
- }
-
- const quests=[
-
-  {
-   id:"daily",
-   icon:"🎁",
-   name:"المكافأة اليومية",
-   reward:250
-  },
-
-  {
-   id:"game",
-   icon:"🎮",
-   name:"العب لعبة واحدة",
-   reward:100
-  },
-
-  {
-   id:"farm",
-   icon:"🌾",
-   name:"ازرع في المزرعة",
-   reward:120
-  },
-
-  {
-   id:"chat",
-   icon:"💬",
-   name:"أرسل رسالة",
-   reward:80
-  },
-
-  {
-   id:"match",
-   icon:"⚔️",
-   name:"العب مباراة",
-   reward:150
-  },
-
-  {
-   id:"store",
-   icon:"🛍️",
-   name:"اشترِ منتجاً",
-   reward:100
-  }
-
- ];
-
- document.getElementById("questList")
- .innerHTML=
+ box.innerHTML=
   quests.map(q=>{
 
+   const value=
+    Math.min(
+     q.target,
+     u.stats[q.stat]||0
+    );
+
    const done=
-    u.quests[key][q.id];
+    u.quests[q.id]===true;
 
-   return`
+   return `
 
-    <div class="quest">
+    <div class="quest ${
+     done?"done":""
+    }">
 
-     <div class="quest-icon">
-      ${q.icon}
+     <h3>
+      ${q.title}
+     </h3>
+
+     <p style="color:#888;margin:7px 0">
+      التقدم: ${value}/${q.target}
+     </p>
+
+     <div class="progress">
+
+      <i style="
+       width:${
+        Math.min(
+         100,
+         value/q.target*100
+        )
+       }%">
+      </i>
+
      </div>
 
-     <div class="quest-info">
+     <p style="margin-top:8px;color:#e4b04a">
+      🎁 ${q.reward} 🧧 + ${q.xp} XP
+     </p>
 
-      <b>
-       ${q.name}
-      </b>
-
-      <div class="small gold">
-       +${q.reward} 🧧
-      </div>
-
-     </div>
-
-     <button
-      class="btn ${done?"secondary":"goldbtn"}"
-      ${done?"disabled":""}
-      onclick="completeQuest('${q.id}',${q.reward})">
-
-      ${done?"تم":"استلام"}
-
-     </button>
+     ${
+      !done&&value>=q.target
+      ?
+      `
+       <button
+        class="btn greenbtn small"
+        style="margin-top:8px"
+        onclick="claimQuest('${q.id}')">
+        استلام
+       </button>
+      `
+      :
+      done?
+      `<span class="badge">
+       ✅ مكتملة
+      </span>`:""
+     }
 
     </div>
 
    `;
 
-  }).join("");
+  })
+  .join("");
 
 }
 
-function completeQuest(id,reward){
+function claimQuest(id){
 
  const u=current();
 
- const key=questKey();
+ const q=
+  quests.find(
+   x=>x.id===id
+  );
 
- if(!u.quests[key])
-  u.quests[key]={};
+ if(!q)return;
 
- if(u.quests[key][id])
-  return toast("تم إنجاز المهمة");
+ const value=
+  u.stats[q.stat]||0;
 
- u.quests[key][id]=true;
+ if(value<q.target)
+  return toast("❌ لم تكمل المهمة");
 
- u.balance+=reward;
+ if(u.quests[id])
+  return toast("❌ تم استلامها");
+
+ u.quests[id]=true;
+
+ u.balance+=q.reward;
+
+ addXP(q.xp);
 
  addTransaction(
   u,
   "مهمة",
-  reward,
-  "🎯 مهمة يومية"
+  q.reward,
+  "🎯 "+q.title
  );
-
- addXP(10);
 
  save();
 
  update();
 
- renderQuests();
-
  toast(
-  "🎯 حصلت على "+reward+" 🧧"
+  "🎯 حصلت على "+q.reward+" 🧧"
  );
 
 }
 
-/* =========================================================
-   PROFILE
-   ========================================================= */
+/* =====================================================
+   ACHIEVEMENTS
+===================================================== */
+
+const achievements=[
+
+ {
+  id:"rich",
+  title:"💰 أول 10,000",
+  check:u=>u.balance>=10000,
+  reward:500
+ },
+
+ {
+  id:"level5",
+  title:"⭐ مستوى 5",
+  check:u=>getLevel(u)>=5,
+  reward:500
+ },
+
+ {
+  id:"shop10",
+  title:"🛒 جامع المشتريات",
+  check:u=>u.stats.purchases>=10,
+  reward:700
+ },
+
+ {
+  id:"game20",
+  title:"🎮 محترف الألعاب",
+  check:u=>u.stats.games>=20,
+  reward:700
+ },
+
+ {
+  id:"city5",
+  title:"🏙️ عمدة المدينة",
+  check:u=>u.city.level>=5,
+  reward:1000
+ },
+
+ {
+  id:"farm5",
+  title:"🌾 مزارع محترف",
+  check:u=>u.farm.level>=5,
+  reward:1000
+ }
+
+];
+
+function renderAchievements(){
+
+ const u=current();
+
+ const box=
+  document.getElementById(
+   "achievements"
+  );
+
+ box.innerHTML=
+  achievements.map(a=>{
+
+   const done=
+    !!u.achievements[a.id];
+
+   const available=
+    a.check(u);
+
+   return `
+
+    <div class="quest ${
+     done?"done":""
+    }">
+
+     <h3>
+      ${a.title}
+     </h3>
+
+     <p style="color:#888;margin:8px 0">
+      المكافأة:
+      ${a.reward} 🧧
+     </p>
+
+     ${
+      done
+      ?
+      `<span class="badge">
+       🏆 تم الإنجاز
+      </span>`
+      :
+      available
+      ?
+      `
+       <button
+        class="btn goldbtn small"
+        onclick="claimAchievement('${a.id}')">
+        استلام
+       </button>
+      `
+      :
+      `<span class="badge">
+       🔒 غير مكتمل
+      </span>`
+     }
+
+    </div>
+
+   `;
+
+  })
+  .join("");
+
+}
+
+function claimAchievement(id){
+
+ const u=current();
+
+ const a=
+  achievements.find(
+   x=>x.id===id
+  );
+
+ if(!a)return;
+
+ if(u.achievements[id])
+  return;
+
+ if(!a.check(u))
+  return toast("❌ لم تحقق الإنجاز");
+
+ u.achievements[id]=true;
+
+ u.balance+=a.reward;
+
+ addTransaction(
+  u,
+  "إنجاز",
+  a.reward,
+  a.title
+ );
+
+ addXP(20);
+
+ save();
+
+ update();
+
+ toast(
+  "🏆 إنجاز! +"+a.reward+" 🧧"
+ );
+
+}
+
+/* =====================================================
+   CHANGE NAME
+===================================================== */
 
 function changeName(){
 
@@ -4729,10 +5780,14 @@ function changeName(){
  if(n.length<3)
   return toast("❌ الاسم قصير");
 
- if(data.users.some(
-  x=>x.id!==u.id &&
-  x.name.toLowerCase()===n.toLowerCase()
- ))
+ if(
+  data.users.some(
+   x=>
+    x.id!==u.id
+    &&
+    x.name.toLowerCase()===n.toLowerCase()
+  )
+ )
   return toast("❌ الاسم مستخدم");
 
  u.name=n;
@@ -4745,9 +5800,9 @@ function changeName(){
 
 }
 
-/* =========================================================
+/* =====================================================
    ADMIN
-   ========================================================= */
+===================================================== */
 
 function adminAdd(id){
 
@@ -4761,16 +5816,16 @@ function adminAdd(id){
    x=>x.id===id
   );
 
- if(!target)
-  return;
+ if(!target)return;
 
  const amount=
   Number(
-   prompt("أدخل المبلغ:")
+   prompt(
+    "أدخل المبلغ:"
+   )
   );
 
- if(!amount||amount<=0)
-  return;
+ if(!amount||amount<=0)return;
 
  target.balance+=amount;
 
@@ -4785,9 +5840,7 @@ function adminAdd(id){
 
  update();
 
- toast(
-  "✅ تمت الإضافة"
- );
+ toast("✅ تمت إضافة العملات");
 
 }
 
@@ -4803,16 +5856,16 @@ function adminRemove(id){
    x=>x.id===id
   );
 
- if(!target)
-  return;
+ if(!target)return;
 
  const amount=
   Number(
-   prompt("أدخل المبلغ:")
+   prompt(
+    "أدخل المبلغ:"
+   )
   );
 
- if(!amount||amount<=0)
-  return;
+ if(!amount||amount<=0)return;
 
  target.balance=
   Math.max(
@@ -4831,271 +5884,13 @@ function adminRemove(id){
 
  update();
 
- toast(
-  "✅ تم الخصم"
- );
+ toast("✅ تم الخصم");
 
 }
 
-/* =========================================================
-   UPDATE
-   ========================================================= */
-
-function update(){
-
- const u=current();
-
- if(!u)
-  return;
-
- document
-  .getElementById("headerName")
-  .textContent=u.name;
-
- document
-  .getElementById("avatar")
-  .textContent=
-  u.name.charAt(0).toUpperCase();
-
- const level=getLevel(u);
-
- const rank=getRank(u);
-
- document
-  .getElementById("balance")
-  .textContent=
-  u.balance.toLocaleString();
-
- document
-  .getElementById("level")
-  .textContent=level;
-
- document
-  .getElementById("xp")
-  .textContent=u.xp;
-
- document
-  .getElementById("rankName")
-  .textContent=rank;
-
- document
-  .getElementById("walletBalance")
-  .textContent=
-  u.balance.toLocaleString()+" 🧧";
-
- document
-  .getElementById("storeBalance")
-  .textContent=
-  u.balance.toLocaleString();
-
- document
-  .getElementById("transactionCount")
-  .textContent=
-  u.transactions.length;
-
- document
-  .getElementById("profileName")
-  .textContent=u.name;
-
- document
-  .getElementById("profileId")
-  .textContent=u.id;
-
- document
-  .getElementById("profileLevel")
-  .textContent=level;
-
- document
-  .getElementById("profileXP")
-  .textContent=u.xp;
-
- document
-  .getElementById("xpText")
-  .textContent=
-  u.xp+" / 100 XP";
-
- document
-  .getElementById("xpBar")
-  .style.width=
-  u.xp+"%";
-
- /* RECENT */
-
- const recent=
-  document.getElementById("recent");
-
- if(!u.transactions.length){
-
-  recent.innerHTML=
-   `<tr>
-    <td colspan="3"
-        class="empty">
-     لا توجد عمليات
-    </td>
-   </tr>`;
-
- }else{
-
-  recent.innerHTML=
-   u.transactions
-   .slice(0,5)
-   .map(t=>`
-
-    <tr>
-
-     <td>
-      ${escapeHTML(t.type)}
-     </td>
-
-     <td class="${t.amount>=0?"gold":"red"}">
-
-      ${t.amount>=0?"+":""}
-      ${t.amount.toLocaleString()}
-      🧧
-
-     </td>
-
-     <td>
-      ${escapeHTML(t.date)}
-     </td>
-
-    </tr>
-
-   `).join("");
-
- }
-
- /* ALL TRANSACTIONS */
-
- document
-  .getElementById("allTransactions")
-  .innerHTML=
-
-  u.transactions.length
-
-  ?
-
-  u.transactions.map(t=>`
-
-   <tr>
-
-    <td>
-     ${escapeHTML(t.type)}
-    </td>
-
-    <td class="${t.amount>=0?"gold":"red"}">
-
-     ${t.amount>=0?"+":""}
-     ${t.amount.toLocaleString()}
-     🧧
-
-    </td>
-
-    <td>
-     ${escapeHTML(t.details)}
-    </td>
-
-    <td>
-     ${escapeHTML(t.date)}
-    </td>
-
-   </tr>
-
-  `).join("")
-
-  :
-
-  `<tr>
-   <td colspan="4"
-       class="empty">
-    لا توجد عمليات
-   </td>
-  </tr>`;
-
- /* LEADERBOARD */
-
- const sorted=
-  [...data.users]
-  .sort((a,b)=>{
-
-   const av=
-    a.balance+
-    getLevel(a)*1000+
-    a.city.level*3000;
-
-   const bv=
-    b.balance+
-    getLevel(b)*1000+
-    b.city.level*3000;
-
-   return bv-av;
-
-  });
-
- document
-  .getElementById("leaderboard")
-  .innerHTML=
-  sorted.map((x,i)=>`
-
-   <tr>
-
-    <td>
-     ${
-      i===0
-      ?"🥇"
-      :i===1
-      ?"🥈"
-      :i===2
-      ?"🥉"
-      :i+1
-     }
-    </td>
-
-    <td>
-     ${escapeHTML(x.name)}
-    </td>
-
-    <td>
-     ${getLevel(x)}
-    </td>
-
-    <td class="gold">
-     ${x.balance.toLocaleString()} 🧧
-    </td>
-
-    <td>
-     مستوى ${x.city.level}
-    </td>
-
-    <td>
-     <span class="badge">
-      ${getRank(x)}
-     </span>
-    </td>
-
-   </tr>
-
-  `).join("");
-
- document
-  .getElementById("adminNav")
-  .style.display=
-  u.admin
-  ?"block"
-  :"none";
-
- if(u.admin)
-  updateAdmin();
-
- renderFarm();
-
- renderCity();
-
-}
-
-/* =========================================================
-   ADMIN UPDATE
-   ========================================================= */
+/* =====================================================
+   ADMIN RENDER
+===================================================== */
 
 function updateAdmin(){
 
@@ -5107,29 +5902,28 @@ function updateAdmin(){
 
  const transactions=
   data.users.reduce(
-   (s,u)=>s+u.transactions.length,
+   (s,u)=>
+    s+u.transactions.length,
    0
   );
 
- document
-  .getElementById("usersCount")
-  .textContent=
-  data.users.length;
+ document.getElementById(
+  "usersCount"
+ ).textContent=data.users.length;
 
- document
-  .getElementById("totalMoney")
-  .textContent=
+ document.getElementById(
+  "totalMoney"
+ ).textContent=
   total.toLocaleString();
 
- document
-  .getElementById("adminTransactions")
-  .textContent=
+ document.getElementById(
+  "adminTransactions"
+ ).textContent=
   transactions;
 
- document
-  .getElementById("adminUsers")
-  .innerHTML=
-
+ document.getElementById(
+  "adminUsers"
+ ).innerHTML=
   data.users.map(u=>`
 
    <tr>
@@ -5150,13 +5944,13 @@ function updateAdmin(){
     <td>
 
      <button
-      class="btn"
+      class="btn small"
       onclick="adminAdd('${u.id}')">
       +
      </button>
 
      <button
-      class="btn secondary"
+      class="btn secondary small"
       onclick="adminRemove('${u.id}')">
       −
      </button>
@@ -5169,192 +5963,530 @@ function updateAdmin(){
 
 }
 
-/* =========================================================
-   MUSIC
-   ========================================================= */
+/* =====================================================
+   RANK
+===================================================== */
 
-const music=
- document.getElementById("bgMusic");
+function renderLeaderboard(){
 
-function toggleMusic(){
+ const sorted=
+  [...data.users]
+  .sort(
+   (a,b)=>
+    (b.balance+b.city.level*1000+b.farm.level*500)
+    -
+    (a.balance+a.city.level*1000+a.farm.level*500)
+  );
 
- if(music.paused){
+ document.getElementById(
+  "leaderboard"
+ ).innerHTML=
+  sorted.map((x,i)=>`
 
-  music.play()
-   .then(()=>{
+   <tr>
 
-    data.settings.music=true;
+    <td>
+     ${
+      i===0?"🥇":
+      i===1?"🥈":
+      i===2?"🥉":
+      i+1
+     }
+    </td>
 
-    document
-     .getElementById("musicBtn")
-     .textContent="🔊";
+    <td>
+     ${escapeHTML(x.name)}
+    </td>
 
-    save();
+    <td>
+     ${getLevel(x)}
+    </td>
 
-   })
-   .catch(()=>{
+    <td class="gold">
+     ${x.balance.toLocaleString()} 🧧
+    </td>
 
-    toast(
-     "اضغط مرة أخرى لتشغيل الموسيقى"
-    );
+    <td class="blue">
+     ${x.city.level}
+    </td>
 
-   });
+    <td>
+     <span class="badge">
+      ${getRank(x)}
+     </span>
+    </td>
+
+   </tr>
+
+  `).join("");
+
+}
+
+/* =====================================================
+   UPDATE
+===================================================== */
+
+function update(){
+
+ const u=current();
+
+ if(!u)return;
+
+ /* HEADER */
+
+ document.getElementById(
+  "headerName"
+ ).textContent=u.name;
+
+ document.getElementById(
+  "avatar"
+ ).textContent=
+  u.name.charAt(0).toUpperCase();
+
+ /* BASIC */
+
+ const level=getLevel(u);
+
+ document.getElementById(
+  "balance"
+ ).textContent=
+  u.balance.toLocaleString();
+
+ document.getElementById(
+  "level"
+ ).textContent=level;
+
+ document.getElementById(
+  "xp"
+ ).textContent=u.xp;
+
+ document.getElementById(
+  "rankName"
+ ).textContent=getRank(u);
+
+ /* WALLET */
+
+ document.getElementById(
+  "walletBalance"
+ ).textContent=
+  u.balance.toLocaleString()+" 🧧";
+
+ document.getElementById(
+  "transactionCount"
+ ).textContent=
+  u.transactions.length;
+
+ /* PROFILE */
+
+ document.getElementById(
+  "profileName"
+ ).textContent=u.name;
+
+ document.getElementById(
+  "profileId"
+ ).textContent=u.id;
+
+ document.getElementById(
+  "profileLevel"
+ ).textContent=level;
+
+ document.getElementById(
+  "profileXP"
+ ).textContent=u.xp;
+
+ /* XP */
+
+ document.getElementById(
+  "xpText"
+ ).textContent=
+  u.xp+" / 100 XP";
+
+ document.getElementById(
+  "xpBar"
+ ).style.width=
+  u.xp+"%";
+
+ /* HOME */
+
+ document.getElementById(
+  "homeFarm"
+ ).textContent=
+  (
+   u.farm.level*500
+  ).toLocaleString();
+
+ const cityValue=
+  u.city.level*1000+
+  buildings.reduce(
+   (s,b)=>
+    s+
+    (u.city.buildings[b.id]||0)
+    *b.base,
+   0
+  );
+
+ document.getElementById(
+  "homeCity"
+ ).textContent=
+  cityValue.toLocaleString();
+
+ const invTotal=
+  Object.values(u.inventory)
+  .reduce((a,b)=>a+b,0);
+
+ document.getElementById(
+  "homeInventory"
+ ).textContent=
+  invTotal;
+
+ document.getElementById(
+  "homeAchievements"
+ ).textContent=
+  Object.keys(u.achievements).length;
+
+ document.getElementById(
+  "farmIncome"
+ ).textContent=
+  u.farm.harvest;
+
+ /* RECENT */
+
+ const recent=
+  document.getElementById(
+   "recent"
+  );
+
+ if(!u.transactions.length){
+
+  recent.innerHTML=
+   `<tr>
+    <td colspan="3"
+     class="empty">
+     لا توجد عمليات
+    </td>
+   </tr>`;
 
  }else{
 
-  music.pause();
+  recent.innerHTML=
+   u.transactions
+   .slice(0,7)
+   .map(t=>`
 
-  data.settings.music=false;
+    <tr>
 
-  document
-   .getElementById("musicBtn")
-   .textContent="🎵";
+     <td>
+      ${escapeHTML(t.type)}
+     </td>
 
-  save();
+     <td class="${
+      t.amount>=0?"gold":"red"
+     }">
+
+      ${
+       t.amount>=0?"+":""
+      }
+
+      ${t.amount.toLocaleString()}
+      🧧
+
+     </td>
+
+     <td>
+      ${escapeHTML(t.date)}
+     </td>
+
+    </tr>
+
+   `)
+   .join("");
 
  }
 
+ /* ALL TRANSACTIONS */
+
+ document.getElementById(
+  "allTransactions"
+ ).innerHTML=
+  u.transactions.length
+  ?
+  u.transactions.map(t=>`
+
+   <tr>
+
+    <td>
+     ${escapeHTML(t.type)}
+    </td>
+
+    <td class="${
+     t.amount>=0?"gold":"red"
+    }">
+
+     ${
+      t.amount>=0?"+":""
+     }
+
+     ${t.amount.toLocaleString()}
+     🧧
+
+    </td>
+
+    <td>
+     ${escapeHTML(t.details)}
+    </td>
+
+    <td>
+     ${escapeHTML(t.date)}
+    </td>
+
+   </tr>
+
+  `).join("")
+  :
+  `<tr>
+   <td colspan="4"
+    class="empty">
+    لا توجد عمليات
+   </td>
+  </tr>`;
+
+ /* ADMIN */
+
+ document.getElementById(
+  "adminNav"
+ ).style.display=
+  u.admin?"block":"none";
+
+ if(u.admin)
+  updateAdmin();
+
+ /* OTHER */
+
+ renderInventory();
+
+ renderFarm();
+
+ renderCity();
+
+ renderLeaderboard();
+
+ renderMatches();
+
+ populateOpponents();
+
+ renderQuests();
+
+ renderAchievements();
+
+ renderShop();
+
+ renderChatUsers();
+
+ renderMessages();
+
 }
 
-/* =========================================================
-   ANIMATED BACKGROUND
-   ========================================================= */
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
 
-const canvas=
- document.getElementById("bgCanvas");
+function escapeHTML(str){
 
-const ctx=
- canvas.getContext("2d");
-
-let particles=[];
-
-function resizeCanvas(){
-
- canvas.width=
-  window.innerWidth;
-
- canvas.height=
-  window.innerHeight;
+ return String(str??"")
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
 
 }
 
-window.addEventListener(
- "resize",
- resizeCanvas
-);
+/* =====================================================
+   JAPANESE AMBIENT MUSIC
+===================================================== */
 
-resizeCanvas();
+function toggleMusic(){
 
-for(let i=0;i<90;i++){
+ if(!audioCtx){
 
- particles.push({
+  audioCtx=
+   new (
+    window.AudioContext||
+    window.webkitAudioContext
+   )();
 
-  x:Math.random()*canvas.width,
+ }
 
-  y:Math.random()*canvas.height,
+ if(musicOn){
 
-  r:Math.random()*2+0.5,
+  audioCtx.suspend();
 
-  speed:Math.random()*.4+.1,
+  musicOn=false;
 
-  alpha:Math.random()*.6+.1
+  document
+   .getElementById("musicBtn")
+   .classList.remove("active");
 
- });
+  return;
+
+ }
+
+ audioCtx.resume();
+
+ musicOn=true;
+
+ document
+  .getElementById("musicBtn")
+  .classList.add("active");
+
+ playJapaneseAmbient();
 
 }
 
-function animateBackground(){
+function playJapaneseAmbient(){
 
- ctx.clearRect(
+ if(!musicOn)return;
+
+ const notes=[
+  261.63,
+  293.66,
+  329.63,
+  392,
+  440,
+  523.25
+ ];
+
+ const now=
+  audioCtx.currentTime;
+
+ const osc=
+  audioCtx.createOscillator();
+
+ const gain=
+  audioCtx.createGain();
+
+ osc.type="sine";
+
+ osc.frequency.value=
+  notes[
+   Math.floor(
+    Math.random()*notes.length
+   )
+  ];
+
+ gain.gain.setValueAtTime(
   0,
-  0,
-  canvas.width,
-  canvas.height
+  now
  );
 
- particles.forEach(p=>{
+ gain.gain.linearRampToValueAtTime(
+  .025,
+  now+.5
+ );
 
-  p.y-=p.speed;
+ gain.gain.exponentialRampToValueAtTime(
+  .001,
+  now+4
+ );
 
-  if(p.y<0){
+ osc.connect(gain);
+ gain.connect(audioCtx.destination);
 
-   p.y=canvas.height;
+ osc.start(now);
+ osc.stop(now+4);
 
-   p.x=Math.random()*canvas.width;
-
-  }
-
-  ctx.beginPath();
-
-  ctx.arc(
-   p.x,
-   p.y,
-   p.r,
-   0,
-   Math.PI*2
-  );
-
-  ctx.fillStyle=
-   "rgba(228,176,74,"+
-   p.alpha+
-   ")";
-
-  ctx.fill();
-
- });
-
- requestAnimationFrame(
-  animateBackground
+ setTimeout(
+  playJapaneseAmbient,
+  2500+Math.random()*2500
  );
 
 }
 
-animateBackground();
+/* =====================================================
+   BACKGROUND STARS
+===================================================== */
 
-/* =========================================================
-   SAKURA
-   ========================================================= */
-
-function createSakura(){
+for(let i=0;i<70;i++){
 
  const s=
   document.createElement("div");
 
- s.className="sakura";
-
- s.textContent=
-  Math.random()>.5
-  ?"🌸"
-  :"✿";
+ s.className="star";
 
  s.style.left=
   Math.random()*100+"%";
 
- s.style.fontSize=
-  (10+Math.random()*15)+"px";
-
  s.style.animationDuration=
-  (8+Math.random()*10)+"s";
+  (5+Math.random()*12)+"s";
 
  s.style.animationDelay=
-  Math.random()*5+"s";
+  Math.random()*10+"s";
 
- document.body.appendChild(s);
+ s.style.opacity=
+  (.15+Math.random()*.6);
 
- setTimeout(()=>{
-  s.remove();
- },20000);
+ document
+  .getElementById("japanBackground")
+  .appendChild(s);
 
 }
 
-setInterval(
- createSakura,
- 800
-);
+/* =====================================================
+   CLOSE MODALS BY BACKGROUND
+===================================================== */
 
-/* =========================================================
-   INIT
-   ========================================================= */
+document
+ .querySelectorAll(".modal")
+ .forEach(modal=>{
+
+  modal.addEventListener(
+   "click",
+   e=>{
+
+    if(e.target===modal)
+     modal.classList.remove("show");
+
+   }
+  );
+
+ });
+
+/* =====================================================
+   FARM AUTO REFRESH
+===================================================== */
+
+setInterval(()=>{
+
+ if(current()){
+
+  if(
+   !document
+    .getElementById("farm")
+    .classList.contains("hidden")
+  ){
+
+   renderFarm();
+
+  }
+
+ }
+
+},1000);
+
+/* =====================================================
+   AUTO SAVE
+===================================================== */
+
+setInterval(()=>{
+
+ if(data)
+  save();
+
+},5000);
+
+/* =====================================================
+   START
+===================================================== */
 
 if(data.current){
 
@@ -5371,56 +6503,6 @@ if(data.current){
   .classList.remove("hidden");
 
 }
-
-/* MUSIC STATE */
-
-if(data.settings.music){
-
- document
-  .getElementById("musicBtn")
-  .textContent="🔊";
-
-}
-
-/* CHAT AUTO REFRESH */
-
-setInterval(()=>{
-
- if(current()){
-
-  const chat=
-   document.getElementById("chat");
-
-  if(chat &&
-     !chat.classList.contains("hidden")){
-
-   renderChat();
-
-  }
-
- }
-
-},2000);
-
-/* FARM AUTO REFRESH */
-
-setInterval(()=>{
-
- if(current()){
-
-  const farm=
-   document.getElementById("farm");
-
-  if(farm &&
-     !farm.classList.contains("hidden")){
-
-   renderFarm();
-
-  }
-
- }
-
-},3000);
 
 </script>
 
