@@ -8,22 +8,23 @@
 <title>『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』</title>
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
 }
 
-html,body{
-  min-height:100%;
+html{
+  scroll-behavior:smooth;
 }
 
 body{
-  font-family:Arial,Tahoma,sans-serif;
-  background:
-    radial-gradient(circle at top,#241000 0,#090909 45%,#000 100%);
-  color:#fff;
   min-height:100vh;
+  font-family:Arial,Tahoma,sans-serif;
+  color:#fff;
+  background:
+    radial-gradient(circle at 50% -10%,#3a2100 0,#120b02 28%,#070707 60%,#000 100%);
 }
 
 button,input{
@@ -36,7 +37,7 @@ button{
 
 button:disabled{
   cursor:not-allowed;
-  opacity:.6;
+  opacity:.55;
 }
 
 .hidden{
@@ -44,37 +45,41 @@ button:disabled{
 }
 
 .container{
-  width:min(1200px,calc(100% - 30px));
+  width:min(1250px,calc(100% - 24px));
   margin:auto;
 }
 
 .card{
-  background:rgba(20,20,20,.94);
+  background:
+    linear-gradient(145deg,rgba(28,28,28,.97),rgba(9,9,9,.97));
   border:1px solid rgba(255,193,7,.18);
   border-radius:18px;
   padding:20px;
-  box-shadow:0 10px 35px rgba(0,0,0,.35);
+  box-shadow:
+    0 12px 40px rgba(0,0,0,.45),
+    inset 0 1px rgba(255,255,255,.03);
 }
 
 .card-title{
+  color:#ffd54f;
   font-size:20px;
   font-weight:900;
   margin-bottom:15px;
-  color:#ffd54f;
 }
 
 .btn{
   border:0;
   border-radius:12px;
-  padding:13px 18px;
-  font-weight:900;
+  padding:12px 17px;
   color:#fff;
   background:#222;
+  font-weight:900;
   transition:.2s;
 }
 
 .btn:hover{
   transform:translateY(-2px);
+  filter:brightness(1.08);
 }
 
 .full{
@@ -82,12 +87,9 @@ button:disabled{
 }
 
 .goldbtn{
-  background:linear-gradient(135deg,#ff9800,#ffd54f);
   color:#111;
-}
-
-.secondary{
-  background:#252525;
+  background:
+    linear-gradient(135deg,#ff9800,#ffd54f);
 }
 
 .success{
@@ -98,19 +100,28 @@ button:disabled{
   background:#a30000;
 }
 
+.blue{
+  background:#075985;
+}
+
+.purple{
+  background:#6d28d9;
+}
+
 input{
   width:100%;
   padding:13px;
   margin:6px 0;
   border:1px solid #333;
   border-radius:11px;
-  background:#0d0d0d;
-  color:#fff;
   outline:none;
+  color:#fff;
+  background:#0b0b0b;
 }
 
 input:focus{
   border-color:#ffc107;
+  box-shadow:0 0 0 2px rgba(255,193,7,.08);
 }
 
 #auth{
@@ -122,23 +133,25 @@ input:focus{
 }
 
 .auth-box{
-  width:min(430px,100%);
+  width:min(440px,100%);
 }
 
 .logo{
   text-align:center;
+  color:#ffd54f;
   font-size:30px;
   font-weight:900;
-  color:#ffd54f;
   margin-bottom:20px;
+  text-shadow:0 0 25px rgba(255,193,7,.25);
 }
 
 .message{
+  display:none;
   margin-top:10px;
-  padding:10px;
+  padding:11px;
   border-radius:10px;
   text-align:center;
-  display:none;
+  font-weight:700;
 }
 
 .message.error{
@@ -163,18 +176,18 @@ input:focus{
   top:0;
   z-index:100;
   background:rgba(5,5,5,.95);
-  backdrop-filter:blur(12px);
+  backdrop-filter:blur(14px);
   border-bottom:1px solid rgba(255,193,7,.15);
 }
 
 .topbar-inner{
-  width:min(1200px,calc(100% - 30px));
+  width:min(1250px,calc(100% - 24px));
   margin:auto;
   padding:14px 0;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:10px;
+  gap:15px;
 }
 
 .brand{
@@ -184,47 +197,45 @@ input:focus{
 
 .user-info{
   color:#ddd;
-  font-weight:700;
+  font-weight:800;
 }
 
 .separator{
-  margin:0 8px;
   color:#555;
+  margin:0 8px;
 }
 
 nav{
-  width:min(1200px,calc(100% - 30px));
+  width:min(1250px,calc(100% - 24px));
   margin:auto;
-  padding:10px 0;
+  padding:9px 0 12px;
   display:flex;
-  gap:8px;
+  gap:7px;
   overflow-x:auto;
-  scrollbar-width:thin;
 }
 
 nav button{
   white-space:nowrap;
   border:0;
   border-radius:10px;
-  padding:10px 14px;
-  background:#171717;
+  padding:10px 13px;
   color:#ccc;
+  background:#171717;
   transition:.2s;
 }
 
 nav button:hover{
   background:#292929;
-  transform:translateY(-1px);
 }
 
 nav button.active{
-  background:#ffd54f;
   color:#111;
+  background:#ffd54f;
 }
 
 main{
-  width:min(1200px,calc(100% - 30px));
-  margin:20px auto;
+  width:min(1250px,calc(100% - 24px));
+  margin:20px auto 60px;
 }
 
 .page{
@@ -241,16 +252,58 @@ main{
   gap:15px;
 }
 
-.stat{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:12px 0;
-  border-bottom:1px solid rgba(255,255,255,.08);
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+  gap:14px;
 }
 
-.stat-name{
-  color:#aaa;
+.product{
+  position:relative;
+  overflow:hidden;
+  min-height:240px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.product::before{
+  content:"";
+  position:absolute;
+  width:130px;
+  height:130px;
+  border-radius:50%;
+  background:rgba(255,193,7,.05);
+  top:-50px;
+  left:-40px;
+}
+
+.product-icon{
+  position:relative;
+  font-size:48px;
+  margin-bottom:10px;
+}
+
+.product-name{
+  position:relative;
+  color:#fff;
+  font-size:17px;
+  font-weight:900;
+}
+
+.product-description{
+  position:relative;
+  color:#999;
+  font-size:13px;
+  line-height:1.6;
+  margin:8px 0 12px;
+}
+
+.product-price{
+  position:relative;
+  color:#ffd54f;
+  font-weight:900;
+  margin-bottom:10px;
 }
 
 .big-number{
@@ -291,34 +344,248 @@ main{
   margin:10px 0;
 }
 
-.product-card{
+.stat{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 0;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.stat-name{
+  color:#aaa;
+}
+
+.inventory-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:14px;
+  border-radius:14px;
+  background:#111;
+  border:1px solid rgba(255,193,7,.12);
+}
+
+.inventory-info{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.inventory-icon{
+  font-size:32px;
+}
+
+.inventory-name{
+  font-weight:900;
+}
+
+.inventory-count{
+  color:#ffd54f;
+  font-size:13px;
+  margin-top:4px;
+}
+
+.boxes{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+}
+
+.box-card{
+  position:relative;
+  overflow:hidden;
+  min-height:285px;
+  text-align:center;
+  border-radius:20px;
+  padding:20px;
+  background:
+    linear-gradient(145deg,#242424,#090909);
+  border:1px solid rgba(255,193,7,.25);
+  box-shadow:0 12px 35px rgba(0,0,0,.4);
+}
+
+.box-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 50% 10%,rgba(255,193,7,.13),transparent 50%);
+  pointer-events:none;
+}
+
+.box-visual{
+  position:relative;
+  width:100px;
+  height:100px;
+  margin:5px auto 15px;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:55px;
+  background:
+    linear-gradient(145deg,#3c3c3c,#111);
+  border:2px solid #806000;
+  box-shadow:
+    0 0 25px rgba(255,193,7,.15),
+    inset 0 0 20px rgba(255,255,255,.04);
+}
+
+.box-title{
+  position:relative;
+  font-size:18px;
+  font-weight:900;
+  color:#ffd54f;
+}
+
+.box-price{
+  position:relative;
+  color:#aaa;
+  margin:8px 0 14px;
+}
+
+.box-rewards{
+  position:relative;
+  color:#ddd;
+  font-size:13px;
+  margin-bottom:14px;
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(0,0,0,.82);
+  backdrop-filter:blur(8px);
+}
+
+.modal-box{
+  width:min(480px,100%);
+  text-align:center;
+}
+
+.modal-box h2{
+  color:#ffd54f;
+  margin-bottom:15px;
+}
+
+.result{
+  margin:15px 0;
+  padding:25px;
+  border-radius:18px;
+  background:#111;
+  border:1px solid rgba(255,193,7,.25);
+}
+
+.result-icon{
+  font-size:70px;
+}
+
+.result-name{
+  font-size:22px;
+  font-weight:900;
+  color:#ffd54f;
+  margin-top:10px;
+}
+
+.explosion{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  pointer-events:none;
+  display:none;
+  overflow:hidden;
+}
+
+.explosion.show{
+  display:block;
+}
+
+.particle{
+  position:absolute;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#ffd54f;
+  animation:explode 1.2s ease-out forwards;
+}
+
+.flash{
+  position:absolute;
+  inset:0;
+  background:rgba(255,193,7,.8);
+  animation:flash .35s ease-out forwards;
+}
+
+@keyframes explode{
+  from{
+    transform:translate(0,0) scale(1);
+    opacity:1;
+  }
+  to{
+    transform:translate(var(--x),var(--y)) scale(.2);
+    opacity:0;
+  }
+}
+
+@keyframes flash{
+  from{opacity:.8}
+  to{opacity:0}
+}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  z-index:10000;
+  transform:translateX(-50%) translateY(100px);
+  padding:13px 20px;
+  border-radius:13px;
+  background:#191919;
+  border:1px solid rgba(255,193,7,.3);
+  color:#fff;
+  font-weight:900;
+  opacity:0;
+  transition:.3s;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+.game-card{
+  min-height:210px;
   display:flex;
   flex-direction:column;
   justify-content:space-between;
 }
 
-.product-price{
+.game-icon{
+  font-size:48px;
+  margin-bottom:8px;
+}
+
+.game-title{
+  font-size:19px;
   color:#ffd54f;
-  font-size:18px;
   font-weight:900;
-  margin:10px 0;
 }
 
-.balance-box{
-  border:1px solid rgba(0,230,118,.2);
-  background:rgba(0,230,118,.05);
-  border-radius:14px;
-  padding:15px;
-  margin-bottom:15px;
-  text-align:center;
-}
-
-.small-text{
-  color:#999;
-  font-size:13px;
+.game-desc{
+  color:#aaa;
+  line-height:1.7;
+  margin:8px 0 15px;
 }
 
 @media(max-width:700px){
+
   .topbar-inner{
     flex-direction:column;
     align-items:flex-start;
@@ -328,31 +595,42 @@ main{
     font-size:14px;
   }
 
-  nav{
-    padding-bottom:12px;
+  .logo{
+    font-size:24px;
   }
 
   main{
-    width:calc(100% - 20px);
-    margin-top:15px;
+    width:calc(100% - 16px);
   }
 
   .card{
     padding:15px;
   }
 
-  .logo{
-    font-size:24px;
+  .products{
+    grid-template-columns:repeat(2,minmax(0,1fr));
   }
+
+  .boxes{
+    grid-template-columns:1fr;
+  }
+
 }
+
+@media(max-width:430px){
+
+  .products{
+    grid-template-columns:1fr;
+  }
+
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- =========================
-     AUTH
-========================= -->
+<!-- ================= AUTH ================= -->
 
 <div id="auth">
 
@@ -363,8 +641,6 @@ main{
     </div>
 
     <div class="card">
-
-      <!-- LOGIN -->
 
       <div id="loginBox">
 
@@ -391,15 +667,13 @@ main{
         <button
           id="loginButton"
           class="btn goldbtn full"
-          type="button"
           onclick="login()"
         >
           🔐 دخول
         </button>
 
         <button
-          class="btn secondary full"
-          type="button"
+          class="btn full"
           style="margin-top:8px"
           onclick="showRegister()"
         >
@@ -409,8 +683,6 @@ main{
         <div id="loginMessage" class="message"></div>
 
       </div>
-
-      <!-- REGISTER -->
 
       <div id="registerBox" class="hidden">
 
@@ -422,7 +694,6 @@ main{
           id="regName"
           type="text"
           placeholder="اسم المستخدم"
-          autocomplete="username"
           maxlength="50"
         >
 
@@ -430,7 +701,6 @@ main{
           id="regPass"
           type="password"
           placeholder="كلمة المرور"
-          autocomplete="new-password"
           maxlength="100"
         >
 
@@ -438,26 +708,23 @@ main{
           id="regPass2"
           type="password"
           placeholder="تأكيد كلمة المرور"
-          autocomplete="new-password"
           maxlength="100"
         >
 
         <button
           id="registerButton"
           class="btn goldbtn full"
-          type="button"
           onclick="register()"
         >
           📝 إنشاء الحساب
         </button>
 
         <button
-          class="btn secondary full"
-          type="button"
+          class="btn full"
           style="margin-top:8px"
           onclick="showLogin()"
         >
-          ↩️ العودة لتسجيل الدخول
+          ↩️ العودة
         </button>
 
         <div id="registerMessage" class="message"></div>
@@ -475,9 +742,7 @@ main{
 </div>
 
 
-<!-- =========================
-     APP
-========================= -->
+<!-- ================= APP ================= -->
 
 <div id="app" class="hidden">
 
@@ -490,60 +755,25 @@ main{
     </div>
 
     <div class="user-info">
-
-      👤
-      <span id="headerName">-</span>
-
+      👤 <span id="headerName">-</span>
       <span class="separator">|</span>
-
-      💰
-      <span id="headerBalance">0</span>
-
+      💰 <span id="headerBalance">0</span>
     </div>
 
   </div>
 
   <nav>
 
-    <button data-page="home" onclick="page('home')">
-      🏠 الرئيسية
-    </button>
-
-    <button data-page="character" onclick="page('character')">
-      🧙 الشخصية
-    </button>
-
-    <button data-page="city" onclick="page('city')">
-      🏯 المدينة
-    </button>
-
-    <button data-page="farm" onclick="page('farm')">
-      🌾 المزرعة
-    </button>
-
-    <button data-page="shop" onclick="page('shop')">
-      🛒 المتجر
-    </button>
-
-    <button data-page="inventory" onclick="page('inventory')">
-      🎒 المخزون
-    </button>
-
-    <button data-page="games" onclick="page('games')">
-      🎮 الألعاب
-    </button>
-
-    <button data-page="wallet" onclick="page('wallet')">
-      💰 المحفظة
-    </button>
-
-    <button data-page="profile" onclick="page('profile')">
-      👤 الملف
-    </button>
-
-    <button type="button" onclick="logout()">
-      🚪 خروج
-    </button>
+    <button data-page="home" onclick="page('home')">🏠 الرئيسية</button>
+    <button data-page="character" onclick="page('character')">🧙 الشخصية</button>
+    <button data-page="city" onclick="page('city')">🏯 المدينة</button>
+    <button data-page="shop" onclick="page('shop')">🛒 المتجر</button>
+    <button data-page="inventory" onclick="page('inventory')">🎒 المخزون</button>
+    <button data-page="games" onclick="page('games')">🎮 الألعاب</button>
+    <button data-page="boxes" onclick="page('boxes')">📦 الصناديق</button>
+    <button data-page="wallet" onclick="page('wallet')">💰 المحفظة</button>
+    <button data-page="profile" onclick="page('profile')">👤 الملف</button>
+    <button onclick="logout()">🚪 خروج</button>
 
   </nav>
 
@@ -552,48 +782,25 @@ main{
 
 <main>
 
-<!-- =========================
-     HOME
-========================= -->
+<!-- ================= HOME ================= -->
 
 <section id="page-home" class="page active">
 
   <div class="grid">
 
     <div class="card">
-
-      <div class="card-title">
-        💰 الرصيد
-      </div>
-
-      <div id="homeBalance" class="big-number green">
-        0
-      </div>
-
+      <div class="card-title">💰 الرصيد</div>
+      <div id="homeBalance" class="big-number green">0</div>
     </div>
 
     <div class="card">
-
-      <div class="card-title">
-        ⭐ المستوى
-      </div>
-
-      <div id="homeLevel" class="big-number gold">
-        1
-      </div>
-
+      <div class="card-title">⭐ المستوى</div>
+      <div id="homeLevel" class="big-number gold">1</div>
     </div>
 
     <div class="card">
-
-      <div class="card-title">
-        ⚔️ القوة
-      </div>
-
-      <div id="homePower" class="big-number">
-        20
-      </div>
-
+      <div class="card-title">⚔️ القوة</div>
+      <div id="homePower" class="big-number">20</div>
     </div>
 
   </div>
@@ -605,50 +812,51 @@ main{
     </div>
 
     <p class="description">
-      عالم مصرفي تفاعلي مليء بالألعاب والمتجر والتطوير.
+      عالم مصرفي تفاعلي مليء بالألعاب والصناديق والمتجر والمغامرات.
     </p>
+
+    <button
+      class="btn goldbtn"
+      onclick="page('boxes')"
+    >
+      📦 افتح الصناديق
+    </button>
+
+    <button
+      class="btn"
+      onclick="page('shop')"
+    >
+      🛒 المتجر
+    </button>
 
   </div>
 
 </section>
 
 
-<!-- =========================
-     CHARACTER
-========================= -->
+<!-- ================= CHARACTER ================= -->
 
 <section id="page-character" class="page">
 
   <div class="card">
 
-    <div class="card-title">
-      🧙 الشخصية
-    </div>
+    <div class="card-title">🧙 الشخصية</div>
 
     <div class="grid">
 
       <div class="card">
-        <h3>❤️ الصحة</h3>
-
-        <div id="characterHP" class="character-stat hp">
-          100
-        </div>
+        ❤️ الصحة
+        <div id="characterHP" class="character-stat hp">100</div>
       </div>
 
       <div class="card">
-        <h3>⚔️ الهجوم</h3>
-
-        <div id="characterAttack" class="character-stat attack">
-          10
-        </div>
+        ⚔️ الهجوم
+        <div id="characterAttack" class="character-stat attack">10</div>
       </div>
 
       <div class="card">
-        <h3>🛡️ الدفاع</h3>
-
-        <div id="characterDefense" class="character-stat defense">
-          10
-        </div>
+        🛡️ الدفاع
+        <div id="characterDefense" class="character-stat defense">10</div>
       </div>
 
     </div>
@@ -658,45 +866,39 @@ main{
 </section>
 
 
-<!-- =========================
-     CITY
-========================= -->
+<!-- ================= CITY ================= -->
 
 <section id="page-city" class="page">
 
-  <div class="card">
+  <div class="grid">
 
-    <div class="card-title">
-      🏯 المدينة
-    </div>
+    <div class="card">
 
-    <div class="grid">
+      <div class="card-title">🏯 المدينة</div>
 
-      <div class="card">
-
-        <h3>🏯 مستوى المدينة</h3>
-
-        <div id="cityLevel" class="big-number gold">
-          1
-        </div>
-
-        <button
-          class="btn goldbtn full"
-          onclick="upgradeCity()"
-        >
-          ⬆️ تطوير المدينة
-        </button>
-
+      <div id="cityLevel" class="big-number gold">
+        1
       </div>
 
-      <div class="card">
+      <p class="description">
+        طوّر مدينتك لزيادة قوتك.
+      </p>
 
-        <h3>👥 السكان</h3>
+      <button
+        class="btn goldbtn full"
+        onclick="cityUpgrade()"
+      >
+        ⬆️ تطوير المدينة
+      </button>
 
-        <div id="cityPopulation" class="big-number">
-          1
-        </div>
+    </div>
 
+    <div class="card">
+
+      <div class="card-title">👥 السكان</div>
+
+      <div id="cityPopulation" class="big-number">
+        1
       </div>
 
     </div>
@@ -706,183 +908,28 @@ main{
 </section>
 
 
-<!-- =========================
-     FARM
-========================= -->
-
-<section id="page-farm" class="page">
-
-  <div class="card">
-
-    <div class="card-title">
-      🌾 المزرعة
-    </div>
-
-    <div class="grid">
-
-      <div class="card">
-
-        <h3>🌱 الزراعة</h3>
-
-        <p class="description">
-          ازرع محصولًا وانتظر حتى ينضج.
-        </p>
-
-        <button
-          class="btn goldbtn full"
-          onclick="plantCrop()"
-        >
-          🌱 زراعة
-        </button>
-
-      </div>
-
-      <div class="card">
-
-        <h3>🌾 الحصاد</h3>
-
-        <p class="description">
-          احصد محصولك واربح العملات.
-        </p>
-
-        <button
-          class="btn success full"
-          onclick="harvestCrop()"
-        >
-          🌾 حصاد
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =========================
-     SHOP
-========================= -->
+<!-- ================= SHOP ================= -->
 
 <section id="page-shop" class="page">
 
   <div class="card">
 
     <div class="card-title">
-      🛒 المتجر
+      🛒 المتجر الملكي — أكثر من 100 منتج
     </div>
 
-    <div class="balance-box">
+    <p class="description">
+      عند شراء أي منتج سيتم إرسال عملية الشراء إلى الخادم وخصم السعر من رصيدك.
+    </p>
 
-      <div class="small-text">
-        رصيدك الحالي
-      </div>
-
-      <div
-        id="shopBalance"
-        class="big-number green"
-      >
-        0
-      </div>
-
-    </div>
-
-    <div class="grid">
-
-      <div class="card product-card">
-
-        <div>
-
-          <h3>
-            ⚔️ سيف أسطوري
-          </h3>
-
-          <p class="description">
-            يزيد الهجوم.
-          </p>
-
-          <div class="product-price">
-            500 💰
-          </div>
-
-        </div>
-
-        <button
-          class="btn goldbtn full"
-          onclick="buyItem('⚔️ سيف أسطوري',500,this)"
-        >
-          🛒 شراء — 500 💰
-        </button>
-
-      </div>
-
-
-      <div class="card product-card">
-
-        <div>
-
-          <h3>
-            🛡️ درع أسطوري
-          </h3>
-
-          <p class="description">
-            يزيد الدفاع.
-          </p>
-
-          <div class="product-price">
-            750 💰
-          </div>
-
-        </div>
-
-        <button
-          class="btn goldbtn full"
-          onclick="buyItem('🛡️ درع أسطوري',750,this)"
-        >
-          🛒 شراء — 750 💰
-        </button>
-
-      </div>
-
-
-      <div class="card product-card">
-
-        <div>
-
-          <h3>
-            ❤️ جرعة صحة
-          </h3>
-
-          <p class="description">
-            تزيد الصحة.
-          </p>
-
-          <div class="product-price">
-            250 💰
-          </div>
-
-        </div>
-
-        <button
-          class="btn goldbtn full"
-          onclick="buyItem('❤️ جرعة صحة',250,this)"
-        >
-          🛒 شراء — 250 💰
-        </button>
-
-      </div>
-
-    </div>
+    <div id="products" class="products"></div>
 
   </div>
 
 </section>
 
 
-<!-- =========================
-     INVENTORY
-========================= -->
+<!-- ================= INVENTORY ================= -->
 
 <section id="page-inventory" class="page">
 
@@ -895,11 +942,9 @@ main{
     <div id="inventoryList" class="grid">
 
       <div class="card">
-
         <p class="description">
-          لا توجد عناصر حاليًا.
+          جاري تحميل المخزون...
         </p>
-
       </div>
 
     </div>
@@ -909,98 +954,45 @@ main{
 </section>
 
 
-<!-- =========================
-     GAMES
-========================= -->
+<!-- ================= GAMES ================= -->
 
 <section id="page-games" class="page">
 
   <div class="card">
 
     <div class="card-title">
-      🎮 الألعاب
+      🎮 صالة الألعاب
     </div>
 
-    <div class="grid">
-
-      <div class="card">
-
-        <h3>🎲 النرد</h3>
-
-        <p class="description">
-          التكلفة: 25 💰
-        </p>
-
-        <button
-          class="btn goldbtn full"
-          onclick="playDice()"
-        >
-          🎲 لعب
-        </button>
-
-      </div>
-
-      <div class="card">
-
-        <h3>📦 الصندوق</h3>
-
-        <p class="description">
-          التكلفة: 50 💰
-        </p>
-
-        <button
-          class="btn goldbtn full"
-          onclick="quickBox()"
-        >
-          📦 فتح
-        </button>
-
-      </div>
-
-      <div class="card">
-
-        <h3>🎡 عجلة الحظ</h3>
-
-        <p class="description">
-          التكلفة: 100 💰
-        </p>
-
-        <button
-          class="btn goldbtn full"
-          onclick="spinWheel()"
-        >
-          🎡 تدوير
-        </button>
-
-      </div>
-
-      <div class="card">
-
-        <h3>🎁 المكافأة اليومية</h3>
-
-        <p class="description">
-          مكافأة مجانية كل يوم.
-        </p>
-
-        <button
-          class="btn goldbtn full"
-          onclick="dailyReward()"
-        >
-          🎁 استلام
-        </button>
-
-      </div>
-
-    </div>
+    <div id="gamesList" class="grid"></div>
 
   </div>
 
 </section>
 
 
-<!-- =========================
-     WALLET
-========================= -->
+<!-- ================= BOXES ================= -->
+
+<section id="page-boxes" class="page">
+
+  <div class="card">
+
+    <div class="card-title">
+      📦 خزنة الصناديق الفاخرة
+    </div>
+
+    <p class="description">
+      كل صندوق له قيمة مختلفة وجوائز مختلفة. عند الفتح يظهر تأثير انفجار وجائزة عشوائية.
+    </p>
+
+    <div id="boxesList" class="boxes"></div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= WALLET ================= -->
 
 <section id="page-wallet" class="page">
 
@@ -1014,8 +1006,7 @@ main{
 
       <input
         id="transferUser"
-        type="text"
-        placeholder="اسم المستخدم المستلم"
+        placeholder="اسم المستلم"
       >
 
       <input
@@ -1050,7 +1041,7 @@ main{
 
       <button
         class="btn success full"
-        onclick="depositMoney()"
+        onclick="walletAction('deposit')"
       >
         💰 إيداع
       </button>
@@ -1073,7 +1064,7 @@ main{
 
       <button
         class="btn danger full"
-        onclick="withdrawMoney()"
+        onclick="walletAction('withdraw')"
       >
         💳 سحب
       </button>
@@ -1085,9 +1076,7 @@ main{
 </section>
 
 
-<!-- =========================
-     PROFILE
-========================= -->
+<!-- ================= PROFILE ================= -->
 
 <section id="page-profile" class="page">
 
@@ -1098,39 +1087,18 @@ main{
     </div>
 
     <div class="stat">
-
-      <span class="stat-name">
-        اسم المستخدم
-      </span>
-
-      <strong id="profileName">
-        -
-      </strong>
-
+      <span class="stat-name">اسم المستخدم</span>
+      <strong id="profileName">-</strong>
     </div>
 
     <div class="stat">
-
-      <span class="stat-name">
-        الرصيد
-      </span>
-
-      <strong id="profileBalance">
-        0
-      </strong>
-
+      <span class="stat-name">الرصيد</span>
+      <strong id="profileBalance">0</strong>
     </div>
 
     <div class="stat">
-
-      <span class="stat-name">
-        المستوى
-      </span>
-
-      <strong id="profileLevel">
-        1
-      </strong>
-
+      <span class="stat-name">المستوى</span>
+      <strong id="profileLevel">1</strong>
     </div>
 
     <button
@@ -1150,63 +1118,295 @@ main{
 </div>
 
 
+<!-- ================= BOX MODAL ================= -->
+
+<div id="boxModal" class="modal hidden">
+
+  <div class="card modal-box">
+
+    <h2>📦 فتح الصندوق</h2>
+
+    <div id="boxResult" class="result">
+
+      <div class="result-icon">
+        📦
+      </div>
+
+      <div class="result-name">
+        جاري الفتح...
+      </div>
+
+    </div>
+
+    <button
+      class="btn goldbtn full"
+      onclick="closeBoxModal()"
+    >
+      إغلاق
+    </button>
+
+  </div>
+
+</div>
+
+
+<div id="explosion" class="explosion"></div>
+
+<div id="toast" class="toast"></div>
+
+
 <script>
 
 /* =====================================================
-   المستخدم الحالي
+   الحالة
 ===================================================== */
 
 let currentUser = null;
 
 
 /* =====================================================
-   API LOGIN / REGISTER
+   المنتجات — أكثر من 100
 ===================================================== */
 
-async function api(action,username="",password=""){
+const products = [
 
-  let endpoint="";
+["p001","⚔️","سيف اللهب","يزيد الهجوم",500],
+["p002","🗡️","نصل الظلام","سلاح نادر",650],
+["p003","🪄","عصا الساحر","قوة سحرية",700],
+["p004","🏹","قوس القمر","هجوم بعيد",800],
+["p005","🔱","رمح التنين","سلاح أسطوري",950],
+["p006","🛡️","درع الحديد","يزيد الدفاع",400],
+["p007","🛡️","درع الذهب","دفاع قوي",850],
+["p008","🪖","خوذة المحارب","دفاع إضافي",300],
+["p009","🥋","درع الساموراي","دفاع ساموراي",900],
+["p010","👑","تاج الملك","عنصر ملكي",1500],
 
-  if(action==="login"){
-    endpoint="/api/login";
-  }
+["p011","❤️","جرعة الصحة","استعادة الصحة",150],
+["p012","💙","جرعة الطاقة","استعادة الطاقة",175],
+["p013","💚","جرعة الطبيعة","علاج قوي",225],
+["p014","💜","جرعة السحر","طاقة سحرية",350],
+["p015","💛","جرعة الذهب","حظ أفضل",500],
+["p016","🔥","جوهر النار","قوة النار",600],
+["p017","❄️","جوهر الجليد","قوة الجليد",600],
+["p018","⚡","جوهر البرق","قوة البرق",750],
+["p019","🌑","جوهر الظلام","قوة الظلام",850],
+["p020","☀️","جوهر الشمس","قوة الشمس",1000],
 
-  if(action==="register"){
-    endpoint="/api/register";
-  }
+["p021","💎","جوهرة صغيرة","جوهرة نادرة",300],
+["p022","💎","جوهرة زرقاء","جوهرة زرقاء",500],
+["p023","💎","جوهرة حمراء","جوهرة حمراء",550],
+["p024","💎","جوهرة بنفسجية","جوهرة أسطورية",750],
+["p025","💎","جوهرة ذهبية","جوهرة ملكية",1200],
+["p026","🪙","عملة قديمة","قطعة أثرية",250],
+["p027","🏺","تحفة قديمة","تحفة نادرة",450],
+["p028","📜","مخطوطة قديمة","مخطوطة سرية",700],
+["p029","🗝️","مفتاح ذهبي","يفتح خزائن",900],
+["p030","🔮","كرة العراف","عنصر غامض",1100],
 
-  if(!endpoint){
-    throw new Error("عملية غير معروفة");
-  }
+["p031","🐉","قلب التنين","عنصر نادر",2000],
+["p032","🦊","قناع الثعلب","قناع أسطوري",1300],
+["p033","🐺","روح الذئب","قوة الذئب",1400],
+["p034","🦅","ريشة النسر","سرعة عالية",1000],
+["p035","🐯","مخلب النمر","هجوم قوي",1250],
+["p036","🐍","سم الأفعى","عنصر خطير",900],
+["p037","🦁","قلب الأسد","شجاعة",1500],
+["p038","🐲","حجر التنين","قوة التنين",2500],
+["p039","🦋","جناح الفراشة","سرعة",650],
+["p040","🦂","ذيل العقرب","هجوم سام",950],
 
-  const response=await fetch(endpoint,{
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json"
-    },
-    body:JSON.stringify({
-      username,
-      password
-    })
-  });
+["p041","🏯","مخطط القصر","تطوير المدينة",1000],
+["p042","🏰","مخطط القلعة","قلعة قوية",2500],
+["p043","🌳","شجرة الحكمة","زيادة الخبرة",800],
+["p044","⛩️","بوابة المعبد","عنصر المدينة",1200],
+["p045","🗿","تمثال الحارس","دفاع المدينة",1700],
+["p046","🌾","بذور القمح","للمزرعة",100],
+["p047","🌽","بذور الذرة","للمزرعة",125],
+["p048","🍎","بذور التفاح","للمزرعة",150],
+["p049","🍇","بذور العنب","للمزرعة",200],
+["p050","🌻","بذور عباد الشمس","للمزرعة",250],
+
+["p051","🍞","خبز فاخر","طعام",120],
+["p052","🍖","لحم مشوي","طعام قوي",250],
+["p053","🍜","رامن أسطوري","طاقة",300],
+["p054","🍣","سوشي فاخر","طاقة",350],
+["p055","🍱","وجبة الساموراي","طاقة عالية",500],
+["p056","🍵","شاي ياباني","استرخاء",100],
+["p057","🍙","أونيغيري","طعام",150],
+["p058","🍰","كعكة ملكية","طعام نادر",400],
+["p059","🍫","شوكولاتة نادرة","طاقة",300],
+["p060","🍯","عسل الجبل","علاج",450],
+
+["p061","🎩","قبعة الساحر","زينة",750],
+["p062","👘","كيمونو فاخر","زينة",850],
+["p063","🥷","زي النينجا","زينة",1200],
+["p064","🧥","معطف القائد","زينة",1000],
+["p065","👞","حذاء السرعة","سرعة",700],
+["p066","🕶️","نظارة الظلام","زينة",600],
+["p067","🎭","قناع المسرح","زينة",500],
+["p068","🧤","قفازات القوة","قوة",900],
+["p069","🧣","وشاح النار","زينة",800],
+["p070","🧿","عين الحماية","حماية",1100],
+
+["p071","🎁","هدية صغيرة","هدية",250],
+["p072","🎁","هدية ذهبية","هدية نادرة",600],
+["p073","🎁","هدية ملكية","هدية أسطورية",1500],
+["p074","🎫","تذكرة الحظ","حظ",300],
+["p075","🎟️","تذكرة ذهبية","حظ أفضل",700],
+["p076","🎟️","تذكرة أسطورية","حظ أسطوري",1500],
+["p077","🎲","نرد محظوظ","الألعاب",500],
+["p078","🎡","رمز العجلة","الألعاب",650],
+["p079","🎮","رمز الألعاب","الألعاب",400],
+["p080","🏆","كأس النصر","زينة",1800],
+
+["p081","📿","قلادة القمر","طاقة",900],
+["p082","💍","خاتم النار","هجوم",1200],
+["p083","💍","خاتم الجليد","دفاع",1200],
+["p084","💍","خاتم البرق","سرعة",1400],
+["p085","💍","خاتم الملك","عنصر ملكي",2200],
+["p086","📿","قلادة التنين","قوة",2500],
+["p087","👑","تاج الساموراي","قوة",1900],
+["p088","👑","تاج التنين","قوة أسطورية",3500],
+["p089","💠","حجر الطاقة","طاقة",1600],
+["p090","💠","حجر الروح","روح",2200],
+
+["p091","📕","كتاب النار","مهارة",1300],
+["p092","📘","كتاب الجليد","مهارة",1300],
+["p093","📗","كتاب الطبيعة","مهارة",1300],
+["p094","📙","كتاب البرق","مهارة",1500],
+["p095","📓","كتاب الظلام","مهارة",1800],
+["p096","📔","كتاب الشمس","مهارة",2200],
+["p097","📖","كتاب الأساطير","مهارة نادرة",3000],
+["p098","🧾","وثيقة القصر","المدينة",1000],
+["p099","📋","وثيقة الملك","المدينة",2000],
+["p100","📜","سر قديم","عنصر أسطوري",4000],
+
+["p101","🗡️","سيف القمر","سلاح نادر",1800],
+["p102","⚔️","سيف الشمس","سلاح أسطوري",3000],
+["p103","⚔️","سيف التنين","سلاح أسطوري",5000],
+["p104","🔪","نصل ساموراي","سلاح",1600],
+["p105","🔱","رمح الملك","سلاح",2700],
+["p106","🏹","قوس التنين","سلاح",3200],
+["p107","🪄","عصا الحكيم","سحر",2800],
+["p108","🔮","بلورة التنين","سحر",3500],
+["p109","🛡️","درع التنين","دفاع",4000],
+["p110","👑","تاج الشمس","عنصر ملكي",5000]
+
+];
+
+
+/* =====================================================
+   الألعاب
+===================================================== */
+
+const games = [
+
+["dice","🎲","النرد","تكلفة 25 💰"],
+["coin","🪙","عملة الحظ","تكلفة 40 💰"],
+["quickbox","📦","الصندوق السريع","تكلفة 50 💰"],
+["slots","🎰","آلة الحظ","تكلفة 75 💰"],
+["wheel","🎡","عجلة الحظ","تكلفة 100 💰"],
+["cards","🃏","ورق الحظ","تكلفة 150 💰"],
+["treasure","💎","كنز مخفي","تكلفة 200 💰"],
+["boss","🐉","معركة التنين","تكلفة 300 💰"]
+
+];
+
+
+/* =====================================================
+   الصناديق السبعة
+===================================================== */
+
+const boxes = [
+
+{
+ id:"box1",
+ icon:"📦",
+ name:"الصندوق البرونزي",
+ price:100,
+ rewards:5
+},
+
+{
+ id:"box2",
+ icon:"🧰",
+ name:"الصندوق الفضي",
+ price:250,
+ rewards:5
+},
+
+{
+ id:"box3",
+ icon:"🗝️",
+ name:"الصندوق الذهبي",
+ price:500,
+ rewards:3
+},
+
+{
+ id:"box4",
+ icon:"🏺",
+ name:"الصندوق الإمبراطوري",
+ price:1000,
+ rewards:5
+},
+
+{
+ id:"box5",
+ icon:"🗃️",
+ name:"صندوق الساموراي",
+ price:2500,
+ rewards:6
+},
+
+{
+ id:"box6",
+ icon:"🧳",
+ name:"صندوق التنين",
+ price:5000,
+ rewards:7
+},
+
+{
+ id:"box7",
+ icon:"💎",
+ name:"الصندوق الأسطوري",
+ price:10000,
+ rewards:10
+}
+
+];
+
+
+/* =====================================================
+   API عام
+===================================================== */
+
+async function request(url,body){
+
+  const response =
+    await fetch(
+      url,
+      {
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify(body)
+      }
+    );
 
   let data;
 
   try{
     data=await response.json();
   }catch{
-    throw new Error("الخادم أعاد استجابة غير صحيحة");
+    throw new Error("استجابة غير صحيحة من الخادم");
   }
 
-  if(!response.ok){
+  if(!response.ok || data.success===false){
     throw new Error(
-      data.message||"حدث خطأ في الخادم"
-    );
-  }
-
-  if(data.success===false){
-    throw new Error(
-      data.message||"فشلت العملية"
+      data.message ||
+      "حدث خطأ في الخادم"
     );
   }
 
@@ -1215,85 +1415,21 @@ async function api(action,username="",password=""){
 
 
 /* =====================================================
-   الرسائل
-===================================================== */
-
-function showMessage(id,text,type="error"){
-
-  const box=document.getElementById(id);
-
-  if(!box)return;
-
-  box.textContent=text;
-
-  if(!text){
-    box.className="message";
-    return;
-  }
-
-  box.className="message "+type;
-}
-
-
-/* =====================================================
-   REGISTER BOX
-===================================================== */
-
-function showRegister(){
-
-  document
-    .getElementById("loginBox")
-    .classList.add("hidden");
-
-  document
-    .getElementById("registerBox")
-    .classList.remove("hidden");
-
-  showMessage("loginMessage","");
-}
-
-
-/* =====================================================
-   LOGIN BOX
-===================================================== */
-
-function showLogin(){
-
-  document
-    .getElementById("registerBox")
-    .classList.add("hidden");
-
-  document
-    .getElementById("loginBox")
-    .classList.remove("hidden");
-
-  showMessage("registerMessage","");
-}
-
-
-/* =====================================================
-   REGISTER
+   LOGIN / REGISTER
 ===================================================== */
 
 async function register(){
 
   const username=
-    document
-      .getElementById("regName")
-      .value
-      .trim();
+    document.getElementById("regName").value.trim();
 
   const password=
-    document
-      .getElementById("regPass")
-      .value;
+    document.getElementById("regPass").value;
 
   const password2=
-    document
-      .getElementById("regPass2")
-      .value;
+    document.getElementById("regPass2").value;
 
-  if(!username||!password||!password2){
+  if(!username || !password || !password2){
     showMessage(
       "registerMessage",
       "❌ أكمل جميع البيانات."
@@ -1329,41 +1465,37 @@ async function register(){
     document.getElementById("registerButton");
 
   button.disabled=true;
-  button.textContent="⏳ جاري إنشاء الحساب...";
+  button.textContent="⏳ جاري الإنشاء...";
 
   try{
 
-    const result=
-      await api(
-        "register",
-        username,
-        password
+    const data=
+      await request(
+        "/api/register",
+        {
+          username,
+          password
+        }
       );
 
-    if(result.success&&result.user){
+    if(data.user){
 
       showMessage(
         "registerMessage",
-        "✅ تم إنشاء الحساب بنجاح!",
+        "✅ تم إنشاء الحساب بنجاح.",
         "success"
       );
 
-      setTimeout(()=>{
-        loginUser(result.user);
-      },700);
-
-    }else{
-
-      showMessage(
-        "registerMessage",
-        result.message||"تعذر إنشاء الحساب."
+      setTimeout(
+        ()=>{
+          loginUser(data.user);
+        },
+        500
       );
 
     }
 
   }catch(error){
-
-    console.error("REGISTER ERROR:",error);
 
     showMessage(
       "registerMessage",
@@ -1376,27 +1508,19 @@ async function register(){
     button.textContent="📝 إنشاء الحساب";
 
   }
+
 }
 
-
-/* =====================================================
-   LOGIN
-===================================================== */
 
 async function login(){
 
   const username=
-    document
-      .getElementById("loginName")
-      .value
-      .trim();
+    document.getElementById("loginName").value.trim();
 
   const password=
-    document
-      .getElementById("loginPass")
-      .value;
+    document.getElementById("loginPass").value;
 
-  if(!username||!password){
+  if(!username || !password){
 
     showMessage(
       "loginMessage",
@@ -1414,35 +1538,20 @@ async function login(){
 
   try{
 
-    const result=
-      await api(
-        "login",
-        username,
-        password
+    const data=
+      await request(
+        "/api/login",
+        {
+          username,
+          password
+        }
       );
 
-    if(result.success&&result.user){
-
-      showMessage(
-        "loginMessage",
-        "✅ تم تسجيل الدخول.",
-        "success"
-      );
-
-      loginUser(result.user);
-
-    }else{
-
-      throw new Error(
-        result.message||
-        "اسم المستخدم أو كلمة المرور غير صحيحة."
-      );
-
+    if(data.user){
+      loginUser(data.user);
     }
 
   }catch(error){
-
-    console.error("LOGIN ERROR:",error);
 
     showMessage(
       "loginMessage",
@@ -1455,12 +1564,9 @@ async function login(){
     button.textContent="🔐 دخول";
 
   }
+
 }
 
-
-/* =====================================================
-   دخول المستخدم
-===================================================== */
 
 function loginUser(user){
 
@@ -1468,154 +1574,259 @@ function loginUser(user){
     ...user
   };
 
-  window.currentUser=currentUser;
+  localStorage.setItem(
+    "sun_tokyo_user",
+    JSON.stringify(currentUser)
+  );
 
   document
     .getElementById("auth")
-    .classList.add("hidden");
+    .classList
+    .add("hidden");
 
   document
     .getElementById("app")
-    .classList.remove("hidden");
+    .classList
+    .remove("hidden");
 
   updateUI();
 
+  loadInventory();
+
   page("home");
+
 }
 
-
-/* =====================================================
-   LOGOUT
-===================================================== */
 
 function logout(){
 
   currentUser=null;
-  window.currentUser=null;
+
+  localStorage.removeItem(
+    "sun_tokyo_user"
+  );
 
   document
     .getElementById("app")
-    .classList.add("hidden");
+    .classList
+    .add("hidden");
 
   document
     .getElementById("auth")
-    .classList.remove("hidden");
+    .classList
+    .remove("hidden");
 
-  document
-    .getElementById("loginPass")
-    .value="";
+  document.getElementById("loginPass").value="";
 
   showLogin();
+
 }
 
 
 /* =====================================================
-   UPDATE UI
+   الرسائل
+===================================================== */
+
+function showMessage(id,text,type="error"){
+
+  const element=
+    document.getElementById(id);
+
+  if(!element)return;
+
+  element.textContent=text;
+
+  element.className=
+    "message "+type;
+
+}
+
+
+function toast(text){
+
+  const element=
+    document.getElementById("toast");
+
+  element.textContent=text;
+
+  element.classList.add("show");
+
+  setTimeout(
+    ()=>{
+      element.classList.remove("show");
+    },
+    2500
+  );
+
+}
+
+
+/* =====================================================
+   AUTH BOX
+===================================================== */
+
+function showRegister(){
+
+  document
+    .getElementById("loginBox")
+    .classList
+    .add("hidden");
+
+  document
+    .getElementById("registerBox")
+    .classList
+    .remove("hidden");
+
+}
+
+
+function showLogin(){
+
+  document
+    .getElementById("registerBox")
+    .classList
+    .add("hidden");
+
+  document
+    .getElementById("loginBox")
+    .classList
+    .remove("hidden");
+
+}
+
+
+/* =====================================================
+   UI
 ===================================================== */
 
 function updateUI(){
 
   if(!currentUser)return;
 
-  const user=currentUser;
-
   const balance=
-    Number(user.balance||0);
+    Number(currentUser.balance||0);
 
   const level=
-    Number(user.level||1);
+    Number(currentUser.level||1);
 
   const city=
-    Number(user.city||1);
+    Number(currentUser.city||1);
 
-  document
-    .getElementById("headerName")
-    .textContent=
-      user.username||"-";
+  document.getElementById("headerName").textContent=
+    currentUser.username||"-";
 
-  document
-    .getElementById("headerBalance")
-    .textContent=
-      balance.toLocaleString("ar-EG");
+  document.getElementById("headerBalance").textContent=
+    balance.toLocaleString("ar-EG");
 
-  document
-    .getElementById("homeBalance")
-    .textContent=
-      balance.toLocaleString("ar-EG");
+  document.getElementById("homeBalance").textContent=
+    balance.toLocaleString("ar-EG");
 
-  document
-    .getElementById("homeLevel")
-    .textContent=level;
+  document.getElementById("homeLevel").textContent=
+    level;
 
-  document
-    .getElementById("profileName")
-    .textContent=
-      user.username||"-";
+  document.getElementById("homePower").textContent=
+    20+((level-1)*5);
 
-  document
-    .getElementById("profileBalance")
-    .textContent=
-      balance.toLocaleString("ar-EG");
+  document.getElementById("profileName").textContent=
+    currentUser.username||"-";
 
-  document
-    .getElementById("profileLevel")
-    .textContent=level;
+  document.getElementById("profileBalance").textContent=
+    balance.toLocaleString("ar-EG");
 
-  document
-    .getElementById("shopBalance")
-    .textContent=
-      balance.toLocaleString("ar-EG");
+  document.getElementById("profileLevel").textContent=
+    level;
 
-  document
-    .getElementById("cityLevel")
-    .textContent=city;
+  document.getElementById("cityLevel").textContent=
+    city;
 
-  document
-    .getElementById("cityPopulation")
-    .textContent=city;
+  document.getElementById("cityPopulation").textContent=
+    city;
 
-  document
-    .getElementById("homePower")
-    .textContent=
-      20+((level-1)*5);
+  document.getElementById("characterHP").textContent=
+    100+((level-1)*10);
 
-  document
-    .getElementById("characterHP")
-    .textContent=
-      100+((level-1)*10);
+  document.getElementById("characterAttack").textContent=
+    10+((level-1)*2);
 
-  document
-    .getElementById("characterAttack")
-    .textContent=
-      10+((level-1)*2);
+  document.getElementById("characterDefense").textContent=
+    10+((level-1)*2);
 
-  document
-    .getElementById("characterDefense")
-    .textContent=
-      10+((level-1)*2);
 }
 
 
 /* =====================================================
-   PAGES
+   تحديث الرصيد من السيرفر
+===================================================== */
+
+async function refreshBalance(){
+
+  if(!currentUser)return;
+
+  try{
+
+    const data=
+      await request(
+        "/api/balance",
+        {
+          userId:currentUser.id,
+          username:currentUser.username
+        }
+      );
+
+    if(data.user){
+
+      currentUser={
+        ...currentUser,
+        ...data.user
+      };
+
+      localStorage.setItem(
+        "sun_tokyo_user",
+        JSON.stringify(currentUser)
+      );
+
+      updateUI();
+
+    }
+
+  }catch(error){
+
+    console.warn(
+      "Balance refresh:",
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   الصفحات
 ===================================================== */
 
 function page(name){
 
   document
     .querySelectorAll(".page")
-    .forEach(item=>{
-      item.classList.remove("active");
-    });
+    .forEach(
+      item=>{
+        item.classList.remove("active");
+      }
+    );
 
   document
     .querySelectorAll("nav button[data-page]")
-    .forEach(button=>{
-      button.classList.remove("active");
-    });
+    .forEach(
+      item=>{
+        item.classList.remove("active");
+      }
+    );
 
   const target=
-    document.getElementById("page-"+name);
+    document.getElementById(
+      "page-"+name
+    );
 
   if(target){
     target.classList.add("active");
@@ -1629,111 +1840,148 @@ function page(name){
   if(button){
     button.classList.add("active");
   }
+
+  if(name==="inventory"){
+    loadInventory();
+  }
+
+  refreshBalance();
+
 }
 
 
 /* =====================================================
-   LOGIN CHECK
+   المتجر
 ===================================================== */
 
-function needLogin(){
+function renderProducts(){
+
+  const container=
+    document.getElementById("products");
+
+  container.innerHTML="";
+
+  products.forEach(
+    product=>{
+
+      const [
+        id,
+        icon,
+        name,
+        description,
+        price
+      ]=product;
+
+      const card=
+        document.createElement("div");
+
+      card.className=
+        "card product";
+
+      card.innerHTML=`
+
+        <div>
+
+          <div class="product-icon">
+            ${icon}
+          </div>
+
+          <div class="product-name">
+            ${name}
+          </div>
+
+          <div class="product-description">
+            ${description}
+          </div>
+
+        </div>
+
+        <div>
+
+          <div class="product-price">
+            ${price.toLocaleString("ar-EG")} 💰
+          </div>
+
+          <button
+            class="btn goldbtn full"
+            onclick="buyProduct('${id}')"
+          >
+            🛒 شراء
+          </button>
+
+        </div>
+      `;
+
+      container.appendChild(card);
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   شراء المنتج
+===================================================== */
+
+async function buyProduct(productId){
 
   if(!currentUser){
 
-    alert(
-      "❌ يجب تسجيل الدخول أولًا."
+    toast("❌ سجل الدخول أولًا.");
+
+    return;
+  }
+
+  const product=
+    products.find(
+      item=>item[0]===productId
     );
 
-    return false;
-  }
+  if(!product)return;
 
-  return true;
-}
+  const [
+    id,
+    icon,
+    name,
+    description,
+    price
+  ]=product;
 
-
-/* =====================================================
-   ⭐ الشراء الحقيقي
-===================================================== */
-
-async function buyItem(name,price,button=null){
-
-  if(!needLogin()){
-    return;
-  }
-
-  const amount=Number(price);
-
-  if(!Number.isFinite(amount)||amount<=0){
-
-    alert("❌ سعر المنتج غير صحيح.");
-
-    return;
-  }
-
-  const currentBalance=
+  const balance=
     Number(currentUser.balance||0);
 
-  if(currentBalance<amount){
+  if(balance<price){
 
-    alert(
-      "❌ رصيدك غير كافٍ.\n\n"+
-      "💰 رصيدك: "+
-      currentBalance.toLocaleString("ar-EG")+
-      "\n🛒 السعر: "+
-      amount.toLocaleString("ar-EG")
+    toast(
+      "❌ رصيدك غير كافٍ."
     );
 
     return;
   }
 
-  if(button){
-    button.disabled=true;
-    button.dataset.oldText=button.textContent;
-    button.textContent="⏳ جاري الشراء...";
+  if(
+    !confirm(
+      `شراء ${name} مقابل ${price.toLocaleString("ar-EG")} 💰؟`
+    )
+  ){
+    return;
   }
 
   try{
 
-    const response=
-      await fetch("/api/purchase",{
-        method:"POST",
-
-        headers:{
-          "Content-Type":"application/json"
-        },
-
-        body:JSON.stringify({
-
+    const data=
+      await request(
+        "/api/purchase",
+        {
+          userId:currentUser.id,
           username:currentUser.username,
-
-          item:name,
-
-          price:amount
-
-        })
-      });
-
-    let data;
-
-    try{
-      data=await response.json();
-    }catch{
-      throw new Error(
-        "الخادم أعاد استجابة غير صحيحة"
+          productId:id,
+          productName:name,
+          price:price,
+          icon:icon
+        }
       );
-    }
-
-    if(!response.ok||!data.success){
-
-      throw new Error(
-        data.message||
-        "فشل الشراء"
-      );
-    }
-
-    /*
-      تحديث الرصيد بعد الخصم
-    */
 
     if(data.user){
 
@@ -1742,54 +1990,243 @@ async function buyItem(name,price,button=null){
         ...data.user
       };
 
-      window.currentUser=
-        currentUser;
+    }else if(data.balance!==undefined){
+
+      currentUser.balance=
+        Number(data.balance);
+
     }else{
 
       currentUser.balance=
-        currentBalance-amount;
+        balance-price;
 
     }
 
+    localStorage.setItem(
+      "sun_tokyo_user",
+      JSON.stringify(currentUser)
+    );
+
     updateUI();
 
-    alert(
-      "✅ تم الشراء بنجاح!\n\n"+
-      "🛒 المنتج: "+name+
-      "\n💰 السعر: "+
-      amount.toLocaleString("ar-EG")+
-      "\n💳 الرصيد الجديد: "+
-      Number(currentUser.balance||0)
-        .toLocaleString("ar-EG")
+    toast(
+      `✅ تم شراء ${name} وخصم ${price.toLocaleString("ar-EG")} 💰`
+    );
+
+    loadInventory();
+
+  }catch(error){
+
+    toast(
+      "❌ "+error.message
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   المخزون
+===================================================== */
+
+async function loadInventory(){
+
+  if(!currentUser)return;
+
+  const container=
+    document.getElementById("inventoryList");
+
+  container.innerHTML=`
+    <div class="card">
+      <p class="description">
+        ⏳ جاري تحميل المخزون...
+      </p>
+    </div>
+  `;
+
+  try{
+
+    const response=
+      await fetch(
+        "/api/inventory",
+        {
+          method:"POST",
+          headers:{
+            "Content-Type":"application/json"
+          },
+          body:JSON.stringify({
+            userId:currentUser.id,
+            username:currentUser.username
+          })
+        }
+      );
+
+    const data=
+      await response.json();
+
+    if(!response.ok || data.success===false){
+      throw new Error(
+        data.message||"تعذر تحميل المخزون"
+      );
+    }
+
+    renderInventory(
+      data.items||
+      data.inventory||
+      []
     );
 
   }catch(error){
 
-    console.error(
-      "PURCHASE ERROR:",
-      error
-    );
+    container.innerHTML=`
+      <div class="card">
+        <p class="description">
+          ❌ ${escapeHtml(error.message)}
+        </p>
+      </div>
+    `;
 
-    alert(
-      "❌ "+(
-        error.message||
-        "حدث خطأ أثناء الشراء"
-      )
-    );
+  }
 
-  }finally{
+}
 
-    if(button){
 
-      button.disabled=false;
+function renderInventory(items){
 
-      button.textContent=
-        button.dataset.oldText||
-        "🛒 شراء";
+  const container=
+    document.getElementById("inventoryList");
+
+  container.innerHTML="";
+
+  if(!items.length){
+
+    container.innerHTML=`
+      <div class="card">
+        <p class="description">
+          🎒 المخزون فارغ حاليًا.
+        </p>
+      </div>
+    `;
+
+    return;
+  }
+
+  items.forEach(
+    item=>{
+
+      const card=
+        document.createElement("div");
+
+      card.className=
+        "inventory-item";
+
+      const count=
+        Number(
+          item.quantity||
+          item.count||
+          1
+        );
+
+      const icon=
+        item.icon||
+        "📦";
+
+      const name=
+        item.product_name||
+        item.productName||
+        item.name||
+        "منتج";
+
+      const id=
+        item.product_id||
+        item.productId||
+        item.id;
+
+      card.innerHTML=`
+
+        <div class="inventory-info">
+
+          <div class="inventory-icon">
+            ${icon}
+          </div>
+
+          <div>
+
+            <div class="inventory-name">
+              ${escapeHtml(name)}
+            </div>
+
+            <div class="inventory-count">
+              الكمية: ${count}
+            </div>
+
+          </div>
+
+        </div>
+
+        <button
+          class="btn success"
+          onclick="useItem('${escapeAttr(id)}')"
+        >
+          🧪 استخدام
+        </button>
+
+      `;
+
+      container.appendChild(card);
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   استخدام المنتج
+===================================================== */
+
+async function useItem(productId){
+
+  try{
+
+    const data=
+      await request(
+        "/api/inventory",
+        {
+          action:"use",
+          userId:currentUser.id,
+          username:currentUser.username,
+          productId
+        }
+      );
+
+    if(data.user){
+
+      currentUser={
+        ...currentUser,
+        ...data.user
+      };
+
+      updateUI();
 
     }
 
+    toast(
+      data.message||
+      "✅ تم استخدام المنتج."
+    );
+
+    loadInventory();
+
+  }catch(error){
+
+    toast(
+      "❌ "+error.message
+    );
+
   }
+
 }
 
 
@@ -1797,40 +2234,406 @@ async function buyItem(name,price,button=null){
    الألعاب
 ===================================================== */
 
-function playDice(){
+function renderGames(){
 
-  if(!needLogin())return;
+  const container=
+    document.getElementById("gamesList");
 
-  alert(
-    "🎲 نظام النرد سيتم ربطه بقاعدة البيانات."
+  container.innerHTML="";
+
+  games.forEach(
+    game=>{
+
+      const [
+        id,
+        icon,
+        name,
+        description
+      ]=game;
+
+      const card=
+        document.createElement("div");
+
+      card.className=
+        "card game-card";
+
+      card.innerHTML=`
+
+        <div>
+
+          <div class="game-icon">
+            ${icon}
+          </div>
+
+          <div class="game-title">
+            ${name}
+          </div>
+
+          <div class="game-desc">
+            ${description}
+          </div>
+
+        </div>
+
+        <button
+          class="btn goldbtn full"
+          onclick="playGame('${id}')"
+        >
+          🎮 لعب
+        </button>
+
+      `;
+
+      container.appendChild(card);
+
+    }
   );
+
 }
 
-function quickBox(){
 
-  if(!needLogin())return;
+async function playGame(gameId){
 
-  alert(
-    "📦 نظام الصندوق سيتم ربطه بقاعدة البيانات."
-  );
+  try{
+
+    const data=
+      await request(
+        "/api/game",
+        {
+          userId:currentUser.id,
+          username:currentUser.username,
+          game:gameId
+        }
+      );
+
+    if(data.user){
+
+      currentUser={
+        ...currentUser,
+        ...data.user
+      };
+
+      updateUI();
+
+    }
+
+    if(data.reward!==undefined){
+
+      toast(
+        `🎁 النتيجة: ${Number(data.reward).toLocaleString("ar-EG")} 💰`
+      );
+
+    }else{
+
+      toast(
+        data.message||
+        "🎮 تم لعب اللعبة."
+      );
+
+    }
+
+  }catch(error){
+
+    toast(
+      "❌ "+error.message
+    );
+
+  }
+
 }
 
-function spinWheel(){
 
-  if(!needLogin())return;
+/* =====================================================
+   الصناديق
+===================================================== */
 
-  alert(
-    "🎡 عجلة الحظ سيتم ربطها بقاعدة البيانات."
+function renderBoxes(){
+
+  const container=
+    document.getElementById("boxesList");
+
+  container.innerHTML="";
+
+  boxes.forEach(
+    box=>{
+
+      const card=
+        document.createElement("div");
+
+      card.className=
+        "box-card";
+
+      card.innerHTML=`
+
+        <div class="box-visual">
+          ${box.icon}
+        </div>
+
+        <div class="box-title">
+          ${box.name}
+        </div>
+
+        <div class="box-price">
+          السعر:
+          ${box.price.toLocaleString("ar-EG")}
+          💰
+        </div>
+
+        <div class="box-rewards">
+          🎁 حتى ${box.rewards} جوائز محتملة
+        </div>
+
+        <button
+          class="btn goldbtn full"
+          onclick="openBox('${box.id}')"
+        >
+          📦 فتح الصندوق
+        </button>
+
+      `;
+
+      container.appendChild(card);
+
+    }
   );
+
 }
 
-function dailyReward(){
 
-  if(!needLogin())return;
+/* =====================================================
+   فتح الصندوق
+===================================================== */
 
-  alert(
-    "🎁 المكافأة اليومية سيتم ربطها بقاعدة البيانات."
+async function openBox(boxId){
+
+  const box=
+    boxes.find(
+      item=>item.id===boxId
+    );
+
+  if(!box)return;
+
+  const balance=
+    Number(currentUser.balance||0);
+
+  if(balance<box.price){
+
+    toast(
+      "❌ رصيدك غير كافٍ لفتح هذا الصندوق."
+    );
+
+    return;
+  }
+
+  if(
+    !confirm(
+      `فتح ${box.name} مقابل ${box.price.toLocaleString("ar-EG")} 💰؟`
+    )
+  ){
+    return;
+  }
+
+  showExplosion();
+
+  document
+    .getElementById("boxModal")
+    .classList
+    .remove("hidden");
+
+  document
+    .getElementById("boxResult")
+    .innerHTML=`
+
+      <div class="result-icon">
+        💥
+      </div>
+
+      <div class="result-name">
+        جاري فتح الصندوق...
+      </div>
+    `;
+
+  try{
+
+    const data=
+      await request(
+        "/api/game",
+        {
+          userId:currentUser.id,
+          username:currentUser.username,
+          game:"box",
+          boxId:box.id,
+          price:box.price
+        }
+      );
+
+    if(data.user){
+
+      currentUser={
+        ...currentUser,
+        ...data.user
+      };
+
+    }else if(data.balance!==undefined){
+
+      currentUser.balance=
+        Number(data.balance);
+
+    }else{
+
+      currentUser.balance=
+        balance-box.price;
+
+    }
+
+    updateUI();
+
+    setTimeout(
+      ()=>{
+        showBoxReward(data);
+      },
+      700
+    );
+
+  }catch(error){
+
+    closeBoxModal();
+
+    toast(
+      "❌ "+error.message
+    );
+
+  }
+
+}
+
+
+function showBoxReward(data){
+
+  const reward=
+    data.reward||
+    data.item||
+    {
+      icon:"🎁",
+      name:"جائزة عشوائية"
+    };
+
+  const icon=
+    reward.icon||
+    "🎁";
+
+  const name=
+    reward.name||
+    reward.productName||
+    "جائزة";
+
+  document
+    .getElementById("boxResult")
+    .innerHTML=`
+
+      <div class="result-icon">
+        ${icon}
+      </div>
+
+      <div class="result-name">
+        🎉 ${escapeHtml(name)}
+      </div>
+
+      <p class="description">
+        حصلت على الجائزة بنجاح!
+      </p>
+
+    `;
+
+  toast(
+    "🎉 مبروك! حصلت على "+name
   );
+
+  loadInventory();
+
+}
+
+
+function closeBoxModal(){
+
+  document
+    .getElementById("boxModal")
+    .classList
+    .add("hidden");
+
+}
+
+
+/* =====================================================
+   الانفجار
+===================================================== */
+
+function showExplosion(){
+
+  const container=
+    document.getElementById("explosion");
+
+  container.innerHTML="";
+
+  const flash=
+    document.createElement("div");
+
+  flash.className="flash";
+
+  container.appendChild(flash);
+
+  for(
+    let i=0;
+    i<80;
+    i++
+  ){
+
+    const particle=
+      document.createElement("div");
+
+    particle.className="particle";
+
+    particle.style.left="50%";
+    particle.style.top="50%";
+
+    const angle=
+      Math.random()*Math.PI*2;
+
+    const distance=
+      150+Math.random()*700;
+
+    particle.style.setProperty(
+      "--x",
+      Math.cos(angle)*distance+"px"
+    );
+
+    particle.style.setProperty(
+      "--y",
+      Math.sin(angle)*distance+"px"
+    );
+
+    particle.style.width=
+      (4+Math.random()*10)+"px";
+
+    particle.style.height=
+      particle.style.width;
+
+    container.appendChild(
+      particle
+    );
+
+  }
+
+  container.classList.add("show");
+
+  setTimeout(
+    ()=>{
+      container.classList.remove("show");
+      container.innerHTML="";
+    },
+    1300
+  );
+
 }
 
 
@@ -1838,36 +2641,44 @@ function dailyReward(){
    المدينة
 ===================================================== */
 
-function upgradeCity(){
+async function cityUpgrade(){
 
-  if(!needLogin())return;
+  try{
 
-  alert(
-    "🏯 تطوير المدينة سيتم ربطه بقاعدة البيانات."
-  );
-}
+    const data=
+      await request(
+        "/api/game",
+        {
+          userId:currentUser.id,
+          username:currentUser.username,
+          game:"city_upgrade"
+        }
+      );
 
+    if(data.user){
 
-/* =====================================================
-   المزرعة
-===================================================== */
+      currentUser={
+        ...currentUser,
+        ...data.user
+      };
 
-function plantCrop(){
+      updateUI();
 
-  if(!needLogin())return;
+    }
 
-  alert(
-    "🌱 الزراعة سيتم ربطها بقاعدة البيانات."
-  );
-}
+    toast(
+      data.message||
+      "🏯 تم تطوير المدينة."
+    );
 
-function harvestCrop(){
+  }catch(error){
 
-  if(!needLogin())return;
+    toast(
+      "❌ "+error.message
+    );
 
-  alert(
-    "🌾 الحصاد سيتم ربطه بقاعدة البيانات."
-  );
+  }
+
 }
 
 
@@ -1875,9 +2686,7 @@ function harvestCrop(){
    المحفظة
 ===================================================== */
 
-function transferMoney(){
-
-  if(!needLogin())return;
+async function transferMoney(){
 
   const username=
     document
@@ -1892,119 +2701,233 @@ function transferMoney(){
         .value
     );
 
-  if(!username||!amount||amount<=0){
+  if(!username || amount<=0){
 
-    alert(
-      "❌ اكتب اسم المستلم والمبلغ."
+    toast(
+      "❌ أدخل المستلم والمبلغ."
     );
 
     return;
   }
 
-  alert(
-    "💸 التحويل سيتم ربطه بقاعدة البيانات."
-  );
+  try{
+
+    const data=
+      await request(
+        "/api/game",
+        {
+          userId:currentUser.id,
+          username:currentUser.username,
+          game:"transfer",
+          toUsername:username,
+          amount
+        }
+      );
+
+    if(data.user){
+
+      currentUser={
+        ...currentUser,
+        ...data.user
+      };
+
+      updateUI();
+
+    }
+
+    toast(
+      data.message||
+      "✅ تم التحويل."
+    );
+
+  }catch(error){
+
+    toast(
+      "❌ "+error.message
+    );
+
+  }
+
 }
 
 
-function depositMoney(){
+async function walletAction(action){
 
-  if(!needLogin())return;
+  const id=
+    action==="deposit"
+      ?"depositAmount"
+      :"withdrawAmount";
 
   const amount=
     Number(
       document
-        .getElementById("depositAmount")
+        .getElementById(id)
         .value
     );
 
-  if(!amount||amount<=0){
+  if(amount<=0){
 
-    alert(
-      "❌ اكتب مبلغًا صحيحًا."
+    toast(
+      "❌ أدخل مبلغًا صحيحًا."
     );
 
     return;
   }
 
-  alert(
-    "💰 الإيداع سيتم ربطه بقاعدة البيانات."
-  );
-}
+  try{
 
+    const data=
+      await request(
+        "/api/game",
+        {
+          userId:currentUser.id,
+          username:currentUser.username,
+          game:action,
+          amount
+        }
+      );
 
-function withdrawMoney(){
+    if(data.user){
 
-  if(!needLogin())return;
+      currentUser={
+        ...currentUser,
+        ...data.user
+      };
 
-  const amount=
-    Number(
-      document
-        .getElementById("withdrawAmount")
-        .value
+      updateUI();
+
+    }
+
+    toast(
+      data.message||
+      "✅ تمت العملية."
     );
 
-  if(!amount||amount<=0){
+  }catch(error){
 
-    alert(
-      "❌ اكتب مبلغًا صحيحًا."
+    toast(
+      "❌ "+error.message
     );
 
-    return;
   }
 
-  alert(
-    "💳 السحب سيتم ربطه بقاعدة البيانات."
-  );
 }
 
 
 /* =====================================================
-   ENTER
+   أمان النصوص
+===================================================== */
+
+function escapeHtml(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+function escapeAttr(value){
+
+  return escapeHtml(value);
+
+}
+
+
+/* =====================================================
+   التشغيل
 ===================================================== */
 
 document.addEventListener(
   "DOMContentLoaded",
-  function(){
+  async function(){
+
+    renderProducts();
+    renderGames();
+    renderBoxes();
 
     page("home");
+
+    const saved=
+      localStorage.getItem(
+        "sun_tokyo_user"
+      );
+
+    if(saved){
+
+      try{
+
+        const user=
+          JSON.parse(saved);
+
+        if(user && user.id){
+
+          currentUser=user;
+
+          document
+            .getElementById("auth")
+            .classList
+            .add("hidden");
+
+          document
+            .getElementById("app")
+            .classList
+            .remove("hidden");
+
+          updateUI();
+
+          await refreshBalance();
+
+          loadInventory();
+
+        }
+
+      }catch{
+
+        localStorage.removeItem(
+          "sun_tokyo_user"
+        );
+
+      }
+
+    }
+
 
     document
       .getElementById("loginName")
       .addEventListener(
         "keydown",
-        function(event){
-
+        event=>{
           if(event.key==="Enter"){
             login();
           }
-
         }
       );
+
 
     document
       .getElementById("loginPass")
       .addEventListener(
         "keydown",
-        function(event){
-
+        event=>{
           if(event.key==="Enter"){
             login();
           }
-
         }
       );
+
 
     document
       .getElementById("regPass2")
       .addEventListener(
         "keydown",
-        function(event){
-
+        event=>{
           if(event.key==="Enter"){
             register();
           }
-
         }
       );
 
