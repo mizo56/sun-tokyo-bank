@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
@@ -27,7 +28,8 @@ body{
     radial-gradient(circle at 50% -10%,#3a2100 0,#120b02 28%,#070707 60%,#000 100%);
 }
 
-button,input{
+button,
+input{
   font-family:inherit;
 }
 
@@ -88,8 +90,7 @@ button:disabled{
 
 .goldbtn{
   color:#111;
-  background:
-    linear-gradient(135deg,#ff9800,#ffd54f);
+  background:linear-gradient(135deg,#ff9800,#ffd54f);
 }
 
 .success{
@@ -400,8 +401,7 @@ main{
   text-align:center;
   border-radius:20px;
   padding:20px;
-  background:
-    linear-gradient(145deg,#242424,#090909);
+  background:linear-gradient(145deg,#242424,#090909);
   border:1px solid rgba(255,193,7,.25);
   box-shadow:0 12px 35px rgba(0,0,0,.4);
 }
@@ -410,8 +410,7 @@ main{
   content:"";
   position:absolute;
   inset:0;
-  background:
-    radial-gradient(circle at 50% 10%,rgba(255,193,7,.13),transparent 50%);
+  background:radial-gradient(circle at 50% 10%,rgba(255,193,7,.13),transparent 50%);
   pointer-events:none;
 }
 
@@ -425,8 +424,7 @@ main{
   align-items:center;
   justify-content:center;
   font-size:55px;
-  background:
-    linear-gradient(145deg,#3c3c3c,#111);
+  background:linear-gradient(145deg,#3c3c3c,#111);
   border:2px solid #806000;
   box-shadow:
     0 0 25px rgba(255,193,7,.15),
@@ -630,8 +628,6 @@ main{
 
 <body>
 
-<!-- ================= AUTH ================= -->
-
 <div id="auth">
 
   <div class="auth-box">
@@ -742,8 +738,6 @@ main{
 </div>
 
 
-<!-- ================= APP ================= -->
-
 <div id="app" class="hidden">
 
 <header class="topbar">
@@ -781,8 +775,6 @@ main{
 
 
 <main>
-
-<!-- ================= HOME ================= -->
 
 <section id="page-home" class="page active">
 
@@ -834,8 +826,6 @@ main{
 </section>
 
 
-<!-- ================= CHARACTER ================= -->
-
 <section id="page-character" class="page">
 
   <div class="card">
@@ -865,8 +855,6 @@ main{
 
 </section>
 
-
-<!-- ================= CITY ================= -->
 
 <section id="page-city" class="page">
 
@@ -908,18 +896,16 @@ main{
 </section>
 
 
-<!-- ================= SHOP ================= -->
-
 <section id="page-shop" class="page">
 
   <div class="card">
 
     <div class="card-title">
-      🛒 المتجر الملكي — أكثر من 100 منتج
+      🛒 المتجر الملكي
     </div>
 
     <p class="description">
-      عند شراء أي منتج سيتم إرسال عملية الشراء إلى الخادم وخصم السعر من رصيدك.
+      اختر أي منتج لشرائه وإضافته إلى مخزونك.
     </p>
 
     <div id="products" class="products"></div>
@@ -928,8 +914,6 @@ main{
 
 </section>
 
-
-<!-- ================= INVENTORY ================= -->
 
 <section id="page-inventory" class="page">
 
@@ -954,8 +938,6 @@ main{
 </section>
 
 
-<!-- ================= GAMES ================= -->
-
 <section id="page-games" class="page">
 
   <div class="card">
@@ -971,8 +953,6 @@ main{
 </section>
 
 
-<!-- ================= BOXES ================= -->
-
 <section id="page-boxes" class="page">
 
   <div class="card">
@@ -982,7 +962,7 @@ main{
     </div>
 
     <p class="description">
-      كل صندوق له قيمة مختلفة وجوائز مختلفة. عند الفتح يظهر تأثير انفجار وجائزة عشوائية.
+      افتح الصناديق للحصول على جوائز عشوائية.
     </p>
 
     <div id="boxesList" class="boxes"></div>
@@ -991,8 +971,6 @@ main{
 
 </section>
 
-
-<!-- ================= WALLET ================= -->
 
 <section id="page-wallet" class="page">
 
@@ -1076,8 +1054,6 @@ main{
 </section>
 
 
-<!-- ================= PROFILE ================= -->
-
 <section id="page-profile" class="page">
 
   <div class="card">
@@ -1118,8 +1094,6 @@ main{
 </div>
 
 
-<!-- ================= BOX MODAL ================= -->
-
 <div id="boxModal" class="modal hidden">
 
   <div class="card modal-box">
@@ -1157,18 +1131,14 @@ main{
 
 <script>
 
-/* =====================================================
-   الحالة
-===================================================== */
-
-let currentUser = null;
+let currentUser=null;
 
 
-/* =====================================================
-   المنتجات — أكثر من 100
-===================================================== */
+/* =========================
+   المنتجات
+========================= */
 
-const products = [
+const products=[
 
 ["p001","⚔️","سيف اللهب","يزيد الهجوم",500],
 ["p002","🗡️","نصل الظلام","سلاح نادر",650],
@@ -1294,11 +1264,11 @@ const products = [
 ];
 
 
-/* =====================================================
+/* =========================
    الألعاب
-===================================================== */
+========================= */
 
-const games = [
+const games=[
 
 ["dice","🎲","النرد","تكلفة 25 💰"],
 ["coin","🪙","عملة الحظ","تكلفة 40 💰"],
@@ -1312,11 +1282,11 @@ const games = [
 ];
 
 
-/* =====================================================
-   الصناديق السبعة
-===================================================== */
+/* =========================
+   الصناديق
+========================= */
 
-const boxes = [
+const boxes=[
 
 {
  id:"box1",
@@ -1377,23 +1347,22 @@ const boxes = [
 ];
 
 
-/* =====================================================
-   API عام
-===================================================== */
+/* =========================
+   API
+========================= */
 
 async function request(url,body){
 
-  const response =
-    await fetch(
-      url,
-      {
-        method:"POST",
-        headers:{
-          "Content-Type":"application/json"
-        },
-        body:JSON.stringify(body)
-      }
-    );
+  const response=await fetch(
+    url,
+    {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify(body)
+    }
+  );
 
   let data;
 
@@ -1405,8 +1374,7 @@ async function request(url,body){
 
   if(!response.ok || data.success===false){
     throw new Error(
-      data.message ||
-      "حدث خطأ في الخادم"
+      data.message||"حدث خطأ في الخادم"
     );
   }
 
@@ -1414,22 +1382,26 @@ async function request(url,body){
 }
 
 
-/* =====================================================
-   LOGIN / REGISTER
-===================================================== */
+/* =========================
+   التسجيل
+========================= */
 
 async function register(){
 
-  const username=
-    document.getElementById("regName").value.trim();
+  const username=document
+    .getElementById("regName")
+    .value
+    .trim();
 
-  const password=
-    document.getElementById("regPass").value;
+  const password=document
+    .getElementById("regPass")
+    .value;
 
-  const password2=
-    document.getElementById("regPass2").value;
+  const password2=document
+    .getElementById("regPass2")
+    .value;
 
-  if(!username || !password || !password2){
+  if(!username||!password||!password2){
     showMessage(
       "registerMessage",
       "❌ أكمل جميع البيانات."
@@ -1469,14 +1441,13 @@ async function register(){
 
   try{
 
-    const data=
-      await request(
-        "/api/register",
-        {
-          username,
-          password
-        }
-      );
+    const data=await request(
+      "/api/register",
+      {
+        username,
+        password
+      }
+    );
 
     if(data.user){
 
@@ -1486,12 +1457,9 @@ async function register(){
         "success"
       );
 
-      setTimeout(
-        ()=>{
-          loginUser(data.user);
-        },
-        500
-      );
+      setTimeout(()=>{
+        loginUser(data.user);
+      },500);
 
     }
 
@@ -1512,15 +1480,22 @@ async function register(){
 }
 
 
+/* =========================
+   تسجيل الدخول
+========================= */
+
 async function login(){
 
-  const username=
-    document.getElementById("loginName").value.trim();
+  const username=document
+    .getElementById("loginName")
+    .value
+    .trim();
 
-  const password=
-    document.getElementById("loginPass").value;
+  const password=document
+    .getElementById("loginPass")
+    .value;
 
-  if(!username || !password){
+  if(!username||!password){
 
     showMessage(
       "loginMessage",
@@ -1538,14 +1513,13 @@ async function login(){
 
   try{
 
-    const data=
-      await request(
-        "/api/login",
-        {
-          username,
-          password
-        }
-      );
+    const data=await request(
+      "/api/login",
+      {
+        username,
+        password
+      }
+    );
 
     if(data.user){
       loginUser(data.user);
@@ -1567,6 +1541,10 @@ async function login(){
 
 }
 
+
+/* =========================
+   دخول المستخدم
+========================= */
 
 function loginUser(user){
 
@@ -1598,6 +1576,10 @@ function loginUser(user){
 }
 
 
+/* =========================
+   خروج
+========================= */
+
 function logout(){
 
   currentUser=null;
@@ -1623,9 +1605,9 @@ function logout(){
 }
 
 
-/* =====================================================
+/* =========================
    الرسائل
-===================================================== */
+========================= */
 
 function showMessage(id,text,type="error"){
 
@@ -1651,19 +1633,16 @@ function toast(text){
 
   element.classList.add("show");
 
-  setTimeout(
-    ()=>{
-      element.classList.remove("show");
-    },
-    2500
-  );
+  setTimeout(()=>{
+    element.classList.remove("show");
+  },2500);
 
 }
 
 
-/* =====================================================
-   AUTH BOX
-===================================================== */
+/* =========================
+   تبديل التسجيل
+========================= */
 
 function showRegister(){
 
@@ -1695,9 +1674,9 @@ function showLogin(){
 }
 
 
-/* =====================================================
+/* =========================
    UI
-===================================================== */
+========================= */
 
 function updateUI(){
 
@@ -1754,9 +1733,9 @@ function updateUI(){
 }
 
 
-/* =====================================================
-   تحديث الرصيد من السيرفر
-===================================================== */
+/* =========================
+   تحديث الرصيد
+========================= */
 
 async function refreshBalance(){
 
@@ -1764,14 +1743,13 @@ async function refreshBalance(){
 
   try{
 
-    const data=
-      await request(
-        "/api/balance",
-        {
-          userId:currentUser.id,
-          username:currentUser.username
-        }
-      );
+    const data=await request(
+      "/api/balance",
+      {
+        userId:currentUser.id,
+        username:currentUser.username
+      }
+    );
 
     if(data.user){
 
@@ -1801,32 +1779,26 @@ async function refreshBalance(){
 }
 
 
-/* =====================================================
+/* =========================
    الصفحات
-===================================================== */
+========================= */
 
 function page(name){
 
   document
     .querySelectorAll(".page")
-    .forEach(
-      item=>{
-        item.classList.remove("active");
-      }
-    );
+    .forEach(item=>{
+      item.classList.remove("active");
+    });
 
   document
     .querySelectorAll("nav button[data-page]")
-    .forEach(
-      item=>{
-        item.classList.remove("active");
-      }
-    );
+    .forEach(item=>{
+      item.classList.remove("active");
+    });
 
   const target=
-    document.getElementById(
-      "page-"+name
-    );
+    document.getElementById("page-"+name);
 
   if(target){
     target.classList.add("active");
@@ -1850,9 +1822,9 @@ function page(name){
 }
 
 
-/* =====================================================
+/* =========================
    المتجر
-===================================================== */
+========================= */
 
 function renderProducts(){
 
@@ -1861,68 +1833,65 @@ function renderProducts(){
 
   container.innerHTML="";
 
-  products.forEach(
-    product=>{
+  products.forEach(product=>{
 
-      const [
-        id,
-        icon,
-        name,
-        description,
-        price
-      ]=product;
+    const [
+      id,
+      icon,
+      name,
+      description,
+      price
+    ]=product;
 
-      const card=
-        document.createElement("div");
+    const card=
+      document.createElement("div");
 
-      card.className=
-        "card product";
+    card.className="card product";
 
-      card.innerHTML=`
+    card.innerHTML=`
 
-        <div>
+      <div>
 
-          <div class="product-icon">
-            ${icon}
-          </div>
-
-          <div class="product-name">
-            ${name}
-          </div>
-
-          <div class="product-description">
-            ${description}
-          </div>
-
+        <div class="product-icon">
+          ${icon}
         </div>
 
-        <div>
-
-          <div class="product-price">
-            ${price.toLocaleString("ar-EG")} 💰
-          </div>
-
-          <button
-            class="btn goldbtn full"
-            onclick="buyProduct('${id}')"
-          >
-            🛒 شراء
-          </button>
-
+        <div class="product-name">
+          ${escapeHtml(name)}
         </div>
-      `;
 
-      container.appendChild(card);
+        <div class="product-description">
+          ${escapeHtml(description)}
+        </div>
 
-    }
-  );
+      </div>
+
+      <div>
+
+        <div class="product-price">
+          ${price.toLocaleString("ar-EG")} 💰
+        </div>
+
+        <button
+          class="btn goldbtn full"
+          onclick="buyProduct('${escapeAttr(id)}')"
+        >
+          🛒 شراء
+        </button>
+
+      </div>
+    `;
+
+    container.appendChild(card);
+
+  });
 
 }
 
 
-/* =====================================================
+/* =========================
    شراء المنتج
-===================================================== */
+========================= */
 
 async function buyProduct(productId){
 
@@ -1953,35 +1922,30 @@ async function buyProduct(productId){
 
   if(balance<price){
 
-    toast(
-      "❌ رصيدك غير كافٍ."
-    );
+    toast("❌ رصيدك غير كافٍ.");
 
     return;
   }
 
-  if(
-    !confirm(
-      `شراء ${name} مقابل ${price.toLocaleString("ar-EG")} 💰؟`
-    )
-  ){
+  if(!confirm(
+    `شراء ${name} مقابل ${price.toLocaleString("ar-EG")} 💰؟`
+  )){
     return;
   }
 
   try{
 
-    const data=
-      await request(
-        "/api/purchase",
-        {
-          userId:currentUser.id,
-          username:currentUser.username,
-          productId:id,
-          productName:name,
-          price:price,
-          icon:icon
-        }
-      );
+    const data=await request(
+      "/api/purchase",
+      {
+        userId:currentUser.id,
+        username:currentUser.username,
+        productId:id,
+        productName:name,
+        price,
+        icon
+      }
+    );
 
     if(data.user){
 
@@ -1995,11 +1959,6 @@ async function buyProduct(productId){
       currentUser.balance=
         Number(data.balance);
 
-    }else{
-
-      currentUser.balance=
-        balance-price;
-
     }
 
     localStorage.setItem(
@@ -2010,25 +1969,23 @@ async function buyProduct(productId){
     updateUI();
 
     toast(
-      `✅ تم شراء ${name} وخصم ${price.toLocaleString("ar-EG")} 💰`
+      `✅ تم شراء ${name}`
     );
 
     loadInventory();
 
   }catch(error){
 
-    toast(
-      "❌ "+error.message
-    );
+    toast("❌ "+error.message);
 
   }
 
 }
 
 
-/* =====================================================
+/* =========================
    المخزون
-===================================================== */
+========================= */
 
 async function loadInventory(){
 
@@ -2047,29 +2004,14 @@ async function loadInventory(){
 
   try{
 
-    const response=
-      await fetch(
-        "/api/inventory",
-        {
-          method:"POST",
-          headers:{
-            "Content-Type":"application/json"
-          },
-          body:JSON.stringify({
-            userId:currentUser.id,
-            username:currentUser.username
-          })
-        }
-      );
-
-    const data=
-      await response.json();
-
-    if(!response.ok || data.success===false){
-      throw new Error(
-        data.message||"تعذر تحميل المخزون"
-      );
-    }
+    const data=await request(
+      "/api/inventory",
+      {
+        action:"list",
+        userId:currentUser.id,
+        username:currentUser.username
+      }
+    );
 
     renderInventory(
       data.items||
@@ -2092,6 +2034,10 @@ async function loadInventory(){
 }
 
 
+/* =========================
+   عرض المخزون
+========================= */
+
 function renderInventory(items){
 
   const container=
@@ -2112,94 +2058,119 @@ function renderInventory(items){
     return;
   }
 
-  items.forEach(
-    item=>{
+  items.forEach(item=>{
 
-      const card=
-        document.createElement("div");
+    const card=
+      document.createElement("div");
 
-      card.className=
-        "inventory-item";
+    card.className="inventory-item";
 
-      const count=
-        Number(
-          item.quantity||
-          item.count||
-          1
-        );
+    const count=
+      Number(
+        item.quantity||
+        item.count||
+        1
+      );
 
-      const icon=
-        item.icon||
-        "📦";
+    const icon=
+      item.icon||
+      getProductIcon(
+        item.product_id
+      )||
+      "📦";
 
-      const name=
-        item.product_name||
-        item.productName||
-        item.name||
-        "منتج";
+    const name=
+      item.product_name||
+      item.productName||
+      item.item_name||
+      item.name||
+      "منتج";
 
-      const id=
-        item.product_id||
-        item.productId||
-        item.id;
+    const id=
+      item.id||
+      item.product_id||
+      item.productId;
 
-      card.innerHTML=`
+    card.innerHTML=`
 
-        <div class="inventory-info">
+      <div class="inventory-info">
 
-          <div class="inventory-icon">
-            ${icon}
+        <div class="inventory-icon">
+          ${escapeHtml(icon)}
+        </div>
+
+        <div>
+
+          <div class="inventory-name">
+            ${escapeHtml(name)}
           </div>
 
-          <div>
-
-            <div class="inventory-name">
-              ${escapeHtml(name)}
-            </div>
-
-            <div class="inventory-count">
-              الكمية: ${count}
-            </div>
-
+          <div class="inventory-count">
+            الكمية: ${count}
           </div>
 
         </div>
 
-        <button
-          class="btn success"
-          onclick="useItem('${escapeAttr(id)}')"
-        >
-          🧪 استخدام
-        </button>
+      </div>
 
-      `;
+      <button
+        class="btn success"
+        onclick="useItem('${escapeAttr(id)}')"
+      >
+        🧪 استخدام
+      </button>
 
-      container.appendChild(card);
+    `;
 
-    }
-  );
+    container.appendChild(card);
+
+  });
 
 }
 
 
-/* =====================================================
+/* =========================
+   أيقونة المنتج
+========================= */
+
+function getProductIcon(productId){
+
+  const product=
+    products.find(
+      item=>item[0]===productId
+    );
+
+  return product?
+    product[1]:
+    "📦";
+
+}
+
+
+/* =========================
    استخدام المنتج
-===================================================== */
+========================= */
 
 async function useItem(productId){
 
+  if(!productId){
+
+    toast("❌ المنتج غير صالح.");
+
+    return;
+  }
+
   try{
 
-    const data=
-      await request(
-        "/api/inventory",
-        {
-          action:"use",
-          userId:currentUser.id,
-          username:currentUser.username,
-          productId
-        }
-      );
+    const data=await request(
+      "/api/inventory",
+      {
+        action:"use",
+        userId:currentUser.id,
+        username:currentUser.username,
+        productId
+      }
+    );
 
     if(data.user){
 
@@ -2221,18 +2192,16 @@ async function useItem(productId){
 
   }catch(error){
 
-    toast(
-      "❌ "+error.message
-    );
+    toast("❌ "+error.message);
 
   }
 
 }
 
 
-/* =====================================================
+/* =========================
    الألعاب
-===================================================== */
+========================= */
 
 function renderGames(){
 
@@ -2241,53 +2210,50 @@ function renderGames(){
 
   container.innerHTML="";
 
-  games.forEach(
-    game=>{
+  games.forEach(game=>{
 
-      const [
-        id,
-        icon,
-        name,
-        description
-      ]=game;
+    const [
+      id,
+      icon,
+      name,
+      description
+    ]=game;
 
-      const card=
-        document.createElement("div");
+    const card=
+      document.createElement("div");
 
-      card.className=
-        "card game-card";
+    card.className="card game-card";
 
-      card.innerHTML=`
+    card.innerHTML=`
 
-        <div>
+      <div>
 
-          <div class="game-icon">
-            ${icon}
-          </div>
-
-          <div class="game-title">
-            ${name}
-          </div>
-
-          <div class="game-desc">
-            ${description}
-          </div>
-
+        <div class="game-icon">
+          ${icon}
         </div>
 
-        <button
-          class="btn goldbtn full"
-          onclick="playGame('${id}')"
-        >
-          🎮 لعب
-        </button>
+        <div class="game-title">
+          ${escapeHtml(name)}
+        </div>
 
-      `;
+        <div class="game-desc">
+          ${escapeHtml(description)}
+        </div>
 
-      container.appendChild(card);
+      </div>
 
-    }
-  );
+      <button
+        class="btn goldbtn full"
+        onclick="playGame('${escapeAttr(id)}')"
+      >
+        🎮 لعب
+      </button>
+
+    `;
+
+    container.appendChild(card);
+
+  });
 
 }
 
@@ -2296,15 +2262,14 @@ async function playGame(gameId){
 
   try{
 
-    const data=
-      await request(
-        "/api/game",
-        {
-          userId:currentUser.id,
-          username:currentUser.username,
-          game:gameId
-        }
-      );
+    const data=await request(
+      "/api/game",
+      {
+        userId:currentUser.id,
+        username:currentUser.username,
+        game:gameId
+      }
+    );
 
     if(data.user){
 
@@ -2334,18 +2299,16 @@ async function playGame(gameId){
 
   }catch(error){
 
-    toast(
-      "❌ "+error.message
-    );
+    toast("❌ "+error.message);
 
   }
 
 }
 
 
-/* =====================================================
+/* =========================
    الصناديق
-===================================================== */
+========================= */
 
 function renderBoxes(){
 
@@ -2354,55 +2317,52 @@ function renderBoxes(){
 
   container.innerHTML="";
 
-  boxes.forEach(
-    box=>{
+  boxes.forEach(box=>{
 
-      const card=
-        document.createElement("div");
+    const card=
+      document.createElement("div");
 
-      card.className=
-        "box-card";
+    card.className="box-card";
 
-      card.innerHTML=`
+    card.innerHTML=`
 
-        <div class="box-visual">
-          ${box.icon}
-        </div>
+      <div class="box-visual">
+        ${box.icon}
+      </div>
 
-        <div class="box-title">
-          ${box.name}
-        </div>
+      <div class="box-title">
+        ${escapeHtml(box.name)}
+      </div>
 
-        <div class="box-price">
-          السعر:
-          ${box.price.toLocaleString("ar-EG")}
-          💰
-        </div>
+      <div class="box-price">
+        السعر:
+        ${box.price.toLocaleString("ar-EG")}
+        💰
+      </div>
 
-        <div class="box-rewards">
-          🎁 حتى ${box.rewards} جوائز محتملة
-        </div>
+      <div class="box-rewards">
+        🎁 حتى ${box.rewards} جوائز محتملة
+      </div>
 
-        <button
-          class="btn goldbtn full"
-          onclick="openBox('${box.id}')"
-        >
-          📦 فتح الصندوق
-        </button>
+      <button
+        class="btn goldbtn full"
+        onclick="openBox('${escapeAttr(box.id)}')"
+      >
+        📦 فتح الصندوق
+      </button>
 
-      `;
+    `;
 
-      container.appendChild(card);
+    container.appendChild(card);
 
-    }
-  );
+  });
 
 }
 
 
-/* =====================================================
-   فتح الصندوق
-===================================================== */
+/* =========================
+   فتح صندوق
+========================= */
 
 async function openBox(boxId){
 
@@ -2425,11 +2385,9 @@ async function openBox(boxId){
     return;
   }
 
-  if(
-    !confirm(
-      `فتح ${box.name} مقابل ${box.price.toLocaleString("ar-EG")} 💰؟`
-    )
-  ){
+  if(!confirm(
+    `فتح ${box.name} مقابل ${box.price.toLocaleString("ar-EG")} 💰؟`
+  )){
     return;
   }
 
@@ -2455,17 +2413,16 @@ async function openBox(boxId){
 
   try{
 
-    const data=
-      await request(
-        "/api/game",
-        {
-          userId:currentUser.id,
-          username:currentUser.username,
-          game:"box",
-          boxId:box.id,
-          price:box.price
-        }
-      );
+    const data=await request(
+      "/api/game",
+      {
+        userId:currentUser.id,
+        username:currentUser.username,
+        game:"box",
+        boxId:box.id,
+        price:box.price
+      }
+    );
 
     if(data.user){
 
@@ -2488,20 +2445,15 @@ async function openBox(boxId){
 
     updateUI();
 
-    setTimeout(
-      ()=>{
-        showBoxReward(data);
-      },
-      700
-    );
+    setTimeout(()=>{
+      showBoxReward(data);
+    },700);
 
   }catch(error){
 
     closeBoxModal();
 
-    toast(
-      "❌ "+error.message
-    );
+    toast("❌ "+error.message);
 
   }
 
@@ -2532,7 +2484,7 @@ function showBoxReward(data){
     .innerHTML=`
 
       <div class="result-icon">
-        ${icon}
+        ${escapeHtml(icon)}
       </div>
 
       <div class="result-name">
@@ -2564,9 +2516,9 @@ function closeBoxModal(){
 }
 
 
-/* =====================================================
+/* =========================
    الانفجار
-===================================================== */
+========================= */
 
 function showExplosion(){
 
@@ -2626,34 +2578,30 @@ function showExplosion(){
 
   container.classList.add("show");
 
-  setTimeout(
-    ()=>{
-      container.classList.remove("show");
-      container.innerHTML="";
-    },
-    1300
-  );
+  setTimeout(()=>{
+    container.classList.remove("show");
+    container.innerHTML="";
+  },1300);
 
 }
 
 
-/* =====================================================
+/* =========================
    المدينة
-===================================================== */
+========================= */
 
 async function cityUpgrade(){
 
   try{
 
-    const data=
-      await request(
-        "/api/game",
-        {
-          userId:currentUser.id,
-          username:currentUser.username,
-          game:"city_upgrade"
-        }
-      );
+    const data=await request(
+      "/api/game",
+      {
+        userId:currentUser.id,
+        username:currentUser.username,
+        game:"city_upgrade"
+      }
+    );
 
     if(data.user){
 
@@ -2673,35 +2621,31 @@ async function cityUpgrade(){
 
   }catch(error){
 
-    toast(
-      "❌ "+error.message
-    );
+    toast("❌ "+error.message);
 
   }
 
 }
 
 
-/* =====================================================
-   المحفظة
-===================================================== */
+/* =========================
+   التحويل
+========================= */
 
 async function transferMoney(){
 
-  const username=
+  const username=document
+    .getElementById("transferUser")
+    .value
+    .trim();
+
+  const amount=Number(
     document
-      .getElementById("transferUser")
+      .getElementById("transferAmount")
       .value
-      .trim();
+  );
 
-  const amount=
-    Number(
-      document
-        .getElementById("transferAmount")
-        .value
-    );
-
-  if(!username || amount<=0){
+  if(!username||amount<=0){
 
     toast(
       "❌ أدخل المستلم والمبلغ."
@@ -2712,17 +2656,16 @@ async function transferMoney(){
 
   try{
 
-    const data=
-      await request(
-        "/api/game",
-        {
-          userId:currentUser.id,
-          username:currentUser.username,
-          game:"transfer",
-          toUsername:username,
-          amount
-        }
-      );
+    const data=await request(
+      "/api/game",
+      {
+        userId:currentUser.id,
+        username:currentUser.username,
+        game:"transfer",
+        toUsername:username,
+        amount
+      }
+    );
 
     if(data.user){
 
@@ -2742,14 +2685,16 @@ async function transferMoney(){
 
   }catch(error){
 
-    toast(
-      "❌ "+error.message
-    );
+    toast("❌ "+error.message);
 
   }
 
 }
 
+
+/* =========================
+   المحفظة
+========================= */
 
 async function walletAction(action){
 
@@ -2758,12 +2703,11 @@ async function walletAction(action){
       ?"depositAmount"
       :"withdrawAmount";
 
-  const amount=
-    Number(
-      document
-        .getElementById(id)
-        .value
-    );
+  const amount=Number(
+    document
+      .getElementById(id)
+      .value
+  );
 
   if(amount<=0){
 
@@ -2776,16 +2720,15 @@ async function walletAction(action){
 
   try{
 
-    const data=
-      await request(
-        "/api/game",
-        {
-          userId:currentUser.id,
-          username:currentUser.username,
-          game:action,
-          amount
-        }
-      );
+    const data=await request(
+      "/api/game",
+      {
+        userId:currentUser.id,
+        username:currentUser.username,
+        game:action,
+        amount
+      }
+    );
 
     if(data.user){
 
@@ -2805,18 +2748,16 @@ async function walletAction(action){
 
   }catch(error){
 
-    toast(
-      "❌ "+error.message
-    );
+    toast("❌ "+error.message);
 
   }
 
 }
 
 
-/* =====================================================
-   أمان النصوص
-===================================================== */
+/* =========================
+   الأمان
+========================= */
 
 function escapeHtml(value){
 
@@ -2837,9 +2778,9 @@ function escapeAttr(value){
 }
 
 
-/* =====================================================
+/* =========================
    التشغيل
-===================================================== */
+========================= */
 
 document.addEventListener(
   "DOMContentLoaded",
@@ -2848,8 +2789,6 @@ document.addEventListener(
     renderProducts();
     renderGames();
     renderBoxes();
-
-    page("home");
 
     const saved=
       localStorage.getItem(
@@ -2863,7 +2802,7 @@ document.addEventListener(
         const user=
           JSON.parse(saved);
 
-        if(user && user.id){
+        if(user&&user.id){
 
           currentUser=user;
 
@@ -2894,6 +2833,8 @@ document.addEventListener(
       }
 
     }
+
+    page("home");
 
 
     document
@@ -2938,3 +2879,4 @@ document.addEventListener(
 
 </body>
 </html>
+```
