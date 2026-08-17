@@ -2,6 +2,7 @@ import crypto from "crypto";
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SECRET_KEY = process.env.SUPABASE_SECRET_KEY;
+const ADMIN_SESSION_SECRET = process.env.ADMIN_SESSION_SECRET;
 
 function hashPassword(password) {
   return crypto
@@ -10,53 +11,134 @@ function hashPassword(password) {
     .digest("hex");
 }
 
+/*
+========================================
+   Base64 URL
+========================================
+*/
+
+function base64UrlEncode(value) {
+  return Buffer
+    .from(value)
+    .toString("base64")
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/g, "");
+}
+
+/*
+========================================
+   إنشاء توقيع Session
+========================================
+*/
+
+function createSession(user) {
+
+  if (!ADMIN_SESSION_SECRET) {
+    throw new Error(
+      "ADMIN_SESSION_SECRET غير موجود"
+    );
+  }
+
+  const payload = {
+    id: user.id,
+    username: user.username,
+    role: "admin",
+    isAdmin: true,
+    exp: Date.now() + (
+      1000 * 60 * 60 * 24
+    )
+  };
+
+  const encodedPayload =
+    base64UrlEncode(
+      JSON.stringify(payload)
+    );
+
+  const signature =
+    crypto
+      .createHmac(
+        "sha256",
+        ADMIN_SESSION_SECRET
+      )
+      .update(encodedPayload)
+      .digest("base64")
+      .replace(/\+/g, "-")
+      .replace(/\//g, "_")
+      .replace(/=+$/g, "");
+
+  return `${encodedPayload}.${signature}`;
+}
+
+/*
+========================================
+   Cookie
+========================================
+*/
+
+function setAdminCookie(res, session) {
+
+  const cookie = [
+    `sun_admin_session=${session}`,
+    "HttpOnly",
+    "Path=/",
+    "SameSite=Lax",
+    "Max-Age=86400",
+    "Secure"
+  ].join("; ");
+
+  res.setHeader(
+    "Set-Cookie",
+    cookie
+  );
+}
+
+/*
+========================================
+   Handler
+========================================
+*/
+
 export default async function handler(req, res) {
 
-  // =========================
-  // POST فقط
-  // =========================
-
   if (req.method !== "POST") {
+
     return res.status(405).json({
       success: false,
       message: "Method Not Allowed"
     });
+
   }
 
   try {
 
-    // =========================
-    // التحقق من Supabase
-    // =========================
-
-    if (!SUPABASE_URL || !SUPABASE_SECRET_KEY) {
-
-      console.error(
-        "Missing Supabase environment variables"
-      );
+    if (
+      !SUPABASE_URL ||
+      !SUPABASE_SECRET_KEY
+    ) {
 
       return res.status(500).json({
         success: false,
         message:
           "إعدادات Supabase غير موجودة في Vercel"
       });
-    }
 
-    // =========================
-    // قراءة البيانات
-    // =========================
+    }
 
     let body = req.body || {};
 
     if (typeof body === "string") {
 
       try {
+
         body = JSON.parse(body);
+
       } catch {
 
         return res.status(400).json({
           success: false,
-          message: "بيانات الطلب غير صحيحة"
+          message:
+            "بيانات الطلب غير صحيحة"
         });
 
       }
@@ -75,10 +157,6 @@ export default async function handler(req, res) {
       ""
     );
 
-    // =========================
-    // التحقق من البيانات
-    // =========================
-
     if (!username || !password) {
 
       return res.status(400).json({
@@ -89,64 +167,44 @@ export default async function handler(req, res) {
 
     }
 
-    // =========================
-    // تشفير كلمة المرور
-    // =========================
-
     const passwordHash =
       hashPassword(password);
-
-    // =========================
-    // Headers
-    // =========================
 
     const headers = {
       apikey: SUPABASE_SECRET_KEY,
       Authorization:
         `Bearer ${SUPABASE_SECRET_KEY}`,
-      "Content-Type": "application/json"
+      "Content-Type":
+        "application/json"
     };
-
-    // =========================
-    // رابط Supabase
-    // =========================
 
     const supabaseBase =
       SUPABASE_URL.replace(/\/+$/, "");
 
+    /*
+    ========================================
+       جلب الحساب
+    ========================================
+    */
+
     const url =
       `${supabaseBase}/rest/v1/users` +
       `?username=eq.${encodeURIComponent(username)}` +
-      `&select=id,created_at,username,password_hash,balance,role,banned,ban_reason,updated_at`;
+      `&select=id,username,password_hash,balance,role,banned,ban_reason,updated_at`;
 
     console.log(
       "Login attempt:",
       username
     );
 
-    // =========================
-    // جلب الحساب
-    // =========================
-
-    const response = await fetch(
-      url,
-      {
+    const response =
+      await fetch(url, {
         method: "GET",
         headers
-      }
-    );
+      });
 
     const text =
       await response.text();
-
-    console.log(
-      "Supabase response:",
-      response.status
-    );
-
-    // =========================
-    // خطأ Supabase
-    // =========================
 
     if (!response.ok) {
 
@@ -165,10 +223,6 @@ export default async function handler(req, res) {
 
     }
 
-    // =========================
-    // تحويل الرد
-    // =========================
-
     let users;
 
     try {
@@ -186,10 +240,6 @@ export default async function handler(req, res) {
 
     }
 
-    // =========================
-    // الحساب غير موجود
-    // =========================
-
     if (
       !Array.isArray(users) ||
       users.length === 0
@@ -205,9 +255,11 @@ export default async function handler(req, res) {
 
     const user = users[0];
 
-    // =========================
-    // التحقق من كلمة المرور
-    // =========================
+    /*
+    ========================================
+       التحقق من كلمة المرور
+    ========================================
+    */
 
     if (
       !user.password_hash ||
@@ -222,58 +274,11 @@ export default async function handler(req, res) {
 
     }
 
-    // ==================================================
-    // نظام الحظر
-    // ==================================================
-
-    const isBanned =
-      user.banned === true ||
-      user.banned === "true" ||
-      user.banned === 1 ||
-      user.banned === "1";
-
-    if (isBanned) {
-
-      const reason =
-        String(
-          user.ban_reason ||
-          "تم حظر هذا الحساب من الإدارة"
-        ).trim();
-
-      console.log(
-        "Blocked login attempt:",
-        {
-          id: user.id,
-          username: user.username,
-          reason
-        }
-      );
-
-      return res.status(403).json({
-
-        success: false,
-
-        banned: true,
-
-        message:
-          "🚫 هذا الحساب محظور",
-
-        ban_reason: reason,
-
-        user: {
-          id: user.id,
-          username: user.username,
-          banned: true,
-          ban_reason: reason
-        }
-
-      });
-
-    }
-
-    // =========================
-    // الدور
-    // =========================
+    /*
+    ========================================
+       تحديد الدور
+    ========================================
+    */
 
     const role =
       String(
@@ -285,37 +290,118 @@ export default async function handler(req, res) {
       role === "administrator" ||
       role === "owner";
 
-    // =========================
-    // الرصيد
-    // =========================
+    /*
+    ========================================
+       الحظر
+       
+       الإدارة لا تُحظر عن طريق
+       نظام الأعضاء العادي.
+    ========================================
+    */
+
+    const isBanned =
+      user.banned === true;
+
+    if (
+      isBanned &&
+      !isAdmin
+    ) {
+
+      return res.status(403).json({
+
+        success: false,
+
+        banned: true,
+
+        message:
+          "🚫 هذا الحساب محظور",
+
+        reason:
+          user.ban_reason ||
+          "تم حظر الحساب بواسطة الإدارة"
+
+      });
+
+    }
+
+    /*
+    ========================================
+       الرصيد
+    ========================================
+    */
 
     let balance =
-      Number(user.balance || 0);
+      Number(
+        user.balance || 0
+      );
 
     if (!Number.isFinite(balance)) {
       balance = 0;
     }
 
     /*
-      حساب الإدارة يحصل على رقم كبير
-      داخل الواجهة فقط.
-      لا يتم تخزين Infinity في Supabase.
+       الإدارة تحصل على قيمة كبيرة
+       في الواجهة فقط.
     */
 
     if (isAdmin) {
+
       balance =
         Number.MAX_SAFE_INTEGER;
+
     }
 
-    // =========================
-    // بيانات المستخدم
-    // =========================
+    /*
+    ========================================
+       Session للأدمن
+    ========================================
+    */
+
+    if (isAdmin) {
+
+      try {
+
+        const session =
+          createSession(user);
+
+        setAdminCookie(
+          res,
+          session
+        );
+
+      } catch (sessionError) {
+
+        console.error(
+          "Admin session error:",
+          sessionError
+        );
+
+        return res.status(500).json({
+
+          success: false,
+
+          message:
+            "تعذر إنشاء جلسة الإدارة"
+
+        });
+
+      }
+
+    }
+
+    /*
+    ========================================
+       بيانات المستخدم
+    ========================================
+    */
 
     const userData = {
 
-      id: user.id,
+      id:
+        user.id,
 
-      username: user.username,
+      username:
+        user.username,
 
       balance,
 
@@ -326,19 +412,22 @@ export default async function handler(req, res) {
 
       isAdmin,
 
-      banned: false,
+      banned:
+        isBanned,
 
-      ban_reason: null,
+      ban_reason:
+        user.ban_reason || null,
 
-      level: 1,
+      updated_at:
+        user.updated_at || null,
 
-      city: 1
+      level:
+        1,
+
+      city:
+        1
 
     };
-
-    // =========================
-    // تسجيل نجاح الدخول
-    // =========================
 
     console.log(
       "Login successful:",
@@ -346,26 +435,21 @@ export default async function handler(req, res) {
         id: user.id,
         username: user.username,
         role: userData.role,
-        isAdmin: userData.isAdmin
+        isAdmin
       }
     );
-
-    // =========================
-    // الرد النهائي
-    // =========================
 
     return res.status(200).json({
 
       success: true,
-
-      banned: false,
 
       message:
         isAdmin
           ? "👑 تم دخول حساب الإدارة بنجاح"
           : "✅ تم تسجيل الدخول بنجاح",
 
-      user: userData
+      user:
+        userData
 
     });
 
