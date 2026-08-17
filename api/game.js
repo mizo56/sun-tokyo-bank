@@ -3,862 +3,901 @@ import crypto from "crypto";
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SECRET_KEY = process.env.SUPABASE_SECRET_KEY;
 
-function hashPassword(password) {
-  return crypto
-    .createHash("sha256")
-    .update(password)
-    .digest("hex");
-}
-
-async function supabaseFetch(path, options = {}) {
-  return fetch(`${SUPABASE_URL}${path}`, {
-    ...options,
-    headers: {
-      apikey: SUPABASE_SECRET_KEY,
-      Authorization: `Bearer ${SUPABASE_SECRET_KEY}`,
-      "Content-Type": "application/json",
-      Prefer: "return=representation",
-      ...(options.headers || {})
-    }
-  });
-}
-
-
-/* =====================================================
-   الصناديق
-===================================================== */
-
 const BOXES = {
-
   box1: {
-    name: "📦 صندوق المبتدئ",
     price: 100,
-    style: "wood",
-
     rewards: [
-      {
-        name: "💰 50 عملة",
-        type: "money",
-        value: 50,
-        chance: 35
-      },
-      {
-        name: "💰 100 عملة",
-        type: "money",
-        value: 100,
-        chance: 30
-      },
-      {
-        name: "🧪 جرعة صحة",
-        type: "item",
-        value: 1,
-        chance: 20
-      },
-      {
-        name: "⚔️ سيف حديدي",
-        type: "item",
-        value: 1,
-        chance: 10
-      },
-      {
-        name: "💎 جوهرة صغيرة",
-        type: "item",
-        value: 1,
-        chance: 5
-      }
+      { icon: "💰", name: "500 عملة", balance: 500 },
+      { icon: "💰", name: "750 عملة", balance: 750 },
+      { icon: "🎁", name: "هدية برونزية", item: true },
+      { icon: "🪙", name: "عملة قديمة", item: true }
     ]
   },
-
 
   box2: {
-    name: "🐉 صندوق التنين",
     price: 250,
-    style: "dragon",
-
     rewards: [
-      {
-        name: "💰 150 عملة",
-        type: "money",
-        value: 150,
-        chance: 30
-      },
-      {
-        name: "💰 300 عملة",
-        type: "money",
-        value: 300,
-        chance: 25
-      },
-      {
-        name: "🗡️ خنجر التنين",
-        type: "item",
-        value: 1,
-        chance: 20
-      },
-      {
-        name: "🛡️ درع التنين",
-        type: "item",
-        value: 1,
-        chance: 15
-      },
-      {
-        name: "🔥 حجر اللهب",
-        type: "item",
-        value: 1,
-        chance: 7
-      },
-      {
-        name: "💎 جوهرة التنين",
-        type: "item",
-        value: 1,
-        chance: 3
-      }
+      { icon: "💰", name: "1000 عملة", balance: 1000 },
+      { icon: "💰", name: "1500 عملة", balance: 1500 },
+      { icon: "💎", name: "جوهرة صغيرة", item: true },
+      { icon: "🎁", name: "هدية فضية", item: true }
     ]
   },
-
 
   box3: {
-    name: "⚔️ صندوق المحارب",
     price: 500,
-    style: "warrior",
-
     rewards: [
-      {
-        name: "💰 300 عملة",
-        type: "money",
-        value: 300,
-        chance: 25
-      },
-      {
-        name: "💰 700 عملة",
-        type: "money",
-        value: 700,
-        chance: 20
-      },
-      {
-        name: "⚔️ سيف المحارب",
-        type: "item",
-        value: 1,
-        chance: 20
-      },
-      {
-        name: "🛡️ درع أسطوري",
-        type: "item",
-        value: 1,
-        chance: 15
-      },
-      {
-        name: "❤️ جرعة أسطورية",
-        type: "item",
-        value: 1,
-        chance: 10
-      },
-      {
-        name: "💎 جوهرة حمراء",
-        type: "item",
-        value: 1,
-        chance: 7
-      },
-      {
-        name: "👑 تاج المحارب",
-        type: "item",
-        value: 1,
-        chance: 3
-      }
+      { icon: "💰", name: "2000 عملة", balance: 2000 },
+      { icon: "💎", name: "جوهرة زرقاء", item: true },
+      { icon: "⚔️", name: "سيف نادر", item: true },
+      { icon: "🎟️", name: "تذكرة ذهبية", item: true }
     ]
   },
-
 
   box4: {
-    name: "🔮 صندوق النينجا",
     price: 1000,
-    style: "ninja",
-
     rewards: [
-      {
-        name: "💰 500 عملة",
-        type: "money",
-        value: 500,
-        chance: 25
-      },
-      {
-        name: "💰 1200 عملة",
-        type: "money",
-        value: 1200,
-        chance: 20
-      },
-      {
-        name: "🥷 قناع النينجا",
-        type: "item",
-        value: 1,
-        chance: 18
-      },
-      {
-        name: "🗡️ كاتانا سوداء",
-        type: "item",
-        value: 1,
-        chance: 15
-      },
-      {
-        name: "🌑 حجر الظلام",
-        type: "item",
-        value: 1,
-        chance: 10
-      },
-      {
-        name: "💎 جوهرة الظلام",
-        type: "item",
-        value: 1,
-        chance: 8
-      },
-      {
-        name: "👑 خوذة النينجا الملكية",
-        type: "item",
-        value: 1,
-        chance: 4
-      }
+      { icon: "💰", name: "4000 عملة", balance: 4000 },
+      { icon: "💎", name: "جوهرة ذهبية", item: true },
+      { icon: "👑", name: "تاج الملك", item: true },
+      { icon: "🏯", name: "مخطط القصر", item: true }
     ]
   },
-
 
   box5: {
-    name: "🏯 صندوق الإمبراطور",
     price: 2500,
-    style: "emperor",
-
     rewards: [
-      {
-        name: "💰 1000 عملة",
-        type: "money",
-        value: 1000,
-        chance: 25
-      },
-      {
-        name: "💰 3000 عملة",
-        type: "money",
-        value: 3000,
-        chance: 20
-      },
-      {
-        name: "⚔️ سيف الإمبراطور",
-        type: "item",
-        value: 1,
-        chance: 15
-      },
-      {
-        name: "🛡️ درع الإمبراطور",
-        type: "item",
-        value: 1,
-        chance: 12
-      },
-      {
-        name: "👘 رداء الإمبراطور",
-        type: "item",
-        value: 1,
-        chance: 10
-      },
-      {
-        name: "💎 جوهرة ملكية",
-        type: "item",
-        value: 1,
-        chance: 8
-      },
-      {
-        name: "👑 تاج الإمبراطور",
-        type: "item",
-        value: 1,
-        chance: 6
-      },
-      {
-        name: "🐉 روح التنين",
-        type: "item",
-        value: 1,
-        chance: 4
-      }
+      { icon: "💰", name: "8000 عملة", balance: 8000 },
+      { icon: "🥷", name: "زي النينجا", item: true },
+      { icon: "⚔️", name: "سيف القمر", item: true },
+      { icon: "👑", name: "تاج الساموراي", item: true }
     ]
   },
-
 
   box6: {
-    name: "💎 صندوق الأسطورة",
     price: 5000,
-    style: "legend",
-
     rewards: [
-      {
-        name: "💰 2500 عملة",
-        type: "money",
-        value: 2500,
-        chance: 22
-      },
-      {
-        name: "💰 7000 عملة",
-        type: "money",
-        value: 7000,
-        chance: 18
-      },
-      {
-        name: "⚔️ سيف أسطوري",
-        type: "item",
-        value: 1,
-        chance: 15
-      },
-      {
-        name: "🛡️ درع أسطوري",
-        type: "item",
-        value: 1,
-        chance: 12
-      },
-      {
-        name: "💎 جوهرة أسطورية",
-        type: "item",
-        value: 1,
-        chance: 10
-      },
-      {
-        name: "🔥 قلب التنين",
-        type: "item",
-        value: 1,
-        chance: 8
-      },
-      {
-        name: "🌌 حجر المجرة",
-        type: "item",
-        value: 1,
-        chance: 8
-      },
-      {
-        name: "👑 تاج الأسطورة",
-        type: "item",
-        value: 1,
-        chance: 5
-      },
-      {
-        name: "🐉 تنين أسطوري",
-        type: "item",
-        value: 1,
-        chance: 2
-      }
+      { icon: "💰", name: "15000 عملة", balance: 15000 },
+      { icon: "🐉", name: "قلب التنين", item: true },
+      { icon: "🔱", name: "رمح الملك", item: true },
+      { icon: "🛡️", name: "درع التنين", item: true }
     ]
   },
 
-
   box7: {
-    name: "👑 صندوق S.U.N TOKYO",
     price: 10000,
-    style: "sun",
-
     rewards: [
-      {
-        name: "💰 5000 عملة",
-        type: "money",
-        value: 5000,
-        chance: 20
-      },
-      {
-        name: "💰 15000 عملة",
-        type: "money",
-        value: 15000,
-        chance: 15
-      },
-      {
-        name: "⚔️ سيف S.U.N TOKYO",
-        type: "item",
-        value: 1,
-        chance: 15
-      },
-      {
-        name: "🛡️ درع S.U.N TOKYO",
-        type: "item",
-        value: 1,
-        chance: 12
-      },
-      {
-        name: "👑 تاج S.U.N TOKYO",
-        type: "item",
-        value: 1,
-        chance: 10
-      },
-      {
-        name: "🔥 قلب التنين الملكي",
-        type: "item",
-        value: 1,
-        chance: 10
-      },
-      {
-        name: "💎 جوهرة الشمس",
-        type: "item",
-        value: 1,
-        chance: 8
-      },
-      {
-        name: "🌌 حجر المجرة الملكي",
-        type: "item",
-        value: 1,
-        chance: 6
-      },
-      {
-        name: "🐉 تنين ملكي",
-        type: "item",
-        value: 1,
-        chance: 3
-      },
-      {
-        name: "👑🏯 عرش S.U.N TOKYO",
-        type: "item",
-        value: 1,
-        chance: 1
-      }
+      { icon: "💰", name: "30000 عملة", balance: 30000 },
+      { icon: "💎", name: "حجر التنين", item: true },
+      { icon: "⚔️", name: "سيف التنين", item: true },
+      { icon: "👑", name: "تاج الشمس", item: true },
+      { icon: "📜", name: "سر قديم", item: true }
     ]
   }
-
 };
 
+const GAME_COSTS = {
+  dice: 25,
+  coin: 40,
+  quickbox: 50,
+  slots: 75,
+  wheel: 100,
+  cards: 150,
+  treasure: 200,
+  boss: 300
+};
 
-/* =====================================================
-   اختيار جائزة
-===================================================== */
-
-function chooseReward(rewards) {
-
-  const total =
-    rewards.reduce(
-      (sum, reward) =>
-        sum + reward.chance,
-      0
-    );
-
-  let random =
-    Math.random() * total;
-
-  for (const reward of rewards) {
-
-    random -= reward.chance;
-
-    if (random <= 0) {
-      return reward;
-    }
-
-  }
-
-  return rewards[rewards.length - 1];
+function json(res, status, data) {
+  return res.status(status).json(data);
 }
 
+async function supabase(path, options = {}) {
+  const response = await fetch(
+    `${SUPABASE_URL}${path}`,
+    {
+      ...options,
+      headers: {
+        apikey: SUPABASE_SECRET_KEY,
+        Authorization: `Bearer ${SUPABASE_SECRET_KEY}`,
+        "Content-Type": "application/json",
+        ...(options.headers || {})
+      }
+    }
+  );
 
-/* =====================================================
-   التحقق من المستخدم
-===================================================== */
+  const text = await response.text();
 
-async function getUser(username, password) {
+  let data = null;
 
-  const passwordHash =
-    hashPassword(password);
+  try {
+    data = text ? JSON.parse(text) : null;
+  } catch {
+    data = text;
+  }
 
-  const response =
-    await supabaseFetch(
-      `/rest/v1/users?username=eq.${encodeURIComponent(
-        username
-      )}&password_hash=eq.${encodeURIComponent(
-        passwordHash
+  if (!response.ok) {
+    const error = new Error(
+      data?.message ||
+      data?.hint ||
+      data?.details ||
+      "خطأ في Supabase"
+    );
+
+    error.status = response.status;
+    error.data = data;
+
+    throw error;
+  }
+
+  return data;
+}
+
+function randomItem(array) {
+  return array[
+    crypto.randomInt(0, array.length)
+  ];
+}
+
+function cleanUsername(value) {
+  return String(value || "").trim();
+}
+
+async function findUser(userId, username) {
+
+  if (userId) {
+
+    const users = await supabase(
+      `/rest/v1/users?id=eq.${encodeURIComponent(
+        String(userId)
       )}&select=id,username,balance`
     );
 
-  const text =
-    await response.text();
-
-  if (!response.ok) {
-
-    console.error(
-      "Supabase user error:",
-      text
-    );
-
-    throw new Error(
-      "تعذر الاتصال بقاعدة البيانات"
-    );
-
+    if (Array.isArray(users) && users.length) {
+      return users[0];
+    }
   }
 
-  let users;
+  if (username) {
 
-  try {
-
-    users =
-      JSON.parse(text);
-
-  } catch {
-
-    throw new Error(
-      "استجابة غير صحيحة من قاعدة البيانات"
+    const users = await supabase(
+      `/rest/v1/users?username=eq.${encodeURIComponent(
+        cleanUsername(username)
+      )}&select=id,username,balance`
     );
 
+    if (Array.isArray(users) && users.length) {
+      return users[0];
+    }
   }
 
-  if (
-    !Array.isArray(users) ||
-    users.length === 0
-  ) {
+  return null;
+}
 
-    return null;
+async function updateBalance(userId, balance) {
 
+  const users = await supabase(
+    `/rest/v1/users?id=eq.${encodeURIComponent(
+      String(userId)
+    )}&select=id,username,balance`,
+    {
+      method: "PATCH",
+      headers: {
+        Prefer: "return=representation"
+      },
+      body: JSON.stringify({
+        balance
+      })
+    }
+  );
+
+  if (!Array.isArray(users) || !users.length) {
+    throw new Error("تعذر تحديث الرصيد");
   }
 
   return users[0];
-
 }
 
-
-/* =====================================================
-   تحديث الرصيد
-===================================================== */
-
-async function updateBalance(
+async function addTransaction({
   userId,
-  balance
-) {
+  username,
+  type,
+  amount,
+  description
+}) {
 
-  const response =
-    await supabaseFetch(
-      `/rest/v1/users?id=eq.${encodeURIComponent(
-        userId
-      )}`,
+  try {
+
+    await supabase(
+      "/rest/v1/transactions",
       {
-        method: "PATCH",
-
+        method: "POST",
+        headers: {
+          Prefer: "return=minimal"
+        },
         body: JSON.stringify({
-          balance
+          user_id: userId,
+          username,
+          type,
+          amount,
+          description
         })
       }
     );
 
-  const text =
-    await response.text();
+  } catch (error) {
 
-  if (!response.ok) {
-
-    console.error(
-      "Balance update error:",
-      text
-    );
-
-    throw new Error(
-      "تعذر تحديث الرصيد"
+    console.warn(
+      "Transaction log skipped:",
+      error.message
     );
 
   }
-
 }
 
-
-/* =====================================================
-   إضافة المنتج للمخزون
-===================================================== */
-
-async function addInventoryItem(
+async function addInventoryItem({
   userId,
-  itemName,
-  itemType = "item"
-) {
+  username,
+  productId,
+  productName,
+  icon
+}) {
 
-  const checkResponse =
-    await supabaseFetch(
-      `/rest/v1/inventory?user_id=eq.${encodeURIComponent(
-        userId
-      )}&item_name=eq.${encodeURIComponent(
-        itemName
-      )}&select=id,quantity`
-    );
-
-  const checkText =
-    await checkResponse.text();
-
-  if (!checkResponse.ok) {
-
-    console.error(
-      "Inventory check error:",
-      checkText
-    );
-
-    throw new Error(
-      "تعذر فحص المخزون"
-    );
-
-  }
-
-  let items = [];
+  /*
+   * يحاول أولًا زيادة كمية العنصر الموجود.
+   */
 
   try {
 
-    items =
-      JSON.parse(checkText);
+    const existing = await supabase(
+      `/rest/v1/inventory?user_id=eq.${encodeURIComponent(
+        String(userId)
+      )}&product_id=eq.${encodeURIComponent(
+        String(productId)
+      )}&select=id,quantity`
+    );
 
-  } catch {
+    if (Array.isArray(existing) && existing.length) {
 
-    items = [];
+      const oldQuantity =
+        Number(existing[0].quantity || 0);
 
-  }
+      const updated =
+        await supabase(
+          `/rest/v1/inventory?id=eq.${encodeURIComponent(
+            String(existing[0].id)
+          )}`,
+          {
+            method: "PATCH",
+            headers: {
+              Prefer: "return=representation"
+            },
+            body: JSON.stringify({
+              quantity: oldQuantity + 1
+            })
+          }
+        );
 
+      return updated?.[0] || null;
+    }
 
-  if (
-    Array.isArray(items) &&
-    items.length > 0
-  ) {
+    /*
+     * إذا لم يكن العنصر موجودًا يتم إنشاؤه.
+     */
 
-    const item =
-      items[0];
-
-    const newQuantity =
-      Number(item.quantity || 0) + 1;
-
-    const updateResponse =
-      await supabaseFetch(
-        `/rest/v1/inventory?id=eq.${encodeURIComponent(
-          item.id
-        )}`,
+    const created =
+      await supabase(
+        "/rest/v1/inventory",
         {
-          method: "PATCH",
-
+          method: "POST",
+          headers: {
+            Prefer: "return=representation"
+          },
           body: JSON.stringify({
-            quantity: newQuantity
+            user_id: userId,
+            username,
+            product_id: productId,
+            product_name: productName,
+            icon,
+            quantity: 1
           })
         }
       );
 
-    const updateText =
-      await updateResponse.text();
+    return created?.[0] || null;
 
-    if (!updateResponse.ok) {
-
-      console.error(
-        "Inventory update error:",
-        updateText
-      );
-
-      throw new Error(
-        "تعذر تحديث المخزون"
-      );
-
-    }
-
-    return;
-
-  }
-
-
-  const insertResponse =
-    await supabaseFetch(
-      "/rest/v1/inventory",
-      {
-        method: "POST",
-
-        body: JSON.stringify({
-          user_id: userId,
-          item_name: itemName,
-          item_type: itemType,
-          quantity: 1
-        })
-      }
-    );
-
-  const insertText =
-    await insertResponse.text();
-
-  if (!insertResponse.ok) {
+  } catch (error) {
 
     console.error(
-      "Inventory insert error:",
-      insertText
+      "Inventory error:",
+      error.message
     );
 
-    throw new Error(
-      "تعذر إضافة الجائزة إلى المخزون"
-    );
+    /*
+     * لا نوقف فتح الصندوق إذا كان جدول inventory
+     * يحتاج إلى ضبط منفصل.
+     */
 
-  }
-
-}
-
-
-/* =====================================================
-   الألعاب
-===================================================== */
-
-async function playNormalGame(
-  game,
-  balance
-) {
-
-  const games = {
-
-    dice: {
-      name: "🎲 النرد",
-      cost: 25
-    },
-
-    quickBox: {
-      name: "📦 الصندوق السريع",
-      cost: 50
-    },
-
-    miniGame: {
-      name: "🎯 الهدف",
-      cost: 75
-    },
-
-    lucky: {
-      name: "🍀 الحظ",
-      cost: 150
-    },
-
-    treasure: {
-      name: "💰 الكنز",
-      cost: 250
-    }
-
-  };
-
-  const selected =
-    games[game];
-
-  if (!selected) {
     return null;
   }
+}
 
-  if (balance < selected.cost) {
+async function playNormalGame({
+  user,
+  game
+}) {
 
+  const cost =
+    Number(GAME_COSTS[game] || 0);
+
+  if (!cost) {
+    throw new Error("اللعبة غير موجودة");
+  }
+
+  const balance =
+    Number(user.balance || 0);
+
+  if (balance < cost) {
     throw new Error(
-      `رصيدك غير كافٍ. تحتاج ${selected.cost} 💰`
+      `رصيدك غير كافٍ. تكلفة اللعبة ${cost} 💰`
     );
-
   }
 
   let reward = 0;
+  let message = "";
 
-  let value = 0;
+  switch (game) {
 
+    case "dice": {
 
-  if (game === "dice") {
+      const dice =
+        crypto.randomInt(1, 7);
 
-    value =
-      Math.floor(
-        Math.random() * 6
-      ) + 1;
+      if (dice === 6) {
+        reward = 250;
+      } else if (dice >= 4) {
+        reward = 100;
+      } else {
+        reward = 0;
+      }
 
-    if (value === 6) {
-      reward = 150;
-    } else if (value >= 4) {
-      reward = 50;
+      message =
+        `🎲 ظهرت النتيجة ${dice}`;
+      break;
     }
 
-  }
+    case "coin": {
 
+      const win =
+        crypto.randomInt(0, 2) === 1;
 
-  else if (game === "quickBox") {
+      reward =
+        win ? 100 : 0;
 
-    const rewards =
-      [0, 25, 50, 100, 200];
+      message =
+        win
+          ? "🪙 فزت في رمية العملة!"
+          : "🪙 لم يحالفك الحظ.";
+      break;
+    }
 
-    reward =
-      rewards[
-        Math.floor(
-          Math.random() *
-          rewards.length
-        )
+    case "quickbox": {
+
+      const rewards = [
+        50,
+        100,
+        150,
+        250,
+        500,
+        1000
       ];
 
-    value = reward;
+      reward = randomItem(rewards);
 
-  }
+      message =
+        "📦 حصلت على جائزة الصندوق السريع!";
+      break;
+    }
 
+    case "slots": {
 
-  else if (game === "miniGame") {
+      const win =
+        crypto.randomInt(1, 101) <= 35;
 
-    value =
-      Math.floor(
-        Math.random() * 100
-      ) + 1;
-
-    reward =
-      value >= 70
-        ? 200
-        : value >= 40
-          ? 75
+      reward =
+        win
+          ? randomItem([150, 250, 400, 750])
           : 0;
 
-  }
+      message =
+        win
+          ? "🎰 فزت في آلة الحظ!"
+          : "🎰 لم تفز هذه المرة.";
+      break;
+    }
 
+    case "wheel": {
 
-  else if (game === "lucky") {
-
-    const rewards =
-      [0, 100, 250, 500];
-
-    reward =
-      rewards[
-        Math.floor(
-          Math.random() *
-          rewards.length
-        )
+      const rewards = [
+        0,
+        50,
+        100,
+        250,
+        500,
+        1000,
+        2500
       ];
 
-    value = reward;
+      reward =
+        randomItem(rewards);
 
-  }
+      message =
+        "🎡 دارت عجلة الحظ!";
+      break;
+    }
 
+    case "cards": {
 
-  else if (game === "treasure") {
+      const win =
+        crypto.randomInt(1, 101) <= 40;
 
-    const rewards =
-      [0, 100, 300, 750, 1500];
+      reward =
+        win
+          ? randomItem([300, 500, 750, 1200])
+          : 0;
 
-    reward =
-      rewards[
-        Math.floor(
-          Math.random() *
-          rewards.length
-        )
+      message =
+        win
+          ? "🃏 اخترت البطاقة الرابحة!"
+          : "🃏 البطاقة لم تكن رابحة.";
+      break;
+    }
+
+    case "treasure": {
+
+      const rewards = [
+        0,
+        100,
+        250,
+        500,
+        1000,
+        2000
       ];
 
-    value = reward;
+      reward =
+        randomItem(rewards);
 
+      message =
+        "💎 فتحت الكنز المخفي!";
+      break;
+    }
+
+    case "boss": {
+
+      const win =
+        crypto.randomInt(1, 101) <= 45;
+
+      reward =
+        win
+          ? randomItem([
+              500,
+              1000,
+              2000,
+              5000
+            ])
+          : 0;
+
+      message =
+        win
+          ? "🐉 هزمت التنين!"
+          : "🐉 التنين هزمك!";
+      break;
+    }
+
+    default:
+      throw new Error("اللعبة غير مدعومة");
   }
-
 
   const newBalance =
-    balance -
-    selected.cost +
-    reward;
+    balance - cost + reward;
 
+  const updatedUser =
+    await updateBalance(
+      user.id,
+      newBalance
+    );
+
+  await addTransaction({
+    userId: user.id,
+    username: user.username,
+    type: "game",
+    amount: reward - cost,
+    description:
+      `${game}: تكلفة ${cost}، جائزة ${reward}`
+  });
 
   return {
-    game,
-    name: selected.name,
-    cost: selected.cost,
+    user: {
+      id: updatedUser.id,
+      username: updatedUser.username,
+      balance: Number(updatedUser.balance || 0)
+    },
     reward,
-    value,
-    balance: newBalance
+    cost,
+    message
   };
-
 }
 
+async function openBox({
+  user,
+  boxId
+}) {
 
-/* =====================================================
-   HANDLER
-===================================================== */
+  const box =
+    BOXES[boxId];
 
-export default async function handler(
-  req,
-  res
-) {
+  if (!box) {
+    throw new Error("الصندوق غير موجود");
+  }
+
+  const balance =
+    Number(user.balance || 0);
+
+  if (balance < box.price) {
+    throw new Error(
+      `رصيدك غير كافٍ. سعر الصندوق ${box.price} 💰`
+    );
+  }
+
+  const reward =
+    randomItem(box.rewards);
+
+  let newBalance =
+    balance - box.price;
+
+  /*
+   * إذا كانت الجائزة مالية تضاف مباشرة.
+   */
+
+  if (reward.balance) {
+    newBalance +=
+      Number(reward.balance);
+  }
+
+  const updatedUser =
+    await updateBalance(
+      user.id,
+      newBalance
+    );
+
+  /*
+   * إذا كانت الجائزة عنصرًا، نحاول حفظها
+   * داخل جدول inventory.
+   */
+
+  if (reward.item) {
+
+    const productId =
+      `box_${boxId}_${reward.name
+        .replace(/\s+/g, "_")
+        .slice(0, 30)}`;
+
+    await addInventoryItem({
+      userId: user.id,
+      username: user.username,
+      productId,
+      productName: reward.name,
+      icon: reward.icon
+    });
+  }
+
+  await addTransaction({
+    userId: user.id,
+    username: user.username,
+    type: "box",
+    amount:
+      reward.balance
+        ? Number(reward.balance) - box.price
+        : -box.price,
+    description:
+      `فتح ${boxId} وحصل على ${reward.name}`
+  });
+
+  return {
+    user: {
+      id: updatedUser.id,
+      username: updatedUser.username,
+      balance: Number(updatedUser.balance || 0)
+    },
+
+    reward: {
+      icon: reward.icon,
+      name: reward.name
+    },
+
+    message:
+      `🎉 حصلت على ${reward.name}`
+  };
+}
+
+async function transferMoney({
+  user,
+  toUsername,
+  amount
+}) {
+
+  const targetName =
+    cleanUsername(toUsername);
+
+  const transferAmount =
+    Number(amount);
+
+  if (!targetName) {
+    throw new Error("اكتب اسم المستلم");
+  }
+
+  if (
+    !Number.isFinite(transferAmount) ||
+    transferAmount <= 0
+  ) {
+    throw new Error("المبلغ غير صحيح");
+  }
+
+  if (
+    targetName.toLowerCase() ===
+    String(user.username).toLowerCase()
+  ) {
+    throw new Error(
+      "لا يمكنك التحويل إلى نفسك"
+    );
+  }
+
+  const senderBalance =
+    Number(user.balance || 0);
+
+  if (senderBalance < transferAmount) {
+    throw new Error("رصيدك غير كافٍ");
+  }
+
+  const targets =
+    await supabase(
+      `/rest/v1/users?username=eq.${encodeURIComponent(
+        targetName
+      )}&select=id,username,balance`
+    );
+
+  if (
+    !Array.isArray(targets) ||
+    !targets.length
+  ) {
+    throw new Error(
+      "المستخدم المستلم غير موجود"
+    );
+  }
+
+  const target =
+    targets[0];
+
+  const targetBalance =
+    Number(target.balance || 0);
+
+  const sender =
+    await updateBalance(
+      user.id,
+      senderBalance - transferAmount
+    );
+
+  await updateBalance(
+    target.id,
+    targetBalance + transferAmount
+  );
+
+  await addTransaction({
+    userId: user.id,
+    username: user.username,
+    type: "transfer",
+    amount: -transferAmount,
+    description:
+      `تحويل إلى ${target.username}`
+  });
+
+  await addTransaction({
+    userId: target.id,
+    username: target.username,
+    type: "transfer",
+    amount: transferAmount,
+    description:
+      `تحويل من ${user.username}`
+  });
+
+  return {
+    user: {
+      id: sender.id,
+      username: sender.username,
+      balance: Number(sender.balance || 0)
+    },
+
+    message:
+      `✅ تم تحويل ${transferAmount.toLocaleString(
+        "ar-EG"
+      )} 💰 إلى ${target.username}`
+  };
+}
+
+async function walletAction({
+  user,
+  action,
+  amount
+}) {
+
+  const value =
+    Number(amount);
+
+  if (
+    !Number.isFinite(value) ||
+    value <= 0
+  ) {
+    throw new Error("المبلغ غير صحيح");
+  }
+
+  const balance =
+    Number(user.balance || 0);
+
+  if (action === "withdraw") {
+
+    if (balance < value) {
+      throw new Error("رصيدك غير كافٍ");
+    }
+
+    const updated =
+      await updateBalance(
+        user.id,
+        balance - value
+      );
+
+    await addTransaction({
+      userId: user.id,
+      username: user.username,
+      type: "withdraw",
+      amount: -value,
+      description: "سحب من المحفظة"
+    });
+
+    return {
+      user: {
+        id: updated.id,
+        username: updated.username,
+        balance: Number(updated.balance || 0)
+      },
+      message:
+        `✅ تم سحب ${value.toLocaleString(
+          "ar-EG"
+        )} 💰`
+    };
+  }
+
+  if (action === "deposit") {
+
+    const updated =
+      await updateBalance(
+        user.id,
+        balance + value
+      );
+
+    await addTransaction({
+      userId: user.id,
+      username: user.username,
+      type: "deposit",
+      amount: value,
+      description: "إيداع في المحفظة"
+    });
+
+    return {
+      user: {
+        id: updated.id,
+        username: updated.username,
+        balance: Number(updated.balance || 0)
+      },
+      message:
+        `✅ تم إيداع ${value.toLocaleString(
+          "ar-EG"
+        )} 💰`
+    };
+  }
+
+  throw new Error("عملية المحفظة غير صحيحة");
+}
+
+async function cityUpgrade({
+  user
+}) {
+
+  const cost = 500;
+
+  const balance =
+    Number(user.balance || 0);
+
+  if (balance < cost) {
+    throw new Error(
+      `تحتاج إلى ${cost} 💰 لتطوير المدينة`
+    );
+  }
+
+  /*
+   * جدول users عندك يحتوي على balance،
+   * لكن قد لا يحتوي city.
+   * لذلك نحاول تحديث city، وإذا لم يكن موجودًا
+   * نكتفي بتحديث الرصيد.
+   */
+
+  let updatedUser;
+
+  try {
+
+    const result =
+      await supabase(
+        `/rest/v1/users?id=eq.${encodeURIComponent(
+          String(user.id)
+        )}`,
+        {
+          method: "PATCH",
+          headers: {
+            Prefer: "return=representation"
+          },
+          body: JSON.stringify({
+            balance: balance - cost,
+            city: Number(user.city || 1) + 1
+          })
+        }
+      );
+
+    updatedUser =
+      result?.[0];
+
+  } catch {
+
+    updatedUser =
+      await updateBalance(
+        user.id,
+        balance - cost
+      );
+  }
+
+  await addTransaction({
+    userId: user.id,
+    username: user.username,
+    type: "city",
+    amount: -cost,
+    description: "تطوير المدينة"
+  });
+
+  return {
+    user: {
+      id: updatedUser.id,
+      username: updatedUser.username,
+      balance: Number(updatedUser.balance || 0),
+      city: Number(updatedUser.city || user.city || 1) + (
+        updatedUser.city ? 0 : 0
+      )
+    },
+
+    message:
+      "🏯 تم تطوير المدينة بنجاح."
+  };
+}
+
+export default async function handler(req, res) {
 
   if (req.method !== "POST") {
 
-    return res.status(405).json({
-      success: false,
-      message: "Method Not Allowed"
-    });
-
+    return json(
+      res,
+      405,
+      {
+        success: false,
+        message: "Method Not Allowed"
+      }
+    );
   }
-
 
   try {
 
@@ -867,315 +906,128 @@ export default async function handler(
       !SUPABASE_SECRET_KEY
     ) {
 
-      return res.status(500).json({
-        success: false,
-        message:
-          "إعدادات Supabase غير موجودة في Vercel"
-      });
-
+      return json(
+        res,
+        500,
+        {
+          success: false,
+          message:
+            "إعدادات Supabase غير موجودة في Vercel"
+        }
+      );
     }
 
+    const body =
+      req.body || {};
 
     const {
+      userId,
       username,
-      password,
       game,
-      box
-    } = req.body || {};
+      boxId,
+      toUsername,
+      amount
+    } = body;
 
-
-    if (
-      !username ||
-      !password
-    ) {
-
-      return res.status(400).json({
-        success: false,
-        message:
-          "اسم المستخدم وكلمة المرور مطلوبان"
-      });
-
-    }
-
-
-    const cleanUsername =
-      String(username).trim();
-
-
-    const cleanPassword =
-      String(password);
-
+    /*
+     * مهم:
+     * لا نعتمد على الرصيد المرسل من المتصفح.
+     * نقرأ الرصيد الحقيقي من Supabase.
+     */
 
     const user =
-      await getUser(
-        cleanUsername,
-        cleanPassword
+      await findUser(
+        userId,
+        username
       );
-
 
     if (!user) {
 
-      return res.status(401).json({
-        success: false,
-        message:
-          "اسم المستخدم أو كلمة المرور غير صحيحة"
-      });
-
-    }
-
-
-    const currentBalance =
-      Number(user.balance || 0);
-
-
-    /* ==========================================
-       المكافأة اليومية
-    ========================================== */
-
-    if (game === "daily") {
-
-      const reward = 500;
-
-      const newBalance =
-        currentBalance + reward;
-
-      await updateBalance(
-        user.id,
-        newBalance
-      );
-
-      return res.status(200).json({
-
-        success: true,
-
-        type: "daily",
-
-        message:
-          "🎁 حصلت على المكافأة اليومية!",
-
-        reward,
-
-        balance: newBalance
-
-      });
-
-    }
-
-
-    /* ==========================================
-       فتح صندوق
-    ========================================== */
-
-    if (box) {
-
-      const selectedBox =
-        BOXES[box];
-
-
-      if (!selectedBox) {
-
-        return res.status(400).json({
+      return json(
+        res,
+        401,
+        {
           success: false,
           message:
-            "❌ الصندوق غير موجود"
-        });
-
-      }
-
-
-      const price =
-        Number(
-          selectedBox.price
-        );
-
-
-      if (
-        currentBalance <
-        price
-      ) {
-
-        return res.status(400).json({
-
-          success: false,
-
-          message:
-            `❌ رصيدك غير كافٍ لفتح ${selectedBox.name}`,
-
-          balance:
-            currentBalance,
-
-          price
-
-        });
-
-      }
-
-
-      const reward =
-        chooseReward(
-          selectedBox.rewards
-        );
-
-
-      let newBalance =
-        currentBalance -
-        price;
-
-
-      if (
-        reward.type ===
-        "money"
-      ) {
-
-        newBalance +=
-          Number(
-            reward.value || 0
-          );
-
-      }
-
-
-      await updateBalance(
-        user.id,
-        newBalance
+            "المستخدم غير موجود أو انتهت الجلسة"
+        }
       );
-
-
-      if (
-        reward.type ===
-        "item"
-      ) {
-
-        await addInventoryItem(
-          user.id,
-          reward.name,
-          "box_reward"
-        );
-
-      }
-
-
-      return res.status(200).json({
-
-        success: true,
-
-        type: "box",
-
-        box: box,
-
-        boxName:
-          selectedBox.name,
-
-        boxStyle:
-          selectedBox.style,
-
-        price,
-
-        reward: reward.name,
-
-        rewardType:
-          reward.type,
-
-        rewardValue:
-          reward.value,
-
-        balance:
-          newBalance,
-
-        explosion: true
-
-      });
-
     }
 
+    let result;
 
-    /* ==========================================
-       الألعاب العادية
-    ========================================== */
+    if (game === "box") {
 
-    if (game) {
-
-      const result =
-        await playNormalGame(
-          game,
-          currentBalance
-        );
-
-
-      if (!result) {
-
-        return res.status(400).json({
-          success: false,
-          message:
-            "❌ اللعبة غير موجودة"
+      result =
+        await openBox({
+          user,
+          boxId
         });
 
-      }
+    } else if (game === "transfer") {
 
+      result =
+        await transferMoney({
+          user,
+          toUsername,
+          amount
+        });
 
-      await updateBalance(
-        user.id,
-        result.balance
-      );
+    } else if (
+      game === "deposit" ||
+      game === "withdraw"
+    ) {
 
+      result =
+        await walletAction({
+          user,
+          action: game,
+          amount
+        });
 
-      return res.status(200).json({
+    } else if (game === "city_upgrade") {
 
-        success: true,
+      result =
+        await cityUpgrade({
+          user
+        });
 
-        type: "game",
+    } else {
 
-        game:
-          result.game,
-
-        gameName:
-          result.name,
-
-        cost:
-          result.cost,
-
-        reward:
-          result.reward,
-
-        value:
-          result.value,
-
-        balance:
-          result.balance
-
-      });
-
+      result =
+        await playNormalGame({
+          user,
+          game
+        });
     }
 
-
-    return res.status(400).json({
-
-      success: false,
-
-      message:
-        "لم يتم تحديد لعبة أو صندوق"
-
-    });
-
+    return json(
+      res,
+      200,
+      {
+        success: true,
+        ...result
+      }
+    );
 
   } catch (error) {
 
     console.error(
-      "Game API error:",
+      "GAME API ERROR:",
       error
     );
 
-
-    return res.status(500).json({
-
-      success: false,
-
-      message:
-        error.message ||
-        "حدث خطأ في الخادم"
-
-    });
-
+    return json(
+      res,
+      error.status >= 400 && error.status < 500
+        ? error.status
+        : 500,
+      {
+        success: false,
+        message:
+          error.message ||
+          "حدث خطأ في الخادم"
+      }
+    );
   }
-
 }
