@@ -11,8 +11,6 @@ function hashPassword(password) {
 }
 
 export default async function handler(req, res) {
-
-  // POST فقط
   if (req.method !== "POST") {
     return res.status(405).json({
       success: false,
@@ -21,18 +19,13 @@ export default async function handler(req, res) {
   }
 
   try {
-
-    // التحقق من إعدادات Supabase
     if (!SUPABASE_URL || !SUPABASE_SECRET_KEY) {
-      console.error("Missing Supabase environment variables");
-
       return res.status(500).json({
         success: false,
         message: "إعدادات Supabase غير موجودة في Vercel"
       });
     }
 
-    // قراءة البيانات
     let body = req.body || {};
 
     if (typeof body === "string") {
@@ -47,18 +40,13 @@ export default async function handler(req, res) {
     }
 
     const username = String(
-      body.username ||
-      body.name ||
-      ""
+      body.username || body.name || ""
     ).trim();
 
     const password = String(
-      body.password ||
-      body.pass ||
-      ""
+      body.password || body.pass || ""
     );
 
-    // التحقق
     if (!username || !password) {
       return res.status(400).json({
         success: false,
@@ -66,22 +54,20 @@ export default async function handler(req, res) {
       });
     }
 
-    // تشفير كلمة المرور
     const passwordHash = hashPassword(password);
 
     const headers = {
-      "apikey": SUPABASE_SECRET_KEY,
-      "Authorization": `Bearer ${SUPABASE_SECRET_KEY}`,
+      apikey: SUPABASE_SECRET_KEY,
+      Authorization: `Bearer ${SUPABASE_SECRET_KEY}`,
       "Content-Type": "application/json"
     };
 
-    // البحث عن المستخدم بالاسم فقط
     const url =
       `${SUPABASE_URL}/rest/v1/users` +
       `?username=eq.${encodeURIComponent(username)}` +
       `&select=id,username,password_hash,balance,role,level,city`;
 
-    console.log("Login:", username);
+    console.log("Login attempt:", username);
 
     const response = await fetch(url, {
       method: "GET",
@@ -90,8 +76,11 @@ export default async function handler(req, res) {
 
     const text = await response.text();
 
+    /*
+      إذا فشل الاتصال بـ Supabase،
+      نعرض رقم HTTP للمستخدم لمعرفة المشكلة.
+    */
     if (!response.ok) {
-
       console.error(
         "Supabase login error:",
         response.status,
@@ -100,7 +89,7 @@ export default async function handler(req, res) {
 
       return res.status(500).json({
         success: false,
-        message: "حدث خطأ في الاتصال بقاعدة البيانات"
+        message: `خطأ Supabase: HTTP ${response.status}`
       });
     }
 
@@ -109,7 +98,6 @@ export default async function handler(req, res) {
     try {
       users = JSON.parse(text);
     } catch {
-
       console.error(
         "Invalid Supabase response:",
         text
@@ -121,12 +109,7 @@ export default async function handler(req, res) {
       });
     }
 
-    // الحساب غير موجود
-    if (
-      !Array.isArray(users) ||
-      users.length === 0
-    ) {
-
+    if (!Array.isArray(users) || users.length === 0) {
       return res.status(401).json({
         success: false,
         message: "❌ اسم المستخدم أو كلمة المرور غير صحيحة"
@@ -135,37 +118,29 @@ export default async function handler(req, res) {
 
     const user = users[0];
 
-    // التحقق من كلمة المرور
     if (
       !user.password_hash ||
       user.password_hash !== passwordHash
     ) {
-
       return res.status(401).json({
         success: false,
         message: "❌ اسم المستخدم أو كلمة المرور غير صحيحة"
       });
     }
 
-    // تحديد نوع الحساب
-    const role =
-      String(user.role || "user").toLowerCase();
+    const role = String(
+      user.role || "user"
+    ).toLowerCase();
 
     const isAdmin =
       role === "admin" ||
       role === "administrator" ||
       role === "owner";
 
-    /*
-      حساب الإدارة:
-      لا نضع Infinity داخل Supabase.
-      نرسل قيمة كبيرة للواجهة، مع isAdmin=true.
-    */
     const balance = isAdmin
       ? Number.MAX_SAFE_INTEGER
       : Number(user.balance || 0);
 
-    // بيانات المستخدم
     const userData = {
       id: user.id,
       username: user.username,
@@ -173,11 +148,9 @@ export default async function handler(req, res) {
       role: isAdmin ? "admin" : "user",
       isAdmin,
 
-      level:
-        Number(user.level || 1),
+      level: Number(user.level || 1),
 
-      city:
-        Number(user.city || 1)
+      city: Number(user.city || 1)
     };
 
     console.log(
@@ -190,7 +163,6 @@ export default async function handler(req, res) {
     );
 
     return res.status(200).json({
-
       success: true,
 
       message: isAdmin
@@ -198,11 +170,9 @@ export default async function handler(req, res) {
         : "✅ تم تسجيل الدخول بنجاح",
 
       user: userData
-
     });
 
   } catch (error) {
-
     console.error(
       "Login error:",
       error
