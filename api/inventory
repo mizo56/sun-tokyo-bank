@@ -1,9 +1,7 @@
-
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SECRET_KEY = process.env.SUPABASE_SECRET_KEY;
 
 export default async function handler(req, res) {
-
   if (req.method !== "POST") {
     return res.status(405).json({
       success: false,
@@ -12,7 +10,6 @@ export default async function handler(req, res) {
   }
 
   try {
-
     if (!SUPABASE_URL || !SUPABASE_SECRET_KEY) {
       return res.status(500).json({
         success: false,
@@ -24,7 +21,8 @@ export default async function handler(req, res) {
       userId,
       username,
       action,
-      productId
+      itemName,
+      itemType
     } = req.body || {};
 
     if (!userId && !username) {
@@ -40,6 +38,56 @@ export default async function handler(req, res) {
       "Content-Type": "application/json"
     };
 
+    // =====================================================
+    // جلب المستخدم
+    // =====================================================
+
+    let userUrl;
+
+    if (userId) {
+      userUrl =
+        `${SUPABASE_URL}/rest/v1/users?id=eq.${encodeURIComponent(userId)}&select=id,username,balance`;
+    } else {
+      userUrl =
+        `${SUPABASE_URL}/rest/v1/users?username=eq.${encodeURIComponent(String(username).trim())}&select=id,username,balance`;
+    }
+
+    const userResponse = await fetch(userUrl, {
+      method: "GET",
+      headers
+    });
+
+    const userText = await userResponse.text();
+
+    if (!userResponse.ok) {
+      console.error("User error:", userText);
+
+      return res.status(500).json({
+        success: false,
+        message: "تعذر الوصول إلى بيانات المستخدم"
+      });
+    }
+
+    let users;
+
+    try {
+      users = JSON.parse(userText);
+    } catch {
+      return res.status(500).json({
+        success: false,
+        message: "استجابة قاعدة البيانات غير صحيحة"
+      });
+    }
+
+    if (!Array.isArray(users) || users.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "المستخدم غير موجود"
+      });
+    }
+
+    const user = users[0];
+
 
     // =====================================================
     // استخدام المنتج
@@ -47,73 +95,52 @@ export default async function handler(req, res) {
 
     if (action === "use") {
 
-      if (!productId) {
+      if (!itemName) {
         return res.status(400).json({
           success: false,
-          message: "رقم المنتج غير موجود"
+          message: "اسم المنتج غير موجود"
         });
       }
 
-      let userQuery;
+      const cleanItemName = String(itemName).trim();
 
-      if (userId) {
-        userQuery =
-          `${SUPABASE_URL}/rest/v1/users?id=eq.${encodeURIComponent(userId)}&select=id,username,balance`;
-      } else {
-        userQuery =
-          `${SUPABASE_URL}/rest/v1/users?username=eq.${encodeURIComponent(String(username).trim())}&select=id,username,balance`;
-      }
-
-      const userResponse = await fetch(
-        userQuery,
-        {
-          method: "GET",
-          headers
-        }
-      );
-
-      const users = await userResponse.json();
-
-      if (!userResponse.ok || !Array.isArray(users) || !users.length) {
-        return res.status(404).json({
-          success: false,
-          message: "المستخدم غير موجود"
-        });
-      }
-
-      const user = users[0];
-
-
-      // جلب المنتج من المخزون
       const inventoryResponse = await fetch(
-        `${SUPABASE_URL}/rest/v1/inventory?user_id=eq.${encodeURIComponent(user.id)}&product_id=eq.${encodeURIComponent(productId)}&select=*`,
+        `${SUPABASE_URL}/rest/v1/inventory?user_id=eq.${encodeURIComponent(user.id)}&item_name=eq.${encodeURIComponent(cleanItemName)}&select=*`,
         {
           method: "GET",
           headers
         }
       );
 
-      const inventoryItems = await inventoryResponse.json();
+      const inventoryText = await inventoryResponse.text();
 
-      if (
-        !inventoryResponse.ok ||
-        !Array.isArray(inventoryItems) ||
-        !inventoryItems.length
-      ) {
-        return res.status(404).json({
+      if (!inventoryResponse.ok) {
+        console.error("Inventory search error:", inventoryText);
+
+        return res.status(500).json({
           success: false,
-          message: "❌ هذا المنتج غير موجود في المخزون"
+          message: "تعذر البحث في المخزون"
         });
       }
 
-      const inventoryItem = inventoryItems[0];
+      let items;
 
-      const quantity =
-        Number(
-          inventoryItem.quantity ||
-          inventoryItem.count ||
-          0
-        );
+      try {
+        items = JSON.parse(inventoryText);
+      } catch {
+        items = [];
+      }
+
+      if (!Array.isArray(items) || items.length === 0) {
+        return res.status(404).json({
+          success: false,
+          message: "❌ المنتج غير موجود في المخزون"
+        });
+      }
+
+      const item = items[0];
+
+      const quantity = Number(item.quantity || 0);
 
       if (quantity <= 0) {
         return res.status(400).json({
@@ -123,11 +150,11 @@ export default async function handler(req, res) {
       }
 
 
-      // إنقاص الكمية
+      // إذا كانت الكمية أكثر من 1 ننقص واحدة
       if (quantity > 1) {
 
-        const updateInventory = await fetch(
-          `${SUPABASE_URL}/rest/v1/inventory?id=eq.${encodeURIComponent(inventoryItem.id)}`,
+        const updateResponse = await fetch(
+          `${SUPABASE_URL}/rest/v1/inventory?id=eq.${encodeURIComponent(item.id)}`,
           {
             method: "PATCH",
             headers: {
@@ -140,92 +167,65 @@ export default async function handler(req, res) {
           }
         );
 
-        if (!updateInventory.ok) {
+        const updateText = await updateResponse.text();
+
+        if (!updateResponse.ok) {
+          console.error(
+            "Inventory update error:",
+            updateText
+          );
+
           return res.status(500).json({
             success: false,
-            message: "تعذر تحديث المخزون"
+            message: "تعذر تحديث كمية المنتج"
           });
         }
 
       } else {
 
-        const deleteInventory = await fetch(
-          `${SUPABASE_URL}/rest/v1/inventory?id=eq.${encodeURIComponent(inventoryItem.id)}`,
+        // إذا كانت الكمية 1 نحذف المنتج
+        const deleteResponse = await fetch(
+          `${SUPABASE_URL}/rest/v1/inventory?id=eq.${encodeURIComponent(item.id)}`,
           {
             method: "DELETE",
             headers
           }
         );
 
-        if (!deleteInventory.ok) {
+        const deleteText = await deleteResponse.text();
+
+        if (!deleteResponse.ok) {
+          console.error(
+            "Inventory delete error:",
+            deleteText
+          );
+
           return res.status(500).json({
             success: false,
             message: "تعذر حذف المنتج من المخزون"
           });
         }
-
       }
 
 
       return res.status(200).json({
         success: true,
-        message: `✅ تم استخدام ${inventoryItem.product_name || inventoryItem.productName || "المنتج"}`,
+        message: `✅ تم استخدام ${cleanItemName}`,
         user: {
           id: user.id,
           username: user.username,
           balance: Number(user.balance || 0)
         }
       });
-
     }
 
 
     // =====================================================
-    // عرض المخزون
+    // تحميل المخزون
     // =====================================================
 
-    let userQuery;
-
-    if (userId) {
-
-      userQuery =
-        `${SUPABASE_URL}/rest/v1/users?id=eq.${encodeURIComponent(userId)}&select=id,username,balance`;
-
-    } else {
-
-      userQuery =
-        `${SUPABASE_URL}/rest/v1/users?username=eq.${encodeURIComponent(String(username).trim())}&select=id,username,balance`;
-
-    }
-
-
-    const userResponse = await fetch(
-      userQuery,
-      {
-        method: "GET",
-        headers
-      }
-    );
-
-    const users = await userResponse.json();
-
-    if (
-      !userResponse.ok ||
-      !Array.isArray(users) ||
-      !users.length
-    ) {
-      return res.status(404).json({
-        success: false,
-        message: "المستخدم غير موجود"
-      });
-    }
-
-    const user = users[0];
-
-
-    // جلب المخزون
     const inventoryResponse = await fetch(
-      `${SUPABASE_URL}/rest/v1/inventory?user_id=eq.${encodeURIComponent(user.id)}&select=*`,
+      `${SUPABASE_URL}/rest/v1/inventory?user_id=eq.${encodeURIComponent(user.id)}&select=id,user_id,item_name,item_type,quantity,created_at&order=created_at.desc`,
       {
         method: "GET",
         headers
@@ -235,9 +235,8 @@ export default async function handler(req, res) {
     const inventoryText = await inventoryResponse.text();
 
     if (!inventoryResponse.ok) {
-
       console.error(
-        "Supabase inventory error:",
+        "Inventory load error:",
         inventoryText
       );
 
@@ -245,10 +244,9 @@ export default async function handler(req, res) {
         success: false,
         message: "تعذر تحميل المخزون"
       });
-
     }
 
-    let items = [];
+    let items;
 
     try {
       items = JSON.parse(inventoryText);
@@ -257,8 +255,42 @@ export default async function handler(req, res) {
     }
 
 
-    return res.status(200).json({
+    // =====================================================
+    // تجهيز البيانات للواجهة
+    // =====================================================
 
+    const formattedItems =
+      Array.isArray(items)
+        ? items.map(item => ({
+            id: item.id,
+            user_id: item.user_id,
+            item_name: item.item_name,
+            item_type: item.item_type,
+            quantity: Number(item.quantity || 0),
+            created_at: item.created_at,
+
+            // توافق إضافي مع index.html
+            name: item.item_name,
+            productName: item.item_name,
+            product_name: item.item_name,
+            count: Number(item.quantity || 0),
+
+            // أيقونة افتراضية
+            icon:
+              item.item_type === "weapon"
+                ? "⚔️"
+                : item.item_type === "armor"
+                ? "🛡️"
+                : item.item_type === "potion"
+                ? "🧪"
+                : item.item_type === "box"
+                ? "📦"
+                : "🎁"
+          }))
+        : [];
+
+
+    return res.status(200).json({
       success: true,
 
       user: {
@@ -267,16 +299,13 @@ export default async function handler(req, res) {
         balance: Number(user.balance || 0)
       },
 
-      items: Array.isArray(items)
-        ? items
-        : []
-
+      items: formattedItems
     });
 
   } catch (error) {
 
     console.error(
-      "Inventory error:",
+      "Inventory API error:",
       error
     );
 
@@ -284,7 +313,5 @@ export default async function handler(req, res) {
       success: false,
       message: "❌ حدث خطأ في الخادم"
     });
-
   }
-
 }
