@@ -1,433 +1,219 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
 
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』</title>
 
 <style>
 
-/* =====================================================
-   RESET
-===================================================== */
-
 *{
     box-sizing:border-box;
     margin:0;
     padding:0;
-}
-
-html{
-    scroll-behavior:smooth;
+    font-family:Tahoma,Arial,sans-serif;
 }
 
 body{
-    font-family:
-        Tahoma,
-        Arial,
-        sans-serif;
 
     background:
-        radial-gradient(
-            circle at top,
-            #351015 0%,
-            #16080b 35%,
-            #080808 100%
-        );
+    radial-gradient(circle at top,#40151a,#080808 60%);
 
-    color:#fff;
-
+    color:white;
     min-height:100vh;
 
-    overflow-x:hidden;
 }
 
-
-/* =====================================================
-   VARIABLES
-===================================================== */
-
-:root{
-
-    --red:#d71920;
-    --red2:#ff3038;
-    --dark:#090909;
-    --dark2:#121212;
-    --panel:#171717;
-    --panel2:#202020;
-    --gold:#ffd166;
-    --green:#24d17e;
-    --blue:#4da3ff;
-    --danger:#ff3b30;
-    --text:#ffffff;
-    --muted:#aaa;
-
-    --radius:18px;
-
-    --shadow:
-        0 15px 50px rgba(0,0,0,.45);
-
-}
-
-
-/* =====================================================
-   BACKGROUND
-===================================================== */
-
-.background-stars{
-
-    position:fixed;
-
-    inset:0;
-
-    pointer-events:none;
-
-    opacity:.5;
-
-    background-image:
-        radial-gradient(#fff 1px,transparent 1px);
-
-    background-size:
-        55px 55px;
-
-    z-index:-3;
-}
-
-.background-glow{
-
-    position:fixed;
-
-    width:500px;
-
-    height:500px;
-
-    border-radius:50%;
-
-    background:
-        rgba(215,25,32,.12);
-
-    filter:blur(100px);
-
-    top:-200px;
-
-    right:-150px;
-
-    z-index:-2;
-}
-
-
-/* =====================================================
-   GENERAL
-===================================================== */
 
 .hidden{
-    display:none !important;
+    display:none!important;
 }
 
-button,
-input{
-    font-family:inherit;
-}
 
 button{
+
     cursor:pointer;
+
 }
+
 
 .container{
 
-    width:min(1200px,94%);
-
+    width:94%;
+    max-width:1200px;
     margin:auto;
 
 }
 
 
-/* =====================================================
-   HEADER
-===================================================== */
+/* HEADER */
 
 header{
 
     position:sticky;
-
     top:0;
+
+    background:
+    rgba(0,0,0,.85);
+
+    backdrop-filter:blur(10px);
+
+    border-bottom:
+    1px solid #333;
 
     z-index:100;
 
-    backdrop-filter:
-        blur(15px);
-
-    background:
-        rgba(8,8,8,.88);
-
-    border-bottom:
-        1px solid rgba(255,255,255,.08);
-
 }
+
 
 .header-inner{
 
-    min-height:72px;
-
-    width:min(1200px,94%);
-
-    margin:auto;
+    height:70px;
 
     display:flex;
-
-    align-items:center;
 
     justify-content:space-between;
 
-    gap:15px;
+    align-items:center;
 
 }
+
 
 .logo{
 
-    font-size:
-        clamp(18px,3vw,27px);
-
-    font-weight:
-        900;
-
-    color:#fff;
-
-    text-shadow:
-        0 0 20px rgba(255,40,40,.4);
-
-    white-space:nowrap;
-
-}
-
-.logo span{
-    color:var(--red2);
-}
-
-.header-actions{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:8px;
-
-}
-
-.header-btn{
-
-    border:1px solid
-        rgba(255,255,255,.12);
-
-    background:
-        rgba(255,255,255,.05);
-
-    color:#fff;
-
-    padding:
-        10px 14px;
-
-    border-radius:
-        12px;
-
-    transition:.2s;
-
-}
-
-.header-btn:hover{
-
-    background:
-        rgba(255,255,255,.1);
-
-    transform:
-        translateY(-2px);
-
-}
-
-.admin-header-btn{
-
-    background:
-        linear-gradient(
-            135deg,
-            #9d0910,
-            #e5232b
-        );
-
-    border:none;
-
-}
-
-
-/* =====================================================
-   HERO
-===================================================== */
-
-.hero{
-
-    padding:
-        65px 0 30px;
-
-}
-
-.hero-box{
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(215,25,32,.18),
-            rgba(255,255,255,.03)
-        );
-
-    border:
-        1px solid rgba(255,255,255,.1);
-
-    border-radius:
-        28px;
-
-    padding:
-        45px 30px;
-
-    box-shadow:
-        var(--shadow);
-
-    text-align:center;
-
-}
-
-.hero h1{
-
-    font-size:
-        clamp(30px,7vw,65px);
-
-    margin-bottom:15px;
-
-}
-
-.hero h1 span{
-    color:var(--red2);
-}
-
-.hero p{
-
-    color:#ccc;
-
-    font-size:
-        clamp(14px,2vw,19px);
-
-    line-height:1.8;
-
-}
-
-
-/* =====================================================
-   AUTH
-===================================================== */
-
-.auth-section{
-
-    min-height:
-        calc(100vh - 72px);
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:35px 15px;
-
-}
-
-.auth-box{
-
-    width:
-        min(470px,100%);
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(30,30,30,.96),
-            rgba(12,12,12,.98)
-        );
-
-    border:
-        1px solid rgba(255,255,255,.1);
-
-    border-radius:
-        25px;
-
-    padding:30px;
-
-    box-shadow:
-        0 30px 80px rgba(0,0,0,.55);
-
-}
-
-.auth-title{
-
-    text-align:center;
-
-    font-size:30px;
+    font-size:25px;
 
     font-weight:900;
 
-    margin-bottom:8px;
+}
+
+
+.logo span{
+
+    color:#ff3038;
 
 }
 
-.auth-subtitle{
 
-    text-align:center;
+.header-btn{
 
-    color:#999;
+    background:#222;
 
-    margin-bottom:25px;
+    color:white;
 
-}
+    border:1px solid #444;
 
-.auth-tabs{
-
-    display:grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap:8px;
-
-    margin-bottom:22px;
-
-}
-
-.auth-tab{
-
-    border:none;
-
-    background:#202020;
-
-    color:#aaa;
-
-    padding:13px;
+    padding:10px 15px;
 
     border-radius:12px;
 
 }
 
-.auth-tab.active{
 
-    background:
-        linear-gradient(
-            135deg,
-            var(--red),
-            var(--red2)
-        );
 
-    color:#fff;
+/* LOGIN */
+
+.auth-section{
+
+    min-height:
+    calc(100vh - 70px);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
 
 }
+
+
+.auth-box{
+
+    width:420px;
+
+    max-width:95%;
+
+    background:#151515;
+
+    border:
+    1px solid #333;
+
+    padding:30px;
+
+    border-radius:25px;
+
+    box-shadow:
+    0 20px 60px #000;
+
+}
+
+
+.auth-title{
+
+    text-align:center;
+
+    font-size:32px;
+
+    font-weight:bold;
+
+    margin-bottom:10px;
+
+}
+
+
+.auth-subtitle{
+
+    text-align:center;
+
+    color:#aaa;
+
+    margin-bottom:25px;
+
+}
+
+
+
+.auth-tabs{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:10px;
+
+    margin-bottom:20px;
+
+}
+
+
+
+.auth-tab{
+
+    padding:12px;
+
+    background:#222;
+
+    color:#aaa;
+
+    border:none;
+
+    border-radius:10px;
+
+}
+
+
+.auth-tab.active{
+
+    background:#d71920;
+
+    color:white;
+
+}
+
+
 
 .form-group{
 
@@ -435,15 +221,19 @@ header{
 
 }
 
+
+
 .form-group label{
 
     display:block;
 
+    margin-bottom:6px;
+
     color:#ccc;
 
-    margin-bottom:7px;
-
 }
+
+
 
 .form-group input{
 
@@ -451,69 +241,40 @@ header{
 
     padding:14px;
 
-    border:
-        1px solid rgba(255,255,255,.1);
+    background:#090909;
+
+    border:1px solid #444;
+
+    color:white;
 
     border-radius:12px;
 
-    outline:none;
-
-    background:#0d0d0d;
-
-    color:#fff;
-
-    font-size:15px;
-
 }
 
-.form-group input:focus{
 
-    border-color:
-        var(--red);
-
-    box-shadow:
-        0 0 0 3px
-        rgba(215,25,32,.12);
-
-}
 
 .primary-btn{
 
     width:100%;
 
+    padding:15px;
+
     border:none;
 
-    padding:14px;
-
-    border-radius:13px;
+    border-radius:12px;
 
     background:
-        linear-gradient(
-            135deg,
-            var(--red),
-            var(--red2)
-        );
 
-    color:#fff;
+    linear-gradient(135deg,#d71920,#ff3038);
 
-    font-size:16px;
+    color:white;
 
-    font-weight:800;
+    font-size:17px;
 
-    transition:.2s;
+    font-weight:bold;
 
 }
 
-.primary-btn:hover{
-
-    transform:
-        translateY(-2px);
-
-    box-shadow:
-        0 10px 25px
-        rgba(215,25,32,.25);
-
-}
 
 .message{
 
@@ -523,44 +284,37 @@ header{
 
     border-radius:10px;
 
-    display:none;
-
     text-align:center;
 
+    display:none;
+
 }
+
 
 .message.error{
 
     display:block;
 
-    background:
-        rgba(255,59,48,.12);
+    background:#441111;
 
-    border:
-        1px solid rgba(255,59,48,.3);
-
-    color:#ff7770;
+    color:#ff7777;
 
 }
+
 
 .message.success{
 
     display:block;
 
-    background:
-        rgba(36,209,126,.12);
+    background:#113d25;
 
-    border:
-        1px solid rgba(36,209,126,.3);
-
-    color:#55e69a;
+    color:#66ff99;
 
 }
 
 
-/* =====================================================
-   MAIN APP
-===================================================== */
+
+/* APP */
 
 #app{
 
@@ -568,736 +322,20 @@ header{
 
 }
 
+
+
 .dashboard{
 
-    padding:
-        35px 0 70px;
+    padding:30px 0;
 
 }
 
-
-/* =====================================================
-   PROFILE HEADER
-===================================================== */
 
 .profile-card{
 
-    background:
-        linear-gradient(
-            135deg,
-            rgba(215,25,32,.18),
-            rgba(255,255,255,.04)
-        );
+    background:#151515;
 
-    border:
-        1px solid rgba(255,255,255,.1);
-
-    border-radius:
-        22px;
-
-    padding:25px;
-
-    box-shadow:
-        var(--shadow);
-
-    margin-bottom:20px;
-
-}
-
-.profile-top{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:20px;
-
-}
-
-.profile-user{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:15px;
-
-}
-
-.avatar{
-
-    width:65px;
-
-    height:65px;
-
-    border-radius:18px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--red),
-            #68070b
-        );
-
-    font-size:30px;
-
-}
-
-.username{
-
-    font-size:23px;
-
-    font-weight:900;
-
-}
-
-.role-badge{
-
-    display:inline-block;
-
-    margin-top:5px;
-
-    padding:5px 10px;
-
-    border-radius:8px;
-
-    background:#292929;
-
-    color:#bbb;
-
-    font-size:12px;
-
-}
-
-.role-admin{
-
-    background:
-        rgba(255,209,102,.12);
-
-    color:
-        var(--gold);
-
-}
-
-.balance-box{
-
-    text-align:left;
-
-}
-
-.balance-label{
-
-    color:#999;
-
-    font-size:13px;
-
-}
-
-.balance{
-
-    font-size:30px;
-
-    font-weight:900;
-
-    color:var(--gold);
-
-}
-
-
-/* =====================================================
-   STATS
-===================================================== */
-
-.stats-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:15px;
-
-    margin-bottom:20px;
-
-}
-
-.stat-card{
-
-    background:
-        rgba(255,255,255,.04);
-
-    border:
-        1px solid rgba(255,255,255,.08);
-
-    border-radius:
-        18px;
-
-    padding:20px;
-
-}
-
-.stat-icon{
-
-    font-size:25px;
-
-    margin-bottom:10px;
-
-}
-
-.stat-label{
-
-    color:#999;
-
-    font-size:13px;
-
-}
-
-.stat-value{
-
-    font-size:23px;
-
-    font-weight:900;
-
-    margin-top:5px;
-
-}
-
-
-/* =====================================================
-   NAV
-===================================================== */
-
-.nav-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:12px;
-
-    margin-bottom:25px;
-
-}
-
-.nav-btn{
-
-    border:
-        1px solid rgba(255,255,255,.08);
-
-    background:
-        rgba(255,255,255,.04);
-
-    color:#fff;
-
-    padding:18px 10px;
-
-    border-radius:15px;
-
-    transition:.2s;
-
-}
-
-.nav-btn:hover{
-
-    background:
-        rgba(215,25,32,.15);
-
-    border-color:
-        rgba(215,25,32,.35);
-
-    transform:
-        translateY(-2px);
-
-}
-
-
-/* =====================================================
-   CONTENT
-===================================================== */
-
-.content-card{
-
-    background:
-        rgba(18,18,18,.9);
-
-    border:
-        1px solid rgba(255,255,255,.08);
-
-    border-radius:
-        22px;
-
-    padding:25px;
-
-    margin-bottom:20px;
-
-}
-
-.section-title{
-
-    font-size:22px;
-
-    font-weight:900;
-
-    margin-bottom:18px;
-
-}
-
-
-/* =====================================================
-   SHORTCUTS
-===================================================== */
-
-.shortcuts{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:12px;
-
-}
-
-.shortcut{
-
-    padding:22px 10px;
-
-    background:
-        #1c1c1c;
-
-    border:
-        1px solid rgba(255,255,255,.06);
-
-    border-radius:15px;
-
-    color:#fff;
-
-    text-align:center;
-
-    transition:.2s;
-
-}
-
-.shortcut:hover{
-
-    transform:
-        translateY(-3px);
-
-    background:
-        #252525;
-
-}
-
-.shortcut-icon{
-
-    font-size:28px;
-
-    margin-bottom:8px;
-
-}
-
-
-/* =====================================================
-   ADMIN
-===================================================== */
-
-.admin-page{
-
-    display:none;
-
-    padding:
-        35px 0 80px;
-
-}
-
-.admin-header{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:15px;
-
-    margin-bottom:20px;
-
-}
-
-.admin-title{
-
-    font-size:30px;
-
-    font-weight:900;
-
-}
-
-.admin-title span{
-    color:var(--gold);
-}
-
-.admin-close{
-
-    border:none;
-
-    background:#292929;
-
-    color:#fff;
-
-    padding:11px 18px;
-
-    border-radius:12px;
-
-}
-
-
-/* =====================================================
-   ADMIN STATS
-===================================================== */
-
-.admin-stats{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:15px;
-
-    margin-bottom:20px;
-
-}
-
-.admin-stat{
-
-    background:
-        linear-gradient(
-            135deg,
-            #191919,
-            #111
-        );
-
-    border:
-        1px solid rgba(255,255,255,.08);
-
-    padding:22px;
-
-    border-radius:18px;
-
-}
-
-.admin-stat-value{
-
-    font-size:27px;
-
-    font-weight:900;
-
-    margin-top:8px;
-
-}
-
-.admin-stat-label{
-
-    color:#999;
-
-}
-
-
-/* =====================================================
-   ADMIN SEARCH
-===================================================== */
-
-.admin-toolbar{
-
-    display:flex;
-
-    gap:10px;
-
-    margin-bottom:20px;
-
-}
-
-.admin-search{
-
-    flex:1;
-
-    padding:14px;
-
-    background:#101010;
-
-    border:
-        1px solid rgba(255,255,255,.1);
-
-    color:#fff;
-
-    border-radius:12px;
-
-    outline:none;
-
-}
-
-.admin-refresh{
-
-    border:none;
-
-    background:#242424;
-
-    color:#fff;
-
-    border-radius:12px;
-
-    padding:
-        0 18px;
-
-}
-
-
-/* =====================================================
-   ADMIN USERS
-===================================================== */
-
-.admin-users-list{
-
-    display:grid;
-
-    gap:12px;
-
-}
-
-.admin-user-card{
-
-    background:
-        #151515;
-
-    border:
-        1px solid rgba(255,255,255,.08);
-
-    border-radius:
-        18px;
-
-    padding:18px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:20px;
-
-}
-
-.admin-user-info{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:13px;
-
-    min-width:0;
-
-}
-
-.admin-avatar{
-
-    width:52px;
-
-    height:52px;
-
-    flex:none;
-
-    border-radius:14px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    background:
-        #252525;
-
-    font-size:23px;
-
-}
-
-.admin-username{
-
-    font-size:18px;
-
-    font-weight:900;
-
-}
-
-.admin-user-id{
-
-    color:#777;
-
-    font-size:11px;
-
-    margin-top:3px;
-
-}
-
-.admin-user-balance{
-
-    color:var(--gold);
-
-    margin-top:4px;
-
-    font-size:14px;
-
-}
-
-.admin-user-role{
-
-    color:#aaa;
-
-    font-size:12px;
-
-    margin-top:3px;
-
-}
-
-.admin-banned{
-
-    color:#ff6b64;
-
-    font-size:12px;
-
-    margin-top:5px;
-
-}
-
-.admin-user-actions{
-
-    display:flex;
-
-    flex-wrap:wrap;
-
-    justify-content:flex-end;
-
-    gap:7px;
-
-}
-
-.admin-btn{
-
-    border:none;
-
-    color:#fff;
-
-    padding:
-        9px 11px;
-
-    border-radius:9px;
-
-    font-size:12px;
-
-}
-
-.admin-btn.ban{
-
-    background:#8b141a;
-
-}
-
-.admin-btn.unban{
-
-    background:#12683f;
-
-}
-
-.admin-btn.add{
-
-    background:#155d3e;
-
-}
-
-.admin-btn.remove{
-
-    background:#744c0b;
-
-}
-
-.admin-btn.role{
-
-    background:#274d78;
-
-}
-
-.admin-btn.delete{
-
-    background:#6d1515;
-
-}
-
-.admin-btn:hover{
-
-    filter:brightness(1.2);
-
-}
-
-
-/* =====================================================
-   EMPTY
-===================================================== */
-
-.admin-empty{
-
-    text-align:center;
-
-    padding:40px;
-
-    color:#777;
-
-}
-
-
-/* =====================================================
-   MODAL
-===================================================== */
-
-.modal{
-
-    position:fixed;
-
-    inset:0;
-
-    z-index:1000;
-
-    background:
-        rgba(0,0,0,.75);
-
-    display:none;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:15px;
-
-}
-
-.modal-box{
-
-    width:
-        min(430px,100%);
-
-    background:#161616;
-
-    border:
-        1px solid rgba(255,255,255,.1);
+    border:1px solid #333;
 
     border-radius:20px;
 
@@ -1305,232 +343,124 @@ header{
 
 }
 
-.modal-title{
 
-    font-size:22px;
 
-    font-weight:900;
-
-    margin-bottom:15px;
-
-}
-
-.modal-actions{
+.profile-top{
 
     display:flex;
 
-    gap:10px;
+    justify-content:space-between;
 
-    margin-top:15px;
-
-}
-
-.modal-actions button{
-
-    flex:1;
-
-    padding:12px;
-
-    border:none;
-
-    border-radius:10px;
+    align-items:center;
 
 }
 
 
-/* =====================================================
-   TOAST
-===================================================== */
 
-.toast{
+.avatar{
 
-    position:fixed;
+    width:60px;
 
-    bottom:25px;
+    height:60px;
 
-    left:50%;
+    background:#d71920;
 
-    transform:
-        translateX(-50%)
-        translateY(100px);
+    border-radius:18px;
 
-    background:
-        #222;
+    display:flex;
 
-    border:
-        1px solid rgba(255,255,255,.1);
+    align-items:center;
 
-    color:#fff;
+    justify-content:center;
 
-    padding:
-        13px 20px;
-
-    border-radius:12px;
-
-    z-index:2000;
-
-    opacity:0;
-
-    transition:.3s;
-
-}
-
-.toast.show{
-
-    opacity:1;
-
-    transform:
-        translateX(-50%)
-        translateY(0);
+    font-size:30px;
 
 }
 
 
-/* =====================================================
-   FOOTER
-===================================================== */
+.username{
 
-footer{
+    font-size:25px;
 
-    text-align:center;
-
-    padding:30px;
-
-    color:#666;
+    font-weight:bold;
 
 }
 
 
-/* =====================================================
-   RESPONSIVE
-===================================================== */
 
-@media(max-width:850px){
+.balance{
 
-    .stats-grid,
-    .admin-stats{
+    color:#ffd166;
 
-        grid-template-columns:
-            repeat(2,1fr);
+    font-size:30px;
 
-    }
-
-    .nav-grid{
-
-        grid-template-columns:
-            repeat(2,1fr);
-
-    }
-
-    .shortcuts{
-
-        grid-template-columns:
-            repeat(2,1fr);
-
-    }
-
-    .admin-user-card{
-
-        flex-direction:column;
-
-        align-items:stretch;
-
-    }
-
-    .admin-user-actions{
-
-        justify-content:flex-start;
-
-    }
-
-}
-
-@media(max-width:550px){
-
-    .header-inner{
-
-        flex-wrap:wrap;
-
-        padding:10px 0;
-
-    }
-
-    .profile-top{
-
-        flex-direction:column;
-
-        align-items:stretch;
-
-    }
-
-    .balance-box{
-
-        text-align:right;
-
-    }
-
-    .stats-grid,
-    .admin-stats{
-
-        grid-template-columns:
-            1fr 1fr;
-
-    }
-
-    .admin-toolbar{
-
-        flex-direction:column;
-
-    }
-
-    .admin-refresh{
-
-        padding:12px;
-
-    }
-
-    .admin-btn{
-
-        flex:1;
-
-    }
+    font-weight:bold;
 
 }
 
 
-/* =====================================================
-   LOADING
-===================================================== */
 
-.loading{
+/* NAV */
 
-    display:inline-block;
+.nav-grid{
 
-    width:18px;
+    margin-top:20px;
 
-    height:18px;
+    display:grid;
 
-    border:
-        2px solid rgba(255,255,255,.25);
+    grid-template-columns:repeat(4,1fr);
 
-    border-top-color:#fff;
-
-    border-radius:50%;
-
-    animation:
-        spin .7s linear infinite;
-
-    vertical-align:middle;
+    gap:12px;
 
 }
 
-@keyframes spin{
 
-    to{
-        transform:rotate(360deg);
-    }
+.nav-btn{
+
+    background:#181818;
+
+    color:white;
+
+    border:1px solid #333;
+
+    padding:20px 10px;
+
+    border-radius:15px;
 
 }
+
+
+.nav-btn:hover{
+
+    background:#d71920;
+
+}
+
+
+
+/* RESPONSIVE */
+
+
+@media(max-width:700px){
+
+.nav-grid{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+
+.profile-top{
+
+flex-direction:column;
+
+gap:15px;
+
+}
+
+
+}
+
 
 </style>
 
@@ -1539,2423 +469,2134 @@ footer{
 
 <body>
 
-<div class="background-stars"></div>
-<div class="background-glow"></div>
-
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
 
 <header>
 
-    <div class="header-inner">
+<div class="header-inner container">
 
-        <div class="logo">
-            『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』
-        </div>
+<div class="logo">
 
-        <div class="header-actions">
+『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』
 
-            <button
-                class="header-btn admin-header-btn hidden"
-                id="adminButton"
-                onclick="showAdminPage()"
-            >
-                👑 الإدارة
-            </button>
+</div>
 
-            <button
-                class="header-btn"
-                id="logoutButton"
-                onclick="logout()"
-                style="display:none"
-            >
-                🚪 خروج
-            </button>
 
-        </div>
+<div>
 
-    </div>
+<button 
+id="adminButton"
+class="header-btn hidden"
+onclick="showAdminPage()">
+
+👑 الإدارة
+
+</button>
+
+
+<button
+id="logoutButton"
+class="header-btn"
+onclick="logout()"
+style="display:none">
+
+🚪 خروج
+
+</button>
+
+
+</div>
+
+</div>
 
 </header>
 
 
-<!-- =====================================================
-     AUTH SECTION
-===================================================== -->
 
-<section
-    class="auth-section"
-    id="authSection"
+<section class="auth-section" id="authSection">
+
+
+<div class="auth-box">
+
+
+<div class="auth-title">
+
+『S.U.N』
+
+</div>
+
+
+<div class="auth-subtitle">
+
+مرحبًا بك في البنك
+
+</div>
+
+
+
+<div class="auth-tabs">
+
+
+<button
+id="loginTab"
+class="auth-tab active"
+onclick="switchAuth('login')">
+
+تسجيل دخول
+
+</button>
+
+
+
+<button
+id="registerTab"
+class="auth-tab"
+onclick="switchAuth('register')">
+
+إنشاء حساب
+
+</button>
+
+
+</div>
+
+
+
+<form id="loginForm" onsubmit="login(event)">
+
+
+<div class="form-group">
+
+<label>
+اسم المستخدم
+</label>
+
+<input
+id="loginUsername"
+required
 >
 
-    <div class="auth-box">
-
-        <div class="auth-title">
-            『𝑺.𝑼.𝑵』
-        </div>
-
-        <div class="auth-subtitle">
-            مرحبًا بك في عالم S.U.N TOKYO
-        </div>
+</div>
 
 
-        <div class="auth-tabs">
 
-            <button
-                class="auth-tab active"
-                id="loginTab"
-                onclick="switchAuth('login')"
-            >
-                🔐 تسجيل الدخول
-            </button>
+<div class="form-group">
 
-            <button
-                class="auth-tab"
-                id="registerTab"
-                onclick="switchAuth('register')"
-            >
-                📝 إنشاء حساب
-            </button>
+<label>
+كلمة المرور
+</label>
 
-        </div>
+<input
+id="loginPassword"
+type="password"
+required
+>
+
+</div>
 
 
-        <!-- LOGIN -->
 
-        <form
-            id="loginForm"
-            onsubmit="login(event)"
-        >
+<button class="primary-btn">
 
-            <div class="form-group">
+دخول
 
-                <label>
-                    👤 اسم المستخدم
-                </label>
-
-                <input
-                    id="loginUsername"
-                    type="text"
-                    autocomplete="username"
-                    placeholder="اكتب اسم المستخدم"
-                    required
-                >
-
-            </div>
+</button>
 
 
-            <div class="form-group">
-
-                <label>
-                    🔑 كلمة المرور
-                </label>
-
-                <input
-                    id="loginPassword"
-                    type="password"
-                    autocomplete="current-password"
-                    placeholder="اكتب كلمة المرور"
-                    required
-                >
-
-            </div>
+</form>
 
 
-            <button
-                class="primary-btn"
-                id="loginSubmit"
-                type="submit"
-            >
-                دخول
-            </button>
 
-        </form>
+<form 
+id="registerForm"
+style="display:none"
+onsubmit="register(event)">
 
 
-        <!-- REGISTER -->
+<div class="form-group">
 
-        <form
-            id="registerForm"
-            onsubmit="register(event)"
-            style="display:none"
-        >
+<label>
+اسم المستخدم
+</label>
 
-            <div class="form-group">
+<input
+id="registerUsername"
+required
+>
 
-                <label>
-                    👤 اسم المستخدم
-                </label>
-
-                <input
-                    id="registerUsername"
-                    type="text"
-                    autocomplete="username"
-                    placeholder="اختر اسم المستخدم"
-                    minlength="3"
-                    required
-                >
-
-            </div>
+</div>
 
 
-            <div class="form-group">
 
-                <label>
-                    🔑 كلمة المرور
-                </label>
+<div class="form-group">
 
-                <input
-                    id="registerPassword"
-                    type="password"
-                    autocomplete="new-password"
-                    placeholder="اختر كلمة المرور"
-                    minlength="6"
-                    required
-                >
+<label>
+كلمة المرور
+</label>
 
-            </div>
+<input
+id="registerPassword"
+type="password"
+required
+>
+
+</div>
 
 
-            <div class="form-group">
 
-                <label>
-                    🔐 تأكيد كلمة المرور
-                </label>
+<button class="primary-btn">
 
-                <input
-                    id="registerPassword2"
-                    type="password"
-                    autocomplete="new-password"
-                    placeholder="أعد كتابة كلمة المرور"
-                    minlength="6"
-                    required
-                >
+إنشاء الحساب
 
-            </div>
+</button>
 
 
-            <button
-                class="primary-btn"
-                id="registerSubmit"
-                type="submit"
-            >
-                إنشاء الحساب
-            </button>
-
-        </form>
+</form>
 
 
-        <div
-            id="authMessage"
-            class="message"
-        ></div>
 
-    </div>
+<div id="authMessage" class="message"></div>
+
+
+
+</div>
+
+
+</section>
+<main id="app">
+
+<div class="dashboard">
+
+<div class="container">
+
+
+<section class="profile-card">
+
+
+<div class="profile-top">
+
+
+<div style="display:flex;align-items:center;gap:15px">
+
+
+<div class="avatar">
+👤
+</div>
+
+
+<div>
+
+<div class="username" id="displayUsername">
+-
+</div>
+
+
+<div id="displayRole"
+style="
+margin-top:5px;
+color:#aaa;
+">
+مستخدم
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+<div>
+
+<div style="color:#999">
+الرصيد
+</div>
+
+
+<div class="balance" id="displayBalance">
+0
+</div>
+
+
+</div>
+
+
+</div>
+
 
 </section>
 
 
-<!-- =====================================================
-     MAIN APP
-===================================================== -->
 
-<main
-    id="app"
->
 
-    <div class="dashboard">
 
-        <div class="container">
+<section class="nav-grid">
 
 
-            <!-- PROFILE -->
+<button class="nav-btn"
+onclick="showToast('🏠 الرئيسية')">
 
-            <section class="profile-card">
+🏠
+<br>
+الرئيسية
 
-                <div class="profile-top">
+</button>
 
-                    <div class="profile-user">
 
-                        <div class="avatar">
-                            👤
-                        </div>
+<button class="nav-btn"
+onclick="showToast('⚔️ الشخصيات قيد التطوير')">
 
-                        <div>
+⚔️
+<br>
+الشخصيات
 
-                            <div
-                                class="username"
-                                id="displayUsername"
-                            >
-                                -
-                            </div>
+</button>
 
-                            <div
-                                class="role-badge"
-                                id="displayRole"
-                            >
-                                مستخدم
-                            </div>
 
-                        </div>
+<button class="nav-btn"
+onclick="showToast('🏙️ المدينة قيد التطوير')">
 
-                    </div>
+🏙️
+<br>
+المدينة
 
+</button>
 
-                    <div class="balance-box">
 
-                        <div class="balance-label">
-                            الرصيد
-                        </div>
+<button class="nav-btn"
+onclick="openShop()">
 
-                        <div
-                            class="balance"
-                            id="displayBalance"
-                        >
-                            0
-                        </div>
+🛒
+<br>
+المتجر
 
-                    </div>
+</button>
 
-                </div>
 
-            </section>
 
+<button class="nav-btn"
+onclick="openBox()">
 
-            <!-- STATS -->
+🎁
+<br>
+الصندوق
 
-            <section class="stats-grid">
+</button>
 
-                <div class="stat-card">
 
-                    <div class="stat-icon">
-                        ⭐
-                    </div>
+<button class="nav-btn"
+onclick="openWheel()">
 
-                    <div class="stat-label">
-                        المستوى
-                    </div>
+🎡
+<br>
+عجلة الحظ
 
-                    <div
-                        class="stat-value"
-                        id="displayLevel"
-                    >
-                        1
-                    </div>
+</button>
 
-                </div>
 
+<button class="nav-btn"
+onclick="transferMoney()">
 
-                <div class="stat-card">
+💸
+<br>
+تحويل
 
-                    <div class="stat-icon">
-                        ⚡
-                    </div>
+</button>
 
-                    <div class="stat-label">
-                        الخبرة
-                    </div>
 
-                    <div
-                        class="stat-value"
-                        id="displayXP"
-                    >
-                        0
-                    </div>
+<button class="nav-btn"
+onclick="showToast('🎮 الألعاب قيد التطوير')">
 
-                </div>
+🎮
+<br>
+الألعاب
 
+</button>
 
-                <div class="stat-card">
 
-                    <div class="stat-icon">
-                        🏙️
-                    </div>
+</section>
 
-                    <div class="stat-label">
-                        مستوى المدينة
-                    </div>
 
-                    <div
-                        class="stat-value"
-                        id="displayCity"
-                    >
-                        1
-                    </div>
-
-                </div>
 
-
-                <div class="stat-card">
-
-                    <div class="stat-icon">
-                        👑
-                    </div>
-
-                    <div class="stat-label">
-                        الحالة
-                    </div>
-
-                    <div
-                        class="stat-value"
-                        id="displayStatus"
-                    >
-                        نشط
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- NAV -->
-
-            <section class="nav-grid">
 
-                <button
-                    class="nav-btn"
-                    onclick="showToast('🏠 أنت في الصفحة الرئيسية')"
-                >
-                    🏠
-                    <br>
-                    الرئيسية
-                </button>
 
-                <button
-                    class="nav-btn"
-                    onclick="showToast('⚔️ قسم الشخصيات قيد التطوير')"
-                >
-                    ⚔️
-                    <br>
-                    الشخصيات
-                </button>
-
-                <button
-                    class="nav-btn"
-                    onclick="showToast('🏙️ المدينة قيد التطوير')"
-                >
-                    🏙️
-                    <br>
-                    المدينة
-                </button>
+<section class="profile-card"
+style="margin-top:25px">
 
-                <button
-                    class="nav-btn"
-                    onclick="showToast('🛒 المتجر قيد التطوير')"
-                >
-                    🛒
-                    <br>
-                    المتجر
-                </button>
 
-            </section>
+<h2>
+⚡ الاختصارات
+</h2>
 
 
-            <!-- SHORTCUTS -->
+<br>
 
-            <section class="content-card">
 
-                <div class="section-title">
-                    ⚡ الاختصارات
-                </div>
+<div class="nav-grid">
 
-                <div class="shortcuts">
 
-                    <button
-                        class="shortcut"
-                        onclick="showToast('💸 التحويل قيد التطوير')"
-                    >
-                        <div class="shortcut-icon">
-                            💸
-                        </div>
-                        تحويل
-                    </button>
+<button class="nav-btn"
+onclick="deposit()">
 
+💰
+<br>
+إيداع
 
-                    <button
-                        class="shortcut"
-                        onclick="showToast('🎁 الصندوق قيد التطوير')"
-                    >
-                        <div class="shortcut-icon">
-                            🎁
-                        </div>
-                        الصندوق
-                    </button>
+</button>
 
 
-                    <button
-                        class="shortcut"
-                        onclick="showToast('🎡 عجلة الحظ قيد التطوير')"
-                    >
-                        <div class="shortcut-icon">
-                            🎡
-                        </div>
-                        عجلة الحظ
-                    </button>
 
+<button class="nav-btn"
+onclick="withdraw()">
 
-                    <button
-                        class="shortcut"
-                        onclick="showToast('🎲 اللعبة قيد التطوير')"
-                    >
-                        <div class="shortcut-icon">
-                            🎲
-                        </div>
-                        الألعاب
-                    </button>
+💸
+<br>
+سحب
 
-                </div>
+</button>
 
-            </section>
 
 
-            <!-- INFORMATION -->
+<button class="nav-btn"
+onclick="dailyReward()">
 
-            <section class="content-card">
+🎁
+<br>
+المكافأة اليومية
 
-                <div class="section-title">
-                    🧧 『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』
-                </div>
+</button>
 
-                <p style="
-                    color:#aaa;
-                    line-height:2;
-                ">
-                    مرحبًا بك في عالم S.U.N TOKYO.
-                    يمكنك إدارة حسابك ورصيدك واستكشاف
-                    الأنظمة المختلفة داخل الموقع.
-                </p>
 
-            </section>
 
-        </div>
+<button class="nav-btn"
+onclick="showToast('📦 المخزن قريبًا')">
 
-    </div>
+📦
+<br>
+المخزن
+
+</button>
+
+
+</div>
+
+
+</section>
+
+
+
+
+<section class="profile-card"
+style="margin-top:25px">
+
+
+<h2>
+🧧 عن البنك
+</h2>
+
+
+<p style="
+color:#aaa;
+line-height:2;
+margin-top:15px;
+">
+
+مرحبًا بك في
+『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』
+
+نظام بنك تفاعلي يحتوي على الرصيد،
+التحويلات، الجوائز، المتجر،
+والأنظمة المستقبلية.
+
+</p>
+
+
+</section>
+
+
+</div>
+
+</div>
 
 </main>
 
 
-<!-- =====================================================
-     ADMIN PAGE
-===================================================== -->
-
-<section
-    id="adminPage"
-    class="admin-page"
->
-
-    <div class="container">
 
 
-        <div class="admin-header">
 
-            <div class="admin-title">
-                👑 لوحة
-                <span>الإدارة</span>
-            </div>
-
-            <button
-                class="admin-close"
-                onclick="closeAdminPage()"
-            >
-                ← العودة
-            </button>
-
-        </div>
+<!-- =========================
+     SHOP MODAL
+========================= -->
 
 
-        <!-- ADMIN STATS -->
-
-        <div class="admin-stats">
-
-
-            <div class="admin-stat">
-
-                <div class="admin-stat-label">
-                    👥 جميع الأعضاء
-                </div>
-
-                <div
-                    class="admin-stat-value"
-                    id="adminUsersCount"
-                >
-                    0
-                </div>
-
-            </div>
+<div id="shopModal"
+style="
+display:none;
+position:fixed;
+inset:0;
+background:#000b;
+align-items:center;
+justify-content:center;
+z-index:999;
+">
 
 
-            <div class="admin-stat">
-
-                <div class="admin-stat-label">
-                    👑 المدراء
-                </div>
-
-                <div
-                    class="admin-stat-value"
-                    id="adminAdminsCount"
-                >
-                    0
-                </div>
-
-            </div>
+<div style="
+background:#171717;
+padding:30px;
+border-radius:20px;
+width:400px;
+max-width:90%;
+">
 
 
-            <div class="admin-stat">
-
-                <div class="admin-stat-label">
-                    👤 المستخدمون
-                </div>
-
-                <div
-                    class="admin-stat-value"
-                    id="adminNormalUsersCount"
-                >
-                    0
-                </div>
-
-            </div>
+<h2>
+🛒 المتجر
+</h2>
 
 
-            <div class="admin-stat">
+<p style="
+color:#aaa;
+margin:20px 0;
+">
 
-                <div class="admin-stat-label">
-                    💰 إجمالي الأرصدة
-                </div>
+شراء الصناديق والجوائز قريبًا
 
-                <div
-                    class="admin-stat-value"
-                    id="adminTotalBalance"
-                >
-                    0
-                </div>
-
-            </div>
-
-        </div>
+</p>
 
 
-        <!-- TOOLBAR -->
+<button class="primary-btn"
+onclick="closeModal('shopModal')">
 
-        <div class="content-card">
+إغلاق
 
-            <div class="admin-toolbar">
-
-                <input
-                    id="adminSearch"
-                    class="admin-search"
-                    type="text"
-                    placeholder="🔎 ابحث عن عضو..."
-                >
-
-                <button
-                    class="admin-refresh"
-                    onclick="refreshAdminPanel()"
-                >
-                    🔄 تحديث
-                </button>
-
-            </div>
+</button>
 
 
-            <div
-                id="adminUsersList"
-                class="admin-users-list"
-            >
+</div>
 
-                <div class="admin-empty">
-                    اضغط تحديث لتحميل الأعضاء
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
+</div>
 
 
-<footer>
-
-    『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』
-
-    <br>
-
-    جميع الحقوق محفوظة © 2026
-
-</footer>
 
 
-<!-- =====================================================
-     TOAST
-===================================================== -->
 
-<div
-    id="toast"
-    class="toast"
-></div>
+<!-- =========================
+     BOX MODAL
+========================= -->
 
 
+<div id="boxModal"
+style="
+display:none;
+position:fixed;
+inset:0;
+background:#000b;
+align-items:center;
+justify-content:center;
+z-index:999;
+">
+
+
+<div style="
+background:#171717;
+padding:30px;
+border-radius:20px;
+width:400px;
+max-width:90%;
+">
+
+
+<h2>
+🎁 الصندوق
+</h2>
+
+
+<p style="
+color:#aaa;
+margin:20px 0;
+">
+
+افتح صندوق واحصل على جوائز
+
+</p>
+
+
+<button class="primary-btn"
+onclick="openRandomBox()">
+
+فتح الصندوق
+
+</button>
+
+
+<br><br>
+
+
+<button class="header-btn"
+onclick="closeModal('boxModal')">
+
+إغلاق
+
+</button>
+
+
+</div>
+
+</div>
+
+
+
+
+
+<!-- =========================
+     WHEEL MODAL
+========================= -->
+
+
+<div id="wheelModal"
+style="
+display:none;
+position:fixed;
+inset:0;
+background:#000b;
+align-items:center;
+justify-content:center;
+z-index:999;
+">
+
+
+<div style="
+background:#171717;
+padding:30px;
+border-radius:20px;
+width:400px;
+max-width:90%;
+text-align:center;
+">
+
+
+<h2>
+🎡 عجلة الحظ
+</h2>
+
+
+<p style="
+color:#aaa;
+margin:20px 0;
+">
+
+اضغط للفوز بجائزة عشوائية
+
+</p>
+
+
+<button class="primary-btn"
+onclick="spinWheel()">
+
+لف العجلة
+
+</button>
+
+
+<br><br>
+
+
+<button class="header-btn"
+onclick="closeModal('wheelModal')">
+
+إغلاق
+
+</button>
+
+
+</div>
+
+</div>
+
+
+
+
+<div id="toast"
+class="message"
+style="
+position:fixed;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+background:#222;
+color:white;
+z-index:2000;
+">
+</div>
 <script>
 
-/* =====================================================
-   GLOBAL
-===================================================== */
 
 let currentUser = null;
 
-let adminUsers = [];
+
+/* =========================
+   MESSAGE
+========================= */
 
 
-/* =====================================================
-   HELPERS
-===================================================== */
+function showToast(msg){
 
-function escapeHTML(value){
+    const t =
+    document.getElementById("toast");
 
-    return String(value ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+    t.innerHTML = msg;
 
-}
+    t.style.display="block";
 
 
-function escapeAttribute(value){
+    clearTimeout(window.toastTimer);
 
-    return String(value ?? "")
-        .replace(/\\/g,"\\\\")
-        .replace(/'/g,"\\'");
-
-}
-
-
-function showToast(message){
-
-    const toast =
-        document.getElementById("toast");
-
-    toast.textContent =
-        message;
-
-    toast.classList.add("show");
-
-    clearTimeout(
-        window.toastTimer
-    );
 
     window.toastTimer =
-        setTimeout(
-            () => {
+    setTimeout(()=>{
 
-                toast.classList.remove("show");
+        t.style.display="none";
 
-            },
-            3000
-        );
+    },3000);
 
 }
 
 
-function showMessage(
-    message,
-    type = "error"
-){
 
-    const box =
-        document.getElementById("authMessage");
+/* =========================
+   AUTH SWITCH
+========================= */
 
-    box.textContent =
-        message;
-
-    box.className =
-        "message " + type;
-
-}
-
-
-/* =====================================================
-   AUTH TABS
-===================================================== */
 
 function switchAuth(type){
 
-    const loginForm =
-        document.getElementById("loginForm");
 
-    const registerForm =
-        document.getElementById("registerForm");
-
-    const loginTab =
-        document.getElementById("loginTab");
-
-    const registerTab =
-        document.getElementById("registerTab");
+const login =
+document.getElementById("loginForm");
 
 
-    if(type === "login"){
-
-        loginForm.style.display =
-            "block";
-
-        registerForm.style.display =
-            "none";
-
-        loginTab.classList.add("active");
-
-        registerTab.classList.remove("active");
-
-    }else{
-
-        loginForm.style.display =
-            "none";
-
-        registerForm.style.display =
-            "block";
-
-        loginTab.classList.remove("active");
-
-        registerTab.classList.add("active");
-
-    }
+const register =
+document.getElementById("registerForm");
 
 
-    document.getElementById(
-        "authMessage"
-    ).className = "message";
+const loginTab =
+document.getElementById("loginTab");
+
+
+const registerTab =
+document.getElementById("registerTab");
+
+
+
+if(type==="login"){
+
+
+login.style.display="block";
+
+register.style.display="none";
+
+
+loginTab.classList.add("active");
+
+registerTab.classList.remove("active");
+
+
+}else{
+
+
+login.style.display="none";
+
+register.style.display="block";
+
+
+registerTab.classList.add("active");
+
+loginTab.classList.remove("active");
+
 
 }
 
 
-/* =====================================================
+
+}
+
+
+
+
+
+/* =========================
    LOGIN
-===================================================== */
-
-async function login(event){
-
-    event.preventDefault();
+========================= */
 
 
-    const username =
-        document.getElementById(
-            "loginUsername"
-        ).value.trim();
+async function login(e){
 
 
-    const password =
-        document.getElementById(
-            "loginPassword"
-        ).value;
+e.preventDefault();
 
 
-    if(!username || !password){
 
-        showMessage(
-            "❌ اسم المستخدم وكلمة المرور مطلوبان"
-        );
-
-        return;
-
-    }
+const username =
+document.getElementById("loginUsername").value.trim();
 
 
-    const button =
-        document.getElementById(
-            "loginSubmit"
-        );
+const password =
+document.getElementById("loginPassword").value;
 
 
-    button.disabled = true;
 
-    button.innerHTML =
-        `<span class="loading"></span> جاري الدخول...`;
+try{
 
 
-    try{
+const res =
+await fetch("/api/login",{
 
-        const response =
-            await fetch(
-                "/api/login",
-                {
+method:"POST",
 
-                    method:"POST",
+headers:{
 
-                    headers:{
-                        "Content-Type":
-                            "application/json"
-                    },
+"Content-Type":"application/json"
 
-                    body:
-                        JSON.stringify({
+},
 
-                            username,
+body:JSON.stringify({
 
-                            password
+username,
 
-                        })
+password
 
-                }
-            );
+})
 
 
-        const data =
-            await response.json();
+});
 
 
-        if(
-            !response.ok ||
-            !data.success
-        ){
 
-            showMessage(
-                data.message ||
-                "❌ فشل تسجيل الدخول"
-            );
-
-            return;
-
-        }
+const data =
+await res.json();
 
 
-        currentUser =
-            data.user;
+
+if(!data.success){
 
 
-        /*
-          نحفظ بيانات الحساب فقط.
-          لا نحفظ كلمة المرور.
-        */
+document.getElementById("authMessage").className="message error";
 
-        localStorage.setItem(
-            "sunTokyoUser",
-            JSON.stringify(
-                currentUser
-            )
-        );
+document.getElementById("authMessage").innerText =
+data.message || "فشل الدخول";
 
 
-        /*
-          ملاحظة:
-          api/admin.js الحالي عندك يحتاج
-          بيانات تحقق خاصة بالإدارة.
-          إذا كنت تستخدم ADMIN_USERNAME /
-          ADMIN_PASSWORD_HASH على Vercel،
-          لوحة الإدارة ستحتاج طريقة جلسة
-          آمنة لاحقًا بدل إرسال كلمة المرور.
-        */
-
-
-        showApp();
-
-        showToast(
-            data.message ||
-            "✅ تم تسجيل الدخول"
-        );
-
-
-    }catch(error){
-
-        console.error(
-            "Login:",
-            error
-        );
-
-        showMessage(
-            "❌ تعذر الاتصال بالخادم"
-        );
-
-    }finally{
-
-        button.disabled = false;
-
-        button.textContent =
-            "دخول";
-
-    }
+return;
 
 }
 
 
-/* =====================================================
+
+currentUser =
+data.user;
+
+
+
+localStorage.setItem(
+
+"sunTokyoUser",
+
+JSON.stringify(currentUser)
+
+);
+
+
+
+showApp();
+
+
+showToast("✅ تم تسجيل الدخول");
+
+
+
+}catch(err){
+
+
+showToast("❌ خطأ في الاتصال");
+
+}
+
+
+
+}
+
+
+
+
+
+
+/* =========================
    REGISTER
-===================================================== */
-
-async function register(event){
-
-    event.preventDefault();
+========================= */
 
 
-    const username =
-        document.getElementById(
-            "registerUsername"
-        ).value.trim();
+async function register(e){
 
 
-    const password =
-        document.getElementById(
-            "registerPassword"
-        ).value;
+e.preventDefault();
 
 
-    const password2 =
-        document.getElementById(
-            "registerPassword2"
-        ).value;
+
+const username =
+document.getElementById("registerUsername").value.trim();
 
 
-    if(
-        username.length < 3
-    ){
 
-        showMessage(
-            "❌ اسم المستخدم يجب أن يكون 3 أحرف على الأقل"
-        );
-
-        return;
-
-    }
+const password =
+document.getElementById("registerPassword").value;
 
 
-    if(
-        password.length < 6
-    ){
 
-        showMessage(
-            "❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل"
-        );
-
-        return;
-
-    }
+try{
 
 
-    if(password !== password2){
-
-        showMessage(
-            "❌ كلمتا المرور غير متطابقتين"
-        );
-
-        return;
-
-    }
+const res =
+await fetch("/api/register",{
 
 
-    const button =
-        document.getElementById(
-            "registerSubmit"
-        );
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
 
 
-    button.disabled = true;
+body:JSON.stringify({
 
-    button.innerHTML =
-        `<span class="loading"></span> جاري إنشاء الحساب...`;
+username,
 
+password
 
-    try{
-
-        const response =
-            await fetch(
-                "/api/register",
-                {
-
-                    method:"POST",
-
-                    headers:{
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:
-                        JSON.stringify({
-
-                            username,
-
-                            password
-
-                        })
-
-                }
-            );
+})
 
 
-        const data =
-            await response.json();
+});
 
 
-        if(
-            !response.ok ||
-            !data.success
-        ){
 
-            showMessage(
-                data.message ||
-                "❌ تعذر إنشاء الحساب"
-            );
-
-            return;
-
-        }
+const data =
+await res.json();
 
 
-        showMessage(
-            data.message ||
-            "✅ تم إنشاء الحساب بنجاح",
-            "success"
-        );
+
+if(!data.success){
 
 
-        document.getElementById(
-            "registerForm"
-        ).reset();
+showToast(
+data.message ||
+"فشل إنشاء الحساب"
+);
 
 
-        setTimeout(
-            () => {
+return;
 
-                switchAuth("login");
-
-                document.getElementById(
-                    "loginUsername"
-                ).value =
-                    username;
-
-            },
-            1000
-        );
-
-
-    }catch(error){
-
-        console.error(
-            "Register:",
-            error
-        );
-
-        showMessage(
-            "❌ تعذر الاتصال بالخادم"
-        );
-
-    }finally{
-
-        button.disabled = false;
-
-        button.textContent =
-            "إنشاء الحساب";
-
-    }
 
 }
 
 
-/* =====================================================
+
+showToast("✅ تم إنشاء الحساب");
+
+
+switchAuth("login");
+
+
+
+document.getElementById("loginUsername").value=username;
+
+
+
+}catch(err){
+
+
+showToast("❌ خطأ في الاتصال");
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+/* =========================
    SHOW APP
-===================================================== */
+========================= */
+
 
 function showApp(){
 
-    document.getElementById(
-        "authSection"
-    ).style.display =
-        "none";
 
 
-    document.getElementById(
-        "app"
-    ).style.display =
-        "block";
+document.getElementById("authSection").style.display="none";
 
 
-    document.getElementById(
-        "adminPage"
-    ).style.display =
-        "none";
+document.getElementById("app").style.display="block";
 
 
-    document.getElementById(
-        "logoutButton"
-    ).style.display =
-        "block";
+document.getElementById("logoutButton").style.display="inline-block";
 
 
-    updateUserUI();
 
-    updateAdminButton();
+updateUser();
+
+
 
 }
 
 
-/* =====================================================
-   USER UI
-===================================================== */
-
-function updateUserUI(){
-
-    if(!currentUser){
-        return;
-    }
 
 
-    document.getElementById(
-        "displayUsername"
-    ).textContent =
-        currentUser.username ||
-        "-";
+/* =========================
+   USER DATA
+========================= */
 
 
-    let balance =
-        Number(
-            currentUser.balance || 0
-        );
+function updateUser(){
 
 
-    if(!Number.isFinite(balance)){
-        balance = 0;
-    }
+
+if(!currentUser)
+return;
 
 
-    document.getElementById(
-        "displayBalance"
-    ).textContent =
-        balance.toLocaleString();
+
+document.getElementById("displayUsername")
+.innerText =
+currentUser.username;
 
 
-    document.getElementById(
-        "displayLevel"
-    ).textContent =
-        currentUser.level || 1;
+
+document.getElementById("displayBalance")
+.innerText =
+Number(currentUser.balance || 0)
+.toLocaleString();
 
 
-    document.getElementById(
-        "displayXP"
-    ).textContent =
-        currentUser.xp || 0;
+
+document.getElementById("displayRole")
+.innerText =
+
+currentUser.isAdmin
+
+?
+
+"👑 مدير"
+
+:
+
+"👤 مستخدم";
 
 
-    document.getElementById(
-        "displayCity"
-    ).textContent =
-        currentUser.city || 1;
 
 
-    const role =
-        currentUser.isAdmin === true ||
-        currentUser.role === "admin";
+if(currentUser.isAdmin){
 
 
-    const roleElement =
-        document.getElementById(
-            "displayRole"
-        );
+document.getElementById("adminButton")
+.classList.remove("hidden");
 
-
-    if(role){
-
-        roleElement.textContent =
-            "👑 مدير";
-
-        roleElement.classList.add(
-            "role-admin"
-        );
-
-    }else{
-
-        roleElement.textContent =
-            "👤 مستخدم";
-
-        roleElement.classList.remove(
-            "role-admin"
-        );
-
-    }
-
-
-    document.getElementById(
-        "displayStatus"
-    ).textContent =
-        "نشط";
 
 }
 
 
-/* =====================================================
-   ADMIN BUTTON
-===================================================== */
-
-function updateAdminButton(){
-
-    const button =
-        document.getElementById(
-            "adminButton"
-        );
-
-
-    const isAdmin =
-        currentUser &&
-        (
-            currentUser.isAdmin === true ||
-            currentUser.role === "admin"
-        );
-
-
-    if(isAdmin){
-
-        button.classList.remove(
-            "hidden"
-        );
-
-    }else{
-
-        button.classList.add(
-            "hidden"
-        );
-
-    }
 
 }
 
 
-/* =====================================================
+
+
+
+
+/* =========================
    LOGOUT
-===================================================== */
+========================= */
+
 
 function logout(){
 
-    currentUser = null;
 
-    localStorage.removeItem(
-        "sunTokyoUser"
-    );
+currentUser=null;
 
 
-    document.getElementById(
-        "app"
-    ).style.display =
-        "none";
+localStorage.removeItem(
+"sunTokyoUser"
+);
 
 
-    document.getElementById(
-        "adminPage"
-    ).style.display =
-        "none";
 
+location.reload();
 
-    document.getElementById(
-        "authSection"
-    ).style.display =
-        "flex";
-
-
-    document.getElementById(
-        "logoutButton"
-    ).style.display =
-        "none";
-
-
-    document.getElementById(
-        "adminButton"
-    ).classList.add(
-        "hidden"
-    );
-
-
-    document.getElementById(
-        "loginForm"
-    ).reset();
-
-
-    switchAuth("login");
-
-
-    showToast(
-        "🚪 تم تسجيل الخروج"
-    );
 
 }
 
 
-/* =====================================================
-   ADMIN ACCESS
-===================================================== */
+
+
+
+/* =========================
+   RESTORE
+========================= */
+
+
+window.onload=function(){
+
+
+const saved =
+localStorage.getItem(
+"sunTokyoUser"
+);
+
+
+
+if(saved){
+
+
+try{
+
+
+currentUser =
+JSON.parse(saved);
+
+
+
+showApp();
+
+
+
+}catch{
+
+
+localStorage.removeItem(
+"sunTokyoUser"
+);
+
+
+}
+
+
+
+}
+
+
+
+}
+
+
+
+</script>
+<script>
+
+/* =========================
+   MODALS
+========================= */
+
+
+function openShop(){
+
+document.getElementById("shopModal")
+.style.display="flex";
+
+}
+
+
+
+function openBox(){
+
+document.getElementById("boxModal")
+.style.display="flex";
+
+}
+
+
+
+function openWheel(){
+
+document.getElementById("wheelModal")
+.style.display="flex";
+
+}
+
+
+
+function closeModal(id){
+
+document.getElementById(id)
+.style.display="none";
+
+}
+
+
+
+
+/* =========================
+   BOX SYSTEM
+========================= */
+
+
+function openRandomBox(){
+
+
+if(!currentUser)
+return;
+
+
+
+let reward =
+Math.floor(
+Math.random()*1000
+)+100;
+
+
+
+currentUser.balance =
+Number(currentUser.balance || 0)
++
+reward;
+
+
+
+saveUser();
+
+
+
+updateUser();
+
+
+
+showToast(
+"🎁 حصلت على +"+
+reward+
+" عملة"
+);
+
+
+
+closeModal("boxModal");
+
+
+}
+
+
+
+
+
+/* =========================
+   WHEEL SYSTEM
+========================= */
+
+
+function spinWheel(){
+
+
+let rewards=[
+
+100,
+250,
+500,
+1000,
+2500,
+5000
+
+];
+
+
+let reward =
+rewards[
+Math.floor(
+Math.random()*rewards.length
+)
+];
+
+
+
+currentUser.balance =
+Number(currentUser.balance||0)
++
+reward;
+
+
+
+saveUser();
+
+
+
+updateUser();
+
+
+
+showToast(
+"🎡 فزت بـ "+
+reward+
+" عملة"
+);
+
+
+
+closeModal("wheelModal");
+
+
+
+}
+
+
+
+
+
+/* =========================
+   DAILY REWARD
+========================= */
+
+
+function dailyReward(){
+
+
+let last =
+localStorage.getItem(
+"dailyReward"
+);
+
+
+
+let today =
+new Date()
+.toDateString();
+
+
+
+if(last===today){
+
+
+showToast(
+"⏳ أخذت المكافأة اليوم"
+);
+
+
+return;
+
+}
+
+
+
+let reward=500;
+
+
+
+currentUser.balance =
+Number(currentUser.balance||0)
++
+reward;
+
+
+
+localStorage.setItem(
+"dailyReward",
+today
+);
+
+
+
+saveUser();
+
+
+updateUser();
+
+
+
+showToast(
+"🎁 حصلت على المكافأة اليومية +"+reward
+);
+
+
+
+}
+
+
+
+
+
+/* =========================
+   TRANSFER
+========================= */
+
+
+function transferMoney(){
+
+
+let name =
+prompt(
+"اسم المستخدم للتحويل:"
+);
+
+
+
+if(!name)
+return;
+
+
+
+let amount =
+Number(
+prompt(
+"المبلغ:"
+)
+);
+
+
+
+if(
+!amount ||
+amount<=0
+){
+
+
+showToast(
+"❌ مبلغ غير صحيح"
+);
+
+
+return;
+
+}
+
+
+
+if(
+Number(currentUser.balance)
+<
+amount
+){
+
+
+showToast(
+"❌ الرصيد غير كافي"
+);
+
+
+return;
+
+}
+
+
+
+
+currentUser.balance -= amount;
+
+
+
+saveUser();
+
+
+updateUser();
+
+
+
+showToast(
+"💸 تم تجهيز التحويل"
+);
+
+
+
+}
+
+
+
+
+
+/* =========================
+   DEPOSIT
+========================= */
+
+
+function deposit(){
+
+
+let amount =
+Number(
+prompt(
+"مبلغ الإيداع:"
+)
+);
+
+
+
+if(
+!amount ||
+amount<=0
+)
+return;
+
+
+
+currentUser.balance =
+Number(currentUser.balance||0)
++
+amount;
+
+
+
+saveUser();
+
+
+updateUser();
+
+
+
+showToast(
+"💰 تمت إضافة الرصيد"
+);
+
+
+
+}
+
+
+
+
+
+/* =========================
+   WITHDRAW
+========================= */
+
+
+function withdraw(){
+
+
+let amount =
+Number(
+prompt(
+"مبلغ السحب:"
+)
+);
+
+
+
+if(
+!amount ||
+amount<=0
+)
+return;
+
+
+
+if(
+amount >
+Number(currentUser.balance||0)
+){
+
+
+showToast(
+"❌ الرصيد غير كافي"
+);
+
+
+return;
+
+}
+
+
+
+currentUser.balance -= amount;
+
+
+
+saveUser();
+
+
+updateUser();
+
+
+
+showToast(
+"💸 تم السحب"
+);
+
+
+
+}
+
+
+
+
+
+/* =========================
+   SAVE USER
+========================= */
+
+
+function saveUser(){
+
+
+localStorage.setItem(
+
+"sunTokyoUser",
+
+JSON.stringify(currentUser)
+
+);
+
+
+}
+
+
+
+</script>
+<script>
+
+/* =========================
+   ADMIN PAGE
+========================= */
+
 
 function showAdminPage(){
 
-    if(!currentUser){
 
-        showToast(
-            "❌ يجب تسجيل الدخول"
-        );
+if(!currentUser || !currentUser.isAdmin){
 
-        return;
+showToast("❌ لا تملك صلاحية الإدارة");
 
-    }
-
-
-    const isAdmin =
-        currentUser.isAdmin === true ||
-        currentUser.role === "admin";
-
-
-    if(!isAdmin){
-
-        showToast(
-            "❌ ليس لديك صلاحية الإدارة"
-        );
-
-        return;
-
-    }
-
-
-    document.getElementById(
-        "app"
-    ).style.display =
-        "none";
-
-
-    document.getElementById(
-        "adminPage"
-    ).style.display =
-        "block";
-
-
-    loadAdminStats();
-
-    loadAdminUsers();
+return;
 
 }
 
 
-function closeAdminPage(){
-
-    document.getElementById(
-        "adminPage"
-    ).style.display =
-        "none";
+showToast("👑 فتح لوحة الإدارة");
 
 
-    document.getElementById(
-        "app"
-    ).style.display =
-        "block";
+loadAdminUsers();
+
 
 }
 
 
-/* =====================================================
-   ADMIN API
-===================================================== */
-
-/*
-  مهم:
-  هذا الجزء لا يرسل كلمة المرور.
-  إذا كان api/admin.js الحالي عندك يعتمد
-  على adminUsername/adminPassword، سنعدل
-  api/admin.js لاحقًا لاستخدام جلسة آمنة.
-*/
-
-async function adminAPI(
-    action,
-    extra = {}
-){
-
-    /*
-      محاولة استخدام بيانات الأدمن
-      الموجودة في بيانات المستخدم.
-    */
-
-    const body = {
-
-        action,
-
-        /*
-          هذه القيم موجودة فقط إذا أضفتها
-          أنت في جلسة الأدمن لاحقًا.
-        */
-
-        adminUsername:
-            currentUser?.username || "",
-
-        ...extra
-
-    };
 
 
-    try{
 
-        const response =
-            await fetch(
-                "/api/admin",
-                {
-
-                    method:"POST",
-
-                    headers:{
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:
-                        JSON.stringify(body)
-
-                }
-            );
+async function loadAdminUsers(){
 
 
-        const data =
-            await response.json();
+try{
 
 
-        if(
-            !response.ok ||
-            !data.success
-        ){
+const res =
+await fetch("/api/admin",{
 
-            throw new Error(
-                data.message ||
-                "خطأ في API الإدارة"
-            );
+method:"POST",
 
-        }
+headers:{
 
+"Content-Type":"application/json"
 
-        return data;
+},
 
+body:JSON.stringify({
 
-    }catch(error){
+action:"users"
 
-        console.error(
-            "Admin API:",
-            error
-        );
+})
+
+});
 
 
-        showToast(
-            "❌ " +
-            error.message
-        );
+
+const data =
+await res.json();
 
 
-        return null;
 
-    }
+if(!data.success){
+
+showToast(
+data.message || "خطأ"
+);
+
+return;
 
 }
 
 
-/* =====================================================
-   ADMIN STATS
-===================================================== */
 
-async function loadAdminStats(){
+console.log(data.users);
 
-    const data =
-        await adminAPI(
-            "stats"
-        );
 
 
-    if(
-        !data ||
-        !data.stats
-    ){
-        return;
-    }
-
-
-    const stats =
-        data.stats;
-
-
-    document.getElementById(
-        "adminUsersCount"
-    ).textContent =
-        Number(
-            stats.users || 0
-        ).toLocaleString();
-
-
-    document.getElementById(
-        "adminAdminsCount"
-    ).textContent =
-        Number(
-            stats.admins || 0
-        ).toLocaleString();
-
-
-    document.getElementById(
-        "adminNormalUsersCount"
-    ).textContent =
-        Number(
-            stats.normalUsers || 0
-        ).toLocaleString();
-
-
-    document.getElementById(
-        "adminTotalBalance"
-    ).textContent =
-        Number(
-            stats.totalBalance || 0
-        ).toLocaleString();
-
-}
-
-
-/* =====================================================
-   ADMIN USERS
-===================================================== */
-
-async function loadAdminUsers(
-    search = ""
-){
-
-    const data =
-        await adminAPI(
-            "users",
-            {
-                search
-            }
-        );
-
-
-    if(!data){
-        return;
-    }
-
-
-    adminUsers =
-        Array.isArray(data.users)
-            ? data.users
-            : [];
-
-
-    renderAdminUsers();
-
-}
-
-
-/* =====================================================
-   RENDER ADMIN USERS
-===================================================== */
-
-function renderAdminUsers(){
-
-    const container =
-        document.getElementById(
-            "adminUsersList"
-        );
-
-
-    if(!adminUsers.length){
-
-        container.innerHTML = `
-            <div class="admin-empty">
-                لا يوجد أعضاء
-            </div>
-        `;
-
-        return;
-
-    }
-
-
-    container.innerHTML =
-        adminUsers.map(
-            user => {
-
-                const balance =
-                    Number(
-                        user.balance || 0
-                    );
-
-
-                const role =
-                    String(
-                        user.role || "user"
-                    ).toLowerCase();
-
-
-                const isAdmin =
-                    role === "admin";
-
-
-                const banned =
-                    user.banned === true;
-
-
-                return `
-
-                <div class="admin-user-card">
-
-                    <div class="admin-user-info">
-
-                        <div class="admin-avatar">
-
-                            ${
-                                isAdmin
-                                ? "👑"
-                                : "👤"
-                            }
-
-                        </div>
-
-                        <div>
-
-                            <div class="admin-username">
-
-                                ${escapeHTML(
-                                    user.username
-                                )}
-
-                            </div>
-
-                            <div class="admin-user-id">
-
-                                ID:
-                                ${escapeHTML(
-                                    user.id
-                                )}
-
-                            </div>
-
-                            <div class="admin-user-balance">
-
-                                💰
-                                ${balance.toLocaleString()}
-
-                            </div>
-
-                            <div class="admin-user-role">
-
-                                ${
-                                    isAdmin
-                                    ? "👑 مدير"
-                                    : "👤 مستخدم"
-                                }
-
-                            </div>
-
-                            ${
-                                banned
-                                ?
-                                `
-                                <div class="admin-banned">
-
-                                    🚫 محظور
-
-                                    ${
-                                        user.ban_reason
-                                        ?
-                                        " — " +
-                                        escapeHTML(
-                                            user.ban_reason
-                                        )
-                                        :
-                                        ""
-                                    }
-
-                                </div>
-                                `
-                                :
-                                ""
-                            }
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="admin-user-actions">
-
-                        ${
-                            banned
-                            ?
-
-                            `
-                            <button
-                                class="admin-btn unban"
-                                onclick="adminUnbanUser('${escapeAttribute(user.id)}')"
-                            >
-                                🔓 إلغاء الحظر
-                            </button>
-                            `
-
-                            :
-
-                            `
-                            <button
-                                class="admin-btn ban"
-                                onclick="adminBanUser('${escapeAttribute(user.id)}')"
-                            >
-                                🚫 حظر
-                            </button>
-                            `
-                        }
-
-
-                        <button
-                            class="admin-btn add"
-                            onclick="adminAddBalance('${escapeAttribute(user.id)}')"
-                        >
-                            💰 إضافة
-                        </button>
-
-
-                        <button
-                            class="admin-btn remove"
-                            onclick="adminRemoveBalance('${escapeAttribute(user.id)}')"
-                        >
-                            💸 خصم
-                        </button>
-
-
-                        <button
-                            class="admin-btn role"
-                            onclick="adminChangeRole('${escapeAttribute(user.id)}')"
-                        >
-                            ${
-                                isAdmin
-                                ? "👤 مستخدم"
-                                : "👑 مدير"
-                            }
-                        </button>
-
-
-                        <button
-                            class="admin-btn delete"
-                            onclick="adminDeleteUser('${escapeAttribute(user.id)}')"
-                        >
-                            🗑️ حذف
-                        </button>
-
-                    </div>
-
-                </div>
-
-                `;
-
-            }
-        ).join("");
-
-}
-
-
-/* =====================================================
-   BAN
-===================================================== */
-
-async function adminBanUser(
-    userId
-){
-
-    const user =
-        adminUsers.find(
-            u =>
-                String(u.id) ===
-                String(userId)
-        );
-
-
-    if(!user){
-        return;
-    }
-
-
-    const reason =
-        prompt(
-            "🚫 سبب الحظر:",
-            "مخالفة قوانين الموقع"
-        );
-
-
-    if(reason === null){
-        return;
-    }
-
-
-    if(!reason.trim()){
-
-        showToast(
-            "❌ يجب كتابة سبب الحظر"
-        );
-
-        return;
-
-    }
-
-
-    if(
-        !confirm(
-            `هل تريد حظر ${user.username}؟`
-        )
-    ){
-        return;
-    }
-
-
-    const data =
-        await adminAPI(
-            "ban_user",
-            {
-
-                userId,
-
-                ban_reason:
-                    reason.trim()
-
-            }
-        );
-
-
-    if(!data){
-        return;
-    }
-
-
-    showToast(
-        data.message ||
-        "🚫 تم حظر العضو"
-    );
-
-
-    await loadAdminUsers();
-
-    await loadAdminStats();
-
-}
-
-
-/* =====================================================
-   UNBAN
-===================================================== */
-
-async function adminUnbanUser(
-    userId
-){
-
-    const user =
-        adminUsers.find(
-            u =>
-                String(u.id) ===
-                String(userId)
-        );
-
-
-    if(!user){
-        return;
-    }
-
-
-    if(
-        !confirm(
-            `هل تريد إلغاء حظر ${user.username}؟`
-        )
-    ){
-        return;
-    }
-
-
-    const data =
-        await adminAPI(
-            "unban_user",
-            {
-                userId
-            }
-        );
-
-
-    if(!data){
-        return;
-    }
-
-
-    showToast(
-        data.message ||
-        "🔓 تم إلغاء الحظر"
-    );
-
-
-    await loadAdminUsers();
-
-}
-
-
-/* =====================================================
-   ADD BALANCE
-===================================================== */
-
-async function adminAddBalance(
-    userId
-){
-
-    const user =
-        adminUsers.find(
-            u =>
-                String(u.id) ===
-                String(userId)
-        );
-
-
-    if(!user){
-        return;
-    }
-
-
-    const amount =
-        prompt(
-            `💰 الرصيد المراد إضافته إلى ${user.username}:`
-        );
-
-
-    if(amount === null){
-        return;
-    }
-
-
-    const value =
-        Number(amount);
-
-
-    if(
-        !Number.isFinite(value) ||
-        value <= 0
-    ){
-
-        showToast(
-            "❌ المبلغ غير صحيح"
-        );
-
-        return;
-
-    }
-
-
-    if(
-        !confirm(
-            `إضافة ${value.toLocaleString()} إلى ${user.username}؟`
-        )
-    ){
-        return;
-    }
-
-
-    const data =
-        await adminAPI(
-            "add_balance",
-            {
-
-                userId,
-
-                amount:value
-
-            }
-        );
-
-
-    if(!data){
-        return;
-    }
-
-
-    showToast(
-        data.message ||
-        "✅ تمت إضافة الرصيد"
-    );
-
-
-    await loadAdminUsers();
-
-    await loadAdminStats();
-
-}
-
-
-/* =====================================================
-   REMOVE BALANCE
-===================================================== */
-
-async function adminRemoveBalance(
-    userId
-){
-
-    const user =
-        adminUsers.find(
-            u =>
-                String(u.id) ===
-                String(userId)
-        );
-
-
-    if(!user){
-        return;
-    }
-
-
-    const amount =
-        prompt(
-            `💸 الرصيد المراد خصمه من ${user.username}:`
-        );
-
-
-    if(amount === null){
-        return;
-    }
-
-
-    const value =
-        Number(amount);
-
-
-    if(
-        !Number.isFinite(value) ||
-        value <= 0
-    ){
-
-        showToast(
-            "❌ المبلغ غير صحيح"
-        );
-
-        return;
-
-    }
-
-
-    if(
-        !confirm(
-            `خصم ${value.toLocaleString()} من ${user.username}؟`
-        )
-    ){
-        return;
-    }
-
-
-    const data =
-        await adminAPI(
-            "remove_balance",
-            {
-
-                userId,
-
-                amount:value
-
-            }
-        );
-
-
-    if(!data){
-        return;
-    }
-
-
-    showToast(
-        data.message ||
-        "✅ تم خصم الرصيد"
-    );
-
-
-    await loadAdminUsers();
-
-    await loadAdminStats();
-
-}
-
-
-/* =====================================================
-   CHANGE ROLE
-===================================================== */
-
-async function adminChangeRole(
-    userId
-){
-
-    const user =
-        adminUsers.find(
-            u =>
-                String(u.id) ===
-                String(userId)
-        );
-
-
-    if(!user){
-        return;
-    }
-
-
-    const currentRole =
-        String(
-            user.role || "user"
-        ).toLowerCase();
-
-
-    const newRole =
-        currentRole === "admin"
-            ? "user"
-            : "admin";
-
-
-    const text =
-        newRole === "admin"
-            ? "👑 مدير"
-            : "👤 مستخدم";
-
-
-    if(
-        !confirm(
-            `تحويل ${user.username} إلى ${text}؟`
-        )
-    ){
-        return;
-    }
-
-
-    const data =
-        await adminAPI(
-            "set_role",
-            {
-
-                userId,
-
-                role:newRole
-
-            }
-        );
-
-
-    if(!data){
-        return;
-    }
-
-
-    showToast(
-        data.message ||
-        "✅ تم تغيير الدور"
-    );
-
-
-    await loadAdminUsers();
-
-    await loadAdminStats();
-
-}
-
-
-/* =====================================================
-   DELETE USER
-===================================================== */
-
-async function adminDeleteUser(
-    userId
-){
-
-    const user =
-        adminUsers.find(
-            u =>
-                String(u.id) ===
-                String(userId)
-        );
-
-
-    if(!user){
-        return;
-    }
-
-
-    if(
-        !confirm(
-            `⚠️ هل تريد حذف ${user.username} نهائيًا؟`
-        )
-    ){
-        return;
-    }
-
-
-    if(
-        !confirm(
-            "⚠️ تأكيد أخير: سيتم حذف الحساب نهائيًا."
-        )
-    ){
-        return;
-    }
-
-
-    const data =
-        await adminAPI(
-            "delete_user",
-            {
-                userId
-            }
-        );
-
-
-    if(!data){
-        return;
-    }
-
-
-    showToast(
-        data.message ||
-        "🗑️ تم حذف العضو"
-    );
-
-
-    await loadAdminUsers();
-
-    await loadAdminStats();
-
-}
-
-
-/* =====================================================
-   SEARCH
-===================================================== */
-
-let adminSearchTimer;
-
-
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        const search =
-            document.getElementById(
-                "adminSearch"
-            );
-
-
-        if(search){
-
-            search.addEventListener(
-                "input",
-                () => {
-
-                    clearTimeout(
-                        adminSearchTimer
-                    );
-
-
-                    adminSearchTimer =
-                        setTimeout(
-                            () => {
-
-                                loadAdminUsers(
-                                    search.value.trim()
-                                );
-
-                            },
-                            350
-                        );
-
-                }
-            );
-
-        }
-
-    }
+showToast(
+"✅ تم تحميل الأعضاء"
 );
 
 
-/* =====================================================
-   REFRESH
-===================================================== */
 
-async function refreshAdminPanel(){
-
-    await loadAdminStats();
-
-    await loadAdminUsers(
-        document.getElementById(
-            "adminSearch"
-        ).value.trim()
-    );
+}catch(e){
 
 
-    showToast(
-        "🔄 تم تحديث لوحة الإدارة"
-    );
+showToast(
+"❌ خطأ لوحة الإدارة"
+);
+
 
 }
 
 
-/* =====================================================
-   RESTORE SESSION
-===================================================== */
-
-function restoreSession(){
-
-    try{
-
-        const saved =
-            localStorage.getItem(
-                "sunTokyoUser"
-            );
-
-
-        if(!saved){
-            return;
-        }
-
-
-        const user =
-            JSON.parse(saved);
-
-
-        if(
-            !user ||
-            !user.id ||
-            !user.username
-        ){
-
-            localStorage.removeItem(
-                "sunTokyoUser"
-            );
-
-            return;
-
-        }
-
-
-        currentUser =
-            user;
-
-
-        showApp();
-
-
-    }catch(error){
-
-        console.error(
-            "Session restore:",
-            error
-        );
-
-
-        localStorage.removeItem(
-            "sunTokyoUser"
-        );
-
-    }
 
 }
 
 
-/* =====================================================
+
+
+
+
+/* =========================
+   ADMIN ACTIONS
+========================= */
+
+
+
+async function adminAction(
+action,
+userId,
+extra={}
+){
+
+
+try{
+
+
+const res =
+await fetch("/api/admin",{
+
+
+method:"POST",
+
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+
+body:JSON.stringify({
+
+
+action,
+
+
+userId,
+
+
+...extra
+
+
+})
+
+
+});
+
+
+
+const data =
+await res.json();
+
+
+
+if(data.success){
+
+
+showToast(
+data.message ||
+"✅ تم التنفيذ"
+);
+
+
+loadAdminUsers();
+
+
+
+}else{
+
+
+showToast(
+data.message ||
+"❌ فشل"
+);
+
+
+}
+
+
+
+}catch(e){
+
+
+showToast(
+"❌ خطأ"
+);
+
+
+}
+
+
+
+}
+
+
+
+
+function adminBanUser(id){
+
+
+let reason =
+prompt(
+"سبب الحظر:"
+);
+
+
+
+if(!reason)
+return;
+
+
+
+adminAction(
+
+"ban_user",
+
+id,
+
+{
+
+ban_reason:reason
+
+}
+
+);
+
+
+}
+
+
+
+
+function adminUnbanUser(id){
+
+
+adminAction(
+
+"unban_user",
+
+id
+
+);
+
+
+}
+
+
+
+
+
+function adminAddBalance(id){
+
+
+let amount =
+Number(
+prompt(
+"المبلغ:"
+)
+);
+
+
+
+if(amount>0){
+
+
+adminAction(
+
+"add_balance",
+
+id,
+
+{
+
+amount
+
+}
+
+);
+
+
+}
+
+
+
+}
+
+
+
+
+function adminRemoveBalance(id){
+
+
+let amount =
+Number(
+prompt(
+"المبلغ:"
+)
+);
+
+
+
+if(amount>0){
+
+
+adminAction(
+
+"remove_balance",
+
+id,
+
+{
+
+amount
+
+}
+
+);
+
+
+}
+
+
+}
+
+
+
+
+function adminChangeRole(id){
+
+
+adminAction(
+
+"set_role",
+
+id,
+
+{
+
+role:"admin"
+
+}
+
+);
+
+
+}
+
+
+
+
+
+function adminDeleteUser(id){
+
+
+if(
+confirm(
+"هل تريد حذف العضو؟"
+)
+){
+
+
+adminAction(
+
+"delete_user",
+
+id
+
+);
+
+
+}
+
+
+
+}
+
+
+
+</script>
+<script>
+
+/* =========================
+   CHECK BANNED USER
+========================= */
+
+
+function checkUserStatus(){
+
+
+if(!currentUser)
+return;
+
+
+
+if(currentUser.banned === true){
+
+
+alert(
+"🚫 تم حظر حسابك\n"+
+(
+currentUser.ban_reason ||
+"مخالفة قوانين الموقع"
+)
+);
+
+
+
+logout();
+
+
+}
+
+
+
+}
+
+
+
+
+/* =========================
+   AUTO CHECK
+========================= */
+
+
+setInterval(()=>{
+
+
+checkUserStatus();
+
+
+},5000);
+
+
+
+
+
+/* =========================
+   ADMIN BUTTON FIX
+========================= */
+
+
+function updateAdminButton(){
+
+
+const btn =
+document.getElementById(
+"adminButton"
+);
+
+
+
+if(
+currentUser &&
+currentUser.isAdmin
+){
+
+
+btn.classList.remove(
+"hidden"
+);
+
+
+}else{
+
+
+btn.classList.add(
+"hidden"
+);
+
+
+}
+
+
+
+}
+
+
+
+
+
+/* =========================
    START
-===================================================== */
+========================= */
+
 
 document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+"DOMContentLoaded",
+()=>{
 
-        restoreSession();
 
-    }
+const saved =
+localStorage.getItem(
+"sunTokyoUser"
 );
+
+
+
+if(saved){
+
+
+try{
+
+
+currentUser =
+JSON.parse(saved);
+
+
+
+showApp();
+
+
+
+updateAdminButton();
+
+
+
+}catch(e){
+
+
+localStorage.removeItem(
+"sunTokyoUser"
+);
+
+
+}
+
+
+
+}
+
+
+
+}
+);
+
+
 
 </script>
 
+
 </body>
+
 </html>
