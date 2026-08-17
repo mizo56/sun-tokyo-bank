@@ -10,15 +10,16 @@ const supabase = createClient(
 
 
 
-export default async function handler(req,res){
+export default async function handler(req, res) {
 
 
-  if(req.method !== "POST"){
+  if (req.method !== "POST") {
 
     return res.status(405).json({
 
-      success:false,
-      message:"Method not allowed"
+      success: false,
+
+      message: "Method not allowed"
 
     });
 
@@ -26,7 +27,7 @@ export default async function handler(req,res){
 
 
 
-  try{
+  try {
 
 
     const {
@@ -39,28 +40,36 @@ export default async function handler(req,res){
 
 
 
-    if(action === "users"){
-
-
-      const {data,error}=await supabase
-
-      .from("users")
-
-      .select("*")
-
-      .order("id",{ascending:false});
+    console.log("ADMIN ACTION:", action);
 
 
 
-      if(error) throw error;
+    // عرض جميع المستخدمين
+
+    if (action === "users") {
+
+
+      const { data, error } = await supabase
+
+        .from("users")
+
+        .select("*")
+
+        .order("id", {
+          ascending: false
+        });
+
+
+
+      if (error) throw error;
 
 
 
       return res.json({
 
-        success:true,
+        success: true,
 
-        users:data
+        users: data
 
       });
 
@@ -69,35 +78,43 @@ export default async function handler(req,res){
 
 
 
-    if(action === "add_balance"){
 
 
-      const {data:user}=await supabase
+    // إضافة رصيد
 
-      .from("users")
+    if (action === "add_balance") {
 
-      .select("balance")
 
-      .eq("id",userId)
+      const { data:user, error } = await supabase
 
-      .single();
+        .from("users")
+
+        .select("balance")
+
+        .eq("id", userId)
+
+        .single();
+
+
+
+      if(error) throw error;
 
 
 
       await supabase
 
-      .from("users")
+        .from("users")
 
-      .update({
+        .update({
 
-        balance:
-        Number(user.balance || 0)
-        +
-        Number(amount)
+          balance:
+          Number(user.balance || 0)
+          +
+          Number(amount || 0)
 
-      })
+        })
 
-      .eq("id",userId);
+        .eq("id", userId);
 
 
 
@@ -114,38 +131,46 @@ export default async function handler(req,res){
 
 
 
-    if(action === "remove_balance"){
 
 
-      const {data:user}=await supabase
+    // خصم رصيد
 
-      .from("users")
+    if (action === "remove_balance") {
 
-      .select("balance")
 
-      .eq("id",userId)
+      const { data:user, error } = await supabase
 
-      .single();
+        .from("users")
+
+        .select("balance")
+
+        .eq("id", userId)
+
+        .single();
+
+
+
+      if(error) throw error;
 
 
 
       await supabase
 
-      .from("users")
+        .from("users")
 
-      .update({
+        .update({
 
-        balance:
-        Math.max(
-          0,
-          Number(user.balance || 0)
-          -
-          Number(amount)
-        )
+          balance:
+          Math.max(
+            0,
+            Number(user.balance || 0)
+            -
+            Number(amount || 0)
+          )
 
-      })
+        })
 
-      .eq("id",userId);
+        .eq("id", userId);
 
 
 
@@ -162,20 +187,24 @@ export default async function handler(req,res){
 
 
 
-    if(action === "set_role"){
+
+
+    // تغيير الرتبة
+
+    if (action === "set_role") {
 
 
       await supabase
 
-      .from("users")
+        .from("users")
 
-      .update({
+        .update({
 
-        role:role || "admin"
+          role: role || "admin"
 
-      })
+        })
 
-      .eq("id",userId);
+        .eq("id", userId);
 
 
 
@@ -192,22 +221,27 @@ export default async function handler(req,res){
 
 
 
-    if(action === "ban_user"){
+
+
+    // حظر مستخدم
+
+    if (action === "ban_user") {
 
 
       await supabase
 
-      .from("users")
+        .from("users")
 
-      .update({
+        .update({
 
-        banned:true,
+          banned:true,
 
-        ban_reason:ban_reason || "مخالفة"
+          ban_reason:
+          ban_reason || "مخالفة القوانين"
 
-      })
+        })
 
-      .eq("id",userId);
+        .eq("id", userId);
 
 
 
@@ -215,7 +249,7 @@ export default async function handler(req,res){
 
         success:true,
 
-        message:"تم الحظر"
+        message:"تم حظر المستخدم"
 
       });
 
@@ -224,22 +258,26 @@ export default async function handler(req,res){
 
 
 
-    if(action === "unban_user"){
+
+
+    // فك الحظر
+
+    if (action === "unban_user") {
 
 
       await supabase
 
-      .from("users")
+        .from("users")
 
-      .update({
+        .update({
 
-        banned:false,
+          banned:false,
 
-        ban_reason:null
+          ban_reason:null
 
-      })
+        })
 
-      .eq("id",userId);
+        .eq("id", userId);
 
 
 
@@ -256,16 +294,20 @@ export default async function handler(req,res){
 
 
 
-    if(action === "delete_user"){
+
+
+    // حذف مستخدم
+
+    if (action === "delete_user") {
 
 
       await supabase
 
-      .from("users")
+        .from("users")
 
-      .delete()
+        .delete()
 
-      .eq("id",userId);
+        .eq("id", userId);
 
 
 
@@ -273,7 +315,7 @@ export default async function handler(req,res){
 
         success:true,
 
-        message:"تم حذف الحساب"
+        message:"تم حذف المستخدم"
 
       });
 
@@ -282,24 +324,26 @@ export default async function handler(req,res){
 
 
 
+
+
     return res.json({
 
       success:false,
 
-      message:"أمر غير معروف"
+      message:"Action غير معروف"
 
     });
 
 
 
-  }catch(error){
+  } catch(error) {
 
 
-    console.log("ADMIN ERROR:",error);
+    console.log("ADMIN ERROR:", error);
 
 
 
-    return res.json({
+    return res.status(500).json({
 
       success:false,
 
