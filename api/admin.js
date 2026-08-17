@@ -3,20 +3,22 @@
 import { createClient } from "@supabase/supabase-js";
 
 
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+console.log(
+  "SUPABASE_URL:",
+  process.env.SUPABASE_URL ? "OK" : "MISSING"
+);
 
 
-if (!supabaseUrl || !supabaseKey) {
+console.log(
+  "SUPABASE_SERVICE_ROLE_KEY:",
+  process.env.SUPABASE_SERVICE_ROLE_KEY ? "OK" : "MISSING"
+);
 
-  console.log("Missing Supabase Environment Variables");
-
-}
 
 
 const supabase = createClient(
-  supabaseUrl,
-  supabaseKey
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
 
@@ -47,11 +49,19 @@ export default async function handler(req, res) {
       amount,
       role,
       ban_reason
+
     } = req.body;
 
 
 
-    // جلب المستخدمين
+    console.log(
+      "ADMIN ACTION:",
+      action
+    );
+
+
+
+    // قائمة المستخدمين
 
     if(action === "users"){
 
@@ -62,7 +72,9 @@ export default async function handler(req, res) {
 
       .select("*")
 
-      .order("id",{ascending:false});
+      .order("id", {
+        ascending:false
+      });
 
 
 
@@ -194,7 +206,7 @@ export default async function handler(req, res) {
 
 
 
-    // جعل أدمن
+    // تغيير الصلاحية
 
     if(action === "set_role"){
 
@@ -217,7 +229,7 @@ export default async function handler(req, res) {
 
         success:true,
 
-        message:"تم تغيير الصلاحية"
+        message:"تم تغيير الرتبة"
 
       });
 
@@ -254,7 +266,7 @@ export default async function handler(req, res) {
 
         success:true,
 
-        message:"تم الحظر"
+        message:"تم حظر المستخدم"
 
       });
 
@@ -301,7 +313,7 @@ export default async function handler(req, res) {
 
 
 
-    // حذف
+    // حذف مستخدم
 
     if(action === "delete_user"){
 
@@ -320,7 +332,7 @@ export default async function handler(req, res) {
 
         success:true,
 
-        message:"تم حذف الحساب"
+        message:"تم حذف المستخدم"
 
       });
 
@@ -335,7 +347,7 @@ export default async function handler(req, res) {
 
       success:false,
 
-      message:"الأمر غير موجود"
+      message:"Action غير معروف"
 
     });
 
@@ -344,7 +356,10 @@ export default async function handler(req, res) {
   } catch(error) {
 
 
-    console.log("ADMIN ERROR:",error);
+    console.log(
+      "ADMIN ERROR:",
+      error
+    );
 
 
 
