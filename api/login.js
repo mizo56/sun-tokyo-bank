@@ -44,33 +44,37 @@ export default async function handler(req, res) {
     // قراءة البيانات
     // =========================
 
-    let body = req.body;
-
-    if (!body) {
-      body = {};
-    }
+    let body = req.body || {};
 
     if (typeof body === "string") {
+
       try {
         body = JSON.parse(body);
       } catch {
+
         return res.status(400).json({
           success: false,
           message: "بيانات الطلب غير صحيحة"
         });
+
       }
+
     }
 
     const username = String(
-      body.username || ""
+      body.username ||
+      body.name ||
+      ""
     ).trim();
 
     const password = String(
-      body.password || ""
+      body.password ||
+      body.pass ||
+      ""
     );
 
     // =========================
-    // التحقق
+    // التحقق من البيانات
     // =========================
 
     if (!username || !password) {
@@ -86,7 +90,8 @@ export default async function handler(req, res) {
     // تشفير كلمة المرور
     // =========================
 
-    const passwordHash = hashPassword(password);
+    const passwordHash =
+      hashPassword(password);
 
     // =========================
     // Headers
@@ -108,9 +113,12 @@ export default async function handler(req, res) {
     const url =
       `${supabaseBase}/rest/v1/users` +
       `?username=eq.${encodeURIComponent(username)}` +
-      `&select=id,username,password_hash,balance,role`;
+      `&select=id,created_at,username,password_hash,balance,role,banned`;
 
-    console.log("Login attempt:", username);
+    console.log(
+      "Login attempt:",
+      username
+    );
 
     // =========================
     // طلب الحساب
@@ -121,13 +129,8 @@ export default async function handler(req, res) {
       headers
     });
 
-    const text = await response.text();
-
-    console.log(
-      "Supabase response:",
-      response.status,
-      text
-    );
+    const text =
+      await response.text();
 
     // =========================
     // فشل Supabase
@@ -143,7 +146,8 @@ export default async function handler(req, res) {
 
       return res.status(500).json({
         success: false,
-        message: `❌ خطأ Supabase: HTTP ${response.status}`,
+        message:
+          `❌ خطأ Supabase: HTTP ${response.status}`,
         details: text
       });
 
@@ -161,9 +165,15 @@ export default async function handler(req, res) {
 
     } catch {
 
+      console.error(
+        "Invalid Supabase response:",
+        text
+      );
+
       return res.status(500).json({
         success: false,
-        message: "استجابة غير صحيحة من قاعدة البيانات",
+        message:
+          "استجابة غير صحيحة من قاعدة البيانات",
         details: text
       });
 
@@ -180,12 +190,34 @@ export default async function handler(req, res) {
 
       return res.status(401).json({
         success: false,
-        message: "❌ اسم المستخدم أو كلمة المرور غير صحيحة"
+        message:
+          "❌ اسم المستخدم أو كلمة المرور غير صحيحة"
       });
 
     }
 
-    const user = users[0];
+    const user =
+      users[0];
+
+    // =========================
+    // التحقق من الحظر
+    // =========================
+
+    if (user.banned === true) {
+
+      console.log(
+        "Blocked login attempt:",
+        user.username
+      );
+
+      return res.status(403).json({
+        success: false,
+        banned: true,
+        message:
+          "🚫 تم حظر هذا الحساب من قبل الإدارة"
+      });
+
+    }
 
     // =========================
     // التحقق من كلمة المرور
@@ -198,18 +230,20 @@ export default async function handler(req, res) {
 
       return res.status(401).json({
         success: false,
-        message: "❌ اسم المستخدم أو كلمة المرور غير صحيحة"
+        message:
+          "❌ اسم المستخدم أو كلمة المرور غير صحيحة"
       });
 
     }
 
     // =========================
-    // الدور
+    // تحديد الدور
     // =========================
 
-    const role = String(
-      user.role || "user"
-    ).toLowerCase();
+    const role =
+      String(
+        user.role || "user"
+      ).toLowerCase();
 
     const isAdmin =
       role === "admin" ||
@@ -217,25 +251,25 @@ export default async function handler(req, res) {
       role === "owner";
 
     // =========================
-    // الرصيد
+    // حساب الرصيد
     // =========================
 
-    let balance = Number(
-      user.balance || 0
-    );
+    let balance =
+      Number(user.balance || 0);
 
     if (!Number.isFinite(balance)) {
       balance = 0;
     }
 
     /*
-      حساب الإدارة يحصل على رقم كبير
+      حساب الإدارة يحصل على قيمة كبيرة
       داخل الواجهة فقط.
-      لا نضع Infinity في قاعدة البيانات.
+      لا يتم تخزين Infinity في Supabase.
     */
 
     if (isAdmin) {
-      balance = Number.MAX_SAFE_INTEGER;
+      balance =
+        Number.MAX_SAFE_INTEGER;
     }
 
     // =========================
@@ -244,23 +278,35 @@ export default async function handler(req, res) {
 
     const userData = {
 
-      id: user.id,
+      id:
+        user.id,
 
-      username: user.username,
+      username:
+        user.username,
 
       balance,
 
-      role: isAdmin
-        ? "admin"
-        : "user",
+      role:
+        isAdmin
+          ? "admin"
+          : "user",
 
       isAdmin,
 
-      level: 1,
+      banned:
+        false,
 
-      city: 1
+      level:
+        1,
+
+      city:
+        1
 
     };
+
+    // =========================
+    // تسجيل نجاح الدخول
+    // =========================
 
     console.log(
       "Login successful:",
@@ -278,13 +324,16 @@ export default async function handler(req, res) {
 
     return res.status(200).json({
 
-      success: true,
+      success:
+        true,
 
-      message: isAdmin
-        ? "👑 تم دخول حساب الإدارة بنجاح"
-        : "✅ تم تسجيل الدخول بنجاح",
+      message:
+        isAdmin
+          ? "👑 تم دخول حساب الإدارة بنجاح"
+          : "✅ تم تسجيل الدخول بنجاح",
 
-      user: userData
+      user:
+        userData
 
     });
 
@@ -297,11 +346,14 @@ export default async function handler(req, res) {
 
     return res.status(500).json({
 
-      success: false,
+      success:
+        false,
 
-      message: "حدث خطأ في الخادم",
+      message:
+        "حدث خطأ في الخادم",
 
-      details: error.message
+      details:
+        error.message
 
     });
 
