@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -290,19 +291,31 @@ main{
   margin:10px 0;
 }
 
-.shop-price{
-  color:#ffd54f;
-  font-weight:900;
-  margin:12px 0;
+.product-card{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
 }
 
-.notice{
-  margin-top:12px;
-  padding:12px;
-  border-radius:10px;
-  background:#111;
-  color:#bbb;
+.product-price{
+  color:#ffd54f;
+  font-size:18px;
+  font-weight:900;
+  margin:10px 0;
+}
+
+.balance-box{
+  border:1px solid rgba(0,230,118,.2);
+  background:rgba(0,230,118,.05);
+  border-radius:14px;
+  padding:15px;
+  margin-bottom:15px;
   text-align:center;
+}
+
+.small-text{
+  color:#999;
+  font-size:13px;
 }
 
 @media(max-width:700px){
@@ -313,6 +326,10 @@ main{
 
   .user-info{
     font-size:14px;
+  }
+
+  nav{
+    padding-bottom:12px;
   }
 
   main{
@@ -333,7 +350,9 @@ main{
 
 <body>
 
-<!-- ================= AUTH ================= -->
+<!-- =========================
+     AUTH
+========================= -->
 
 <div id="auth">
 
@@ -390,7 +409,6 @@ main{
         <div id="loginMessage" class="message"></div>
 
       </div>
-
 
       <!-- REGISTER -->
 
@@ -457,7 +475,9 @@ main{
 </div>
 
 
-<!-- ================= APP ================= -->
+<!-- =========================
+     APP
+========================= -->
 
 <div id="app" class="hidden">
 
@@ -471,11 +491,13 @@ main{
 
     <div class="user-info">
 
-      👤 <span id="headerName">-</span>
+      👤
+      <span id="headerName">-</span>
 
       <span class="separator">|</span>
 
-      💰 <span id="headerBalance">0</span>
+      💰
+      <span id="headerBalance">0</span>
 
     </div>
 
@@ -530,7 +552,9 @@ main{
 
 <main>
 
-<!-- ================= HOME ================= -->
+<!-- =========================
+     HOME
+========================= -->
 
 <section id="page-home" class="page active">
 
@@ -589,7 +613,9 @@ main{
 </section>
 
 
-<!-- ================= CHARACTER ================= -->
+<!-- =========================
+     CHARACTER
+========================= -->
 
 <section id="page-character" class="page">
 
@@ -603,6 +629,7 @@ main{
 
       <div class="card">
         <h3>❤️ الصحة</h3>
+
         <div id="characterHP" class="character-stat hp">
           100
         </div>
@@ -610,6 +637,7 @@ main{
 
       <div class="card">
         <h3>⚔️ الهجوم</h3>
+
         <div id="characterAttack" class="character-stat attack">
           10
         </div>
@@ -617,6 +645,7 @@ main{
 
       <div class="card">
         <h3>🛡️ الدفاع</h3>
+
         <div id="characterDefense" class="character-stat defense">
           10
         </div>
@@ -629,7 +658,9 @@ main{
 </section>
 
 
-<!-- ================= CITY ================= -->
+<!-- =========================
+     CITY
+========================= -->
 
 <section id="page-city" class="page">
 
@@ -675,7 +706,9 @@ main{
 </section>
 
 
-<!-- ================= FARM ================= -->
+<!-- =========================
+     FARM
+========================= -->
 
 <section id="page-farm" class="page">
 
@@ -728,7 +761,9 @@ main{
 </section>
 
 
-<!-- ================= SHOP ================= -->
+<!-- =========================
+     SHOP
+========================= -->
 
 <section id="page-shop" class="page">
 
@@ -738,76 +773,102 @@ main{
       🛒 المتجر
     </div>
 
-    <div class="notice">
-      💡 عند شراء أي عنصر سيتم خصم سعره من رصيدك المحفوظ في قاعدة البيانات.
+    <div class="balance-box">
+
+      <div class="small-text">
+        رصيدك الحالي
+      </div>
+
+      <div
+        id="shopBalance"
+        class="big-number green"
+      >
+        0
+      </div>
+
     </div>
 
-    <div class="grid" style="margin-top:15px">
+    <div class="grid">
 
-      <div class="card">
+      <div class="card product-card">
 
-        <h3>⚔️ سيف أسطوري</h3>
+        <div>
 
-        <p class="description">
-          يزيد الهجوم.
-        </p>
+          <h3>
+            ⚔️ سيف أسطوري
+          </h3>
 
-        <div class="shop-price">
-          500 💰
+          <p class="description">
+            يزيد الهجوم.
+          </p>
+
+          <div class="product-price">
+            500 💰
+          </div>
+
         </div>
 
         <button
-          id="buy-sword"
           class="btn goldbtn full"
-          onclick="buyItem('⚔️ سيف أسطوري',500)"
+          onclick="buyItem('⚔️ سيف أسطوري',500,this)"
         >
-          🛒 شراء
+          🛒 شراء — 500 💰
         </button>
 
       </div>
 
 
-      <div class="card">
+      <div class="card product-card">
 
-        <h3>🛡️ درع أسطوري</h3>
+        <div>
 
-        <p class="description">
-          يزيد الدفاع.
-        </p>
+          <h3>
+            🛡️ درع أسطوري
+          </h3>
 
-        <div class="shop-price">
-          750 💰
+          <p class="description">
+            يزيد الدفاع.
+          </p>
+
+          <div class="product-price">
+            750 💰
+          </div>
+
         </div>
 
         <button
-          id="buy-shield"
           class="btn goldbtn full"
-          onclick="buyItem('🛡️ درع أسطوري',750)"
+          onclick="buyItem('🛡️ درع أسطوري',750,this)"
         >
-          🛒 شراء
+          🛒 شراء — 750 💰
         </button>
 
       </div>
 
 
-      <div class="card">
+      <div class="card product-card">
 
-        <h3>❤️ جرعة صحة</h3>
+        <div>
 
-        <p class="description">
-          تزيد الصحة.
-        </p>
+          <h3>
+            ❤️ جرعة صحة
+          </h3>
 
-        <div class="shop-price">
-          250 💰
+          <p class="description">
+            تزيد الصحة.
+          </p>
+
+          <div class="product-price">
+            250 💰
+          </div>
+
         </div>
 
         <button
-          id="buy-potion"
           class="btn goldbtn full"
-          onclick="buyItem('❤️ جرعة صحة',250)"
+          onclick="buyItem('❤️ جرعة صحة',250,this)"
         >
-          🛒 شراء
+          🛒 شراء — 250 💰
         </button>
 
       </div>
@@ -819,7 +880,9 @@ main{
 </section>
 
 
-<!-- ================= INVENTORY ================= -->
+<!-- =========================
+     INVENTORY
+========================= -->
 
 <section id="page-inventory" class="page">
 
@@ -832,9 +895,11 @@ main{
     <div id="inventoryList" class="grid">
 
       <div class="card">
+
         <p class="description">
           لا توجد عناصر حاليًا.
         </p>
+
       </div>
 
     </div>
@@ -844,7 +909,9 @@ main{
 </section>
 
 
-<!-- ================= GAMES ================= -->
+<!-- =========================
+     GAMES
+========================= -->
 
 <section id="page-games" class="page">
 
@@ -873,7 +940,6 @@ main{
 
       </div>
 
-
       <div class="card">
 
         <h3>📦 الصندوق</h3>
@@ -891,7 +957,6 @@ main{
 
       </div>
 
-
       <div class="card">
 
         <h3>🎡 عجلة الحظ</h3>
@@ -908,7 +973,6 @@ main{
         </button>
 
       </div>
-
 
       <div class="card">
 
@@ -934,7 +998,9 @@ main{
 </section>
 
 
-<!-- ================= WALLET ================= -->
+<!-- =========================
+     WALLET
+========================= -->
 
 <section id="page-wallet" class="page">
 
@@ -1019,7 +1085,9 @@ main{
 </section>
 
 
-<!-- ================= PROFILE ================= -->
+<!-- =========================
+     PROFILE
+========================= -->
 
 <section id="page-profile" class="page">
 
@@ -1041,7 +1109,6 @@ main{
 
     </div>
 
-
     <div class="stat">
 
       <span class="stat-name">
@@ -1054,7 +1121,6 @@ main{
 
     </div>
 
-
     <div class="stat">
 
       <span class="stat-name">
@@ -1066,7 +1132,6 @@ main{
       </strong>
 
     </div>
-
 
     <button
       class="btn danger full"
@@ -1081,6 +1146,7 @@ main{
 </section>
 
 </main>
+
 </div>
 
 
@@ -1113,19 +1179,16 @@ async function api(action,username="",password=""){
     throw new Error("عملية غير معروفة");
   }
 
-  const response=await fetch(
-    endpoint,
-    {
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify({
-        username,
-        password
-      })
-    }
-  );
+  const response=await fetch(endpoint,{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify({
+      username,
+      password
+    })
+  });
 
   let data;
 
@@ -1137,66 +1200,14 @@ async function api(action,username="",password=""){
 
   if(!response.ok){
     throw new Error(
-      data.message ||
-      "حدث خطأ في الخادم"
+      data.message||"حدث خطأ في الخادم"
     );
   }
 
   if(data.success===false){
     throw new Error(
-      data.message ||
-      "فشلت العملية"
+      data.message||"فشلت العملية"
     );
-  }
-
-  return data;
-}
-
-
-/* =====================================================
-   API الشراء
-===================================================== */
-
-async function purchaseItem(name,price){
-
-  if(!currentUser){
-    throw new Error("يجب تسجيل الدخول أولًا");
-  }
-
-  const response=await fetch(
-    "/api/purchase",
-    {
-      method:"POST",
-
-      headers:{
-        "Content-Type":"application/json"
-      },
-
-      body:JSON.stringify({
-        userId:currentUser.id,
-        itemName:name,
-        price:Number(price)
-      })
-    }
-  );
-
-  let data;
-
-  try{
-    data=await response.json();
-  }catch{
-    throw new Error(
-      "الخادم أعاد استجابة غير صحيحة"
-    );
-  }
-
-  if(!response.ok || data.success===false){
-
-    throw new Error(
-      data.message ||
-      "تعذر إتمام عملية الشراء"
-    );
-
   }
 
   return data;
@@ -1211,11 +1222,15 @@ function showMessage(id,text,type="error"){
 
   const box=document.getElementById(id);
 
-  if(!box){
+  if(!box)return;
+
+  box.textContent=text;
+
+  if(!text){
+    box.className="message";
     return;
   }
 
-  box.textContent=text;
   box.className="message "+type;
 }
 
@@ -1228,13 +1243,11 @@ function showRegister(){
 
   document
     .getElementById("loginBox")
-    .classList
-    .add("hidden");
+    .classList.add("hidden");
 
   document
     .getElementById("registerBox")
-    .classList
-    .remove("hidden");
+    .classList.remove("hidden");
 
   showMessage("loginMessage","");
 }
@@ -1248,13 +1261,11 @@ function showLogin(){
 
   document
     .getElementById("registerBox")
-    .classList
-    .add("hidden");
+    .classList.add("hidden");
 
   document
     .getElementById("loginBox")
-    .classList
-    .remove("hidden");
+    .classList.remove("hidden");
 
   showMessage("registerMessage","");
 }
@@ -1266,75 +1277,70 @@ function showLogin(){
 
 async function register(){
 
-  const username=document
-    .getElementById("regName")
-    .value
-    .trim();
+  const username=
+    document
+      .getElementById("regName")
+      .value
+      .trim();
 
-  const password=document
-    .getElementById("regPass")
-    .value;
+  const password=
+    document
+      .getElementById("regPass")
+      .value;
 
-  const password2=document
-    .getElementById("regPass2")
-    .value;
+  const password2=
+    document
+      .getElementById("regPass2")
+      .value;
 
-  if(!username || !password || !password2){
-
+  if(!username||!password||!password2){
     showMessage(
       "registerMessage",
       "❌ أكمل جميع البيانات."
     );
-
     return;
   }
 
   if(username.length<3){
-
     showMessage(
       "registerMessage",
       "❌ اسم المستخدم يجب أن يكون 3 أحرف على الأقل."
     );
-
     return;
   }
 
   if(password.length<6){
-
     showMessage(
       "registerMessage",
       "❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل."
     );
-
     return;
   }
 
   if(password!==password2){
-
     showMessage(
       "registerMessage",
       "❌ كلمتا المرور غير متطابقتين."
     );
-
     return;
   }
 
-  const button=document.getElementById(
-    "registerButton"
-  );
+  const button=
+    document.getElementById("registerButton");
 
   button.disabled=true;
   button.textContent="⏳ جاري إنشاء الحساب...";
 
   try{
 
-    const result=await api(
-      "register",
-      username,
-      password
-    );
+    const result=
+      await api(
+        "register",
+        username,
+        password
+      );
 
-    if(result.success && result.user){
+    if(result.success&&result.user){
 
       showMessage(
         "registerMessage",
@@ -1342,29 +1348,22 @@ async function register(){
         "success"
       );
 
-      setTimeout(
-        ()=>{
-          loginUser(result.user);
-        },
-        700
-      );
+      setTimeout(()=>{
+        loginUser(result.user);
+      },700);
 
     }else{
 
       showMessage(
         "registerMessage",
-        result.message ||
-        "تعذر إنشاء الحساب."
+        result.message||"تعذر إنشاء الحساب."
       );
 
     }
 
   }catch(error){
 
-    console.error(
-      "REGISTER ERROR:",
-      error
-    );
+    console.error("REGISTER ERROR:",error);
 
     showMessage(
       "registerMessage",
@@ -1386,16 +1385,18 @@ async function register(){
 
 async function login(){
 
-  const username=document
-    .getElementById("loginName")
-    .value
-    .trim();
+  const username=
+    document
+      .getElementById("loginName")
+      .value
+      .trim();
 
-  const password=document
-    .getElementById("loginPass")
-    .value;
+  const password=
+    document
+      .getElementById("loginPass")
+      .value;
 
-  if(!username || !password){
+  if(!username||!password){
 
     showMessage(
       "loginMessage",
@@ -1405,22 +1406,22 @@ async function login(){
     return;
   }
 
-  const button=document.getElementById(
-    "loginButton"
-  );
+  const button=
+    document.getElementById("loginButton");
 
   button.disabled=true;
   button.textContent="⏳ جاري الدخول...";
 
   try{
 
-    const result=await api(
-      "login",
-      username,
-      password
-    );
+    const result=
+      await api(
+        "login",
+        username,
+        password
+      );
 
-    if(result.success && result.user){
+    if(result.success&&result.user){
 
       showMessage(
         "loginMessage",
@@ -1433,7 +1434,7 @@ async function login(){
     }else{
 
       throw new Error(
-        result.message ||
+        result.message||
         "اسم المستخدم أو كلمة المرور غير صحيحة."
       );
 
@@ -1441,10 +1442,7 @@ async function login(){
 
   }catch(error){
 
-    console.error(
-      "LOGIN ERROR:",
-      error
-    );
+    console.error("LOGIN ERROR:",error);
 
     showMessage(
       "loginMessage",
@@ -1467,23 +1465,21 @@ async function login(){
 function loginUser(user){
 
   currentUser={
-    ...user,
-    balance:Number(user.balance||0)
+    ...user
   };
 
   window.currentUser=currentUser;
 
   document
     .getElementById("auth")
-    .classList
-    .add("hidden");
+    .classList.add("hidden");
 
   document
     .getElementById("app")
-    .classList
-    .remove("hidden");
+    .classList.remove("hidden");
 
   updateUI();
+
   page("home");
 }
 
@@ -1499,13 +1495,11 @@ function logout(){
 
   document
     .getElementById("app")
-    .classList
-    .add("hidden");
+    .classList.add("hidden");
 
   document
     .getElementById("auth")
-    .classList
-    .remove("hidden");
+    .classList.remove("hidden");
 
   document
     .getElementById("loginPass")
@@ -1516,92 +1510,94 @@ function logout(){
 
 
 /* =====================================================
-   تحديث الرصيد والواجهة
+   UPDATE UI
 ===================================================== */
 
 function updateUI(){
 
-  if(!currentUser){
-    return;
-  }
+  if(!currentUser)return;
 
-  const balance=Number(
-    currentUser.balance||0
-  );
+  const user=currentUser;
 
-  const level=Number(
-    currentUser.level||1
-  );
+  const balance=
+    Number(user.balance||0);
 
-  const city=Number(
-    currentUser.city||1
-  );
+  const level=
+    Number(user.level||1);
 
-  document.getElementById(
-    "headerName"
-  ).textContent=
-    currentUser.username||"-";
+  const city=
+    Number(user.city||1);
 
-  document.getElementById(
-    "headerBalance"
-  ).textContent=
-    balance.toLocaleString("ar-EG");
+  document
+    .getElementById("headerName")
+    .textContent=
+      user.username||"-";
 
-  document.getElementById(
-    "homeBalance"
-  ).textContent=
-    balance.toLocaleString("ar-EG");
+  document
+    .getElementById("headerBalance")
+    .textContent=
+      balance.toLocaleString("ar-EG");
 
-  document.getElementById(
-    "homeLevel"
-  ).textContent=level;
+  document
+    .getElementById("homeBalance")
+    .textContent=
+      balance.toLocaleString("ar-EG");
 
-  document.getElementById(
-    "profileName"
-  ).textContent=
-    currentUser.username||"-";
+  document
+    .getElementById("homeLevel")
+    .textContent=level;
 
-  document.getElementById(
-    "profileBalance"
-  ).textContent=
-    balance.toLocaleString("ar-EG");
+  document
+    .getElementById("profileName")
+    .textContent=
+      user.username||"-";
 
-  document.getElementById(
-    "profileLevel"
-  ).textContent=level;
+  document
+    .getElementById("profileBalance")
+    .textContent=
+      balance.toLocaleString("ar-EG");
 
-  document.getElementById(
-    "cityLevel"
-  ).textContent=city;
+  document
+    .getElementById("profileLevel")
+    .textContent=level;
 
-  document.getElementById(
-    "cityPopulation"
-  ).textContent=city;
+  document
+    .getElementById("shopBalance")
+    .textContent=
+      balance.toLocaleString("ar-EG");
 
-  document.getElementById(
-    "homePower"
-  ).textContent=
-    20+((level-1)*5);
+  document
+    .getElementById("cityLevel")
+    .textContent=city;
 
-  document.getElementById(
-    "characterHP"
-  ).textContent=
-    100+((level-1)*10);
+  document
+    .getElementById("cityPopulation")
+    .textContent=city;
 
-  document.getElementById(
-    "characterAttack"
-  ).textContent=
-    10+((level-1)*2);
+  document
+    .getElementById("homePower")
+    .textContent=
+      20+((level-1)*5);
 
-  document.getElementById(
-    "characterDefense"
-  ).textContent=
-    10+((level-1)*2);
+  document
+    .getElementById("characterHP")
+    .textContent=
+      100+((level-1)*10);
+
+  document
+    .getElementById("characterAttack")
+    .textContent=
+      10+((level-1)*2);
+
+  document
+    .getElementById("characterDefense")
+    .textContent=
+      10+((level-1)*2);
 }
 
 
 /* =====================================================
-   الصفحات
+   PAGES
 ===================================================== */
 
 function page(name){
@@ -1618,17 +1614,17 @@ function page(name){
       button.classList.remove("active");
     });
 
-  const target=document.getElementById(
-    "page-"+name
-  );
+  const target=
+    document.getElementById("page-"+name);
 
   if(target){
     target.classList.add("active");
   }
 
-  const button=document.querySelector(
-    'nav button[data-page="'+name+'"]'
-  );
+  const button=
+    document.querySelector(
+      'nav button[data-page="'+name+'"]'
+    );
 
   if(button){
     button.classList.add("active");
@@ -1637,7 +1633,7 @@ function page(name){
 
 
 /* =====================================================
-   التأكد من الدخول
+   LOGIN CHECK
 ===================================================== */
 
 function needLogin(){
@@ -1656,124 +1652,115 @@ function needLogin(){
 
 
 /* =====================================================
-   🛒 الشراء الحقيقي
+   ⭐ الشراء الحقيقي
 ===================================================== */
 
-async function buyItem(name,price){
+async function buyItem(name,price,button=null){
 
   if(!needLogin()){
     return;
   }
 
-  price=Number(price);
+  const amount=Number(price);
 
-  if(!Number.isFinite(price) || price<=0){
+  if(!Number.isFinite(amount)||amount<=0){
 
-    alert(
-      "❌ سعر غير صحيح."
-    );
+    alert("❌ سعر المنتج غير صحيح.");
 
     return;
   }
 
-  const currentBalance=Number(
-    currentUser.balance||0
-  );
+  const currentBalance=
+    Number(currentUser.balance||0);
 
-  if(currentBalance<price){
+  if(currentBalance<amount){
 
     alert(
       "❌ رصيدك غير كافٍ.\n\n"+
-      "الرصيد الحالي: "+
+      "💰 رصيدك: "+
       currentBalance.toLocaleString("ar-EG")+
-      " 💰\n"+
-      "السعر: "+
-      price.toLocaleString("ar-EG")+
-      " 💰"
+      "\n🛒 السعر: "+
+      amount.toLocaleString("ar-EG")
     );
 
     return;
   }
 
-  const confirmed=confirm(
-    "🛒 تأكيد الشراء\n\n"+
-    name+
-    "\n\nالسعر: "+
-    price.toLocaleString("ar-EG")+
-    " 💰\n"+
-    "رصيدك بعد الشراء: "+
-    (currentBalance-price)
-      .toLocaleString("ar-EG")+
-    " 💰"
-  );
-
-  if(!confirmed){
-    return;
-  }
-
-  const buttons=document.querySelectorAll(
-    "#page-shop button"
-  );
-
-  buttons.forEach(button=>{
+  if(button){
     button.disabled=true;
-  });
+    button.dataset.oldText=button.textContent;
+    button.textContent="⏳ جاري الشراء...";
+  }
 
   try{
 
-    const result=await purchaseItem(
-      name,
-      price
-    );
+    const response=
+      await fetch("/api/purchase",{
+        method:"POST",
+
+        headers:{
+          "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+
+          username:currentUser.username,
+
+          item:name,
+
+          price:amount
+
+        })
+      });
+
+    let data;
+
+    try{
+      data=await response.json();
+    }catch{
+      throw new Error(
+        "الخادم أعاد استجابة غير صحيحة"
+      );
+    }
+
+    if(!response.ok||!data.success){
+
+      throw new Error(
+        data.message||
+        "فشل الشراء"
+      );
+    }
 
     /*
-      الخادم يعيد الرصيد الجديد
-      من قاعدة البيانات.
+      تحديث الرصيد بعد الخصم
     */
 
-    if(result.user){
+    if(data.user){
 
       currentUser={
         ...currentUser,
-        ...result.user,
-        balance:Number(
-          result.user.balance
-        )
+        ...data.user
       };
 
-    }else if(
-      result.balance!==undefined
-    ){
-
-      currentUser.balance=
-        Number(result.balance);
-
+      window.currentUser=
+        currentUser;
     }else{
 
-      /*
-        لا نثق بالحساب المحلي.
-        إذا لم يعد الخادم الرصيد الجديد
-        نخصم محليًا فقط لعرض الواجهة،
-        بينما الخصم الحقيقي تم في Supabase.
-      */
-
       currentUser.balance=
-        currentBalance-price;
+        currentBalance-amount;
+
     }
 
     updateUI();
 
     alert(
       "✅ تم الشراء بنجاح!\n\n"+
-      name+
-      "\n\n"+
-      "تم خصم "+
-      price.toLocaleString("ar-EG")+
-      " 💰 من رصيدك.\n"+
-      "الرصيد الجديد: "+
-      Number(currentUser.balance)
-        .toLocaleString("ar-EG")+
-      " 💰"
+      "🛒 المنتج: "+name+
+      "\n💰 السعر: "+
+      amount.toLocaleString("ar-EG")+
+      "\n💳 الرصيد الجديد: "+
+      Number(currentUser.balance||0)
+        .toLocaleString("ar-EG")
     );
 
   }catch(error){
@@ -1784,68 +1771,65 @@ async function buyItem(name,price){
     );
 
     alert(
-      "❌ لم يتم الشراء.\n\n"+
-      error.message
+      "❌ "+(
+        error.message||
+        "حدث خطأ أثناء الشراء"
+      )
     );
 
   }finally{
 
-    buttons.forEach(button=>{
+    if(button){
+
       button.disabled=false;
-    });
+
+      button.textContent=
+        button.dataset.oldText||
+        "🛒 شراء";
+
+    }
 
   }
 }
 
 
 /* =====================================================
-   الألعاب - مؤقتًا
+   الألعاب
 ===================================================== */
 
 function playDice(){
 
-  if(!needLogin()){
-    return;
-  }
+  if(!needLogin())return;
 
   alert(
-    "🎲 سنربط النرد بالخصم الحقيقي في الخطوة التالية."
+    "🎲 نظام النرد سيتم ربطه بقاعدة البيانات."
   );
 }
-
 
 function quickBox(){
 
-  if(!needLogin()){
-    return;
-  }
+  if(!needLogin())return;
 
   alert(
-    "📦 سنربط الصندوق بالخصم الحقيقي في الخطوة التالية."
+    "📦 نظام الصندوق سيتم ربطه بقاعدة البيانات."
   );
 }
-
 
 function spinWheel(){
 
-  if(!needLogin()){
-    return;
-  }
+  if(!needLogin())return;
 
   alert(
-    "🎡 سنربط عجلة الحظ بالخصم الحقيقي في الخطوة التالية."
+    "🎡 عجلة الحظ سيتم ربطها بقاعدة البيانات."
   );
 }
 
-
 function dailyReward(){
 
-  if(!needLogin()){
-    return;
-  }
+  if(!needLogin())return;
 
   alert(
-    "🎁 سنربط المكافأة اليومية بقاعدة البيانات."
+    "🎁 المكافأة اليومية سيتم ربطها بقاعدة البيانات."
   );
 }
 
@@ -1856,9 +1840,7 @@ function dailyReward(){
 
 function upgradeCity(){
 
-  if(!needLogin()){
-    return;
-  }
+  if(!needLogin())return;
 
   alert(
     "🏯 تطوير المدينة سيتم ربطه بقاعدة البيانات."
@@ -1872,21 +1854,16 @@ function upgradeCity(){
 
 function plantCrop(){
 
-  if(!needLogin()){
-    return;
-  }
+  if(!needLogin())return;
 
   alert(
     "🌱 الزراعة سيتم ربطها بقاعدة البيانات."
   );
 }
 
-
 function harvestCrop(){
 
-  if(!needLogin()){
-    return;
-  }
+  if(!needLogin())return;
 
   alert(
     "🌾 الحصاد سيتم ربطه بقاعدة البيانات."
@@ -1900,22 +1877,22 @@ function harvestCrop(){
 
 function transferMoney(){
 
-  if(!needLogin()){
-    return;
-  }
+  if(!needLogin())return;
 
-  const username=document
-    .getElementById("transferUser")
-    .value
-    .trim();
-
-  const amount=Number(
+  const username=
     document
-      .getElementById("transferAmount")
+      .getElementById("transferUser")
       .value
-  );
+      .trim();
 
-  if(!username || !amount || amount<=0){
+  const amount=
+    Number(
+      document
+        .getElementById("transferAmount")
+        .value
+    );
+
+  if(!username||!amount||amount<=0){
 
     alert(
       "❌ اكتب اسم المستلم والمبلغ."
@@ -1932,17 +1909,16 @@ function transferMoney(){
 
 function depositMoney(){
 
-  if(!needLogin()){
-    return;
-  }
+  if(!needLogin())return;
 
-  const amount=Number(
-    document
-      .getElementById("depositAmount")
-      .value
-  );
+  const amount=
+    Number(
+      document
+        .getElementById("depositAmount")
+        .value
+    );
 
-  if(!amount || amount<=0){
+  if(!amount||amount<=0){
 
     alert(
       "❌ اكتب مبلغًا صحيحًا."
@@ -1959,17 +1935,16 @@ function depositMoney(){
 
 function withdrawMoney(){
 
-  if(!needLogin()){
-    return;
-  }
+  if(!needLogin())return;
 
-  const amount=Number(
-    document
-      .getElementById("withdrawAmount")
-      .value
-  );
+  const amount=
+    Number(
+      document
+        .getElementById("withdrawAmount")
+        .value
+    );
 
-  if(!amount || amount<=0){
+  if(!amount||amount<=0){
 
     alert(
       "❌ اكتب مبلغًا صحيحًا."
@@ -1999,9 +1974,11 @@ document.addEventListener(
       .addEventListener(
         "keydown",
         function(event){
+
           if(event.key==="Enter"){
             login();
           }
+
         }
       );
 
@@ -2010,9 +1987,11 @@ document.addEventListener(
       .addEventListener(
         "keydown",
         function(event){
+
           if(event.key==="Enter"){
             login();
           }
+
         }
       );
 
@@ -2021,9 +2000,11 @@ document.addEventListener(
       .addEventListener(
         "keydown",
         function(event){
+
           if(event.key==="Enter"){
             register();
           }
+
         }
       );
 
