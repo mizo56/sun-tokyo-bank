@@ -3,8 +3,6 @@ import crypto from "crypto";
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SECRET_KEY = process.env.SUPABASE_SECRET_KEY;
 
-const ADMIN_USERNAME = "admin";
-
 function hashPassword(password) {
   return crypto
     .createHash("sha256")
@@ -12,63 +10,10 @@ function hashPassword(password) {
     .digest("hex");
 }
 
-function cleanUsername(value) {
-  return String(value || "").trim();
-}
-
-async function supabase(path, options = {}) {
-
-  const response = await fetch(
-    `${SUPABASE_URL}${path}`,
-    {
-      ...options,
-
-      headers: {
-        apikey: SUPABASE_SECRET_KEY,
-        Authorization: `Bearer ${SUPABASE_SECRET_KEY}`,
-        "Content-Type": "application/json",
-        ...(options.headers || {})
-      }
-    }
-  );
-
-  const text =
-    await response.text();
-
-  let data = null;
-
-  try {
-    data =
-      text
-        ? JSON.parse(text)
-        : null;
-  } catch {
-    data = text;
-  }
-
-  if (!response.ok) {
-
-    const error =
-      new Error(
-        data?.message ||
-        data?.hint ||
-        data?.details ||
-        "خطأ في Supabase"
-      );
-
-    error.status =
-      response.status;
-
-    throw error;
-  }
-
-  return data;
-}
-
 export default async function handler(req, res) {
 
+  // POST فقط
   if (req.method !== "POST") {
-
     return res.status(405).json({
       success: false,
       message: "Method Not Allowed"
@@ -77,69 +22,106 @@ export default async function handler(req, res) {
 
   try {
 
-    if (
-      !SUPABASE_URL ||
-      !SUPABASE_SECRET_KEY
-    ) {
+    // التحقق من إعدادات Supabase
+    if (!SUPABASE_URL || !SUPABASE_SECRET_KEY) {
+      console.error("Missing Supabase environment variables");
 
       return res.status(500).json({
         success: false,
-        message:
-          "إعدادات Supabase غير موجودة في Vercel"
+        message: "إعدادات Supabase غير موجودة في Vercel"
       });
     }
 
-    let body =
-      req.body || {};
+    // قراءة البيانات
+    let body = req.body || {};
 
     if (typeof body === "string") {
-
       try {
-        body =
-          JSON.parse(body);
+        body = JSON.parse(body);
       } catch {
-
         return res.status(400).json({
           success: false,
-          message:
-            "بيانات الطلب غير صحيحة"
+          message: "بيانات الطلب غير صحيحة"
         });
       }
     }
 
-    const username =
-      cleanUsername(
-        body.username ||
-        body.name
-      );
+    const username = String(
+      body.username ||
+      body.name ||
+      ""
+    ).trim();
 
-    const password =
-      String(
-        body.password ||
-        body.pass ||
-        ""
-      );
+    const password = String(
+      body.password ||
+      body.pass ||
+      ""
+    );
 
+    // التحقق
     if (!username || !password) {
-
       return res.status(400).json({
         success: false,
-        message:
-          "❌ اسم المستخدم وكلمة المرور مطلوبان"
+        message: "❌ اسم المستخدم وكلمة المرور مطلوبان"
       });
     }
 
-    /*
-     * البحث عن الحساب بالاسم فقط
-     */
+    // تشفير كلمة المرور
+    const passwordHash = hashPassword(password);
 
-    const users =
-      await supabase(
-        `/rest/v1/users?username=eq.${encodeURIComponent(
-          username
-        )}&select=id,username,password_hash,balance`
+    const headers = {
+      "apikey": SUPABASE_SECRET_KEY,
+      "Authorization": `Bearer ${SUPABASE_SECRET_KEY}`,
+      "Content-Type": "application/json"
+    };
+
+    // البحث عن المستخدم بالاسم فقط
+    const url =
+      `${SUPABASE_URL}/rest/v1/users` +
+      `?username=eq.${encodeURIComponent(username)}` +
+      `&select=id,username,password_hash,balance,role,level,city`;
+
+    console.log("Login:", username);
+
+    const response = await fetch(url, {
+      method: "GET",
+      headers
+    });
+
+    const text = await response.text();
+
+    if (!response.ok) {
+
+      console.error(
+        "Supabase login error:",
+        response.status,
+        text
       );
 
+      return res.status(500).json({
+        success: false,
+        message: "حدث خطأ في الاتصال بقاعدة البيانات"
+      });
+    }
+
+    let users;
+
+    try {
+      users = JSON.parse(text);
+    } catch {
+
+      console.error(
+        "Invalid Supabase response:",
+        text
+      );
+
+      return res.status(500).json({
+        success: false,
+        message: "استجابة غير صحيحة من قاعدة البيانات"
+      });
+    }
+
+    // الحساب غير موجود
     if (
       !Array.isArray(users) ||
       users.length === 0
@@ -147,99 +129,88 @@ export default async function handler(req, res) {
 
       return res.status(401).json({
         success: false,
-        message:
-          "❌ اسم المستخدم أو كلمة المرور غير صحيحة"
+        message: "❌ اسم المستخدم أو كلمة المرور غير صحيحة"
       });
     }
 
-    const user =
-      users[0];
+    const user = users[0];
 
-    /*
-     * إنشاء SHA-256 لكلمة المرور
-     */
-
-    const passwordHash =
-      hashPassword(password);
-
-    const storedHash =
-      String(
-        user.password_hash || ""
-      ).trim();
-
-    /*
-     * مقارنة كلمة المرور
-     */
-
+    // التحقق من كلمة المرور
     if (
-      passwordHash !==
-      storedHash
+      !user.password_hash ||
+      user.password_hash !== passwordHash
     ) {
 
       return res.status(401).json({
         success: false,
-        message:
-          "❌ اسم المستخدم أو كلمة المرور غير صحيحة"
+        message: "❌ اسم المستخدم أو كلمة المرور غير صحيحة"
       });
     }
 
-    /*
-     * تحديد الأدمن
-     */
+    // تحديد نوع الحساب
+    const role =
+      String(user.role || "user").toLowerCase();
 
     const isAdmin =
-      String(user.username)
-        .trim()
-        .toLowerCase() ===
-      ADMIN_USERNAME;
+      role === "admin" ||
+      role === "administrator" ||
+      role === "owner";
 
     /*
-     * إعادة بيانات المستخدم
-     */
+      حساب الإدارة:
+      لا نضع Infinity داخل Supabase.
+      نرسل قيمة كبيرة للواجهة، مع isAdmin=true.
+    */
+    const balance = isAdmin
+      ? Number.MAX_SAFE_INTEGER
+      : Number(user.balance || 0);
+
+    // بيانات المستخدم
+    const userData = {
+      id: user.id,
+      username: user.username,
+      balance,
+      role: isAdmin ? "admin" : "user",
+      isAdmin,
+
+      level:
+        Number(user.level || 1),
+
+      city:
+        Number(user.city || 1)
+    };
+
+    console.log(
+      "Login successful:",
+      {
+        username: user.username,
+        role: userData.role,
+        isAdmin: userData.isAdmin
+      }
+    );
 
     return res.status(200).json({
 
       success: true,
 
-      message:
-        "✅ تم تسجيل الدخول بنجاح",
+      message: isAdmin
+        ? "👑 تم دخول حساب الإدارة بنجاح"
+        : "✅ تم تسجيل الدخول بنجاح",
 
-      user: {
-
-        id:
-          user.id,
-
-        username:
-          user.username,
-
-        balance:
-          Number(
-            user.balance || 0
-          ),
-
-        isAdmin,
-
-        unlimited:
-          isAdmin
-
-      }
+      user: userData
 
     });
 
   } catch (error) {
 
     console.error(
-      "LOGIN ERROR:",
+      "Login error:",
       error
     );
 
     return res.status(500).json({
-
       success: false,
-
-      message:
-        "حدث خطأ في الخادم"
-
+      message: "حدث خطأ في الخادم"
     });
   }
 }
