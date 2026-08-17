@@ -26,18 +26,20 @@ export default async function handler(req, res) {
   try {
 
     // =========================
-    // التحقق من إعدادات Supabase
+    // التحقق من Supabase
     // =========================
 
     if (!SUPABASE_URL || !SUPABASE_SECRET_KEY) {
 
-      console.error("Missing Supabase environment variables");
+      console.error(
+        "Missing Supabase environment variables"
+      );
 
       return res.status(500).json({
         success: false,
-        message: "إعدادات Supabase غير موجودة في Vercel"
+        message:
+          "إعدادات Supabase غير موجودة في Vercel"
       });
-
     }
 
     // =========================
@@ -81,7 +83,8 @@ export default async function handler(req, res) {
 
       return res.status(400).json({
         success: false,
-        message: "❌ اسم المستخدم وكلمة المرور مطلوبان"
+        message:
+          "❌ اسم المستخدم وكلمة المرور مطلوبان"
       });
 
     }
@@ -99,7 +102,8 @@ export default async function handler(req, res) {
 
     const headers = {
       apikey: SUPABASE_SECRET_KEY,
-      Authorization: `Bearer ${SUPABASE_SECRET_KEY}`,
+      Authorization:
+        `Bearer ${SUPABASE_SECRET_KEY}`,
       "Content-Type": "application/json"
     };
 
@@ -113,7 +117,7 @@ export default async function handler(req, res) {
     const url =
       `${supabaseBase}/rest/v1/users` +
       `?username=eq.${encodeURIComponent(username)}` +
-      `&select=id,created_at,username,password_hash,balance,role,banned`;
+      `&select=id,created_at,username,password_hash,balance,role,banned,ban_reason,updated_at`;
 
     console.log(
       "Login attempt:",
@@ -121,19 +125,27 @@ export default async function handler(req, res) {
     );
 
     // =========================
-    // طلب الحساب
+    // جلب الحساب
     // =========================
 
-    const response = await fetch(url, {
-      method: "GET",
-      headers
-    });
+    const response = await fetch(
+      url,
+      {
+        method: "GET",
+        headers
+      }
+    );
 
     const text =
       await response.text();
 
+    console.log(
+      "Supabase response:",
+      response.status
+    );
+
     // =========================
-    // فشل Supabase
+    // خطأ Supabase
     // =========================
 
     if (!response.ok) {
@@ -154,7 +166,7 @@ export default async function handler(req, res) {
     }
 
     // =========================
-    // تحويل الرد إلى JSON
+    // تحويل الرد
     // =========================
 
     let users;
@@ -164,11 +176,6 @@ export default async function handler(req, res) {
       users = JSON.parse(text);
 
     } catch {
-
-      console.error(
-        "Invalid Supabase response:",
-        text
-      );
 
       return res.status(500).json({
         success: false,
@@ -196,28 +203,7 @@ export default async function handler(req, res) {
 
     }
 
-    const user =
-      users[0];
-
-    // =========================
-    // التحقق من الحظر
-    // =========================
-
-    if (user.banned === true) {
-
-      console.log(
-        "Blocked login attempt:",
-        user.username
-      );
-
-      return res.status(403).json({
-        success: false,
-        banned: true,
-        message:
-          "🚫 تم حظر هذا الحساب من قبل الإدارة"
-      });
-
-    }
+    const user = users[0];
 
     // =========================
     // التحقق من كلمة المرور
@@ -236,8 +222,57 @@ export default async function handler(req, res) {
 
     }
 
+    // ==================================================
+    // نظام الحظر
+    // ==================================================
+
+    const isBanned =
+      user.banned === true ||
+      user.banned === "true" ||
+      user.banned === 1 ||
+      user.banned === "1";
+
+    if (isBanned) {
+
+      const reason =
+        String(
+          user.ban_reason ||
+          "تم حظر هذا الحساب من الإدارة"
+        ).trim();
+
+      console.log(
+        "Blocked login attempt:",
+        {
+          id: user.id,
+          username: user.username,
+          reason
+        }
+      );
+
+      return res.status(403).json({
+
+        success: false,
+
+        banned: true,
+
+        message:
+          "🚫 هذا الحساب محظور",
+
+        ban_reason: reason,
+
+        user: {
+          id: user.id,
+          username: user.username,
+          banned: true,
+          ban_reason: reason
+        }
+
+      });
+
+    }
+
     // =========================
-    // تحديد الدور
+    // الدور
     // =========================
 
     const role =
@@ -251,7 +286,7 @@ export default async function handler(req, res) {
       role === "owner";
 
     // =========================
-    // حساب الرصيد
+    // الرصيد
     // =========================
 
     let balance =
@@ -262,7 +297,7 @@ export default async function handler(req, res) {
     }
 
     /*
-      حساب الإدارة يحصل على قيمة كبيرة
+      حساب الإدارة يحصل على رقم كبير
       داخل الواجهة فقط.
       لا يتم تخزين Infinity في Supabase.
     */
@@ -278,11 +313,9 @@ export default async function handler(req, res) {
 
     const userData = {
 
-      id:
-        user.id,
+      id: user.id,
 
-      username:
-        user.username,
+      username: user.username,
 
       balance,
 
@@ -293,14 +326,13 @@ export default async function handler(req, res) {
 
       isAdmin,
 
-      banned:
-        false,
+      banned: false,
 
-      level:
-        1,
+      ban_reason: null,
 
-      city:
-        1
+      level: 1,
+
+      city: 1
 
     };
 
@@ -324,16 +356,16 @@ export default async function handler(req, res) {
 
     return res.status(200).json({
 
-      success:
-        true,
+      success: true,
+
+      banned: false,
 
       message:
         isAdmin
           ? "👑 تم دخول حساب الإدارة بنجاح"
           : "✅ تم تسجيل الدخول بنجاح",
 
-      user:
-        userData
+      user: userData
 
     });
 
@@ -346,8 +378,7 @@ export default async function handler(req, res) {
 
     return res.status(500).json({
 
-      success:
-        false,
+      success: false,
 
       message:
         "حدث خطأ في الخادم",
