@@ -22,32 +22,34 @@ export default async function handler(req, res) {
       username,
       productId,
       productName,
-      product,
       item,
       price,
       icon
     } = req.body || {};
 
-    const itemName =
-      productName ||
-      product ||
-      item;
+    const cleanUsername =
+      username ? String(username).trim() : "";
 
-    if (!userId && !username) {
+    const cleanProductName =
+      productName || item
+        ? String(productName || item).trim()
+        : "";
+
+    const amount = Number(price);
+
+    if (!cleanUsername && !userId) {
       return res.status(400).json({
         success: false,
-        message: "بيانات المستخدم ناقصة"
+        message: "المستخدم غير محدد"
       });
     }
 
-    if (!itemName) {
+    if (!cleanProductName) {
       return res.status(400).json({
         success: false,
         message: "اسم المنتج غير موجود"
       });
     }
-
-    const amount = Number(price);
 
     if (!Number.isFinite(amount) || amount <= 0) {
       return res.status(400).json({
@@ -63,63 +65,79 @@ export default async function handler(req, res) {
     };
 
     // =====================================================
-    // 1. جلب المستخدم
+    // 1 — البحث عن المستخدم
     // =====================================================
 
-    let userUrl;
+    let users = [];
 
     if (userId) {
-      userUrl =
-        `${SUPABASE_URL}/rest/v1/users?id=eq.${encodeURIComponent(userId)}&select=id,username,balance`;
-    } else {
-      userUrl =
-        `${SUPABASE_URL}/rest/v1/users?username=eq.${encodeURIComponent(
-          String(username).trim()
-        )}&select=id,username,balance`;
+      const userResponse = await fetch(
+        `${SUPABASE_URL}/rest/v1/users?id=eq.${encodeURIComponent(userId)}&select=id,username,balance`,
+        {
+          method: "GET",
+          headers
+        }
+      );
+
+      const text = await userResponse.text();
+
+      if (!userResponse.ok) {
+        console.error("User lookup error:", text);
+
+        return res.status(500).json({
+          success: false,
+          message: "تعذر الوصول إلى حساب المستخدم"
+        });
+      }
+
+      try {
+        users = JSON.parse(text);
+      } catch {
+        users = [];
+      }
     }
 
-    const userResponse = await fetch(userUrl, {
-      method: "GET",
-      headers
-    });
+    if (!users.length && cleanUsername) {
+      const userResponse = await fetch(
+        `${SUPABASE_URL}/rest/v1/users?username=eq.${encodeURIComponent(cleanUsername)}&select=id,username,balance`,
+        {
+          method: "GET",
+          headers
+        }
+      );
 
-    const userText = await userResponse.text();
+      const text = await userResponse.text();
 
-    if (!userResponse.ok) {
-      console.error("User error:", userText);
+      if (!userResponse.ok) {
+        console.error("Username lookup error:", text);
 
-      return res.status(500).json({
-        success: false,
-        message: "تعذر الاتصال بقاعدة البيانات"
-      });
-    }
+        return res.status(500).json({
+          success: false,
+          message: "تعذر الوصول إلى حساب المستخدم"
+        });
+      }
 
-    let users;
-
-    try {
-      users = JSON.parse(userText);
-    } catch {
-      return res.status(500).json({
-        success: false,
-        message: "استجابة قاعدة البيانات غير صحيحة"
-      });
+      try {
+        users = JSON.parse(text);
+      } catch {
+        users = [];
+      }
     }
 
     if (!Array.isArray(users) || users.length === 0) {
       return res.status(404).json({
         success: false,
-        message: "المستخدم غير موجود"
+        message: "❌ المستخدم غير موجود"
       });
     }
 
     const user = users[0];
 
-    const currentBalance = Number(
-      user.balance || 0
-    );
+    const currentBalance =
+      Number(user.balance || 0);
 
     // =====================================================
-    // 2. التأكد من الرصيد
+    // 2 — التأكد من الرصيد
     // =====================================================
 
     if (currentBalance < amount) {
@@ -133,15 +151,12 @@ export default async function handler(req, res) {
     const newBalance =
       currentBalance - amount;
 
-
     // =====================================================
-    // 3. خصم الرصيد
+    // 3 — خصم السعر من الرصيد
     // =====================================================
 
-    const updateBalanceResponse = await fetch(
-      `${SUPABASE_URL}/rest/v1/users?id=eq.${encodeURIComponent(
-        user.id
-      )}`,
+    const updateResponse = await fetch(
+      `${SUPABASE_URL}/rest/v1/users?id=eq.${encodeURIComponent(user.id)}`,
       {
         method: "PATCH",
         headers: {
@@ -154,14 +169,13 @@ export default async function handler(req, res) {
       }
     );
 
-    const updateBalanceText =
-      await updateBalanceResponse.text();
+    const updateText =
+      await updateResponse.text();
 
-    if (!updateBalanceResponse.ok) {
-
+    if (!updateResponse.ok) {
       console.error(
         "Balance update error:",
-        updateBalanceText
+        updateText
       );
 
       return res.status(500).json({
@@ -170,103 +184,30 @@ export default async function handler(req, res) {
       });
     }
 
-
     // =====================================================
-    // 4. تحديد نوع المنتج
-    // =====================================================
-
-    const lowerName =
-      String(itemName).toLowerCase();
-
-    let itemType = "item";
-
-    if (
-      lowerName.includes("سيف") ||
-      lowerName.includes("نصل") ||
-      lowerName.includes("رمح") ||
-      lowerName.includes("قوس") ||
-      lowerName.includes("عصا")
-    ) {
-      itemType = "weapon";
-
-    } else if (
-      lowerName.includes("درع") ||
-      lowerName.includes("خوذة") ||
-      lowerName.includes("قفازات")
-    ) {
-      itemType = "armor";
-
-    } else if (
-      lowerName.includes("جرعة") ||
-      lowerName.includes("علاج")
-    ) {
-      itemType = "potion";
-
-    } else if (
-      lowerName.includes("جوهرة") ||
-      lowerName.includes("حجر") ||
-      lowerName.includes("بلورة")
-    ) {
-      itemType = "gem";
-
-    } else if (
-      lowerName.includes("خبز") ||
-      lowerName.includes("لحم") ||
-      lowerName.includes("رامن") ||
-      lowerName.includes("سوشي") ||
-      lowerName.includes("طعام") ||
-      lowerName.includes("شاي")
-    ) {
-      itemType = "food";
-
-    } else if (
-      lowerName.includes("هدية") ||
-      lowerName.includes("تذكرة")
-    ) {
-      itemType = "gift";
-
-    } else if (
-      lowerName.includes("خاتم") ||
-      lowerName.includes("قلادة") ||
-      lowerName.includes("تاج") ||
-      lowerName.includes("قناع")
-    ) {
-      itemType = "accessory";
-    }
-
-
-    // =====================================================
-    // 5. البحث عن المنتج في المخزون
+    // 4 — البحث عن المنتج داخل المخزون
     // =====================================================
 
-    const inventorySearchResponse =
-      await fetch(
-        `${SUPABASE_URL}/rest/v1/inventory?user_id=eq.${encodeURIComponent(
-          user.id
-        )}&item_name=eq.${encodeURIComponent(
-          String(itemName)
-        )}&select=*`,
-        {
-          method: "GET",
-          headers
-        }
-      );
+    const inventoryResponse = await fetch(
+      `${SUPABASE_URL}/rest/v1/inventory?user_id=eq.${encodeURIComponent(user.id)}&item_name=eq.${encodeURIComponent(cleanProductName)}&select=id,user_id,item_name,item_type,quantity`,
+      {
+        method: "GET",
+        headers
+      }
+    );
 
-    const inventorySearchText =
-      await inventorySearchResponse.text();
+    const inventoryText =
+      await inventoryResponse.text();
 
-    if (!inventorySearchResponse.ok) {
-
+    if (!inventoryResponse.ok) {
       console.error(
-        "Inventory search error:",
-        inventorySearchText
+        "Inventory lookup error:",
+        inventoryText
       );
 
-      // محاولة إعادة الرصيد
+      // إعادة الرصيد إذا فشل المخزون
       await fetch(
-        `${SUPABASE_URL}/rest/v1/users?id=eq.${encodeURIComponent(
-          user.id
-        )}`,
+        `${SUPABASE_URL}/rest/v1/users?id=eq.${encodeURIComponent(user.id)}`,
         {
           method: "PATCH",
           headers,
@@ -282,41 +223,35 @@ export default async function handler(req, res) {
       });
     }
 
-    let inventoryItems;
+    let inventoryItems = [];
 
     try {
       inventoryItems =
-        JSON.parse(inventorySearchText);
+        JSON.parse(inventoryText);
     } catch {
       inventoryItems = [];
     }
 
-
     // =====================================================
-    // 6. إذا المنتج موجود نزيد الكمية
+    // 5 — إذا المنتج موجود نزيد الكمية
     // =====================================================
 
     if (
       Array.isArray(inventoryItems) &&
       inventoryItems.length > 0
     ) {
-
       const inventoryItem =
         inventoryItems[0];
 
       const oldQuantity =
-        Number(
-          inventoryItem.quantity || 0
-        );
+        Number(inventoryItem.quantity || 0);
 
       const newQuantity =
         oldQuantity + 1;
 
-      const inventoryUpdateResponse =
+      const inventoryUpdate =
         await fetch(
-          `${SUPABASE_URL}/rest/v1/inventory?id=eq.${encodeURIComponent(
-            inventoryItem.id
-          )}`,
+          `${SUPABASE_URL}/rest/v1/inventory?id=eq.${encodeURIComponent(inventoryItem.id)}`,
           {
             method: "PATCH",
             headers: {
@@ -329,75 +264,18 @@ export default async function handler(req, res) {
           }
         );
 
-      const inventoryUpdateText =
-        await inventoryUpdateResponse.text();
-
-      if (!inventoryUpdateResponse.ok) {
+      if (!inventoryUpdate.ok) {
+        const errorText =
+          await inventoryUpdate.text();
 
         console.error(
           "Inventory update error:",
-          inventoryUpdateText
-        );
-
-        // إعادة الرصيد في حالة فشل الإضافة
-        await fetch(
-          `${SUPABASE_URL}/rest/v1/users?id=eq.${encodeURIComponent(
-            user.id
-          )}`,
-          {
-            method: "PATCH",
-            headers,
-            body: JSON.stringify({
-              balance: currentBalance
-            })
-          }
-        );
-
-        return res.status(500).json({
-          success: false,
-          message: "❌ تعذر إضافة المنتج للمخزون وتم إلغاء الشراء"
-        });
-      }
-
-    } else {
-
-      // ===================================================
-      // 7. المنتج غير موجود → إنشاء عنصر جديد
-      // ===================================================
-
-      const inventoryInsertResponse =
-        await fetch(
-          `${SUPABASE_URL}/rest/v1/inventory`,
-          {
-            method: "POST",
-            headers: {
-              ...headers,
-              "Prefer": "return=representation"
-            },
-            body: JSON.stringify({
-              user_id: user.id,
-              item_name: String(itemName),
-              item_type: itemType,
-              quantity: 1
-            })
-          }
-        );
-
-      const inventoryInsertText =
-        await inventoryInsertResponse.text();
-
-      if (!inventoryInsertResponse.ok) {
-
-        console.error(
-          "Inventory insert error:",
-          inventoryInsertText
+          errorText
         );
 
         // إعادة الرصيد
         await fetch(
-          `${SUPABASE_URL}/rest/v1/users?id=eq.${encodeURIComponent(
-            user.id
-          )}`,
+          `${SUPABASE_URL}/rest/v1/users?id=eq.${encodeURIComponent(user.id)}`,
           {
             method: "PATCH",
             headers,
@@ -409,40 +287,111 @@ export default async function handler(req, res) {
 
         return res.status(500).json({
           success: false,
-          message: "❌ تعذر إضافة المنتج للمخزون وتم إلغاء الشراء"
+          message: "❌ تعذر إضافة المنتج للمخزون وتم إعادة الرصيد"
         });
       }
+
+      return res.status(200).json({
+        success: true,
+        message:
+          `✅ تم شراء ${cleanProductName} وإضافته للمخزون`,
+        purchase: {
+          productId:
+            productId || null,
+          item:
+            cleanProductName,
+          price:
+            amount,
+          quantity:
+            newQuantity
+        },
+        user: {
+          id:
+            user.id,
+          username:
+            user.username,
+          balance:
+            newBalance
+        }
+      });
     }
 
+    // =====================================================
+    // 6 — المنتج غير موجود: إنشاء سجل جديد
+    // =====================================================
+
+    const insertResponse = await fetch(
+      `${SUPABASE_URL}/rest/v1/inventory`,
+      {
+        method: "POST",
+        headers: {
+          ...headers,
+          "Prefer": "return=representation"
+        },
+        body: JSON.stringify({
+          user_id: user.id,
+          item_name: cleanProductName,
+          item_type: icon
+            ? String(icon)
+            : "item",
+          quantity: 1
+        })
+      }
+    );
+
+    const insertText =
+      await insertResponse.text();
+
+    if (!insertResponse.ok) {
+      console.error(
+        "Inventory insert error:",
+        insertText
+      );
+
+      // =================================================
+      // إعادة الرصيد إذا فشل إدخال المنتج
+      // =================================================
+
+      await fetch(
+        `${SUPABASE_URL}/rest/v1/users?id=eq.${encodeURIComponent(user.id)}`,
+        {
+          method: "PATCH",
+          headers,
+          body: JSON.stringify({
+            balance: currentBalance
+          })
+        }
+      );
+
+      return res.status(500).json({
+        success: false,
+        message:
+          "❌ تعذر إضافة المنتج للمخزون وتم إعادة الرصيد"
+      });
+    }
 
     // =====================================================
-    // 8. نجاح عملية الشراء
+    // 7 — نجاح العملية
     // =====================================================
 
     return res.status(200).json({
-
       success: true,
 
       message:
-        `✅ تم شراء ${String(itemName)} وخصم ${amount.toLocaleString(
-          "ar-EG"
-        )} 💰`,
+        `✅ تم شراء ${cleanProductName} بنجاح وخصم ${amount.toLocaleString("ar-EG")} 💰`,
 
       purchase: {
         productId:
           productId || null,
 
         item:
-          String(itemName),
+          cleanProductName,
 
         price:
           amount,
 
-        quantityAdded:
-          1,
-
-        icon:
-          icon || "🎁"
+        quantity:
+          1
       },
 
       user: {
@@ -455,19 +404,19 @@ export default async function handler(req, res) {
         balance:
           newBalance
       }
-
     });
 
   } catch (error) {
 
     console.error(
-      "Purchase error:",
+      "Purchase API error:",
       error
     );
 
     return res.status(500).json({
       success: false,
-      message: "❌ حدث خطأ في الخادم أثناء عملية الشراء"
+      message:
+        "❌ حدث خطأ غير متوقع أثناء عملية الشراء"
     });
   }
 }
