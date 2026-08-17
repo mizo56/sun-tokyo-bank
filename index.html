@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -7,6 +8,7 @@
 <title>『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』</title>
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -20,7 +22,7 @@ html,body{
 body{
   font-family:Arial,Tahoma,sans-serif;
   background:
-    radial-gradient(circle at top,#351600 0,#090909 45%,#000 100%);
+    radial-gradient(circle at top,#241000 0,#090909 45%,#000 100%);
   color:#fff;
   min-height:100vh;
 }
@@ -48,7 +50,7 @@ button:disabled{
 }
 
 .card{
-  background:rgba(20,20,20,.95);
+  background:rgba(20,20,20,.94);
   border:1px solid rgba(255,193,7,.18);
   border-radius:18px;
   padding:20px;
@@ -97,10 +99,6 @@ button:disabled{
   background:#a30000;
 }
 
-.blue{
-  background:#075c91;
-}
-
 input{
   width:100%;
   padding:13px;
@@ -134,7 +132,6 @@ input:focus{
   font-weight:900;
   color:#ffd54f;
   margin-bottom:20px;
-  text-shadow:0 0 20px rgba(255,193,7,.25);
 }
 
 .message{
@@ -155,11 +152,6 @@ input:focus{
   background:#075c1b;
 }
 
-.message.info{
-  display:block;
-  background:#173c5c;
-}
-
 .status{
   margin-top:15px;
   text-align:center;
@@ -171,7 +163,7 @@ input:focus{
   position:sticky;
   top:0;
   z-index:100;
-  background:rgba(5,5,5,.96);
+  background:rgba(5,5,5,.95);
   backdrop-filter:blur(12px);
   border-bottom:1px solid rgba(255,193,7,.15);
 }
@@ -276,18 +268,22 @@ main{
   color:#ffd54f;
 }
 
-.red{
-  color:#ff5252;
-}
-
-.blue-text{
-  color:#64b5f6;
-}
-
 .character-stat{
   font-size:28px;
   font-weight:900;
   margin-top:10px;
+}
+
+.hp{
+  color:#ff5252;
+}
+
+.attack{
+  color:#ffd54f;
+}
+
+.defense{
+  color:#64b5f6;
 }
 
 .description{
@@ -296,41 +292,21 @@ main{
   margin:10px 0;
 }
 
-.loading{
-  opacity:.6;
-  pointer-events:none;
-}
-
-.item{
-  background:#101010;
-  border:1px solid rgba(255,193,7,.12);
-  border-radius:14px;
-  padding:15px;
-}
-
-.small{
-  font-size:13px;
-  color:#aaa;
-}
-
 .balance-box{
   text-align:center;
-  padding:20px;
-  border-radius:15px;
-  background:linear-gradient(
-    135deg,
-    rgba(255,152,0,.12),
-    rgba(255,213,79,.04)
-  );
 }
 
-.notice{
-  margin-top:15px;
-  padding:12px;
-  border-radius:12px;
-  background:#171717;
-  color:#aaa;
-  line-height:1.7;
+.balance-number{
+  font-size:42px;
+  font-weight:900;
+  color:#00e676;
+  margin:12px 0;
+}
+
+.small-note{
+  color:#888;
+  font-size:12px;
+  margin-top:8px;
 }
 
 @media(max-width:700px){
@@ -342,6 +318,10 @@ main{
 
   .user-info{
     font-size:14px;
+  }
+
+  nav{
+    padding-bottom:12px;
   }
 
   main{
@@ -356,7 +336,12 @@ main{
   .logo{
     font-size:24px;
   }
+
+  .balance-number{
+    font-size:34px;
+  }
 }
+
 </style>
 </head>
 
@@ -516,7 +501,6 @@ main{
 
   </div>
 
-
   <nav>
 
     <button data-page="home" onclick="page('home')">
@@ -580,12 +564,19 @@ main{
         💰 الرصيد الحقيقي
       </div>
 
-      <div id="homeBalance" class="big-number green">
+      <div id="homeBalance" class="balance-number">
         0
       </div>
 
-      <div class="small">
-        يتم جلب الرصيد من قاعدة البيانات
+      <button
+        class="btn secondary full"
+        onclick="refreshBalance()"
+      >
+        🔄 تحديث الرصيد
+      </button>
+
+      <div class="small-note">
+        الرصيد محفوظ في قاعدة البيانات
       </div>
 
     </div>
@@ -627,11 +618,8 @@ main{
 
     <p class="description">
       عالم مصرفي تفاعلي مليء بالألعاب والمتجر والتطوير.
+      رصيدك الأساسي محفوظ داخل Supabase.
     </p>
-
-    <div class="notice">
-      💡 رصيدك محفوظ في Supabase وليس داخل المتصفح.
-    </div>
 
   </div>
 
@@ -655,25 +643,23 @@ main{
       <div class="card">
         <h3>❤️ الصحة</h3>
 
-        <div id="characterHP" class="character-stat red">
+        <div id="characterHP" class="character-stat hp">
           100
         </div>
       </div>
 
-
       <div class="card">
         <h3>⚔️ الهجوم</h3>
 
-        <div id="characterAttack" class="character-stat gold">
+        <div id="characterAttack" class="character-stat attack">
           10
         </div>
       </div>
 
-
       <div class="card">
         <h3>🛡️ الدفاع</h3>
 
-        <div id="characterDefense" class="character-stat blue-text">
+        <div id="characterDefense" class="character-stat defense">
           10
         </div>
       </div>
@@ -710,13 +696,11 @@ main{
         <button
           class="btn goldbtn full"
           onclick="upgradeCity()"
-          style="margin-top:15px"
         >
           ⬆️ تطوير المدينة
         </button>
 
       </div>
-
 
       <div class="card">
 
@@ -766,7 +750,6 @@ main{
 
       </div>
 
-
       <div class="card">
 
         <h3>🌾 الحصاد</h3>
@@ -805,7 +788,7 @@ main{
 
     <div class="grid">
 
-      <div class="item">
+      <div class="card">
 
         <h3>⚔️ سيف أسطوري</h3>
 
@@ -822,8 +805,7 @@ main{
 
       </div>
 
-
-      <div class="item">
+      <div class="card">
 
         <h3>🛡️ درع أسطوري</h3>
 
@@ -840,8 +822,7 @@ main{
 
       </div>
 
-
-      <div class="item">
+      <div class="card">
 
         <h3>❤️ جرعة صحة</h3>
 
@@ -879,7 +860,7 @@ main{
 
     <div id="inventoryList" class="grid">
 
-      <div class="item">
+      <div class="card">
 
         <p class="description">
           لا توجد عناصر حاليًا.
@@ -908,7 +889,7 @@ main{
 
     <div class="grid">
 
-      <div class="item">
+      <div class="card">
 
         <h3>🎲 النرد</h3>
 
@@ -926,7 +907,7 @@ main{
       </div>
 
 
-      <div class="item">
+      <div class="card">
 
         <h3>📦 الصندوق</h3>
 
@@ -944,7 +925,7 @@ main{
       </div>
 
 
-      <div class="item">
+      <div class="card">
 
         <h3>🎡 عجلة الحظ</h3>
 
@@ -962,7 +943,7 @@ main{
       </div>
 
 
-      <div class="item">
+      <div class="card">
 
         <h3>🎁 المكافأة اليومية</h3>
 
@@ -994,6 +975,7 @@ main{
 
   <div class="grid">
 
+    <!-- TRANSFER -->
 
     <div class="card">
 
@@ -1011,10 +993,12 @@ main{
         id="transferAmount"
         type="number"
         min="1"
+        step="1"
         placeholder="المبلغ"
       >
 
       <button
+        id="transferButton"
         class="btn goldbtn full"
         onclick="transferMoney()"
       >
@@ -1023,6 +1007,8 @@ main{
 
     </div>
 
+
+    <!-- DEPOSIT -->
 
     <div class="card">
 
@@ -1034,6 +1020,7 @@ main{
         id="depositAmount"
         type="number"
         min="1"
+        step="1"
         placeholder="المبلغ"
       >
 
@@ -1044,8 +1031,14 @@ main{
         💰 إيداع
       </button>
 
+      <div class="small-note">
+        الإيداع الإداري سيتم ربطه لاحقًا بصلاحيات المدير.
+      </div>
+
     </div>
 
+
+    <!-- WITHDRAW -->
 
     <div class="card">
 
@@ -1057,10 +1050,12 @@ main{
         id="withdrawAmount"
         type="number"
         min="1"
+        step="1"
         placeholder="المبلغ"
       >
 
       <button
+        id="withdrawButton"
         class="btn danger full"
         onclick="withdrawMoney()"
       >
@@ -1068,6 +1063,29 @@ main{
       </button>
 
     </div>
+
+  </div>
+
+
+  <div class="card" style="margin-top:15px">
+
+    <div class="card-title">
+      💰 رصيدك الحالي
+    </div>
+
+    <div
+      id="walletBalance"
+      class="balance-number"
+    >
+      0
+    </div>
+
+    <button
+      class="btn secondary full"
+      onclick="refreshBalance()"
+    >
+      🔄 تحديث الرصيد من Supabase
+    </button>
 
   </div>
 
@@ -1086,7 +1104,6 @@ main{
       👤 الملف الشخصي
     </div>
 
-
     <div class="stat">
 
       <span class="stat-name">
@@ -1098,7 +1115,6 @@ main{
       </strong>
 
     </div>
-
 
     <div class="stat">
 
@@ -1112,7 +1128,6 @@ main{
 
     </div>
 
-
     <div class="stat">
 
       <span class="stat-name">
@@ -1125,15 +1140,13 @@ main{
 
     </div>
 
-
     <button
-      class="btn blue full"
+      class="btn secondary full"
       style="margin-top:15px"
       onclick="refreshBalance()"
     >
-      🔄 تحديث الرصيد
+      🔄 تحديث البيانات
     </button>
-
 
     <button
       class="btn danger full"
@@ -1148,6 +1161,7 @@ main{
 </section>
 
 </main>
+
 </div>
 
 
@@ -1161,10 +1175,28 @@ let currentUser = null;
 
 
 /* =====================================================
-   API الأساسية
+   API الأساسي
 ===================================================== */
 
-async function apiRequest(endpoint, body){
+async function api(
+  action,
+  username = "",
+  password = ""
+){
+
+  let endpoint = "";
+
+  if(action === "login"){
+    endpoint = "/api/login";
+  }
+
+  if(action === "register"){
+    endpoint = "/api/register";
+  }
+
+  if(!endpoint){
+    throw new Error("عملية غير معروفة");
+  }
 
   const response = await fetch(
     endpoint,
@@ -1175,10 +1207,12 @@ async function apiRequest(endpoint, body){
         "Content-Type":"application/json"
       },
 
-      body:JSON.stringify(body || {})
+      body:JSON.stringify({
+        username,
+        password
+      })
     }
   );
-
 
   let data;
 
@@ -1190,26 +1224,19 @@ async function apiRequest(endpoint, body){
     );
   }
 
-
   if(!response.ok){
-
     throw new Error(
       data.message ||
       "حدث خطأ في الخادم"
     );
-
   }
 
-
   if(data.success === false){
-
     throw new Error(
       data.message ||
       "فشلت العملية"
     );
-
   }
-
 
   return data;
 }
@@ -1219,7 +1246,11 @@ async function apiRequest(endpoint, body){
    الرسائل
 ===================================================== */
 
-function showMessage(id,text,type="error"){
+function showMessage(
+  id,
+  text,
+  type = "error"
+){
 
   const box =
     document.getElementById(id);
@@ -1228,15 +1259,20 @@ function showMessage(id,text,type="error"){
     return;
   }
 
-  box.textContent = text;
+  if(!text){
+    box.textContent = "";
+    box.className = "message";
+    return;
+  }
 
+  box.textContent = text;
   box.className =
     "message " + type;
 }
 
 
 /* =====================================================
-   AUTH BOX
+   REGISTER BOX
 ===================================================== */
 
 function showRegister(){
@@ -1257,6 +1293,10 @@ function showRegister(){
   );
 }
 
+
+/* =====================================================
+   LOGIN BOX
+===================================================== */
 
 function showLogin(){
 
@@ -1299,8 +1339,11 @@ async function register(){
       .getElementById("regPass2")
       .value;
 
-
-  if(!username || !password || !password2){
+  if(
+    !username ||
+    !password ||
+    !password2
+  ){
 
     showMessage(
       "registerMessage",
@@ -1309,7 +1352,6 @@ async function register(){
 
     return;
   }
-
 
   if(username.length < 3){
 
@@ -1321,7 +1363,6 @@ async function register(){
     return;
   }
 
-
   if(password.length < 6){
 
     showMessage(
@@ -1331,7 +1372,6 @@ async function register(){
 
     return;
   }
-
 
   if(password !== password2){
 
@@ -1343,7 +1383,6 @@ async function register(){
     return;
   }
 
-
   const button =
     document.getElementById(
       "registerButton"
@@ -1354,20 +1393,19 @@ async function register(){
   button.textContent =
     "⏳ جاري إنشاء الحساب...";
 
-
   try{
 
     const result =
-      await apiRequest(
-        "/api/register",
-        {
-          username,
-          password
-        }
+      await api(
+        "register",
+        username,
+        password
       );
 
-
-    if(result.success && result.user){
+    if(
+      result.success &&
+      result.user
+    ){
 
       showMessage(
         "registerMessage",
@@ -1375,21 +1413,24 @@ async function register(){
         "success"
       );
 
-
       setTimeout(
-        ()=>{
-          loginUser(result.user);
+        function(){
+
+          loginUser(
+            result.user
+          );
+
         },
         700
       );
 
     }else{
 
-      throw new Error(
+      showMessage(
+        "registerMessage",
         result.message ||
-        "تعذر إنشاء الحساب"
+        "تعذر إنشاء الحساب."
       );
-
     }
 
   }catch(error){
@@ -1401,7 +1442,8 @@ async function register(){
 
     showMessage(
       "registerMessage",
-      "❌ " + error.message
+      "❌ " +
+      error.message
     );
 
   }finally{
@@ -1431,8 +1473,10 @@ async function login(){
       .getElementById("loginPass")
       .value;
 
-
-  if(!username || !password){
+  if(
+    !username ||
+    !password
+  ){
 
     showMessage(
       "loginMessage",
@@ -1441,7 +1485,6 @@ async function login(){
 
     return;
   }
-
 
   const button =
     document.getElementById(
@@ -1453,20 +1496,25 @@ async function login(){
   button.textContent =
     "⏳ جاري الدخول...";
 
-
   try{
 
     const result =
-      await apiRequest(
-        "/api/login",
-        {
-          username,
-          password
-        }
+      await api(
+        "login",
+        username,
+        password
       );
 
+    if(
+      result.success &&
+      result.user
+    ){
 
-    if(result.success && result.user){
+      showMessage(
+        "loginMessage",
+        "✅ تم تسجيل الدخول.",
+        "success"
+      );
 
       loginUser(
         result.user
@@ -1476,9 +1524,8 @@ async function login(){
 
       throw new Error(
         result.message ||
-        "اسم المستخدم أو كلمة المرور غير صحيحة"
+        "اسم المستخدم أو كلمة المرور غير صحيحة."
       );
-
     }
 
   }catch(error){
@@ -1490,7 +1537,8 @@ async function login(){
 
     showMessage(
       "loginMessage",
-      "❌ " + error.message
+      "❌ " +
+      error.message
     );
 
   }finally{
@@ -1504,54 +1552,37 @@ async function login(){
 
 
 /* =====================================================
-   LOGIN USER
+   دخول المستخدم
 ===================================================== */
 
 function loginUser(user){
 
   currentUser = {
     ...user,
-    balance:Number(user.balance ?? 0)
+    balance:Number(
+      user.balance ?? 0
+    )
   };
-
 
   window.currentUser =
     currentUser;
-
-
-  try{
-
-    sessionStorage.setItem(
-      "sunTokyoUser",
-      JSON.stringify(currentUser)
-    );
-
-  }catch(error){
-
-    console.warn(
-      "Session storage error:",
-      error
-    );
-
-  }
-
 
   document
     .getElementById("auth")
     .classList
     .add("hidden");
 
-
   document
     .getElementById("app")
     .classList
     .remove("hidden");
 
-
   updateUI();
 
   page("home");
 
+  // التأكد من الرصيد الحقيقي
+  refreshBalance();
 }
 
 
@@ -1565,39 +1596,126 @@ function logout(){
 
   window.currentUser = null;
 
-
-  try{
-
-    sessionStorage.removeItem(
-      "sunTokyoUser"
-    );
-
-  }catch{}
-
-
   document
     .getElementById("app")
     .classList
     .add("hidden");
-
 
   document
     .getElementById("auth")
     .classList
     .remove("hidden");
 
-
   document
     .getElementById("loginPass")
     .value = "";
-
 
   showLogin();
 }
 
 
 /* =====================================================
-   تحديث الرصيد من قاعدة البيانات
+   UPDATE UI
+===================================================== */
+
+function updateUI(){
+
+  if(!currentUser){
+    return;
+  }
+
+  const user =
+    currentUser;
+
+  const balance =
+    Number(
+      user.balance ?? 0
+    );
+
+  const level =
+    Number(
+      user.level || 1
+    );
+
+  const city =
+    Number(
+      user.city || 1
+    );
+
+  document
+    .getElementById("headerName")
+    .textContent =
+      user.username || "-";
+
+  document
+    .getElementById("headerBalance")
+    .textContent =
+      balance.toLocaleString("ar-EG");
+
+  document
+    .getElementById("homeBalance")
+    .textContent =
+      balance.toLocaleString("ar-EG");
+
+  document
+    .getElementById("walletBalance")
+    .textContent =
+      balance.toLocaleString("ar-EG");
+
+  document
+    .getElementById("homeLevel")
+    .textContent =
+      level;
+
+  document
+    .getElementById("profileName")
+    .textContent =
+      user.username || "-";
+
+  document
+    .getElementById("profileBalance")
+    .textContent =
+      balance.toLocaleString("ar-EG");
+
+  document
+    .getElementById("profileLevel")
+    .textContent =
+      level;
+
+  document
+    .getElementById("cityLevel")
+    .textContent =
+      city;
+
+  document
+    .getElementById("cityPopulation")
+    .textContent =
+      city;
+
+  document
+    .getElementById("homePower")
+    .textContent =
+      20 + ((level - 1) * 5);
+
+  document
+    .getElementById("characterHP")
+    .textContent =
+      100 + ((level - 1) * 10);
+
+  document
+    .getElementById("characterAttack")
+    .textContent =
+      10 + ((level - 1) * 2);
+
+  document
+    .getElementById("characterDefense")
+    .textContent =
+      10 + ((level - 1) * 2);
+}
+
+
+/* =====================================================
+   قراءة الرصيد الحقيقي من Supabase
 ===================================================== */
 
 async function refreshBalance(){
@@ -1606,48 +1724,50 @@ async function refreshBalance(){
     return;
   }
 
-
   try{
 
-    const result =
-      await apiRequest(
+    const response =
+      await fetch(
         "/api/balance",
         {
-          userId:currentUser.id
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:JSON.stringify({
+            id:currentUser.id
+          })
         }
       );
 
+    const data =
+      await response.json();
 
-    if(
-      result.success &&
-      result.user
-    ){
+    if(!response.ok || !data.success){
+
+      throw new Error(
+        data.message ||
+        "تعذر تحديث الرصيد"
+      );
+    }
+
+    if(data.user){
 
       currentUser = {
         ...currentUser,
-        ...result.user,
+        ...data.user,
         balance:Number(
-          result.user.balance ?? 0
+          data.user.balance ?? 0
         )
       };
-
 
       window.currentUser =
         currentUser;
 
-
-      try{
-
-        sessionStorage.setItem(
-          "sunTokyoUser",
-          JSON.stringify(currentUser)
-        );
-
-      }catch{}
-
-
       updateUI();
-
     }
 
   }catch(error){
@@ -1657,119 +1777,9 @@ async function refreshBalance(){
       error
     );
 
-    alert(
-      "❌ " + error.message
-    );
-
+    // لا نصفر الرصيد في حالة الخطأ
+    // نترك الرصيد الموجود حاليًا كما هو
   }
-}
-
-
-/* =====================================================
-   UI
-===================================================== */
-
-function updateUI(){
-
-  if(!currentUser){
-    return;
-  }
-
-
-  const balance =
-    Number(
-      currentUser.balance ?? 0
-    );
-
-
-  const level =
-    Number(
-      currentUser.level ?? 1
-    );
-
-
-  const city =
-    Number(
-      currentUser.city ?? 1
-    );
-
-
-  document
-    .getElementById("headerName")
-    .textContent =
-      currentUser.username || "-";
-
-
-  document
-    .getElementById("headerBalance")
-    .textContent =
-      balance.toLocaleString("ar-EG");
-
-
-  document
-    .getElementById("homeBalance")
-    .textContent =
-      balance.toLocaleString("ar-EG");
-
-
-  document
-    .getElementById("homeLevel")
-    .textContent =
-      level;
-
-
-  document
-    .getElementById("profileName")
-    .textContent =
-      currentUser.username || "-";
-
-
-  document
-    .getElementById("profileBalance")
-    .textContent =
-      balance.toLocaleString("ar-EG");
-
-
-  document
-    .getElementById("profileLevel")
-    .textContent =
-      level;
-
-
-  document
-    .getElementById("cityLevel")
-    .textContent =
-      city;
-
-
-  document
-    .getElementById("cityPopulation")
-    .textContent =
-      city;
-
-
-  document
-    .getElementById("homePower")
-    .textContent =
-      20 + ((level - 1) * 5);
-
-
-  document
-    .getElementById("characterHP")
-    .textContent =
-      100 + ((level - 1) * 10);
-
-
-  document
-    .getElementById("characterAttack")
-    .textContent =
-      10 + ((level - 1) * 2);
-
-
-  document
-    .getElementById("characterDefense")
-    .textContent =
-      10 + ((level - 1) * 2);
 }
 
 
@@ -1782,41 +1792,40 @@ function page(name){
   document
     .querySelectorAll(".page")
     .forEach(
-      item=>{
+      function(item){
+
         item.classList.remove(
           "active"
         );
+
       }
     );
-
 
   document
     .querySelectorAll(
       "nav button[data-page]"
     )
     .forEach(
-      button=>{
+      function(button){
+
         button.classList.remove(
           "active"
         );
+
       }
     );
-
 
   const target =
     document.getElementById(
       "page-" + name
     );
 
-
   if(target){
 
     target.classList.add(
       "active"
     );
-
   }
-
 
   const button =
     document.querySelector(
@@ -1825,13 +1834,11 @@ function page(name){
       '"]'
     );
 
-
   if(button){
 
     button.classList.add(
       "active"
     );
-
   }
 }
 
@@ -1856,6 +1863,315 @@ function needLogin(){
 
 
 /* =====================================================
+   TRANSFER
+===================================================== */
+
+async function transferMoney(){
+
+  if(!needLogin()){
+    return;
+  }
+
+  const username =
+    document
+      .getElementById("transferUser")
+      .value
+      .trim();
+
+  const amount =
+    Number(
+      document
+        .getElementById("transferAmount")
+        .value
+    );
+
+  if(!username || !amount || amount <= 0){
+
+    alert(
+      "❌ اكتب اسم المستلم والمبلغ."
+    );
+
+    return;
+  }
+
+  if(
+    amount >
+    Number(currentUser.balance || 0)
+  ){
+
+    alert(
+      "❌ الرصيد غير كافٍ."
+    );
+
+    return;
+  }
+
+  const button =
+    document.getElementById(
+      "transferButton"
+    );
+
+  button.disabled = true;
+
+  button.textContent =
+    "⏳ جاري التحويل...";
+
+  try{
+
+    const response =
+      await fetch(
+        "/api/transfer",
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:JSON.stringify({
+
+            fromId:
+              currentUser.id,
+
+            toUsername:
+              username,
+
+            amount:
+              amount
+          })
+        }
+      );
+
+    const data =
+      await response.json();
+
+    if(
+      !response.ok ||
+      !data.success
+    ){
+
+      throw new Error(
+        data.message ||
+        "فشل التحويل"
+      );
+    }
+
+    if(data.user){
+
+      currentUser = {
+        ...currentUser,
+        ...data.user,
+        balance:Number(
+          data.user.balance ?? 0
+        )
+      };
+
+      window.currentUser =
+        currentUser;
+    }
+
+    updateUI();
+
+    document
+      .getElementById(
+        "transferUser"
+      )
+      .value = "";
+
+    document
+      .getElementById(
+        "transferAmount"
+      )
+      .value = "";
+
+    alert(
+      "✅ تم تحويل " +
+      amount.toLocaleString("ar-EG") +
+      " 💰 إلى " +
+      username
+    );
+
+    await refreshBalance();
+
+  }catch(error){
+
+    console.error(
+      "TRANSFER ERROR:",
+      error
+    );
+
+    alert(
+      "❌ " +
+      error.message
+    );
+
+  }finally{
+
+    button.disabled = false;
+
+    button.textContent =
+      "💸 تحويل";
+  }
+}
+
+
+/* =====================================================
+   WITHDRAW
+===================================================== */
+
+async function withdrawMoney(){
+
+  if(!needLogin()){
+    return;
+  }
+
+  const amount =
+    Number(
+      document
+        .getElementById("withdrawAmount")
+        .value
+    );
+
+  if(!amount || amount <= 0){
+
+    alert(
+      "❌ اكتب مبلغًا صحيحًا."
+    );
+
+    return;
+  }
+
+  if(
+    amount >
+    Number(currentUser.balance || 0)
+  ){
+
+    alert(
+      "❌ الرصيد غير كافٍ."
+    );
+
+    return;
+  }
+
+  const button =
+    document.getElementById(
+      "withdrawButton"
+    );
+
+  button.disabled = true;
+
+  button.textContent =
+    "⏳ جاري السحب...";
+
+  try{
+
+    const response =
+      await fetch(
+        "/api/withdraw",
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:JSON.stringify({
+
+            id:
+              currentUser.id,
+
+            amount:
+              amount
+          })
+        }
+      );
+
+    const data =
+      await response.json();
+
+    if(
+      !response.ok ||
+      !data.success
+    ){
+
+      throw new Error(
+        data.message ||
+        "فشل السحب"
+      );
+    }
+
+    if(data.user){
+
+      currentUser = {
+        ...currentUser,
+        ...data.user,
+        balance:Number(
+          data.user.balance ?? 0
+        )
+      };
+
+      window.currentUser =
+        currentUser;
+    }
+
+    updateUI();
+
+    document
+      .getElementById(
+        "withdrawAmount"
+      )
+      .value = "";
+
+    alert(
+      "✅ تم سحب " +
+      amount.toLocaleString("ar-EG") +
+      " 💳"
+    );
+
+    await refreshBalance();
+
+  }catch(error){
+
+    console.error(
+      "WITHDRAW ERROR:",
+      error
+    );
+
+    alert(
+      "❌ " +
+      error.message
+    );
+
+  }finally{
+
+    button.disabled = false;
+
+    button.textContent =
+      "💳 سحب";
+  }
+}
+
+
+/* =====================================================
+   DEPOSIT
+===================================================== */
+
+function depositMoney(){
+
+  if(!needLogin()){
+    return;
+  }
+
+  alert(
+    "🔒 الإيداع غير متاح للأعضاء حاليًا.\n\n" +
+    "سيتم جعله متاحًا للمدير فقط حتى لا يستطيع أي عضو زيادة رصيده بنفسه."
+  );
+}
+
+
+/* =====================================================
    الألعاب
 ===================================================== */
 
@@ -1866,7 +2182,7 @@ function playDice(){
   }
 
   alert(
-    "🎲 سنربط النرد بقاعدة البيانات في الخطوة التالية."
+    "🎲 اللعبة لم يتم ربط خصمها بقاعدة البيانات بعد."
   );
 }
 
@@ -1878,7 +2194,7 @@ function quickBox(){
   }
 
   alert(
-    "📦 سنربط الصندوق بقاعدة البيانات في الخطوة التالية."
+    "📦 الصندوق لم يتم ربط خصمه بقاعدة البيانات بعد."
   );
 }
 
@@ -1890,7 +2206,7 @@ function spinWheel(){
   }
 
   alert(
-    "🎡 سنربط عجلة الحظ بقاعدة البيانات في الخطوة التالية."
+    "🎡 عجلة الحظ لم يتم ربطها بقاعدة البيانات بعد."
   );
 }
 
@@ -1902,7 +2218,7 @@ function dailyReward(){
   }
 
   alert(
-    "🎁 سنربط المكافأة اليومية بقاعدة البيانات في الخطوة التالية."
+    "🎁 المكافأة اليومية سيتم ربطها لاحقًا."
   );
 }
 
@@ -1918,7 +2234,7 @@ function upgradeCity(){
   }
 
   alert(
-    "🏯 سيتم ربط تطوير المدينة بقاعدة البيانات."
+    "🏯 تطوير المدينة سيتم ربطه لاحقًا بقاعدة البيانات."
   );
 }
 
@@ -1934,7 +2250,7 @@ function plantCrop(){
   }
 
   alert(
-    "🌱 سيتم ربط الزراعة بقاعدة البيانات."
+    "🌱 الزراعة سيتم ربطها لاحقًا بقاعدة البيانات."
   );
 }
 
@@ -1946,7 +2262,7 @@ function harvestCrop(){
   }
 
   alert(
-    "🌾 سيتم ربط الحصاد بقاعدة البيانات."
+    "🌾 الحصاد سيتم ربطه لاحقًا بقاعدة البيانات."
   );
 }
 
@@ -1955,278 +2271,24 @@ function harvestCrop(){
    المتجر
 ===================================================== */
 
-function buyItem(name,price){
+function buyItem(
+  name,
+  price
+){
 
   if(!needLogin()){
     return;
   }
 
-  const balance =
-    Number(
-      currentUser.balance ?? 0
-    );
-
-
-  if(balance < price){
-
-    alert(
-      "❌ رصيدك غير كافٍ."
-    );
-
-    return;
-  }
-
-
   alert(
-    "🛒 سيتم ربط شراء " +
+    "🛒 " +
     name +
-    " بقاعدة البيانات."
+    "\n\n" +
+    "السعر: " +
+    price +
+    " 💰\n\n" +
+    "المتجر لم يتم ربط خصم المبلغ بقاعدة البيانات بعد."
   );
-}
-
-
-/* =====================================================
-   التحويل
-===================================================== */
-
-function transferMoney(){
-
-  if(!needLogin()){
-    return;
-  }
-
-
-  const username =
-    document
-      .getElementById(
-        "transferUser"
-      )
-      .value
-      .trim();
-
-
-  const amount =
-    Number(
-      document
-        .getElementById(
-          "transferAmount"
-        )
-        .value
-    );
-
-
-  if(!username){
-
-    alert(
-      "❌ اكتب اسم المستخدم المستلم."
-    );
-
-    return;
-  }
-
-
-  if(!amount || amount <= 0){
-
-    alert(
-      "❌ اكتب مبلغًا صحيحًا."
-    );
-
-    return;
-  }
-
-
-  if(
-    amount >
-    Number(currentUser.balance ?? 0)
-  ){
-
-    alert(
-      "❌ لا يمكنك تحويل مبلغ أكبر من رصيدك."
-    );
-
-    return;
-  }
-
-
-  alert(
-    "💸 سيتم ربط التحويل بقاعدة البيانات."
-  );
-}
-
-
-/* =====================================================
-   الإيداع
-===================================================== */
-
-function depositMoney(){
-
-  if(!needLogin()){
-    return;
-  }
-
-
-  const amount =
-    Number(
-      document
-        .getElementById(
-          "depositAmount"
-        )
-        .value
-    );
-
-
-  if(!amount || amount <= 0){
-
-    alert(
-      "❌ اكتب مبلغًا صحيحًا."
-    );
-
-    return;
-  }
-
-
-  alert(
-    "💰 سيتم ربط الإيداع بقاعدة البيانات."
-  );
-}
-
-
-/* =====================================================
-   السحب
-===================================================== */
-
-function withdrawMoney(){
-
-  if(!needLogin()){
-    return;
-  }
-
-
-  const amount =
-    Number(
-      document
-        .getElementById(
-          "withdrawAmount"
-        )
-        .value
-    );
-
-
-  if(!amount || amount <= 0){
-
-    alert(
-      "❌ اكتب مبلغًا صحيحًا."
-    );
-
-    return;
-  }
-
-
-  if(
-    amount >
-    Number(currentUser.balance ?? 0)
-  ){
-
-    alert(
-      "❌ لا يمكنك سحب أكثر من رصيدك."
-    );
-
-    return;
-  }
-
-
-  alert(
-    "💳 سيتم ربط السحب بقاعدة البيانات."
-  );
-}
-
-
-/* =====================================================
-   استعادة الجلسة
-===================================================== */
-
-async function restoreSession(){
-
-  try{
-
-    const saved =
-      sessionStorage.getItem(
-        "sunTokyoUser"
-      );
-
-
-    if(!saved){
-      return;
-    }
-
-
-    const user =
-      JSON.parse(saved);
-
-
-    if(
-      !user ||
-      !user.id ||
-      !user.username
-    ){
-
-      sessionStorage.removeItem(
-        "sunTokyoUser"
-      );
-
-      return;
-    }
-
-
-    currentUser = user;
-
-    window.currentUser =
-      currentUser;
-
-
-    document
-      .getElementById("auth")
-      .classList
-      .add("hidden");
-
-
-    document
-      .getElementById("app")
-      .classList
-      .remove("hidden");
-
-
-    updateUI();
-
-    page("home");
-
-
-    /*
-      نطلب الرصيد الحقيقي من Supabase.
-      إذا فشل الطلب لا نمسح الرصيد الموجود.
-    */
-
-    try{
-
-      await refreshBalance();
-
-    }catch(error){
-
-      console.warn(
-        "Could not refresh balance:",
-        error
-      );
-
-    }
-
-  }catch(error){
-
-    console.error(
-      "SESSION ERROR:",
-      error
-    );
-
-  }
 }
 
 
@@ -2281,9 +2343,6 @@ document.addEventListener(
 
         }
       );
-
-
-    restoreSession();
 
   }
 );
