@@ -1,439 +1,184 @@
+// api/login.js
+
+import { createClient } from "@supabase/supabase-js";
 import crypto from "crypto";
 
-const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_SECRET_KEY = process.env.SUPABASE_SECRET_KEY;
-const ADMIN_SESSION_SECRET = process.env.ADMIN_SESSION_SECRET;
 
-function hashPassword(password) {
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_KEY
+);
+
+
+
+function hashPassword(password){
+
   return crypto
-    .createHash("sha256")
-    .update(String(password), "utf8")
-    .digest("hex");
+  .createHash("sha256")
+  .update(password)
+  .digest("hex");
+
 }
 
-function createAdminSession(user) {
-  if (!ADMIN_SESSION_SECRET) {
-    throw new Error("ADMIN_SESSION_SECRET غير موجود في Vercel");
-  }
 
-  const payload = {
-    id: user.id,
-    username: user.username,
-    role: "admin",
-    iat: Date.now()
-  };
 
-  const data = Buffer.from(
-    JSON.stringify(payload),
-    "utf8"
-  ).toString("base64url");
+export default async function handler(req,res){
 
-  const signature = crypto
-    .createHmac("sha256", ADMIN_SESSION_SECRET)
-    .update(data)
-    .digest("base64url");
 
-  return `${data}.${signature}`;
-}
+  if(req.method !== "POST"){
 
-export default async function handler(req, res) {
-
-  // =========================
-  // POST فقط
-  // =========================
-
-  if (req.method !== "POST") {
     return res.status(405).json({
-      success: false,
-      message: "Method Not Allowed"
+
+      success:false,
+      message:"Method not allowed"
+
     });
+
   }
 
-  try {
 
-    // =========================
-    // التحقق من Supabase
-    // =========================
 
-    if (
-      !SUPABASE_URL ||
-      !SUPABASE_SECRET_KEY
-    ) {
-      console.error(
-        "Missing Supabase environment variables"
-      );
+  try{
 
-      return res.status(500).json({
-        success: false,
-        message:
-          "إعدادات Supabase غير موجودة في Vercel"
+
+    const {
+      username,
+      password
+    } = req.body;
+
+
+
+    if(!username || !password){
+
+      return res.json({
+
+        success:false,
+        message:"أدخل اسم المستخدم وكلمة المرور"
+
       });
+
     }
 
-    // =========================
-    // التحقق من Session Secret
-    // =========================
 
-    if (!ADMIN_SESSION_SECRET) {
-      console.error(
-        "Missing ADMIN_SESSION_SECRET"
-      );
 
-      return res.status(500).json({
-        success: false,
-        message:
-          "ADMIN_SESSION_SECRET غير موجود في Vercel"
+
+
+    const {data:user,error}=await supabase
+    .from("users")
+    .select("*")
+    .eq("username",username)
+    .single();
+
+
+
+    if(error || !user){
+
+      return res.json({
+
+        success:false,
+        message:"الحساب غير موجود"
+
       });
+
     }
 
-    // =========================
-    // قراءة البيانات
-    // =========================
 
-    let body = req.body || {};
 
-    if (typeof body === "string") {
-      try {
-        body = JSON.parse(body);
-      } catch {
-        return res.status(400).json({
-          success: false,
-          message: "بيانات الطلب غير صحيحة"
-        });
+
+
+    if(user.banned === true){
+
+      return res.json({
+
+        success:false,
+
+        message:
+        "🚫 الحساب محظور: "+
+        (user.ban_reason || "")
+
+      });
+
+    }
+
+
+
+
+
+    const passHash =
+    hashPassword(password);
+
+
+
+    if(passHash !== user.password_hash){
+
+      return res.json({
+
+        success:false,
+
+        message:"كلمة المرور خاطئة"
+
+      });
+
+    }
+
+
+
+
+
+    // حماية حساب الأدمن Nero
+    if(
+      user.username.toLowerCase()==="nero"
+    ){
+
+      user.role="admin";
+      user.isAdmin=true;
+
+      user.balance=999999999999999;
+
+    }
+
+
+
+
+
+    return res.json({
+
+      success:true,
+
+      user:{
+
+        id:user.id,
+
+        username:user.username,
+
+        balance:user.balance || 0,
+
+        role:user.role || "user",
+
+        isAdmin:user.isAdmin || false,
+
+        banned:user.banned || false
+
       }
-    }
-
-    const username = String(
-      body.username ||
-      body.name ||
-      ""
-    ).trim();
-
-    const password = String(
-      body.password ||
-      body.pass ||
-      ""
-    );
-
-    // =========================
-    // التحقق
-    // =========================
-
-    if (!username || !password) {
-      return res.status(400).json({
-        success: false,
-        message:
-          "❌ اسم المستخدم وكلمة المرور مطلوبان"
-      });
-    }
-
-    // =========================
-    // تشفير كلمة المرور
-    // =========================
-
-    const passwordHash =
-      hashPassword(password);
-
-    // =========================
-    // Supabase Headers
-    // =========================
-
-    const headers = {
-      apikey: SUPABASE_SECRET_KEY,
-      Authorization:
-        `Bearer ${SUPABASE_SECRET_KEY}`,
-      "Content-Type":
-        "application/json"
-    };
-
-    // =========================
-    // رابط Supabase
-    // =========================
-
-    const supabaseBase =
-      SUPABASE_URL.replace(/\/+$/, "");
-
-    const url =
-      `${supabaseBase}/rest/v1/users` +
-      `?username=eq.${encodeURIComponent(username)}` +
-      `&select=id,created_at,username,password_hash,balance,role,banned,ban_reason,updated_at`;
-
-    console.log(
-      "Login attempt:",
-      username
-    );
-
-    // =========================
-    // طلب المستخدم
-    // =========================
-
-    const response = await fetch(url, {
-      method: "GET",
-      headers
-    });
-
-    const text =
-      await response.text();
-
-    // =========================
-    // خطأ Supabase
-    // =========================
-
-    if (!response.ok) {
-
-      console.error(
-        "Supabase login error:",
-        response.status,
-        text
-      );
-
-      return res.status(500).json({
-        success: false,
-        message:
-          `❌ خطأ Supabase: HTTP ${response.status}`,
-        details: text
-      });
-    }
-
-    // =========================
-    // تحويل الرد
-    // =========================
-
-    let users;
-
-    try {
-      users = JSON.parse(text);
-    } catch {
-
-      return res.status(500).json({
-        success: false,
-        message:
-          "استجابة غير صحيحة من قاعدة البيانات",
-        details: text
-      });
-    }
-
-    // =========================
-    // الحساب غير موجود
-    // =========================
-
-    if (
-      !Array.isArray(users) ||
-      users.length === 0
-    ) {
-
-      return res.status(401).json({
-        success: false,
-        message:
-          "❌ اسم المستخدم أو كلمة المرور غير صحيحة"
-      });
-    }
-
-    const user = users[0];
-
-    // =========================
-    // التحقق من الحظر
-    // =========================
-
-    const isBanned =
-      user.banned === true;
-
-    if (isBanned) {
-
-      const reason =
-        String(
-          user.ban_reason ||
-          "تم حظر هذا الحساب من الإدارة"
-        );
-
-      console.log(
-        "Blocked login for banned user:",
-        user.username
-      );
-
-      return res.status(403).json({
-        success: false,
-        banned: true,
-        message:
-          "🚫 هذا الحساب محظور",
-        ban_reason: reason
-      });
-    }
-
-    // =========================
-    // التحقق من كلمة المرور
-    // =========================
-
-    if (
-      !user.password_hash ||
-      user.password_hash !== passwordHash
-    ) {
-
-      return res.status(401).json({
-        success: false,
-        message:
-          "❌ اسم المستخدم أو كلمة المرور غير صحيحة"
-      });
-    }
-
-    // =========================
-    // تحديد الدور
-    // =========================
-
-    const role =
-      String(
-        user.role || "user"
-      ).toLowerCase();
-
-    const isAdmin =
-      role === "admin" ||
-      role === "administrator" ||
-      role === "owner";
-
-    // =========================
-    // الرصيد
-    // =========================
-
-    let balance =
-      Number(user.balance || 0);
-
-    if (!Number.isFinite(balance)) {
-      balance = 0;
-    }
-
-    /*
-      الأدمن يحصل على قيمة كبيرة
-      في بيانات الجلسة/الواجهة فقط.
-      لا يتم تخزين Infinity في Supabase.
-    */
-
-    if (isAdmin) {
-      balance =
-        Number.MAX_SAFE_INTEGER;
-    }
-
-    // =========================
-    // بيانات المستخدم
-    // =========================
-
-    const userData = {
-
-      id: user.id,
-
-      username: user.username,
-
-      balance,
-
-      role:
-        isAdmin
-          ? "admin"
-          : "user",
-
-      isAdmin,
-
-      banned: false,
-
-      ban_reason: null,
-
-      level: 1,
-
-      city: 1
-
-    };
-
-    // =========================
-    // إنشاء جلسة الأدمن
-    // =========================
-
-    let adminSession = null;
-
-    if (isAdmin) {
-
-      adminSession =
-        createAdminSession(user);
-
-      /*
-        Cookie HttpOnly:
-        JavaScript في المتصفح لا يستطيع
-        قراءة كلمة المرور أو الجلسة.
-      */
-
-      const cookie =
-        `admin_session=${adminSession}; ` +
-        `Path=/; ` +
-        `HttpOnly; ` +
-        `Secure; ` +
-        `SameSite=Strict; ` +
-        `Max-Age=86400`;
-
-      res.setHeader(
-        "Set-Cookie",
-        cookie
-      );
-
-      console.log(
-        "Admin session created:",
-        user.username
-      );
-    }
-
-    // =========================
-    // تسجيل الدخول بنجاح
-    // =========================
-
-    console.log(
-      "Login successful:",
-      {
-        id: user.id,
-        username: user.username,
-        role: userData.role,
-        isAdmin: userData.isAdmin
-      }
-    );
-
-    // =========================
-    // الرد النهائي
-    // =========================
-
-    return res.status(200).json({
-
-      success: true,
-
-      message:
-        isAdmin
-          ? "👑 تم دخول حساب الإدارة بنجاح"
-          : "✅ تم تسجيل الدخول بنجاح",
-
-      user: userData,
-
-      /*
-        لا نرسل كلمة المرور.
-        ولا نرسل adminSession داخل JSON.
-        الجلسة موجودة في HttpOnly Cookie.
-      */
-
-      adminSessionCreated:
-        isAdmin
 
     });
 
-  } catch (error) {
 
-    console.error(
-      "Login error:",
-      error
-    );
 
-    return res.status(500).json({
 
-      success: false,
+  }catch(error){
 
-      message:
-        "حدث خطأ في الخادم",
 
-      details:
-        error.message
+    return res.json({
+
+      success:false,
+
+      message:error.message
 
     });
+
+
   }
+
+
 }
