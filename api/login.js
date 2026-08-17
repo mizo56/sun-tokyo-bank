@@ -3,20 +3,20 @@
 import { createClient } from "@supabase/supabase-js";
 import crypto from "crypto";
 
-
 const supabase = createClient(
   process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_KEY
+  process.env.SUPABASE_SERVICE_KEY ||
+  process.env.SUPABASE_SERVICE_ROLE_KEY ||
+  process.env.SUPABASE_SECRET_KEY
 );
-
 
 
 function hashPassword(password){
 
   return crypto
-  .createHash("sha256")
-  .update(password)
-  .digest("hex");
+    .createHash("sha256")
+    .update(password)
+    .digest("hex");
 
 }
 
@@ -37,7 +37,6 @@ export default async function handler(req,res){
   }
 
 
-
   try{
 
 
@@ -45,7 +44,6 @@ export default async function handler(req,res){
       username,
       password
     } = req.body;
-
 
 
     if(!username || !password){
@@ -61,13 +59,28 @@ export default async function handler(req,res){
 
 
 
+    const cleanUsername = username.trim();
 
 
-    const {data:user,error}=await supabase
-    .from("users")
-    .select("*")
-    .eq("username",username)
-    .single();
+
+    const { data:user, error } = await supabase
+
+      .from("users")
+
+      .select("*")
+
+      .ilike("username", cleanUsername)
+
+      .single();
+
+
+
+    console.log(
+      "LOGIN:",
+      cleanUsername,
+      user,
+      error
+    );
 
 
 
@@ -81,8 +94,6 @@ export default async function handler(req,res){
       });
 
     }
-
-
 
 
 
@@ -102,10 +113,7 @@ export default async function handler(req,res){
 
 
 
-
-
-    const passHash =
-    hashPassword(password);
+    const passHash = hashPassword(password);
 
 
 
@@ -123,21 +131,33 @@ export default async function handler(req,res){
 
 
 
+    // حساب Nero أو admin يصبح أدمن
+
+    let isAdmin = false;
 
 
-    // حماية حساب الأدمن Nero
     if(
-      user.username.toLowerCase()==="nero"
+      user.username.toLowerCase() === "nero" ||
+      user.username.toLowerCase() === "admin"
     ){
 
-      user.role="admin";
-      user.isAdmin=true;
+      isAdmin = true;
 
-      user.balance=999999999999999;
+
+      await supabase
+
+      .from("users")
+
+      .update({
+
+        role:"admin"
+
+      })
+
+      .eq("id",user.id);
+
 
     }
-
-
 
 
 
@@ -151,13 +171,22 @@ export default async function handler(req,res){
 
         username:user.username,
 
-        balance:user.balance || 0,
+        balance:
+        isAdmin
+        ? 999999999999999
+        : Number(user.balance || 0),
 
-        role:user.role || "user",
 
-        isAdmin:user.isAdmin || false,
+        role:
+        isAdmin
+        ? "admin"
+        : (user.role || "user"),
 
-        banned:user.banned || false
+
+        isAdmin,
+
+
+        banned:false
 
       }
 
@@ -165,11 +194,13 @@ export default async function handler(req,res){
 
 
 
-
   }catch(error){
 
 
-    return res.json({
+    console.log(error);
+
+
+    return res.status(500).json({
 
       success:false,
 
