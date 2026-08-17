@@ -2,23 +2,36 @@ import crypto from "crypto";
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SECRET_KEY = process.env.SUPABASE_SECRET_KEY;
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
+const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH;
 
 function hashPassword(password) {
   return crypto
     .createHash("sha256")
-    .update(String(password))
+    .update(String(password), "utf8")
     .digest("hex");
 }
 
+function getHeaders() {
+  return {
+    apikey: SUPABASE_SECRET_KEY,
+    Authorization: `Bearer ${SUPABASE_SECRET_KEY}`,
+    "Content-Type": "application/json"
+  };
+}
+
+function supabaseUrl(path) {
+  return `${SUPABASE_URL.replace(/\/+$/, "")}/rest/v1/${path}`;
+}
+
 async function supabaseRequest(path, options = {}) {
+
   const response = await fetch(
-    `${SUPABASE_URL}/rest/v1/${path}`,
+    supabaseUrl(path),
     {
       ...options,
       headers: {
-        "apikey": SUPABASE_SECRET_KEY,
-        "Authorization": `Bearer ${SUPABASE_SECRET_KEY}`,
-        "Content-Type": "application/json",
+        ...getHeaders(),
         ...(options.headers || {})
       }
     }
@@ -26,7 +39,7 @@ async function supabaseRequest(path, options = {}) {
 
   const text = await response.text();
 
-  let data;
+  let data = null;
 
   try {
     data = text ? JSON.parse(text) : null;
@@ -34,380 +47,885 @@ async function supabaseRequest(path, options = {}) {
     data = text;
   }
 
+  if (!response.ok) {
+
+    console.error(
+      "Supabase Admin Error:",
+      response.status,
+      text
+    );
+
+    throw new Error(
+      `Supabase HTTP ${response.status}`
+    );
+  }
+
+  return data;
+}
+
+function normalizeBody(req) {
+
+  let body = req.body || {};
+
+  if (typeof body === "string") {
+    try {
+      body = JSON.parse(body);
+    } catch {
+      return {};
+    }
+  }
+
+  return body;
+}
+
+
+/*
+========================================
+   التحقق من الإدارة
+========================================
+*/
+
+async function verifyAdmin(body) {
+
+  const username = String(
+    body.adminUsername || ""
+  ).trim();
+
+  const password = String(
+    body.adminPassword || ""
+  );
+
+  if (!username || !password) {
+    return {
+      ok: false,
+      message: "بيانات الإدارة مطلوبة"
+    };
+  }
+
+  /*
+    إذا تم إعداد ADMIN_USERNAME
+    و ADMIN_PASSWORD_HASH في Vercel
+  */
+
+  if (
+    ADMIN_USERNAME &&
+    ADMIN_PASSWORD_HASH
+  ) {
+
+    const passwordHash =
+      hashPassword(password);
+
+    if (
+      username === ADMIN_USERNAME &&
+      passwordHash === ADMIN_PASSWORD_HASH
+    ) {
+
+      return {
+        ok: true,
+        username
+      };
+
+    }
+
+  }
+
+  /*
+    التحقق من حساب الإدارة داخل users
+  */
+
+  const encoded =
+    encodeURIComponent(username);
+
+  const users =
+    await supabaseRequest(
+      `users?username=eq.${encoded}` +
+      `&select=id,username,password_hash,balance,role`
+    );
+
+  if (
+    !Array.isArray(users) ||
+    users.length === 0
+  ) {
+
+    return {
+      ok: false,
+      message: "حساب الإدارة غير موجود"
+    };
+
+  }
+
+  const user = users[0];
+
+  const passwordHash =
+    hashPassword(password);
+
+  const role =
+    String(
+      user.role || "user"
+    ).toLowerCase();
+
+  const isAdmin =
+    role === "admin" ||
+    role === "administrator" ||
+    role === "owner";
+
+  if (!isAdmin) {
+
+    return {
+      ok: false,
+      message: "هذا الحساب ليس حساب إدارة"
+    };
+
+  }
+
+  if (
+    user.password_hash !== passwordHash
+  ) {
+
+    return {
+      ok: false,
+      message: "كلمة مرور الإدارة غير صحيحة"
+    };
+
+  }
+
   return {
-    response,
-    data,
-    text
+    ok: true,
+    username: user.username,
+    id: user.id
   };
 }
 
+
+/*
+========================================
+   GET USERS
+========================================
+*/
+
+async function getUsers(search = "") {
+
+  let path =
+    "users" +
+    "?select=id,created_at,username,balance,role" +
+    "&order=created_at.desc";
+
+  if (search) {
+
+    path +=
+      `&username=ilike.*${encodeURIComponent(search)}*`;
+
+  }
+
+  return await supabaseRequest(path);
+}
+
+
+/*
+========================================
+   GET USER
+========================================
+*/
+
+async function getUser(userId) {
+
+  const users =
+    await supabaseRequest(
+      `users?id=eq.${encodeURIComponent(userId)}` +
+      `&select=id,created_at,username,balance,role`
+    );
+
+  if (
+    !Array.isArray(users) ||
+    users.length === 0
+  ) {
+
+    return null;
+
+  }
+
+  return users[0];
+}
+
+
+/*
+========================================
+   UPDATE USER
+========================================
+*/
+
+async function updateUser(userId, updates) {
+
+  return await supabaseRequest(
+    `users?id=eq.${encodeURIComponent(userId)}`,
+    {
+      method: "PATCH",
+      headers: {
+        Prefer: "return=representation"
+      },
+      body: JSON.stringify(updates)
+    }
+  );
+
+}
+
+
+/*
+========================================
+   STATISTICS
+========================================
+*/
+
+async function statistics() {
+
+  const users =
+    await supabaseRequest(
+      "users?select=id,balance,role"
+    );
+
+  const list =
+    Array.isArray(users)
+      ? users
+      : [];
+
+  let totalBalance = 0;
+
+  let admins = 0;
+
+  let normalUsers = 0;
+
+  for (const user of list) {
+
+    totalBalance +=
+      Number(user.balance || 0);
+
+    const role =
+      String(
+        user.role || "user"
+      ).toLowerCase();
+
+    if (
+      role === "admin" ||
+      role === "administrator" ||
+      role === "owner"
+    ) {
+
+      admins++;
+
+    } else {
+
+      normalUsers++;
+
+    }
+
+  }
+
+  return {
+
+    users: list.length,
+
+    admins,
+
+    normalUsers,
+
+    totalBalance
+
+  };
+
+}
+
+
+/*
+========================================
+   MAIN HANDLER
+========================================
+*/
+
 export default async function handler(req, res) {
+
   if (req.method !== "POST") {
+
     return res.status(405).json({
       success: false,
       message: "Method Not Allowed"
     });
+
   }
 
   try {
-    if (!SUPABASE_URL || !SUPABASE_SECRET_KEY) {
+
+    if (
+      !SUPABASE_URL ||
+      !SUPABASE_SECRET_KEY
+    ) {
+
       return res.status(500).json({
         success: false,
-        message: "إعدادات Supabase غير موجودة"
+        message:
+          "إعدادات Supabase غير موجودة في Vercel"
       });
+
     }
 
-    let body = req.body || {};
+    const body =
+      normalizeBody(req);
 
-    if (typeof body === "string") {
-      try {
-        body = JSON.parse(body);
-      } catch {
+    /*
+    ================================
+       التحقق من الإدارة
+    ================================
+    */
+
+    const auth =
+      await verifyAdmin(body);
+
+    if (!auth.ok) {
+
+      return res.status(403).json({
+        success: false,
+        message:
+          "❌ " +
+          (auth.message ||
+            "ليس لديك صلاحية الإدارة")
+      });
+
+    }
+
+    const action =
+      String(
+        body.action || "stats"
+      ).trim();
+
+
+    /*
+    ================================
+       الإحصائيات
+    ================================
+    */
+
+    if (action === "stats") {
+
+      const stats =
+        await statistics();
+
+      return res.status(200).json({
+
+        success: true,
+
+        stats
+
+      });
+
+    }
+
+
+    /*
+    ================================
+       قائمة الأعضاء
+    ================================
+    */
+
+    if (action === "users") {
+
+      const search =
+        String(
+          body.search || ""
+        ).trim();
+
+      const users =
+        await getUsers(search);
+
+      return res.status(200).json({
+
+        success: true,
+
+        users
+
+      });
+
+    }
+
+
+    /*
+    ================================
+       معلومات عضو
+    ================================
+    */
+
+    if (action === "user") {
+
+      const userId =
+        body.userId;
+
+      if (!userId) {
+
         return res.status(400).json({
           success: false,
-          message: "بيانات الطلب غير صحيحة"
+          message: "معرف العضو مطلوب"
         });
+
       }
-    }
 
-    const adminId = body.adminId;
-    const targetUserId = body.targetUserId;
-    const action = String(body.action || "").trim();
-    const amount = Number(body.amount || 0);
-    const details = String(body.details || "").trim();
+      const user =
+        await getUser(userId);
 
-    if (!adminId || !action) {
-      return res.status(400).json({
-        success: false,
-        message: "بيانات الإدارة ناقصة"
+      if (!user) {
+
+        return res.status(404).json({
+          success: false,
+          message: "العضو غير موجود"
+        });
+
+      }
+
+      return res.status(200).json({
+
+        success: true,
+
+        user
+
       });
+
     }
 
-    // التحقق من أن الحساب Admin
-    const adminResult = await supabaseRequest(
-      `users?id=eq.${encodeURIComponent(adminId)}&select=id,username,role,balance`
-    );
 
-    if (!adminResult.response.ok) {
-      console.error(
-        "Admin lookup error:",
-        adminResult.response.status,
-        adminResult.text
-      );
+    /*
+    ================================
+       إضافة رصيد
+    ================================
+    */
 
-      return res.status(500).json({
-        success: false,
-        message: "تعذر التحقق من حساب الإدارة",
-        details: adminResult.text
-      });
-    }
-
-    if (
-      !Array.isArray(adminResult.data) ||
-      adminResult.data.length === 0
-    ) {
-      return res.status(403).json({
-        success: false,
-        message: "حساب الإدارة غير موجود"
-      });
-    }
-
-    const admin = adminResult.data[0];
-
-    const role = String(
-      admin.role || "user"
-    ).toLowerCase();
-
-    const isAdmin =
-      role === "admin" ||
-      role === "administrator" ||
-      role === "owner";
-
-    if (!isAdmin) {
-      return res.status(403).json({
-        success: false,
-        message: "❌ ليس لديك صلاحيات الإدارة"
-      });
-    }
-
-    // العمليات التي تحتاج عضوًا مستهدفًا
-    const targetRequiredActions = [
-      "add_balance",
-      "remove_balance",
-      "set_role",
-      "delete_user"
-    ];
-
-    if (
-      targetRequiredActions.includes(action) &&
-      !targetUserId
-    ) {
-      return res.status(400).json({
-        success: false,
-        message: "يجب تحديد العضو المستهدف"
-      });
-    }
-
-    // إضافة رصيد
     if (action === "add_balance") {
-      if (!Number.isFinite(amount) || amount <= 0) {
+
+      const userId =
+        body.userId;
+
+      const amount =
+        Number(body.amount);
+
+      if (!userId) {
+
         return res.status(400).json({
           success: false,
-          message: "مبلغ الإضافة غير صحيح"
+          message: "معرف العضو مطلوب"
         });
+
       }
 
-      const targetResult = await supabaseRequest(
-        `users?id=eq.${encodeURIComponent(targetUserId)}&select=id,username,balance`
-      );
-
       if (
-        !targetResult.response.ok ||
-        !Array.isArray(targetResult.data) ||
-        targetResult.data.length === 0
+        !Number.isFinite(amount) ||
+        amount <= 0
       ) {
+
+        return res.status(400).json({
+          success: false,
+          message: "المبلغ غير صحيح"
+        });
+
+      }
+
+      const user =
+        await getUser(userId);
+
+      if (!user) {
+
         return res.status(404).json({
           success: false,
           message: "العضو غير موجود"
         });
+
       }
 
-      const target = targetResult.data[0];
+      const oldBalance =
+        Number(user.balance || 0);
+
       const newBalance =
-        Number(target.balance || 0) + amount;
+        oldBalance + amount;
 
-      const updateResult = await supabaseRequest(
-        `users?id=eq.${encodeURIComponent(targetUserId)}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Prefer": "return=representation"
-          },
-          body: JSON.stringify({
+      const updated =
+        await updateUser(
+          userId,
+          {
             balance: newBalance
-          })
-        }
-      );
-
-      if (!updateResult.response.ok) {
-        return res.status(500).json({
-          success: false,
-          message: "تعذر إضافة الرصيد",
-          details: updateResult.text
-        });
-      }
-
-      await supabaseRequest("admin_transactions", {
-        method: "POST",
-        body: JSON.stringify({
-          admin_id: admin.id,
-          target_user_id: target.id,
-          action: "add_balance",
-          amount,
-          details:
-            details || `إضافة ${amount} إلى حساب ${target.username}`
-        })
-      });
+          }
+        );
 
       return res.status(200).json({
+
         success: true,
-        message: `✅ تمت إضافة ${amount} إلى ${target.username}`,
-        balance: newBalance
+
+        message:
+          `✅ تمت إضافة ${amount} إلى رصيد العضو`,
+
+        user:
+          Array.isArray(updated)
+            ? updated[0]
+            : updated
+
       });
+
     }
 
-    // خصم رصيد
+
+    /*
+    ================================
+       خصم رصيد
+    ================================
+    */
+
     if (action === "remove_balance") {
-      if (!Number.isFinite(amount) || amount <= 0) {
+
+      const userId =
+        body.userId;
+
+      const amount =
+        Number(body.amount);
+
+      if (!userId) {
+
         return res.status(400).json({
           success: false,
-          message: "مبلغ الخصم غير صحيح"
+          message: "معرف العضو مطلوب"
         });
+
       }
 
-      const targetResult = await supabaseRequest(
-        `users?id=eq.${encodeURIComponent(targetUserId)}&select=id,username,balance`
-      );
-
       if (
-        !targetResult.response.ok ||
-        !Array.isArray(targetResult.data) ||
-        targetResult.data.length === 0
+        !Number.isFinite(amount) ||
+        amount <= 0
       ) {
+
+        return res.status(400).json({
+          success: false,
+          message: "المبلغ غير صحيح"
+        });
+
+      }
+
+      const user =
+        await getUser(userId);
+
+      if (!user) {
+
         return res.status(404).json({
           success: false,
           message: "العضو غير موجود"
         });
+
       }
 
-      const target = targetResult.data[0];
+      const oldBalance =
+        Number(user.balance || 0);
 
-      const currentBalance =
-        Number(target.balance || 0);
+      if (oldBalance < amount) {
 
-      if (currentBalance < amount) {
         return res.status(400).json({
           success: false,
-          message: "رصيد العضو لا يكفي"
+          message: "رصيد العضو غير كافٍ"
         });
+
       }
 
       const newBalance =
-        currentBalance - amount;
+        oldBalance - amount;
 
-      const updateResult = await supabaseRequest(
-        `users?id=eq.${encodeURIComponent(targetUserId)}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Prefer": "return=representation"
-          },
-          body: JSON.stringify({
+      const updated =
+        await updateUser(
+          userId,
+          {
             balance: newBalance
-          })
-        }
-      );
-
-      if (!updateResult.response.ok) {
-        return res.status(500).json({
-          success: false,
-          message: "تعذر خصم الرصيد",
-          details: updateResult.text
-        });
-      }
-
-      await supabaseRequest("admin_transactions", {
-        method: "POST",
-        body: JSON.stringify({
-          admin_id: admin.id,
-          target_user_id: target.id,
-          action: "remove_balance",
-          amount,
-          details:
-            details || `خصم ${amount} من حساب ${target.username}`
-        })
-      });
+          }
+        );
 
       return res.status(200).json({
+
         success: true,
-        message: `✅ تم خصم ${amount} من ${target.username}`,
-        balance: newBalance
+
+        message:
+          `✅ تم خصم ${amount} من رصيد العضو`,
+
+        user:
+          Array.isArray(updated)
+            ? updated[0]
+            : updated
+
       });
+
     }
 
-    // تغيير الدور
+
+    /*
+    ================================
+       تحديد الرصيد
+    ================================
+    */
+
+    if (action === "set_balance") {
+
+      const userId =
+        body.userId;
+
+      const balance =
+        Number(body.balance);
+
+      if (!userId) {
+
+        return res.status(400).json({
+          success: false,
+          message: "معرف العضو مطلوب"
+        });
+
+      }
+
+      if (
+        !Number.isFinite(balance) ||
+        balance < 0
+      ) {
+
+        return res.status(400).json({
+          success: false,
+          message: "الرصيد غير صحيح"
+        });
+
+      }
+
+      const updated =
+        await updateUser(
+          userId,
+          {
+            balance
+          }
+        );
+
+      return res.status(200).json({
+
+        success: true,
+
+        message: "✅ تم تعديل الرصيد",
+
+        user:
+          Array.isArray(updated)
+            ? updated[0]
+            : updated
+
+      });
+
+    }
+
+
+    /*
+    ================================
+       تغيير الدور
+    ================================
+    */
+
     if (action === "set_role") {
-      const newRole =
-        String(body.role || "user")
-          .trim()
-          .toLowerCase();
+
+      const userId =
+        body.userId;
+
+      const role =
+        String(
+          body.role || "user"
+        ).toLowerCase();
 
       const allowedRoles = [
         "user",
-        "admin",
-        "owner"
+        "admin"
       ];
 
-      if (!allowedRoles.includes(newRole)) {
+      if (!userId) {
+
+        return res.status(400).json({
+          success: false,
+          message: "معرف العضو مطلوب"
+        });
+
+      }
+
+      if (
+        !allowedRoles.includes(role)
+      ) {
+
         return res.status(400).json({
           success: false,
           message: "الدور غير صالح"
         });
+
       }
 
-      const updateResult = await supabaseRequest(
-        `users?id=eq.${encodeURIComponent(targetUserId)}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Prefer": "return=representation"
-          },
-          body: JSON.stringify({
-            role: newRole
-          })
-        }
-      );
+      /*
+        منع الإدارة من تغيير نفسها
+        عن طريق الخطأ.
+      */
 
-      if (!updateResult.response.ok) {
-        return res.status(500).json({
-          success: false,
-          message: "تعذر تغيير رتبة العضو",
-          details: updateResult.text
-        });
-      }
+      if (
+        auth.id &&
+        String(auth.id) === String(userId)
+      ) {
 
-      await supabaseRequest("admin_transactions", {
-        method: "POST",
-        body: JSON.stringify({
-          admin_id: admin.id,
-          target_user_id: targetUserId,
-          action: "set_role",
-          amount: 0,
-          details:
-            details || `تغيير الدور إلى ${newRole}`
-        })
-      });
-
-      return res.status(200).json({
-        success: true,
-        message: `👑 تم تغيير دور العضو إلى ${newRole}`
-      });
-    }
-
-    // حذف حساب
-    if (action === "delete_user") {
-      if (String(admin.id) === String(targetUserId)) {
         return res.status(400).json({
           success: false,
-          message: "لا يمكنك حذف حساب الإدارة الذي تستخدمه"
+          message:
+            "❌ لا يمكنك تغيير دور حساب الإدارة الحالي"
         });
+
       }
 
-      const deleteResult = await supabaseRequest(
-        `users?id=eq.${encodeURIComponent(targetUserId)}`,
+      const updated =
+        await updateUser(
+          userId,
+          {
+            role
+          }
+        );
+
+      return res.status(200).json({
+
+        success: true,
+
+        message:
+          role === "admin"
+            ? "👑 تم تحويل العضو إلى مدير"
+            : "👤 تم تحويل العضو إلى مستخدم",
+
+        user:
+          Array.isArray(updated)
+            ? updated[0]
+            : updated
+
+      });
+
+    }
+
+
+    /*
+    ================================
+       حذف عضو
+    ================================
+    */
+
+    if (action === "delete_user") {
+
+      const userId =
+        body.userId;
+
+      if (!userId) {
+
+        return res.status(400).json({
+          success: false,
+          message: "معرف العضو مطلوب"
+        });
+
+      }
+
+      if (
+        auth.id &&
+        String(auth.id) === String(userId)
+      ) {
+
+        return res.status(400).json({
+          success: false,
+          message:
+            "❌ لا يمكنك حذف حساب الإدارة الحالي"
+        });
+
+      }
+
+      await supabaseRequest(
+        `users?id=eq.${encodeURIComponent(userId)}`,
         {
           method: "DELETE"
         }
       );
 
-      if (!deleteResult.response.ok) {
-        return res.status(500).json({
-          success: false,
-          message: "تعذر حذف الحساب",
-          details: deleteResult.text
-        });
-      }
-
-      await supabaseRequest("admin_transactions", {
-        method: "POST",
-        body: JSON.stringify({
-          admin_id: admin.id,
-          target_user_id: targetUserId,
-          action: "delete_user",
-          amount: 0,
-          details:
-            details || "حذف حساب عضو"
-        })
-      });
-
       return res.status(200).json({
+
         success: true,
-        message: "🗑️ تم حذف الحساب"
+
+        message:
+          "🗑️ تم حذف العضو بنجاح"
+
       });
+
     }
 
+
+    /*
+    ================================
+       حظر عضو
+    ================================
+    */
+
+    if (action === "ban_user") {
+
+      return res.status(400).json({
+
+        success: false,
+
+        message:
+          "نظام الحظر يحتاج إضافة عمود banned إلى جدول users أولًا"
+
+      });
+
+    }
+
+
+    /*
+    ================================
+       إلغاء حظر عضو
+    ================================
+    */
+
+    if (action === "unban_user") {
+
+      return res.status(400).json({
+
+        success: false,
+
+        message:
+          "نظام الحظر يحتاج إضافة عمود banned إلى جدول users أولًا"
+
+      });
+
+    }
+
+
+    /*
+    ================================
+       Action غير معروف
+    ================================
+    */
+
     return res.status(400).json({
+
       success: false,
-      message: "عملية الإدارة غير معروفة"
+
+      message:
+        "أمر الإدارة غير معروف: " +
+        action
+
     });
 
   } catch (error) {
-    console.error("Admin API error:", error);
+
+    console.error(
+      "Admin API Error:",
+      error
+    );
 
     return res.status(500).json({
+
       success: false,
-      message: "حدث خطأ في خادم الإدارة",
-      details: error.message
+
+      message:
+        "❌ حدث خطأ في لوحة الإدارة",
+
+      details:
+        error.message
+
     });
+
   }
+
 }
