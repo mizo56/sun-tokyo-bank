@@ -11,6 +11,7 @@ function hashPassword(password) {
 }
 
 export default async function handler(req, res) {
+  // POST فقط
   if (req.method !== "POST") {
     return res.status(405).json({
       success: false,
@@ -19,13 +20,15 @@ export default async function handler(req, res) {
   }
 
   try {
+    // التحقق من متغيرات Vercel
     if (!SUPABASE_URL || !SUPABASE_SECRET_KEY) {
       return res.status(500).json({
         success: false,
-        message: "إعدادات Supabase غير موجودة في Vercel"
+        message: "❌ إعدادات Supabase غير موجودة في Vercel"
       });
     }
 
+    // قراءة Body
     let body = req.body || {};
 
     if (typeof body === "string") {
@@ -34,17 +37,21 @@ export default async function handler(req, res) {
       } catch {
         return res.status(400).json({
           success: false,
-          message: "بيانات الطلب غير صحيحة"
+          message: "❌ بيانات الطلب غير صحيحة"
         });
       }
     }
 
     const username = String(
-      body.username || body.name || ""
+      body.username ||
+      body.name ||
+      ""
     ).trim();
 
     const password = String(
-      body.password || body.pass || ""
+      body.password ||
+      body.pass ||
+      ""
     );
 
     if (!username || !password) {
@@ -54,42 +61,48 @@ export default async function handler(req, res) {
       });
     }
 
+    // تشفير كلمة المرور
     const passwordHash = hashPassword(password);
 
-    const headers = {
-      apikey: SUPABASE_SECRET_KEY,
-      Authorization: `Bearer ${SUPABASE_SECRET_KEY}`,
-      "Content-Type": "application/json"
-    };
+    // تنظيف الرابط
+    const baseUrl = SUPABASE_URL.replace(/\/+$/, "");
+
+    /*
+      نستخدم encodeURIComponent للاسم
+      حتى لا يسبب رموز خاصة مشكلة في رابط Supabase
+    */
+    const usernameEncoded = encodeURIComponent(username);
 
     const url =
-      `${SUPABASE_URL}/rest/v1/users` +
-      `?username=eq.${encodeURIComponent(username)}` +
-      `&select=id,username,password_hash,balance,role,level,city`;
+      `${baseUrl}/rest/v1/users` +
+      `?username=eq.${usernameEncoded}` +
+      `&select=id,username,password_hash,balance,role,level,city` +
+      `&limit=1`;
 
-    console.log("Login attempt:", username);
+    console.log("Login request:", username);
 
     const response = await fetch(url, {
       method: "GET",
-      headers
+      headers: {
+        apikey: SUPABASE_SECRET_KEY,
+        Authorization: `Bearer ${SUPABASE_SECRET_KEY}`,
+        Accept: "application/json"
+      }
     });
 
     const text = await response.text();
 
-    /*
-      إذا فشل الاتصال بـ Supabase،
-      نعرض رقم HTTP للمستخدم لمعرفة المشكلة.
-    */
-    if (!response.ok) {
-      console.error(
-        "Supabase login error:",
-        response.status,
-        text
-      );
+    console.log(
+      "Supabase response:",
+      response.status,
+      text
+    );
 
-      return res.status(500).json({
+    if (!response.ok) {
+      return res.status(response.status).json({
         success: false,
-        message: `خطأ Supabase: HTTP ${response.status}`
+        message: `❌ خطأ Supabase: HTTP ${response.status}`,
+        details: text
       });
     }
 
@@ -98,17 +111,13 @@ export default async function handler(req, res) {
     try {
       users = JSON.parse(text);
     } catch {
-      console.error(
-        "Invalid Supabase response:",
-        text
-      );
-
       return res.status(500).json({
         success: false,
-        message: "استجابة غير صحيحة من قاعدة البيانات"
+        message: "❌ استجابة غير صحيحة من Supabase"
       });
     }
 
+    // الحساب غير موجود
     if (!Array.isArray(users) || users.length === 0) {
       return res.status(401).json({
         success: false,
@@ -118,6 +127,7 @@ export default async function handler(req, res) {
 
     const user = users[0];
 
+    // التحقق من كلمة المرور
     if (
       !user.password_hash ||
       user.password_hash !== passwordHash
@@ -128,6 +138,7 @@ export default async function handler(req, res) {
       });
     }
 
+    // الدور
     const role = String(
       user.role || "user"
     ).toLowerCase();
@@ -137,6 +148,11 @@ export default async function handler(req, res) {
       role === "administrator" ||
       role === "owner";
 
+    /*
+      حساب الإدارة:
+      لا نخزن Infinity داخل Supabase.
+      نرسل رقمًا كبيرًا للواجهة.
+    */
     const balance = isAdmin
       ? Number.MAX_SAFE_INTEGER
       : Number(user.balance || 0);
@@ -144,43 +160,34 @@ export default async function handler(req, res) {
     const userData = {
       id: user.id,
       username: user.username,
-      balance,
+      balance: balance,
       role: isAdmin ? "admin" : "user",
-      isAdmin,
-
+      isAdmin: isAdmin,
       level: Number(user.level || 1),
-
       city: Number(user.city || 1)
     };
 
     console.log(
       "Login successful:",
-      {
-        username: user.username,
-        role: userData.role,
-        isAdmin: userData.isAdmin
-      }
+      userData.username,
+      userData.role
     );
 
     return res.status(200).json({
       success: true,
-
       message: isAdmin
         ? "👑 تم دخول حساب الإدارة بنجاح"
         : "✅ تم تسجيل الدخول بنجاح",
-
       user: userData
     });
 
   } catch (error) {
-    console.error(
-      "Login error:",
-      error
-    );
+    console.error("Login error:", error);
 
     return res.status(500).json({
       success: false,
-      message: "حدث خطأ في الخادم"
+      message: "❌ حدث خطأ في الخادم",
+      details: error.message
     });
   }
 }
