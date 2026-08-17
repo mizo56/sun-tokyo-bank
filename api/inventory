@@ -49,7 +49,9 @@ export default async function handler(req, res) {
         `${SUPABASE_URL}/rest/v1/users?id=eq.${encodeURIComponent(userId)}&select=id,username,balance`;
     } else {
       userUrl =
-        `${SUPABASE_URL}/rest/v1/users?username=eq.${encodeURIComponent(String(username).trim())}&select=id,username,balance`;
+        `${SUPABASE_URL}/rest/v1/users?username=eq.${encodeURIComponent(
+          String(username).trim()
+        )}&select=id,username,balance`;
     }
 
     const userResponse = await fetch(userUrl, {
@@ -88,9 +90,8 @@ export default async function handler(req, res) {
 
     const user = users[0];
 
-
     // =====================================================
-    // استخدام المنتج
+    // استخدام منتج
     // =====================================================
 
     if (action === "use") {
@@ -105,7 +106,11 @@ export default async function handler(req, res) {
       const cleanItemName = String(itemName).trim();
 
       const inventoryResponse = await fetch(
-        `${SUPABASE_URL}/rest/v1/inventory?user_id=eq.${encodeURIComponent(user.id)}&item_name=eq.${encodeURIComponent(cleanItemName)}&select=*`,
+        `${SUPABASE_URL}/rest/v1/inventory?user_id=eq.${encodeURIComponent(
+          user.id
+        )}&item_name=eq.${encodeURIComponent(
+          cleanItemName
+        )}&select=*`,
         {
           method: "GET",
           headers
@@ -115,7 +120,10 @@ export default async function handler(req, res) {
       const inventoryText = await inventoryResponse.text();
 
       if (!inventoryResponse.ok) {
-        console.error("Inventory search error:", inventoryText);
+        console.error(
+          "Inventory search error:",
+          inventoryText
+        );
 
         return res.status(500).json({
           success: false,
@@ -149,12 +157,16 @@ export default async function handler(req, res) {
         });
       }
 
+      // ===================================================
+      // إنقاص كمية المنتج
+      // ===================================================
 
-      // إذا كانت الكمية أكثر من 1 ننقص واحدة
       if (quantity > 1) {
 
         const updateResponse = await fetch(
-          `${SUPABASE_URL}/rest/v1/inventory?id=eq.${encodeURIComponent(item.id)}`,
+          `${SUPABASE_URL}/rest/v1/inventory?id=eq.${encodeURIComponent(
+            item.id
+          )}`,
           {
             method: "PATCH",
             headers: {
@@ -183,9 +195,14 @@ export default async function handler(req, res) {
 
       } else {
 
-        // إذا كانت الكمية 1 نحذف المنتج
+        // =================================================
+        // إذا كانت الكمية = 1 نحذف المنتج
+        // =================================================
+
         const deleteResponse = await fetch(
-          `${SUPABASE_URL}/rest/v1/inventory?id=eq.${encodeURIComponent(item.id)}`,
+          `${SUPABASE_URL}/rest/v1/inventory?id=eq.${encodeURIComponent(
+            item.id
+          )}`,
           {
             method: "DELETE",
             headers
@@ -207,10 +224,10 @@ export default async function handler(req, res) {
         }
       }
 
-
       return res.status(200).json({
         success: true,
         message: `✅ تم استخدام ${cleanItemName}`,
+
         user: {
           id: user.id,
           username: user.username,
@@ -219,13 +236,14 @@ export default async function handler(req, res) {
       });
     }
 
-
     // =====================================================
     // تحميل المخزون
     // =====================================================
 
     const inventoryResponse = await fetch(
-      `${SUPABASE_URL}/rest/v1/inventory?user_id=eq.${encodeURIComponent(user.id)}&select=id,user_id,item_name,item_type,quantity,created_at&order=created_at.desc`,
+      `${SUPABASE_URL}/rest/v1/inventory?user_id=eq.${encodeURIComponent(
+        user.id
+      )}&select=id,user_id,item_name,item_type,quantity,created_at&order=created_at.desc`,
       {
         method: "GET",
         headers
@@ -235,6 +253,7 @@ export default async function handler(req, res) {
     const inventoryText = await inventoryResponse.text();
 
     if (!inventoryResponse.ok) {
+
       console.error(
         "Inventory load error:",
         inventoryText
@@ -254,43 +273,71 @@ export default async function handler(req, res) {
       items = [];
     }
 
-
     // =====================================================
-    // تجهيز البيانات للواجهة
+    // تجهيز بيانات المخزون للواجهة
     // =====================================================
 
-    const formattedItems =
-      Array.isArray(items)
-        ? items.map(item => ({
+    const formattedItems = Array.isArray(items)
+      ? items.map(item => {
+
+          let icon = "🎁";
+
+          if (item.item_type === "weapon") {
+            icon = "⚔️";
+          } else if (item.item_type === "armor") {
+            icon = "🛡️";
+          } else if (item.item_type === "potion") {
+            icon = "🧪";
+          } else if (item.item_type === "box") {
+            icon = "📦";
+          } else if (item.item_type === "food") {
+            icon = "🍜";
+          } else if (item.item_type === "gem") {
+            icon = "💎";
+          } else if (item.item_type === "gift") {
+            icon = "🎁";
+          } else if (item.item_type === "accessory") {
+            icon = "💍";
+          }
+
+          const quantity = Number(
+            item.quantity || 0
+          );
+
+          return {
+
             id: item.id,
+
             user_id: item.user_id,
+
             item_name: item.item_name,
+
             item_type: item.item_type,
-            quantity: Number(item.quantity || 0),
+
+            quantity: quantity,
+
             created_at: item.created_at,
 
-            // توافق إضافي مع index.html
+            // توافق مع index.html
             name: item.item_name,
+
             productName: item.item_name,
+
             product_name: item.item_name,
-            count: Number(item.quantity || 0),
 
-            // أيقونة افتراضية
-            icon:
-              item.item_type === "weapon"
-                ? "⚔️"
-                : item.item_type === "armor"
-                ? "🛡️"
-                : item.item_type === "potion"
-                ? "🧪"
-                : item.item_type === "box"
-                ? "📦"
-                : "🎁"
-          }))
-        : [];
+            count: quantity,
 
+            icon: icon
+          };
+        })
+      : [];
+
+    // =====================================================
+    // إرسال النتيجة
+    // =====================================================
 
     return res.status(200).json({
+
       success: true,
 
       user: {
@@ -300,6 +347,7 @@ export default async function handler(req, res) {
       },
 
       items: formattedItems
+
     });
 
   } catch (error) {
