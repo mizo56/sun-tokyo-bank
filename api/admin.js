@@ -7,9 +7,9 @@ const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
 const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH;
 
 
-/* ========================================
-   تشفير كلمة المرور
-======================================== */
+// ========================================
+// تشفير كلمة المرور
+// ========================================
 
 function hashPassword(password) {
   return crypto
@@ -19,9 +19,9 @@ function hashPassword(password) {
 }
 
 
-/* ========================================
-   Headers
-======================================== */
+// ========================================
+// Headers
+// ========================================
 
 function getHeaders() {
   return {
@@ -32,18 +32,18 @@ function getHeaders() {
 }
 
 
-/* ========================================
-   Supabase URL
-======================================== */
+// ========================================
+// رابط Supabase
+// ========================================
 
 function supabaseUrl(path) {
   return `${SUPABASE_URL.replace(/\/+$/, "")}/rest/v1/${path}`;
 }
 
 
-/* ========================================
-   طلب إلى Supabase
-======================================== */
+// ========================================
+// طلب إلى Supabase
+// ========================================
 
 async function supabaseRequest(path, options = {}) {
 
@@ -64,7 +64,9 @@ async function supabaseRequest(path, options = {}) {
   let data = null;
 
   try {
-    data = text ? JSON.parse(text) : null;
+    data = text
+      ? JSON.parse(text)
+      : null;
   } catch {
     data = text;
   }
@@ -86,9 +88,9 @@ async function supabaseRequest(path, options = {}) {
 }
 
 
-/* ========================================
-   قراءة Body
-======================================== */
+// ========================================
+// قراءة Body
+// ========================================
 
 function normalizeBody(req) {
 
@@ -108,9 +110,9 @@ function normalizeBody(req) {
 }
 
 
-/* ========================================
-   التحقق من الإدارة
-======================================== */
+// ========================================
+// التحقق من حساب الإدارة
+// ========================================
 
 async function verifyAdmin(body) {
 
@@ -132,9 +134,9 @@ async function verifyAdmin(body) {
   }
 
 
-  /* ========================================
-     التحقق من متغيرات Vercel
-  ======================================== */
+  // ========================================
+  // التحقق من متغيرات Vercel
+  // ========================================
 
   if (
     ADMIN_USERNAME &&
@@ -151,8 +153,7 @@ async function verifyAdmin(body) {
 
       return {
         ok: true,
-        username,
-        id: null
+        username
       };
 
     }
@@ -160,9 +161,9 @@ async function verifyAdmin(body) {
   }
 
 
-  /* ========================================
-     التحقق من حساب Admin داخل users
-  ======================================== */
+  // ========================================
+  // التحقق من حساب الإدارة في users
+  // ========================================
 
   const encoded =
     encodeURIComponent(username);
@@ -170,7 +171,7 @@ async function verifyAdmin(body) {
   const users =
     await supabaseRequest(
       `users?username=eq.${encoded}` +
-      `&select=id,username,password_hash,balance,role,banned,ban_reason`
+      `&select=id,username,password_hash,balance,role,banned`
     );
 
 
@@ -187,7 +188,8 @@ async function verifyAdmin(body) {
   }
 
 
-  const user = users[0];
+  const user =
+    users[0];
 
 
   const passwordHash =
@@ -237,15 +239,15 @@ async function verifyAdmin(body) {
 }
 
 
-/* ========================================
-   قائمة المستخدمين
-======================================== */
+// ========================================
+// جلب جميع الأعضاء
+// ========================================
 
 async function getUsers(search = "") {
 
   let path =
     "users" +
-    "?select=id,created_at,username,balance,role,banned,ban_reason,updated_at" +
+    "?select=id,created_at,username,balance,role,banned" +
     "&order=created_at.desc";
 
 
@@ -262,16 +264,16 @@ async function getUsers(search = "") {
 }
 
 
-/* ========================================
-   جلب مستخدم واحد
-======================================== */
+// ========================================
+// جلب عضو واحد
+// ========================================
 
 async function getUser(userId) {
 
   const users =
     await supabaseRequest(
       `users?id=eq.${encodeURIComponent(userId)}` +
-      `&select=id,created_at,username,balance,role,banned,ban_reason,updated_at`
+      `&select=id,created_at,username,balance,role,banned`
     );
 
 
@@ -290,9 +292,9 @@ async function getUser(userId) {
 }
 
 
-/* ========================================
-   تحديث المستخدم
-======================================== */
+// ========================================
+// تعديل بيانات عضو
+// ========================================
 
 async function updateUser(
   userId,
@@ -300,7 +302,9 @@ async function updateUser(
 ) {
 
   return await supabaseRequest(
+
     `users?id=eq.${encodeURIComponent(userId)}`,
+
     {
       method: "PATCH",
 
@@ -310,14 +314,15 @@ async function updateUser(
 
       body: JSON.stringify(updates)
     }
+
   );
 
 }
 
 
-/* ========================================
-   الإحصائيات
-======================================== */
+// ========================================
+// الإحصائيات
+// ========================================
 
 async function statistics() {
 
@@ -369,12 +374,8 @@ async function statistics() {
     }
 
 
-    if (
-      user.banned === true
-    ) {
-
+    if (user.banned === true) {
       bannedUsers++;
-
     }
 
   }
@@ -382,7 +383,8 @@ async function statistics() {
 
   return {
 
-    users: list.length,
+    users:
+      list.length,
 
     admins,
 
@@ -397,15 +399,18 @@ async function statistics() {
 }
 
 
-/* ========================================
-   Handler
-======================================== */
+// ========================================
+// MAIN HANDLER
+// ========================================
 
-export default async function handler(req, res) {
+export default async function handler(
+  req,
+  res
+) {
 
-  /* ========================================
-     POST فقط
-  ======================================== */
+  // ========================================
+  // POST فقط
+  // ========================================
 
   if (req.method !== "POST") {
 
@@ -413,7 +418,8 @@ export default async function handler(req, res) {
 
       success: false,
 
-      message: "Method Not Allowed"
+      message:
+        "Method Not Allowed"
 
     });
 
@@ -422,9 +428,9 @@ export default async function handler(req, res) {
 
   try {
 
-    /* ========================================
-       التحقق من إعدادات Supabase
-    ======================================== */
+    // ========================================
+    // التحقق من إعدادات Supabase
+    // ========================================
 
     if (
       !SUPABASE_URL ||
@@ -443,13 +449,17 @@ export default async function handler(req, res) {
     }
 
 
+    // ========================================
+    // قراءة البيانات
+    // ========================================
+
     const body =
       normalizeBody(req);
 
 
-    /* ========================================
-       التحقق من الإدارة
-    ======================================== */
+    // ========================================
+    // التحقق من الإدارة
+    // ========================================
 
     const auth =
       await verifyAdmin(body);
@@ -473,15 +483,19 @@ export default async function handler(req, res) {
     }
 
 
+    // ========================================
+    // تحديد العملية
+    // ========================================
+
     const action =
       String(
         body.action || "stats"
       ).trim();
 
 
-    /* ========================================
-       الإحصائيات
-    ======================================== */
+    // ========================================
+    // الإحصائيات
+    // ========================================
 
     if (action === "stats") {
 
@@ -500,9 +514,9 @@ export default async function handler(req, res) {
     }
 
 
-    /* ========================================
-       قائمة الأعضاء
-    ======================================== */
+    // ========================================
+    // قائمة الأعضاء
+    // ========================================
 
     if (action === "users") {
 
@@ -527,9 +541,9 @@ export default async function handler(req, res) {
     }
 
 
-    /* ========================================
-       معلومات عضو
-    ======================================== */
+    // ========================================
+    // معلومات عضو
+    // ========================================
 
     if (action === "user") {
 
@@ -580,9 +594,9 @@ export default async function handler(req, res) {
     }
 
 
-    /* ========================================
-       إضافة رصيد
-    ======================================== */
+    // ========================================
+    // إضافة رصيد
+    // ========================================
 
     if (action === "add_balance") {
 
@@ -653,11 +667,14 @@ export default async function handler(req, res) {
 
       const updated =
         await updateUser(
+
           userId,
+
           {
-            balance: newBalance,
-            updated_at: new Date().toISOString()
+            balance:
+              newBalance
           }
+
         );
 
 
@@ -678,9 +695,9 @@ export default async function handler(req, res) {
     }
 
 
-    /* ========================================
-       خصم رصيد
-    ======================================== */
+    // ========================================
+    // خصم رصيد
+    // ========================================
 
     if (action === "remove_balance") {
 
@@ -765,11 +782,14 @@ export default async function handler(req, res) {
 
       const updated =
         await updateUser(
+
           userId,
+
           {
-            balance: newBalance,
-            updated_at: new Date().toISOString()
+            balance:
+              newBalance
           }
+
         );
 
 
@@ -790,9 +810,9 @@ export default async function handler(req, res) {
     }
 
 
-    /* ========================================
-       تحديد الرصيد
-    ======================================== */
+    // ========================================
+    // تحديد الرصيد
+    // ========================================
 
     if (action === "set_balance") {
 
@@ -837,11 +857,13 @@ export default async function handler(req, res) {
 
       const updated =
         await updateUser(
+
           userId,
+
           {
-            balance,
-            updated_at: new Date().toISOString()
+            balance
           }
+
         );
 
 
@@ -862,9 +884,9 @@ export default async function handler(req, res) {
     }
 
 
-    /* ========================================
-       تغيير الدور
-    ======================================== */
+    // ========================================
+    // تغيير الدور
+    // ========================================
 
     if (action === "set_role") {
 
@@ -914,6 +936,8 @@ export default async function handler(req, res) {
       }
 
 
+      // منع الإدارة من تغيير نفسها
+
       if (
         auth.id &&
         String(auth.id) === String(userId)
@@ -933,11 +957,13 @@ export default async function handler(req, res) {
 
       const updated =
         await updateUser(
+
           userId,
+
           {
-            role,
-            updated_at: new Date().toISOString()
+            role
           }
+
         );
 
 
@@ -960,21 +986,14 @@ export default async function handler(req, res) {
     }
 
 
-    /* ========================================
-       حظر عضو
-    ======================================== */
+    // ========================================
+    // حظر عضو
+    // ========================================
 
     if (action === "ban_user") {
 
       const userId =
         body.userId;
-
-
-      const reason =
-        String(
-          body.reason ||
-          "مخالفة قوانين الموقع"
-        ).trim();
 
 
       if (!userId) {
@@ -990,6 +1009,8 @@ export default async function handler(req, res) {
 
       }
 
+
+      // منع حظر حساب الإدارة الحالي
 
       if (
         auth.id &&
@@ -1026,20 +1047,39 @@ export default async function handler(req, res) {
       }
 
 
+      // إذا كان محظورًا بالفعل
+
+      if (user.banned === true) {
+
+        return res.status(400).json({
+
+          success: false,
+
+          message:
+            "🚫 العضو محظور بالفعل"
+
+        });
+
+      }
+
+
       const updated =
         await updateUser(
+
           userId,
+
           {
-            banned: true,
-            ban_reason: reason,
-            updated_at: new Date().toISOString()
+            banned: true
           }
+
         );
 
 
       return res.status(200).json({
 
         success: true,
+
+        banned: true,
 
         message:
           "🚫 تم حظر العضو بنجاح",
@@ -1054,9 +1094,9 @@ export default async function handler(req, res) {
     }
 
 
-    /* ========================================
-       فك حظر عضو
-    ======================================== */
+    // ========================================
+    // إلغاء حظر عضو
+    // ========================================
 
     if (action === "unban_user") {
 
@@ -1096,14 +1136,31 @@ export default async function handler(req, res) {
       }
 
 
+      // إذا لم يكن محظورًا
+
+      if (user.banned !== true) {
+
+        return res.status(400).json({
+
+          success: false,
+
+          message:
+            "العضو غير محظور حاليًا"
+
+        });
+
+      }
+
+
       const updated =
         await updateUser(
+
           userId,
+
           {
-            banned: false,
-            ban_reason: "",
-            updated_at: new Date().toISOString()
+            banned: false
           }
+
         );
 
 
@@ -1111,8 +1168,10 @@ export default async function handler(req, res) {
 
         success: true,
 
+        banned: false,
+
         message:
-          "🔓 تم فك حظر العضو بنجاح",
+          "✅ تم إلغاء حظر العضو بنجاح",
 
         user:
           Array.isArray(updated)
@@ -1124,9 +1183,9 @@ export default async function handler(req, res) {
     }
 
 
-    /* ========================================
-       حذف عضو
-    ======================================== */
+    // ========================================
+    // حذف عضو
+    // ========================================
 
     if (action === "delete_user") {
 
@@ -1147,6 +1206,8 @@ export default async function handler(req, res) {
 
       }
 
+
+      // منع حذف حساب الإدارة
 
       if (
         auth.id &&
@@ -1184,10 +1245,13 @@ export default async function handler(req, res) {
 
 
       await supabaseRequest(
+
         `users?id=eq.${encodeURIComponent(userId)}`,
+
         {
           method: "DELETE"
         }
+
       );
 
 
@@ -1203,9 +1267,9 @@ export default async function handler(req, res) {
     }
 
 
-    /* ========================================
-       أمر غير معروف
-    ======================================== */
+    // ========================================
+    // عملية غير معروفة
+    // ========================================
 
     return res.status(400).json({
 
