@@ -3,20 +3,20 @@
 import { createClient } from "@supabase/supabase-js";
 import crypto from "crypto";
 
+
 const supabase = createClient(
   process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_KEY ||
-  process.env.SUPABASE_SERVICE_ROLE_KEY ||
-  process.env.SUPABASE_SECRET_KEY
+  process.env.SUPABASE_SERVICE_KEY
 );
+
 
 
 function hashPassword(password){
 
   return crypto
-    .createHash("sha256")
-    .update(password)
-    .digest("hex");
+  .createHash("sha256")
+  .update(password)
+  .digest("hex");
 
 }
 
@@ -37,6 +37,7 @@ export default async function handler(req,res){
   }
 
 
+
   try{
 
 
@@ -44,6 +45,7 @@ export default async function handler(req,res){
       username,
       password
     } = req.body;
+
 
 
     if(!username || !password){
@@ -59,36 +61,27 @@ export default async function handler(req,res){
 
 
 
-    const cleanUsername = username.trim();
+    const cleanUsername =
+    username.trim().toLowerCase();
 
 
 
-    const { data:user, error } = await supabase
-
-      .from("users")
-
-      .select("*")
-
-      .ilike("username", cleanUsername)
-
-      .single();
-
-
-
-    console.log(
-      "LOGIN:",
-      cleanUsername,
-      user,
-      error
-    );
+    const {data:user,error}=await supabase
+    .from("users")
+    .select("*")
+    .ilike("username",cleanUsername)
+    .single();
 
 
 
     if(error || !user){
 
+      console.log("USER ERROR:",error);
+
       return res.json({
 
         success:false,
+
         message:"الحساب غير موجود"
 
       });
@@ -113,7 +106,9 @@ export default async function handler(req,res){
 
 
 
-    const passHash = hashPassword(password);
+
+    const passHash =
+    hashPassword(password);
 
 
 
@@ -131,33 +126,34 @@ export default async function handler(req,res){
 
 
 
-    // حساب Nero أو admin يصبح أدمن
+
+    // جعل حساب admin أو Nero مدير
 
     let isAdmin = false;
 
 
     if(
-      user.username.toLowerCase() === "nero" ||
-      user.username.toLowerCase() === "admin"
+      user.username.toLowerCase()==="admin" ||
+      user.username.toLowerCase()==="nero"
     ){
 
-      isAdmin = true;
+      isAdmin=true;
 
 
       await supabase
-
       .from("users")
-
       .update({
 
         role:"admin"
 
       })
-
       .eq("id",user.id);
 
 
+      user.role="admin";
+
     }
+
 
 
 
@@ -165,32 +161,36 @@ export default async function handler(req,res){
 
       success:true,
 
+
       user:{
+
 
         id:user.id,
 
+
         username:user.username,
 
+
         balance:
-        isAdmin
-        ? 999999999999999
-        : Number(user.balance || 0),
+        user.balance || 0,
 
 
         role:
-        isAdmin
-        ? "admin"
-        : (user.role || "user"),
+        user.role || "user",
 
 
-        isAdmin,
+        isAdmin:isAdmin,
 
 
-        banned:false
+        banned:
+        user.banned || false
+
 
       }
 
+
     });
+
 
 
 
@@ -200,7 +200,7 @@ export default async function handler(req,res){
     console.log(error);
 
 
-    return res.status(500).json({
+    return res.json({
 
       success:false,
 
