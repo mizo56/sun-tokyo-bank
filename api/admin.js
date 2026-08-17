@@ -2,8 +2,14 @@ import crypto from "crypto";
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SECRET_KEY = process.env.SUPABASE_SECRET_KEY;
+
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
 const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH;
+
+
+/* ========================================
+   تشفير كلمة المرور
+======================================== */
 
 function hashPassword(password) {
   return crypto
@@ -11,6 +17,11 @@ function hashPassword(password) {
     .update(String(password), "utf8")
     .digest("hex");
 }
+
+
+/* ========================================
+   Headers
+======================================== */
 
 function getHeaders() {
   return {
@@ -20,9 +31,19 @@ function getHeaders() {
   };
 }
 
+
+/* ========================================
+   Supabase URL
+======================================== */
+
 function supabaseUrl(path) {
   return `${SUPABASE_URL.replace(/\/+$/, "")}/rest/v1/${path}`;
 }
+
+
+/* ========================================
+   طلب إلى Supabase
+======================================== */
 
 async function supabaseRequest(path, options = {}) {
 
@@ -30,6 +51,7 @@ async function supabaseRequest(path, options = {}) {
     supabaseUrl(path),
     {
       ...options,
+
       headers: {
         ...getHeaders(),
         ...(options.headers || {})
@@ -56,34 +78,39 @@ async function supabaseRequest(path, options = {}) {
     );
 
     throw new Error(
-      `Supabase HTTP ${response.status}`
+      `Supabase HTTP ${response.status}: ${text}`
     );
   }
 
   return data;
 }
 
+
+/* ========================================
+   قراءة Body
+======================================== */
+
 function normalizeBody(req) {
 
   let body = req.body || {};
 
   if (typeof body === "string") {
+
     try {
       body = JSON.parse(body);
     } catch {
       return {};
     }
+
   }
 
   return body;
 }
 
 
-/*
-========================================
+/* ========================================
    التحقق من الإدارة
-========================================
-*/
+======================================== */
 
 async function verifyAdmin(body) {
 
@@ -96,16 +123,18 @@ async function verifyAdmin(body) {
   );
 
   if (!username || !password) {
+
     return {
       ok: false,
       message: "بيانات الإدارة مطلوبة"
     };
+
   }
 
-  /*
-    إذا تم إعداد ADMIN_USERNAME
-    و ADMIN_PASSWORD_HASH في Vercel
-  */
+
+  /* ========================================
+     التحقق من متغيرات Vercel
+  ======================================== */
 
   if (
     ADMIN_USERNAME &&
@@ -122,16 +151,18 @@ async function verifyAdmin(body) {
 
       return {
         ok: true,
-        username
+        username,
+        id: null
       };
 
     }
 
   }
 
-  /*
-    التحقق من حساب الإدارة داخل users
-  */
+
+  /* ========================================
+     التحقق من حساب Admin داخل users
+  ======================================== */
 
   const encoded =
     encodeURIComponent(username);
@@ -139,8 +170,9 @@ async function verifyAdmin(body) {
   const users =
     await supabaseRequest(
       `users?username=eq.${encoded}` +
-      `&select=id,username,password_hash,balance,role`
+      `&select=id,username,password_hash,balance,role,banned,ban_reason`
     );
+
 
   if (
     !Array.isArray(users) ||
@@ -154,20 +186,25 @@ async function verifyAdmin(body) {
 
   }
 
+
   const user = users[0];
+
 
   const passwordHash =
     hashPassword(password);
+
 
   const role =
     String(
       user.role || "user"
     ).toLowerCase();
 
+
   const isAdmin =
     role === "admin" ||
     role === "administrator" ||
     role === "owner";
+
 
   if (!isAdmin) {
 
@@ -177,6 +214,7 @@ async function verifyAdmin(body) {
     };
 
   }
+
 
   if (
     user.password_hash !== passwordHash
@@ -189,26 +227,27 @@ async function verifyAdmin(body) {
 
   }
 
+
   return {
     ok: true,
     username: user.username,
     id: user.id
   };
+
 }
 
 
-/*
-========================================
-   GET USERS
-========================================
-*/
+/* ========================================
+   قائمة المستخدمين
+======================================== */
 
 async function getUsers(search = "") {
 
   let path =
     "users" +
-    "?select=id,created_at,username,balance,role" +
+    "?select=id,created_at,username,balance,role,banned,ban_reason,updated_at" +
     "&order=created_at.desc";
+
 
   if (search) {
 
@@ -217,23 +256,24 @@ async function getUsers(search = "") {
 
   }
 
+
   return await supabaseRequest(path);
+
 }
 
 
-/*
-========================================
-   GET USER
-========================================
-*/
+/* ========================================
+   جلب مستخدم واحد
+======================================== */
 
 async function getUser(userId) {
 
   const users =
     await supabaseRequest(
       `users?id=eq.${encodeURIComponent(userId)}` +
-      `&select=id,created_at,username,balance,role`
+      `&select=id,created_at,username,balance,role,banned,ban_reason,updated_at`
     );
+
 
   if (
     !Array.isArray(users) ||
@@ -244,25 +284,30 @@ async function getUser(userId) {
 
   }
 
+
   return users[0];
+
 }
 
 
-/*
-========================================
-   UPDATE USER
-========================================
-*/
+/* ========================================
+   تحديث المستخدم
+======================================== */
 
-async function updateUser(userId, updates) {
+async function updateUser(
+  userId,
+  updates
+) {
 
   return await supabaseRequest(
     `users?id=eq.${encodeURIComponent(userId)}`,
     {
       method: "PATCH",
+
       headers: {
         Prefer: "return=representation"
       },
+
       body: JSON.stringify(updates)
     }
   );
@@ -270,23 +315,23 @@ async function updateUser(userId, updates) {
 }
 
 
-/*
-========================================
-   STATISTICS
-========================================
-*/
+/* ========================================
+   الإحصائيات
+======================================== */
 
 async function statistics() {
 
   const users =
     await supabaseRequest(
-      "users?select=id,balance,role"
+      "users?select=id,balance,role,banned"
     );
+
 
   const list =
     Array.isArray(users)
       ? users
       : [];
+
 
   let totalBalance = 0;
 
@@ -294,15 +339,20 @@ async function statistics() {
 
   let normalUsers = 0;
 
+  let bannedUsers = 0;
+
+
   for (const user of list) {
 
     totalBalance +=
       Number(user.balance || 0);
 
+
     const role =
       String(
         user.role || "user"
       ).toLowerCase();
+
 
     if (
       role === "admin" ||
@@ -318,7 +368,17 @@ async function statistics() {
 
     }
 
+
+    if (
+      user.banned === true
+    ) {
+
+      bannedUsers++;
+
+    }
+
   }
+
 
   return {
 
@@ -328,6 +388,8 @@ async function statistics() {
 
     normalUsers,
 
+    bannedUsers,
+
     totalBalance
 
   };
@@ -335,24 +397,34 @@ async function statistics() {
 }
 
 
-/*
-========================================
-   MAIN HANDLER
-========================================
-*/
+/* ========================================
+   Handler
+======================================== */
 
 export default async function handler(req, res) {
+
+  /* ========================================
+     POST فقط
+  ======================================== */
 
   if (req.method !== "POST") {
 
     return res.status(405).json({
+
       success: false,
+
       message: "Method Not Allowed"
+
     });
 
   }
 
+
   try {
+
+    /* ========================================
+       التحقق من إعدادات Supabase
+    ======================================== */
 
     if (
       !SUPABASE_URL ||
@@ -360,36 +432,46 @@ export default async function handler(req, res) {
     ) {
 
       return res.status(500).json({
+
         success: false,
+
         message:
           "إعدادات Supabase غير موجودة في Vercel"
+
       });
 
     }
+
 
     const body =
       normalizeBody(req);
 
-    /*
-    ================================
+
+    /* ========================================
        التحقق من الإدارة
-    ================================
-    */
+    ======================================== */
 
     const auth =
       await verifyAdmin(body);
 
+
     if (!auth.ok) {
 
       return res.status(403).json({
+
         success: false,
+
         message:
           "❌ " +
-          (auth.message ||
-            "ليس لديك صلاحية الإدارة")
+          (
+            auth.message ||
+            "ليس لديك صلاحية الإدارة"
+          )
+
       });
 
     }
+
 
     const action =
       String(
@@ -397,16 +479,15 @@ export default async function handler(req, res) {
       ).trim();
 
 
-    /*
-    ================================
+    /* ========================================
        الإحصائيات
-    ================================
-    */
+    ======================================== */
 
     if (action === "stats") {
 
       const stats =
         await statistics();
+
 
       return res.status(200).json({
 
@@ -419,11 +500,9 @@ export default async function handler(req, res) {
     }
 
 
-    /*
-    ================================
+    /* ========================================
        قائمة الأعضاء
-    ================================
-    */
+    ======================================== */
 
     if (action === "users") {
 
@@ -432,8 +511,10 @@ export default async function handler(req, res) {
           body.search || ""
         ).trim();
 
+
       const users =
         await getUsers(search);
+
 
       return res.status(200).json({
 
@@ -446,37 +527,47 @@ export default async function handler(req, res) {
     }
 
 
-    /*
-    ================================
+    /* ========================================
        معلومات عضو
-    ================================
-    */
+    ======================================== */
 
     if (action === "user") {
 
       const userId =
         body.userId;
 
+
       if (!userId) {
 
         return res.status(400).json({
+
           success: false,
-          message: "معرف العضو مطلوب"
+
+          message:
+            "معرف العضو مطلوب"
+
         });
 
       }
+
 
       const user =
         await getUser(userId);
 
+
       if (!user) {
 
         return res.status(404).json({
+
           success: false,
-          message: "العضو غير موجود"
+
+          message:
+            "العضو غير موجود"
+
         });
 
       }
+
 
       return res.status(200).json({
 
@@ -489,28 +580,33 @@ export default async function handler(req, res) {
     }
 
 
-    /*
-    ================================
+    /* ========================================
        إضافة رصيد
-    ================================
-    */
+    ======================================== */
 
     if (action === "add_balance") {
 
       const userId =
         body.userId;
 
+
       const amount =
         Number(body.amount);
+
 
       if (!userId) {
 
         return res.status(400).json({
+
           success: false,
-          message: "معرف العضو مطلوب"
+
+          message:
+            "معرف العضو مطلوب"
+
         });
 
       }
+
 
       if (
         !Number.isFinite(amount) ||
@@ -518,37 +614,52 @@ export default async function handler(req, res) {
       ) {
 
         return res.status(400).json({
+
           success: false,
-          message: "المبلغ غير صحيح"
+
+          message:
+            "المبلغ غير صحيح"
+
         });
 
       }
+
 
       const user =
         await getUser(userId);
 
+
       if (!user) {
 
         return res.status(404).json({
+
           success: false,
-          message: "العضو غير موجود"
+
+          message:
+            "العضو غير موجود"
+
         });
 
       }
 
+
       const oldBalance =
         Number(user.balance || 0);
 
+
       const newBalance =
         oldBalance + amount;
+
 
       const updated =
         await updateUser(
           userId,
           {
-            balance: newBalance
+            balance: newBalance,
+            updated_at: new Date().toISOString()
           }
         );
+
 
       return res.status(200).json({
 
@@ -567,28 +678,33 @@ export default async function handler(req, res) {
     }
 
 
-    /*
-    ================================
+    /* ========================================
        خصم رصيد
-    ================================
-    */
+    ======================================== */
 
     if (action === "remove_balance") {
 
       const userId =
         body.userId;
 
+
       const amount =
         Number(body.amount);
+
 
       if (!userId) {
 
         return res.status(400).json({
+
           success: false,
-          message: "معرف العضو مطلوب"
+
+          message:
+            "معرف العضو مطلوب"
+
         });
 
       }
+
 
       if (
         !Number.isFinite(amount) ||
@@ -596,46 +712,66 @@ export default async function handler(req, res) {
       ) {
 
         return res.status(400).json({
+
           success: false,
-          message: "المبلغ غير صحيح"
+
+          message:
+            "المبلغ غير صحيح"
+
         });
 
       }
+
 
       const user =
         await getUser(userId);
 
+
       if (!user) {
 
         return res.status(404).json({
+
           success: false,
-          message: "العضو غير موجود"
+
+          message:
+            "العضو غير موجود"
+
         });
 
       }
+
 
       const oldBalance =
         Number(user.balance || 0);
 
+
       if (oldBalance < amount) {
 
         return res.status(400).json({
+
           success: false,
-          message: "رصيد العضو غير كافٍ"
+
+          message:
+            "رصيد العضو غير كافٍ"
+
         });
 
       }
 
+
       const newBalance =
         oldBalance - amount;
+
 
       const updated =
         await updateUser(
           userId,
           {
-            balance: newBalance
+            balance: newBalance,
+            updated_at: new Date().toISOString()
           }
         );
+
 
       return res.status(200).json({
 
@@ -654,28 +790,33 @@ export default async function handler(req, res) {
     }
 
 
-    /*
-    ================================
+    /* ========================================
        تحديد الرصيد
-    ================================
-    */
+    ======================================== */
 
     if (action === "set_balance") {
 
       const userId =
         body.userId;
 
+
       const balance =
         Number(body.balance);
+
 
       if (!userId) {
 
         return res.status(400).json({
+
           success: false,
-          message: "معرف العضو مطلوب"
+
+          message:
+            "معرف العضو مطلوب"
+
         });
 
       }
+
 
       if (
         !Number.isFinite(balance) ||
@@ -683,25 +824,33 @@ export default async function handler(req, res) {
       ) {
 
         return res.status(400).json({
+
           success: false,
-          message: "الرصيد غير صحيح"
+
+          message:
+            "الرصيد غير صحيح"
+
         });
 
       }
+
 
       const updated =
         await updateUser(
           userId,
           {
-            balance
+            balance,
+            updated_at: new Date().toISOString()
           }
         );
+
 
       return res.status(200).json({
 
         success: true,
 
-        message: "✅ تم تعديل الرصيد",
+        message:
+          "✅ تم تعديل الرصيد",
 
         user:
           Array.isArray(updated)
@@ -713,51 +862,57 @@ export default async function handler(req, res) {
     }
 
 
-    /*
-    ================================
+    /* ========================================
        تغيير الدور
-    ================================
-    */
+    ======================================== */
 
     if (action === "set_role") {
 
       const userId =
         body.userId;
 
+
       const role =
         String(
           body.role || "user"
         ).toLowerCase();
+
 
       const allowedRoles = [
         "user",
         "admin"
       ];
 
+
       if (!userId) {
 
         return res.status(400).json({
+
           success: false,
-          message: "معرف العضو مطلوب"
+
+          message:
+            "معرف العضو مطلوب"
+
         });
 
       }
+
 
       if (
         !allowedRoles.includes(role)
       ) {
 
         return res.status(400).json({
+
           success: false,
-          message: "الدور غير صالح"
+
+          message:
+            "الدور غير صالح"
+
         });
 
       }
 
-      /*
-        منع الإدارة من تغيير نفسها
-        عن طريق الخطأ.
-      */
 
       if (
         auth.id &&
@@ -765,20 +920,26 @@ export default async function handler(req, res) {
       ) {
 
         return res.status(400).json({
+
           success: false,
+
           message:
             "❌ لا يمكنك تغيير دور حساب الإدارة الحالي"
+
         });
 
       }
+
 
       const updated =
         await updateUser(
           userId,
           {
-            role
+            role,
+            updated_at: new Date().toISOString()
           }
         );
+
 
       return res.status(200).json({
 
@@ -799,25 +960,36 @@ export default async function handler(req, res) {
     }
 
 
-    /*
-    ================================
-       حذف عضو
-    ================================
-    */
+    /* ========================================
+       حظر عضو
+    ======================================== */
 
-    if (action === "delete_user") {
+    if (action === "ban_user") {
 
       const userId =
         body.userId;
 
+
+      const reason =
+        String(
+          body.reason ||
+          "مخالفة قوانين الموقع"
+        ).trim();
+
+
       if (!userId) {
 
         return res.status(400).json({
+
           success: false,
-          message: "معرف العضو مطلوب"
+
+          message:
+            "معرف العضو مطلوب"
+
         });
 
       }
+
 
       if (
         auth.id &&
@@ -825,12 +997,191 @@ export default async function handler(req, res) {
       ) {
 
         return res.status(400).json({
+
           success: false,
+
           message:
-            "❌ لا يمكنك حذف حساب الإدارة الحالي"
+            "❌ لا يمكنك حظر حساب الإدارة الحالي"
+
         });
 
       }
+
+
+      const user =
+        await getUser(userId);
+
+
+      if (!user) {
+
+        return res.status(404).json({
+
+          success: false,
+
+          message:
+            "العضو غير موجود"
+
+        });
+
+      }
+
+
+      const updated =
+        await updateUser(
+          userId,
+          {
+            banned: true,
+            ban_reason: reason,
+            updated_at: new Date().toISOString()
+          }
+        );
+
+
+      return res.status(200).json({
+
+        success: true,
+
+        message:
+          "🚫 تم حظر العضو بنجاح",
+
+        user:
+          Array.isArray(updated)
+            ? updated[0]
+            : updated
+
+      });
+
+    }
+
+
+    /* ========================================
+       فك حظر عضو
+    ======================================== */
+
+    if (action === "unban_user") {
+
+      const userId =
+        body.userId;
+
+
+      if (!userId) {
+
+        return res.status(400).json({
+
+          success: false,
+
+          message:
+            "معرف العضو مطلوب"
+
+        });
+
+      }
+
+
+      const user =
+        await getUser(userId);
+
+
+      if (!user) {
+
+        return res.status(404).json({
+
+          success: false,
+
+          message:
+            "العضو غير موجود"
+
+        });
+
+      }
+
+
+      const updated =
+        await updateUser(
+          userId,
+          {
+            banned: false,
+            ban_reason: "",
+            updated_at: new Date().toISOString()
+          }
+        );
+
+
+      return res.status(200).json({
+
+        success: true,
+
+        message:
+          "🔓 تم فك حظر العضو بنجاح",
+
+        user:
+          Array.isArray(updated)
+            ? updated[0]
+            : updated
+
+      });
+
+    }
+
+
+    /* ========================================
+       حذف عضو
+    ======================================== */
+
+    if (action === "delete_user") {
+
+      const userId =
+        body.userId;
+
+
+      if (!userId) {
+
+        return res.status(400).json({
+
+          success: false,
+
+          message:
+            "معرف العضو مطلوب"
+
+        });
+
+      }
+
+
+      if (
+        auth.id &&
+        String(auth.id) === String(userId)
+      ) {
+
+        return res.status(400).json({
+
+          success: false,
+
+          message:
+            "❌ لا يمكنك حذف حساب الإدارة الحالي"
+
+        });
+
+      }
+
+
+      const user =
+        await getUser(userId);
+
+
+      if (!user) {
+
+        return res.status(404).json({
+
+          success: false,
+
+          message:
+            "العضو غير موجود"
+
+        });
+
+      }
+
 
       await supabaseRequest(
         `users?id=eq.${encodeURIComponent(userId)}`,
@@ -838,6 +1189,7 @@ export default async function handler(req, res) {
           method: "DELETE"
         }
       );
+
 
       return res.status(200).json({
 
@@ -851,51 +1203,9 @@ export default async function handler(req, res) {
     }
 
 
-    /*
-    ================================
-       حظر عضو
-    ================================
-    */
-
-    if (action === "ban_user") {
-
-      return res.status(400).json({
-
-        success: false,
-
-        message:
-          "نظام الحظر يحتاج إضافة عمود banned إلى جدول users أولًا"
-
-      });
-
-    }
-
-
-    /*
-    ================================
-       إلغاء حظر عضو
-    ================================
-    */
-
-    if (action === "unban_user") {
-
-      return res.status(400).json({
-
-        success: false,
-
-        message:
-          "نظام الحظر يحتاج إضافة عمود banned إلى جدول users أولًا"
-
-      });
-
-    }
-
-
-    /*
-    ================================
-       Action غير معروف
-    ================================
-    */
+    /* ========================================
+       أمر غير معروف
+    ======================================== */
 
     return res.status(400).json({
 
@@ -907,12 +1217,14 @@ export default async function handler(req, res) {
 
     });
 
+
   } catch (error) {
 
     console.error(
       "Admin API Error:",
       error
     );
+
 
     return res.status(500).json({
 
