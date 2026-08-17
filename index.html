@@ -1,35 +1,44 @@
-```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』</title>
+<title>『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』 Bank</title>
 
 <style>
-
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
 }
 
-html{
-  scroll-behavior:smooth;
+:root{
+  --bg:#08090d;
+  --panel:#11141c;
+  --panel2:#171b25;
+  --red:#e63946;
+  --gold:#ffd166;
+  --green:#20c997;
+  --blue:#4dabf7;
+  --text:#f5f5f5;
+  --muted:#9aa0ad;
+  --border:#292e3a;
+  --danger:#ff4757;
+  --shadow:0 15px 50px rgba(0,0,0,.4);
 }
 
 body{
-  min-height:100vh;
-  font-family:Arial,Tahoma,sans-serif;
-  color:#fff;
+  font-family:Arial,"Tahoma",sans-serif;
   background:
-    radial-gradient(circle at 50% -10%,#3a2100 0,#120b02 28%,#070707 60%,#000 100%);
+    radial-gradient(circle at top,#24121a 0,#08090d 42%,#050609 100%);
+  color:var(--text);
+  min-height:100vh;
 }
 
 button,
-input{
+input,
+select{
   font-family:inherit;
 }
 
@@ -37,95 +46,15 @@ button{
   cursor:pointer;
 }
 
-button:disabled{
-  cursor:not-allowed;
-  opacity:.55;
-}
-
 .hidden{
   display:none!important;
 }
 
-.container{
-  width:min(1250px,calc(100% - 24px));
-  margin:auto;
-}
+/* =========================
+   LOGIN
+========================= */
 
-.card{
-  background:
-    linear-gradient(145deg,rgba(28,28,28,.97),rgba(9,9,9,.97));
-  border:1px solid rgba(255,193,7,.18);
-  border-radius:18px;
-  padding:20px;
-  box-shadow:
-    0 12px 40px rgba(0,0,0,.45),
-    inset 0 1px rgba(255,255,255,.03);
-}
-
-.card-title{
-  color:#ffd54f;
-  font-size:20px;
-  font-weight:900;
-  margin-bottom:15px;
-}
-
-.btn{
-  border:0;
-  border-radius:12px;
-  padding:12px 17px;
-  color:#fff;
-  background:#222;
-  font-weight:900;
-  transition:.2s;
-}
-
-.btn:hover{
-  transform:translateY(-2px);
-  filter:brightness(1.08);
-}
-
-.full{
-  width:100%;
-}
-
-.goldbtn{
-  color:#111;
-  background:linear-gradient(135deg,#ff9800,#ffd54f);
-}
-
-.success{
-  background:#087f23;
-}
-
-.danger{
-  background:#a30000;
-}
-
-.blue{
-  background:#075985;
-}
-
-.purple{
-  background:#6d28d9;
-}
-
-input{
-  width:100%;
-  padding:13px;
-  margin:6px 0;
-  border:1px solid #333;
-  border-radius:11px;
-  outline:none;
-  color:#fff;
-  background:#0b0b0b;
-}
-
-input:focus{
-  border-color:#ffc107;
-  box-shadow:0 0 0 2px rgba(255,193,7,.08);
-}
-
-#auth{
+.auth-screen{
   min-height:100vh;
   display:flex;
   align-items:center;
@@ -134,109 +63,203 @@ input:focus{
 }
 
 .auth-box{
-  width:min(440px,100%);
+  width:100%;
+  max-width:480px;
+  background:rgba(17,20,28,.96);
+  border:1px solid var(--border);
+  border-radius:25px;
+  padding:30px;
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(15px);
 }
 
 .logo{
   text-align:center;
-  color:#ffd54f;
   font-size:30px;
   font-weight:900;
+  color:var(--gold);
+  margin-bottom:8px;
+}
+
+.subtitle{
+  text-align:center;
+  color:var(--muted);
+  margin-bottom:25px;
+}
+
+.auth-tabs{
+  display:flex;
+  gap:8px;
   margin-bottom:20px;
-  text-shadow:0 0 25px rgba(255,193,7,.25);
+}
+
+.auth-tabs button{
+  flex:1;
+  border:1px solid var(--border);
+  background:var(--panel2);
+  color:#aaa;
+  padding:13px;
+  border-radius:12px;
+  font-weight:bold;
+}
+
+.auth-tabs button.active{
+  background:var(--red);
+  color:white;
+  border-color:var(--red);
+}
+
+.form{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.input{
+  width:100%;
+  background:#090b10;
+  border:1px solid var(--border);
+  color:white;
+  padding:14px;
+  border-radius:12px;
+  outline:none;
+}
+
+.input:focus{
+  border-color:var(--red);
+}
+
+.main-btn{
+  width:100%;
+  border:0;
+  padding:14px;
+  border-radius:12px;
+  background:linear-gradient(135deg,#e63946,#9d1c29);
+  color:white;
+  font-weight:bold;
+  font-size:16px;
+}
+
+.main-btn:hover{
+  filter:brightness(1.1);
 }
 
 .message{
-  display:none;
-  margin-top:10px;
-  padding:11px;
+  margin-top:12px;
+  padding:12px;
   border-radius:10px;
+  display:none;
   text-align:center;
-  font-weight:700;
+  font-weight:bold;
+}
+
+.message.show{
+  display:block;
 }
 
 .message.error{
-  display:block;
-  background:#5c0000;
+  background:rgba(255,71,87,.12);
+  color:#ff7b87;
+  border:1px solid rgba(255,71,87,.3);
 }
 
 .message.success{
-  display:block;
-  background:#075c1b;
+  background:rgba(32,201,151,.12);
+  color:#55e0b7;
+  border:1px solid rgba(32,201,151,.3);
 }
 
-.status{
-  margin-top:15px;
-  text-align:center;
-  color:#aaa;
-  font-size:13px;
+/* =========================
+   APP
+========================= */
+
+#app{
+  min-height:100vh;
 }
 
 .topbar{
   position:sticky;
   top:0;
-  z-index:100;
-  background:rgba(5,5,5,.95);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid rgba(255,193,7,.15);
+  z-index:50;
+  background:rgba(8,9,13,.92);
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid var(--border);
+  padding:14px 20px;
 }
 
 .topbar-inner{
-  width:min(1250px,calc(100% - 24px));
+  max-width:1400px;
   margin:auto;
-  padding:14px 0;
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:center;
   gap:15px;
 }
 
 .brand{
-  color:#ffd54f;
+  color:var(--gold);
+  font-size:20px;
   font-weight:900;
 }
 
-.user-info{
-  color:#ddd;
-  font-weight:800;
-}
-
-.separator{
-  color:#555;
-  margin:0 8px;
-}
-
-nav{
-  width:min(1250px,calc(100% - 24px));
-  margin:auto;
-  padding:9px 0 12px;
+.top-user{
   display:flex;
-  gap:7px;
+  align-items:center;
+  gap:10px;
+}
+
+.user-pill{
+  background:var(--panel2);
+  border:1px solid var(--border);
+  padding:9px 13px;
+  border-radius:12px;
+}
+
+.logout{
+  border:0;
+  background:#2a1014;
+  color:#ff7180;
+  padding:9px 13px;
+  border-radius:10px;
+}
+
+/* =========================
+   NAV
+========================= */
+
+.nav{
+  max-width:1400px;
+  margin:15px auto;
+  padding:0 20px;
+  display:flex;
+  gap:8px;
   overflow-x:auto;
 }
 
-nav button{
-  white-space:nowrap;
-  border:0;
-  border-radius:10px;
-  padding:10px 13px;
-  color:#ccc;
-  background:#171717;
-  transition:.2s;
+.nav button{
+  flex:none;
+  background:var(--panel);
+  color:#bbb;
+  border:1px solid var(--border);
+  padding:11px 16px;
+  border-radius:12px;
 }
 
-nav button:hover{
-  background:#292929;
+.nav button.active,
+.nav button:hover{
+  color:white;
+  background:var(--red);
+  border-color:var(--red);
 }
 
-nav button.active{
-  color:#111;
-  background:#ffd54f;
-}
+/* =========================
+   PAGES
+========================= */
 
-main{
-  width:min(1250px,calc(100% - 24px));
-  margin:20px auto 60px;
+.container{
+  width:min(1400px,calc(100% - 40px));
+  margin:auto;
+  padding-bottom:50px;
 }
 
 .page{
@@ -247,388 +270,371 @@ main{
   display:block;
 }
 
+.page-title{
+  font-size:28px;
+  margin:20px 0;
+}
+
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  grid-template-columns:repeat(4,1fr);
   gap:15px;
 }
 
-.products{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
-  gap:14px;
-}
-
-.product{
-  position:relative;
-  overflow:hidden;
-  min-height:240px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-}
-
-.product::before{
-  content:"";
-  position:absolute;
-  width:130px;
-  height:130px;
-  border-radius:50%;
-  background:rgba(255,193,7,.05);
-  top:-50px;
-  left:-40px;
-}
-
-.product-icon{
-  position:relative;
-  font-size:48px;
-  margin-bottom:10px;
-}
-
-.product-name{
-  position:relative;
-  color:#fff;
-  font-size:17px;
-  font-weight:900;
-}
-
-.product-description{
-  position:relative;
-  color:#999;
-  font-size:13px;
-  line-height:1.6;
-  margin:8px 0 12px;
-}
-
-.product-price{
-  position:relative;
-  color:#ffd54f;
-  font-weight:900;
-  margin-bottom:10px;
-}
-
-.big-number{
-  font-size:32px;
-  font-weight:900;
-  margin-top:10px;
-}
-
-.green{
-  color:#00e676;
-}
-
-.gold{
-  color:#ffd54f;
-}
-
-.character-stat{
-  font-size:28px;
-  font-weight:900;
-  margin-top:10px;
-}
-
-.hp{
-  color:#ff5252;
-}
-
-.attack{
-  color:#ffd54f;
-}
-
-.defense{
-  color:#64b5f6;
-}
-
-.description{
-  color:#aaa;
-  line-height:1.8;
-  margin:10px 0;
-}
-
-.stat{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:12px 0;
-  border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.stat-name{
-  color:#aaa;
-}
-
-.inventory-item{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  padding:14px;
-  border-radius:14px;
-  background:#111;
-  border:1px solid rgba(255,193,7,.12);
-}
-
-.inventory-info{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.inventory-icon{
-  font-size:32px;
-}
-
-.inventory-name{
-  font-weight:900;
-}
-
-.inventory-count{
-  color:#ffd54f;
-  font-size:13px;
-  margin-top:4px;
-}
-
-.boxes{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:16px;
-}
-
-.box-card{
-  position:relative;
-  overflow:hidden;
-  min-height:285px;
-  text-align:center;
-  border-radius:20px;
-  padding:20px;
-  background:linear-gradient(145deg,#242424,#090909);
-  border:1px solid rgba(255,193,7,.25);
-  box-shadow:0 12px 35px rgba(0,0,0,.4);
-}
-
-.box-card::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:radial-gradient(circle at 50% 10%,rgba(255,193,7,.13),transparent 50%);
-  pointer-events:none;
-}
-
-.box-visual{
-  position:relative;
-  width:100px;
-  height:100px;
-  margin:5px auto 15px;
+.card{
+  background:linear-gradient(145deg,var(--panel),#0d1017);
+  border:1px solid var(--border);
   border-radius:18px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:55px;
-  background:linear-gradient(145deg,#3c3c3c,#111);
-  border:2px solid #806000;
-  box-shadow:
-    0 0 25px rgba(255,193,7,.15),
-    inset 0 0 20px rgba(255,255,255,.04);
+  padding:20px;
+  box-shadow:0 8px 25px rgba(0,0,0,.18);
 }
 
-.box-title{
-  position:relative;
-  font-size:18px;
-  font-weight:900;
-  color:#ffd54f;
+.card h3{
+  margin-bottom:10px;
 }
 
-.box-price{
-  position:relative;
-  color:#aaa;
-  margin:8px 0 14px;
-}
-
-.box-rewards{
-  position:relative;
-  color:#ddd;
+.stat-label{
+  color:var(--muted);
   font-size:13px;
-  margin-bottom:14px;
 }
+
+.stat-value{
+  margin-top:8px;
+  font-size:25px;
+  font-weight:900;
+  color:var(--gold);
+}
+
+.actions{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:20px;
+}
+
+.action-btn{
+  border:1px solid var(--border);
+  background:var(--panel2);
+  color:white;
+  padding:18px;
+  border-radius:15px;
+  font-weight:bold;
+}
+
+.action-btn:hover{
+  border-color:var(--red);
+  transform:translateY(-2px);
+}
+
+/* =========================
+   ADMIN
+========================= */
+
+.admin-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+
+.admin-badge{
+  background:linear-gradient(135deg,#ffd166,#b77b00);
+  color:#17100a;
+  padding:8px 13px;
+  border-radius:10px;
+  font-weight:900;
+}
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.admin-tools{
+  display:flex;
+  gap:10px;
+  margin-bottom:15px;
+}
+
+.admin-tools .input{
+  flex:1;
+}
+
+.admin-tools button{
+  border:0;
+  background:var(--red);
+  color:white;
+  padding:12px 18px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+.table-wrap{
+  overflow:auto;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:18px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:850px;
+}
+
+th,
+td{
+  padding:14px;
+  border-bottom:1px solid var(--border);
+  text-align:right;
+}
+
+th{
+  background:#171b24;
+  color:var(--gold);
+}
+
+tr:hover td{
+  background:rgba(255,255,255,.02);
+}
+
+.role-admin{
+  color:var(--gold);
+  font-weight:bold;
+}
+
+.role-user{
+  color:#aaa;
+}
+
+.banned{
+  color:#ff6675;
+  font-weight:bold;
+}
+
+.online{
+  color:#40d9a9;
+}
+
+.user-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+
+.small-btn{
+  border:0;
+  padding:7px 10px;
+  border-radius:8px;
+  color:white;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.btn-add{
+  background:#087f5b;
+}
+
+.btn-remove{
+  background:#a61e4d;
+}
+
+.btn-role{
+  background:#7048e8;
+}
+
+.btn-ban{
+  background:#c92a2a;
+}
+
+.btn-unban{
+  background:#087f5b;
+}
+
+.btn-delete{
+  background:#343a40;
+}
+
+/* =========================
+   MODAL
+========================= */
 
 .modal{
   position:fixed;
   inset:0;
-  z-index:1000;
-  display:flex;
+  z-index:100;
+  background:rgba(0,0,0,.72);
+  display:none;
   align-items:center;
   justify-content:center;
   padding:20px;
-  background:rgba(0,0,0,.82);
-  backdrop-filter:blur(8px);
+}
+
+.modal.show{
+  display:flex;
 }
 
 .modal-box{
-  width:min(480px,100%);
-  text-align:center;
-}
-
-.modal-box h2{
-  color:#ffd54f;
-  margin-bottom:15px;
-}
-
-.result{
-  margin:15px 0;
+  width:100%;
+  max-width:500px;
+  background:#11141c;
+  border:1px solid var(--border);
+  border-radius:20px;
   padding:25px;
-  border-radius:18px;
-  background:#111;
-  border:1px solid rgba(255,193,7,.25);
+  box-shadow:var(--shadow);
 }
 
-.result-icon{
-  font-size:70px;
-}
-
-.result-name{
+.modal-title{
   font-size:22px;
-  font-weight:900;
-  color:#ffd54f;
-  margin-top:10px;
+  font-weight:bold;
+  margin-bottom:18px;
 }
 
-.explosion{
-  position:fixed;
-  inset:0;
-  z-index:9999;
-  pointer-events:none;
-  display:none;
+.modal-actions{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+}
+
+.modal-actions button{
+  flex:1;
+  padding:12px;
+  border:0;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+.confirm{
+  background:var(--red);
+  color:white;
+}
+
+.cancel{
+  background:#292e37;
+  color:white;
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile{
+  display:grid;
+  grid-template-columns:150px 1fr;
+  gap:20px;
+  align-items:center;
+}
+
+.avatar{
+  width:130px;
+  height:130px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#e63946,#ffd166);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:55px;
+  margin:auto;
+}
+
+.progress{
+  height:10px;
+  background:#252a34;
+  border-radius:20px;
   overflow:hidden;
 }
 
-.explosion.show{
+.progress span{
   display:block;
+  height:100%;
+  background:linear-gradient(90deg,#e63946,#ffd166);
 }
 
-.particle{
-  position:absolute;
-  width:10px;
-  height:10px;
-  border-radius:50%;
-  background:#ffd54f;
-  animation:explode 1.2s ease-out forwards;
-}
-
-.flash{
-  position:absolute;
-  inset:0;
-  background:rgba(255,193,7,.8);
-  animation:flash .35s ease-out forwards;
-}
-
-@keyframes explode{
-  from{
-    transform:translate(0,0) scale(1);
-    opacity:1;
-  }
-  to{
-    transform:translate(var(--x),var(--y)) scale(.2);
-    opacity:0;
-  }
-}
-
-@keyframes flash{
-  from{opacity:.8}
-  to{opacity:0}
-}
+/* =========================
+   TOAST
+========================= */
 
 .toast{
   position:fixed;
-  left:50%;
-  bottom:25px;
-  z-index:10000;
-  transform:translateX(-50%) translateY(100px);
-  padding:13px 20px;
-  border-radius:13px;
-  background:#191919;
-  border:1px solid rgba(255,193,7,.3);
-  color:#fff;
-  font-weight:900;
+  left:20px;
+  bottom:20px;
+  z-index:200;
+  background:#171b24;
+  border:1px solid var(--border);
+  padding:14px 18px;
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  transform:translateY(120px);
   opacity:0;
   transition:.3s;
 }
 
 .toast.show{
+  transform:translateY(0);
   opacity:1;
-  transform:translateX(-50%) translateY(0);
 }
 
-.game-card{
-  min-height:210px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1000px){
+  .grid,
+  .stats-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .actions{
+    grid-template-columns:repeat(2,1fr);
+  }
 }
 
-.game-icon{
-  font-size:48px;
-  margin-bottom:8px;
-}
+@media(max-width:650px){
+  .container{
+    width:min(100% - 20px,1400px);
+  }
 
-.game-title{
-  font-size:19px;
-  color:#ffd54f;
-  font-weight:900;
-}
-
-.game-desc{
-  color:#aaa;
-  line-height:1.7;
-  margin:8px 0 15px;
-}
-
-@media(max-width:700px){
+  .topbar{
+    padding:12px 10px;
+  }
 
   .topbar-inner{
     flex-direction:column;
-    align-items:flex-start;
+    align-items:stretch;
   }
 
-  .user-info{
-    font-size:14px;
+  .top-user{
+    justify-content:space-between;
   }
 
-  .logo{
-    font-size:24px;
-  }
-
-  main{
-    width:calc(100% - 16px);
-  }
-
-  .card{
-    padding:15px;
-  }
-
-  .products{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
-
-  .boxes{
+  .grid,
+  .stats-grid,
+  .actions{
     grid-template-columns:1fr;
   }
 
-}
-
-@media(max-width:430px){
-
-  .products{
+  .profile{
     grid-template-columns:1fr;
   }
 
+  .page-title{
+    font-size:23px;
+  }
 }
-
 </style>
 </head>
 
 <body>
 
-<div id="auth">
+<!-- =========================
+     LOGIN SCREEN
+========================= -->
+
+<section id="authScreen" class="auth-screen">
 
   <div class="auth-box">
 
@@ -636,2132 +642,713 @@ main{
       『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』
     </div>
 
-    <div class="card">
+    <div class="subtitle">
+      البنك الإلكتروني العالمي
+    </div>
 
-      <div id="loginBox">
+    <div class="auth-tabs">
 
-        <div class="card-title">
-          🔐 تسجيل الدخول
-        </div>
+      <button
+        id="loginTab"
+        class="active"
+        onclick="showAuth('login')">
+        تسجيل الدخول
+      </button>
 
-        <input
-          id="loginName"
-          type="text"
-          placeholder="اسم المستخدم"
-          autocomplete="username"
-          maxlength="50"
-        >
-
-        <input
-          id="loginPass"
-          type="password"
-          placeholder="كلمة المرور"
-          autocomplete="current-password"
-          maxlength="100"
-        >
-
-        <button
-          id="loginButton"
-          class="btn goldbtn full"
-          onclick="login()"
-        >
-          🔐 دخول
-        </button>
-
-        <button
-          class="btn full"
-          style="margin-top:8px"
-          onclick="showRegister()"
-        >
-          📝 إنشاء حساب
-        </button>
-
-        <div id="loginMessage" class="message"></div>
-
-      </div>
-
-      <div id="registerBox" class="hidden">
-
-        <div class="card-title">
-          📝 إنشاء حساب جديد
-        </div>
-
-        <input
-          id="regName"
-          type="text"
-          placeholder="اسم المستخدم"
-          maxlength="50"
-        >
-
-        <input
-          id="regPass"
-          type="password"
-          placeholder="كلمة المرور"
-          maxlength="100"
-        >
-
-        <input
-          id="regPass2"
-          type="password"
-          placeholder="تأكيد كلمة المرور"
-          maxlength="100"
-        >
-
-        <button
-          id="registerButton"
-          class="btn goldbtn full"
-          onclick="register()"
-        >
-          📝 إنشاء الحساب
-        </button>
-
-        <button
-          class="btn full"
-          style="margin-top:8px"
-          onclick="showLogin()"
-        >
-          ↩️ العودة
-        </button>
-
-        <div id="registerMessage" class="message"></div>
-
-      </div>
+      <button
+        id="registerTab"
+        onclick="showAuth('register')">
+        إنشاء حساب
+      </button>
 
     </div>
 
-    <div class="status">
-      🔒 تسجيل باسم المستخدم وكلمة المرور فقط
-    </div>
+    <!-- LOGIN -->
+
+    <form
+      id="loginForm"
+      class="form"
+      onsubmit="login(event)">
+
+      <input
+        id="loginUsername"
+        class="input"
+        placeholder="اسم المستخدم"
+        autocomplete="username"
+        required>
+
+      <input
+        id="loginPassword"
+        class="input"
+        type="password"
+        placeholder="كلمة المرور"
+        autocomplete="current-password"
+        required>
+
+      <button class="main-btn" type="submit">
+        🔐 تسجيل الدخول
+      </button>
+
+    </form>
+
+    <!-- REGISTER -->
+
+    <form
+      id="registerForm"
+      class="form hidden"
+      onsubmit="register(event)">
+
+      <input
+        id="registerUsername"
+        class="input"
+        placeholder="اسم المستخدم"
+        required>
+
+      <input
+        id="registerPhone"
+        class="input"
+        placeholder="رقم الهاتف"
+        required>
+
+      <input
+        id="registerPassword"
+        class="input"
+        type="password"
+        placeholder="كلمة المرور"
+        required>
+
+      <input
+        id="registerPassword2"
+        class="input"
+        type="password"
+        placeholder="تأكيد كلمة المرور"
+        required>
+
+      <button class="main-btn" type="submit">
+        📝 إنشاء الحساب
+      </button>
+
+    </form>
+
+    <div id="authMessage" class="message"></div>
 
   </div>
 
-</div>
+</section>
 
+
+<!-- =========================
+     APP
+========================= -->
 
 <div id="app" class="hidden">
 
-<header class="topbar">
+  <header class="topbar">
 
-  <div class="topbar-inner">
+    <div class="topbar-inner">
 
-    <div class="brand">
-      『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』
-    </div>
-
-    <div class="user-info">
-      👤 <span id="headerName">-</span>
-      <span class="separator">|</span>
-      💰 <span id="headerBalance">0</span>
-    </div>
-
-  </div>
-
-  <nav>
-
-    <button data-page="home" onclick="page('home')">🏠 الرئيسية</button>
-    <button data-page="character" onclick="page('character')">🧙 الشخصية</button>
-    <button data-page="city" onclick="page('city')">🏯 المدينة</button>
-    <button data-page="shop" onclick="page('shop')">🛒 المتجر</button>
-    <button data-page="inventory" onclick="page('inventory')">🎒 المخزون</button>
-    <button data-page="games" onclick="page('games')">🎮 الألعاب</button>
-    <button data-page="boxes" onclick="page('boxes')">📦 الصناديق</button>
-    <button data-page="wallet" onclick="page('wallet')">💰 المحفظة</button>
-    <button data-page="profile" onclick="page('profile')">👤 الملف</button>
-    <button onclick="logout()">🚪 خروج</button>
-
-  </nav>
-
-</header>
-
-
-<main>
-
-<section id="page-home" class="page active">
-
-  <div class="grid">
-
-    <div class="card">
-      <div class="card-title">💰 الرصيد</div>
-      <div id="homeBalance" class="big-number green">0</div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">⭐ المستوى</div>
-      <div id="homeLevel" class="big-number gold">1</div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">⚔️ القوة</div>
-      <div id="homePower" class="big-number">20</div>
-    </div>
-
-  </div>
-
-  <div class="card" style="margin-top:15px">
-
-    <div class="card-title">
-      🏯 مرحبًا بك في S.U.N TOKYO
-    </div>
-
-    <p class="description">
-      عالم مصرفي تفاعلي مليء بالألعاب والصناديق والمتجر والمغامرات.
-    </p>
-
-    <button
-      class="btn goldbtn"
-      onclick="page('boxes')"
-    >
-      📦 افتح الصناديق
-    </button>
-
-    <button
-      class="btn"
-      onclick="page('shop')"
-    >
-      🛒 المتجر
-    </button>
-
-  </div>
-
-</section>
-
-
-<section id="page-character" class="page">
-
-  <div class="card">
-
-    <div class="card-title">🧙 الشخصية</div>
-
-    <div class="grid">
-
-      <div class="card">
-        ❤️ الصحة
-        <div id="characterHP" class="character-stat hp">100</div>
+      <div class="brand">
+        『𝑺.𝑼.𝑵⊰🧧⊱𝑻𝑶𝑲𝒀𝑶』
       </div>
 
-      <div class="card">
-        ⚔️ الهجوم
-        <div id="characterAttack" class="character-stat attack">10</div>
-      </div>
+      <div class="top-user">
 
-      <div class="card">
-        🛡️ الدفاع
-        <div id="characterDefense" class="character-stat defense">10</div>
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<section id="page-city" class="page">
-
-  <div class="grid">
-
-    <div class="card">
-
-      <div class="card-title">🏯 المدينة</div>
-
-      <div id="cityLevel" class="big-number gold">
-        1
-      </div>
-
-      <p class="description">
-        طوّر مدينتك لزيادة قوتك.
-      </p>
-
-      <button
-        class="btn goldbtn full"
-        onclick="cityUpgrade()"
-      >
-        ⬆️ تطوير المدينة
-      </button>
-
-    </div>
-
-    <div class="card">
-
-      <div class="card-title">👥 السكان</div>
-
-      <div id="cityPopulation" class="big-number">
-        1
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<section id="page-shop" class="page">
-
-  <div class="card">
-
-    <div class="card-title">
-      🛒 المتجر الملكي
-    </div>
-
-    <p class="description">
-      اختر أي منتج لشرائه وإضافته إلى مخزونك.
-    </p>
-
-    <div id="products" class="products"></div>
-
-  </div>
-
-</section>
-
-
-<section id="page-inventory" class="page">
-
-  <div class="card">
-
-    <div class="card-title">
-      🎒 المخزون
-    </div>
-
-    <div id="inventoryList" class="grid">
-
-      <div class="card">
-        <p class="description">
-          جاري تحميل المخزون...
-        </p>
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<section id="page-games" class="page">
-
-  <div class="card">
-
-    <div class="card-title">
-      🎮 صالة الألعاب
-    </div>
-
-    <div id="gamesList" class="grid"></div>
-
-  </div>
-
-</section>
-
-
-<section id="page-boxes" class="page">
-
-  <div class="card">
-
-    <div class="card-title">
-      📦 خزنة الصناديق الفاخرة
-    </div>
-
-    <p class="description">
-      افتح الصناديق للحصول على جوائز عشوائية.
-    </p>
-
-    <div id="boxesList" class="boxes"></div>
-
-  </div>
-
-</section>
-
-
-<section id="page-wallet" class="page">
-
-  <div class="grid">
-
-    <div class="card">
-
-      <div class="card-title">
-        💸 تحويل
-      </div>
-
-      <input
-        id="transferUser"
-        placeholder="اسم المستلم"
-      >
-
-      <input
-        id="transferAmount"
-        type="number"
-        min="1"
-        placeholder="المبلغ"
-      >
-
-      <button
-        class="btn goldbtn full"
-        onclick="transferMoney()"
-      >
-        💸 تحويل
-      </button>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="card-title">
-        💰 إيداع
-      </div>
-
-      <input
-        id="depositAmount"
-        type="number"
-        min="1"
-        placeholder="المبلغ"
-      >
-
-      <button
-        class="btn success full"
-        onclick="walletAction('deposit')"
-      >
-        💰 إيداع
-      </button>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="card-title">
-        💳 سحب
-      </div>
-
-      <input
-        id="withdrawAmount"
-        type="number"
-        min="1"
-        placeholder="المبلغ"
-      >
-
-      <button
-        class="btn danger full"
-        onclick="walletAction('withdraw')"
-      >
-        💳 سحب
-      </button>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<section id="page-profile" class="page">
-
-  <div class="card">
-
-    <div class="card-title">
-      👤 الملف الشخصي
-    </div>
-
-    <div class="stat">
-      <span class="stat-name">اسم المستخدم</span>
-      <strong id="profileName">-</strong>
-    </div>
-
-    <div class="stat">
-      <span class="stat-name">الرصيد</span>
-      <strong id="profileBalance">0</strong>
-    </div>
-
-    <div class="stat">
-      <span class="stat-name">المستوى</span>
-      <strong id="profileLevel">1</strong>
-    </div>
-
-    <button
-      class="btn danger full"
-      style="margin-top:15px"
-      onclick="logout()"
-    >
-      🚪 تسجيل الخروج
-    </button>
-
-  </div>
-
-</section>
-
-</main>
-
-</div>
-
-
-<div id="boxModal" class="modal hidden">
-
-  <div class="card modal-box">
-
-    <h2>📦 فتح الصندوق</h2>
-
-    <div id="boxResult" class="result">
-
-      <div class="result-icon">
-        📦
-      </div>
-
-      <div class="result-name">
-        جاري الفتح...
-      </div>
-
-    </div>
-
-    <button
-      class="btn goldbtn full"
-      onclick="closeBoxModal()"
-    >
-      إغلاق
-    </button>
-
-  </div>
-
-</div>
-
-
-<div id="explosion" class="explosion"></div>
-
-<div id="toast" class="toast"></div>
-
-
-<script>
-
-let currentUser=null;
-
-
-/* =========================
-   المنتجات
-========================= */
-
-const products=[
-
-["p001","⚔️","سيف اللهب","يزيد الهجوم",500],
-["p002","🗡️","نصل الظلام","سلاح نادر",650],
-["p003","🪄","عصا الساحر","قوة سحرية",700],
-["p004","🏹","قوس القمر","هجوم بعيد",800],
-["p005","🔱","رمح التنين","سلاح أسطوري",950],
-["p006","🛡️","درع الحديد","يزيد الدفاع",400],
-["p007","🛡️","درع الذهب","دفاع قوي",850],
-["p008","🪖","خوذة المحارب","دفاع إضافي",300],
-["p009","🥋","درع الساموراي","دفاع ساموراي",900],
-["p010","👑","تاج الملك","عنصر ملكي",1500],
-
-["p011","❤️","جرعة الصحة","استعادة الصحة",150],
-["p012","💙","جرعة الطاقة","استعادة الطاقة",175],
-["p013","💚","جرعة الطبيعة","علاج قوي",225],
-["p014","💜","جرعة السحر","طاقة سحرية",350],
-["p015","💛","جرعة الذهب","حظ أفضل",500],
-["p016","🔥","جوهر النار","قوة النار",600],
-["p017","❄️","جوهر الجليد","قوة الجليد",600],
-["p018","⚡","جوهر البرق","قوة البرق",750],
-["p019","🌑","جوهر الظلام","قوة الظلام",850],
-["p020","☀️","جوهر الشمس","قوة الشمس",1000],
-
-["p021","💎","جوهرة صغيرة","جوهرة نادرة",300],
-["p022","💎","جوهرة زرقاء","جوهرة زرقاء",500],
-["p023","💎","جوهرة حمراء","جوهرة حمراء",550],
-["p024","💎","جوهرة بنفسجية","جوهرة أسطورية",750],
-["p025","💎","جوهرة ذهبية","جوهرة ملكية",1200],
-["p026","🪙","عملة قديمة","قطعة أثرية",250],
-["p027","🏺","تحفة قديمة","تحفة نادرة",450],
-["p028","📜","مخطوطة قديمة","مخطوطة سرية",700],
-["p029","🗝️","مفتاح ذهبي","يفتح خزائن",900],
-["p030","🔮","كرة العراف","عنصر غامض",1100],
-
-["p031","🐉","قلب التنين","عنصر نادر",2000],
-["p032","🦊","قناع الثعلب","قناع أسطوري",1300],
-["p033","🐺","روح الذئب","قوة الذئب",1400],
-["p034","🦅","ريشة النسر","سرعة عالية",1000],
-["p035","🐯","مخلب النمر","هجوم قوي",1250],
-["p036","🐍","سم الأفعى","عنصر خطير",900],
-["p037","🦁","قلب الأسد","شجاعة",1500],
-["p038","🐲","حجر التنين","قوة التنين",2500],
-["p039","🦋","جناح الفراشة","سرعة",650],
-["p040","🦂","ذيل العقرب","هجوم سام",950],
-
-["p041","🏯","مخطط القصر","تطوير المدينة",1000],
-["p042","🏰","مخطط القلعة","قلعة قوية",2500],
-["p043","🌳","شجرة الحكمة","زيادة الخبرة",800],
-["p044","⛩️","بوابة المعبد","عنصر المدينة",1200],
-["p045","🗿","تمثال الحارس","دفاع المدينة",1700],
-["p046","🌾","بذور القمح","للمزرعة",100],
-["p047","🌽","بذور الذرة","للمزرعة",125],
-["p048","🍎","بذور التفاح","للمزرعة",150],
-["p049","🍇","بذور العنب","للمزرعة",200],
-["p050","🌻","بذور عباد الشمس","للمزرعة",250],
-
-["p051","🍞","خبز فاخر","طعام",120],
-["p052","🍖","لحم مشوي","طعام قوي",250],
-["p053","🍜","رامن أسطوري","طاقة",300],
-["p054","🍣","سوشي فاخر","طاقة",350],
-["p055","🍱","وجبة الساموراي","طاقة عالية",500],
-["p056","🍵","شاي ياباني","استرخاء",100],
-["p057","🍙","أونيغيري","طعام",150],
-["p058","🍰","كعكة ملكية","طعام نادر",400],
-["p059","🍫","شوكولاتة نادرة","طاقة",300],
-["p060","🍯","عسل الجبل","علاج",450],
-
-["p061","🎩","قبعة الساحر","زينة",750],
-["p062","👘","كيمونو فاخر","زينة",850],
-["p063","🥷","زي النينجا","زينة",1200],
-["p064","🧥","معطف القائد","زينة",1000],
-["p065","👞","حذاء السرعة","سرعة",700],
-["p066","🕶️","نظارة الظلام","زينة",600],
-["p067","🎭","قناع المسرح","زينة",500],
-["p068","🧤","قفازات القوة","قوة",900],
-["p069","🧣","وشاح النار","زينة",800],
-["p070","🧿","عين الحماية","حماية",1100],
-
-["p071","🎁","هدية صغيرة","هدية",250],
-["p072","🎁","هدية ذهبية","هدية نادرة",600],
-["p073","🎁","هدية ملكية","هدية أسطورية",1500],
-["p074","🎫","تذكرة الحظ","حظ",300],
-["p075","🎟️","تذكرة ذهبية","حظ أفضل",700],
-["p076","🎟️","تذكرة أسطورية","حظ أسطوري",1500],
-["p077","🎲","نرد محظوظ","الألعاب",500],
-["p078","🎡","رمز العجلة","الألعاب",650],
-["p079","🎮","رمز الألعاب","الألعاب",400],
-["p080","🏆","كأس النصر","زينة",1800],
-
-["p081","📿","قلادة القمر","طاقة",900],
-["p082","💍","خاتم النار","هجوم",1200],
-["p083","💍","خاتم الجليد","دفاع",1200],
-["p084","💍","خاتم البرق","سرعة",1400],
-["p085","💍","خاتم الملك","عنصر ملكي",2200],
-["p086","📿","قلادة التنين","قوة",2500],
-["p087","👑","تاج الساموراي","قوة",1900],
-["p088","👑","تاج التنين","قوة أسطورية",3500],
-["p089","💠","حجر الطاقة","طاقة",1600],
-["p090","💠","حجر الروح","روح",2200],
-
-["p091","📕","كتاب النار","مهارة",1300],
-["p092","📘","كتاب الجليد","مهارة",1300],
-["p093","📗","كتاب الطبيعة","مهارة",1300],
-["p094","📙","كتاب البرق","مهارة",1500],
-["p095","📓","كتاب الظلام","مهارة",1800],
-["p096","📔","كتاب الشمس","مهارة",2200],
-["p097","📖","كتاب الأساطير","مهارة نادرة",3000],
-["p098","🧾","وثيقة القصر","المدينة",1000],
-["p099","📋","وثيقة الملك","المدينة",2000],
-["p100","📜","سر قديم","عنصر أسطوري",4000],
-
-["p101","🗡️","سيف القمر","سلاح نادر",1800],
-["p102","⚔️","سيف الشمس","سلاح أسطوري",3000],
-["p103","⚔️","سيف التنين","سلاح أسطوري",5000],
-["p104","🔪","نصل ساموراي","سلاح",1600],
-["p105","🔱","رمح الملك","سلاح",2700],
-["p106","🏹","قوس التنين","سلاح",3200],
-["p107","🪄","عصا الحكيم","سحر",2800],
-["p108","🔮","بلورة التنين","سحر",3500],
-["p109","🛡️","درع التنين","دفاع",4000],
-["p110","👑","تاج الشمس","عنصر ملكي",5000]
-
-];
-
-
-/* =========================
-   الألعاب
-========================= */
-
-const games=[
-
-["dice","🎲","النرد","تكلفة 25 💰"],
-["coin","🪙","عملة الحظ","تكلفة 40 💰"],
-["quickbox","📦","الصندوق السريع","تكلفة 50 💰"],
-["slots","🎰","آلة الحظ","تكلفة 75 💰"],
-["wheel","🎡","عجلة الحظ","تكلفة 100 💰"],
-["cards","🃏","ورق الحظ","تكلفة 150 💰"],
-["treasure","💎","كنز مخفي","تكلفة 200 💰"],
-["boss","🐉","معركة التنين","تكلفة 300 💰"]
-
-];
-
-
-/* =========================
-   الصناديق
-========================= */
-
-const boxes=[
-
-{
- id:"box1",
- icon:"📦",
- name:"الصندوق البرونزي",
- price:100,
- rewards:5
-},
-
-{
- id:"box2",
- icon:"🧰",
- name:"الصندوق الفضي",
- price:250,
- rewards:5
-},
-
-{
- id:"box3",
- icon:"🗝️",
- name:"الصندوق الذهبي",
- price:500,
- rewards:3
-},
-
-{
- id:"box4",
- icon:"🏺",
- name:"الصندوق الإمبراطوري",
- price:1000,
- rewards:5
-},
-
-{
- id:"box5",
- icon:"🗃️",
- name:"صندوق الساموراي",
- price:2500,
- rewards:6
-},
-
-{
- id:"box6",
- icon:"🧳",
- name:"صندوق التنين",
- price:5000,
- rewards:7
-},
-
-{
- id:"box7",
- icon:"💎",
- name:"الصندوق الأسطوري",
- price:10000,
- rewards:10
-}
-
-];
-
-
-/* =========================
-   API
-========================= */
-
-async function request(url,body){
-
-  const response=await fetch(
-    url,
-    {
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify(body)
-    }
-  );
-
-  let data;
-
-  try{
-    data=await response.json();
-  }catch{
-    throw new Error("استجابة غير صحيحة من الخادم");
-  }
-
-  if(!response.ok || data.success===false){
-    throw new Error(
-      data.message||"حدث خطأ في الخادم"
-    );
-  }
-
-  return data;
-}
-
-
-/* =========================
-   التسجيل
-========================= */
-
-async function register(){
-
-  const username=document
-    .getElementById("regName")
-    .value
-    .trim();
-
-  const password=document
-    .getElementById("regPass")
-    .value;
-
-  const password2=document
-    .getElementById("regPass2")
-    .value;
-
-  if(!username||!password||!password2){
-    showMessage(
-      "registerMessage",
-      "❌ أكمل جميع البيانات."
-    );
-    return;
-  }
-
-  if(username.length<3){
-    showMessage(
-      "registerMessage",
-      "❌ اسم المستخدم يجب أن يكون 3 أحرف على الأقل."
-    );
-    return;
-  }
-
-  if(password.length<6){
-    showMessage(
-      "registerMessage",
-      "❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل."
-    );
-    return;
-  }
-
-  if(password!==password2){
-    showMessage(
-      "registerMessage",
-      "❌ كلمتا المرور غير متطابقتين."
-    );
-    return;
-  }
-
-  const button=
-    document.getElementById("registerButton");
-
-  button.disabled=true;
-  button.textContent="⏳ جاري الإنشاء...";
-
-  try{
-
-    const data=await request(
-      "/api/register",
-      {
-        username,
-        password
-      }
-    );
-
-    if(data.user){
-
-      showMessage(
-        "registerMessage",
-        "✅ تم إنشاء الحساب بنجاح.",
-        "success"
-      );
-
-      setTimeout(()=>{
-        loginUser(data.user);
-      },500);
-
-    }
-
-  }catch(error){
-
-    showMessage(
-      "registerMessage",
-      "❌ "+error.message
-    );
-
-  }finally{
-
-    button.disabled=false;
-    button.textContent="📝 إنشاء الحساب";
-
-  }
-
-}
-
-
-/* =========================
-   تسجيل الدخول
-========================= */
-
-async function login(){
-
-  const username=document
-    .getElementById("loginName")
-    .value
-    .trim();
-
-  const password=document
-    .getElementById("loginPass")
-    .value;
-
-  if(!username||!password){
-
-    showMessage(
-      "loginMessage",
-      "❌ اكتب اسم المستخدم وكلمة المرور."
-    );
-
-    return;
-  }
-
-  const button=
-    document.getElementById("loginButton");
-
-  button.disabled=true;
-  button.textContent="⏳ جاري الدخول...";
-
-  try{
-
-    const data=await request(
-      "/api/login",
-      {
-        username,
-        password
-      }
-    );
-
-    if(data.user){
-      loginUser(data.user);
-    }
-
-  }catch(error){
-
-    showMessage(
-      "loginMessage",
-      "❌ "+error.message
-    );
-
-  }finally{
-
-    button.disabled=false;
-    button.textContent="🔐 دخول";
-
-  }
-
-}
-
-
-/* =========================
-   دخول المستخدم
-========================= */
-
-function loginUser(user){
-
-  currentUser={
-    ...user
-  };
-
-  localStorage.setItem(
-    "sun_tokyo_user",
-    JSON.stringify(currentUser)
-  );
-
-  document
-    .getElementById("auth")
-    .classList
-    .add("hidden");
-
-  document
-    .getElementById("app")
-    .classList
-    .remove("hidden");
-
-  updateUI();
-
-  loadInventory();
-
-  page("home");
-
-}
-
-
-/* =========================
-   خروج
-========================= */
-
-function logout(){
-
-  currentUser=null;
-
-  localStorage.removeItem(
-    "sun_tokyo_user"
-  );
-
-  document
-    .getElementById("app")
-    .classList
-    .add("hidden");
-
-  document
-    .getElementById("auth")
-    .classList
-    .remove("hidden");
-
-  document.getElementById("loginPass").value="";
-
-  showLogin();
-
-}
-
-
-/* =========================
-   الرسائل
-========================= */
-
-function showMessage(id,text,type="error"){
-
-  const element=
-    document.getElementById(id);
-
-  if(!element)return;
-
-  element.textContent=text;
-
-  element.className=
-    "message "+type;
-
-}
-
-
-function toast(text){
-
-  const element=
-    document.getElementById("toast");
-
-  element.textContent=text;
-
-  element.classList.add("show");
-
-  setTimeout(()=>{
-    element.classList.remove("show");
-  },2500);
-
-}
-
-
-/* =========================
-   تبديل التسجيل
-========================= */
-
-function showRegister(){
-
-  document
-    .getElementById("loginBox")
-    .classList
-    .add("hidden");
-
-  document
-    .getElementById("registerBox")
-    .classList
-    .remove("hidden");
-
-}
-
-
-function showLogin(){
-
-  document
-    .getElementById("registerBox")
-    .classList
-    .add("hidden");
-
-  document
-    .getElementById("loginBox")
-    .classList
-    .remove("hidden");
-
-}
-
-
-/* =========================
-   UI
-========================= */
-
-function updateUI(){
-
-  if(!currentUser)return;
-
-  const balance=
-    Number(currentUser.balance||0);
-
-  const level=
-    Number(currentUser.level||1);
-
-  const city=
-    Number(currentUser.city||1);
-
-  document.getElementById("headerName").textContent=
-    currentUser.username||"-";
-
-  document.getElementById("headerBalance").textContent=
-    balance.toLocaleString("ar-EG");
-
-  document.getElementById("homeBalance").textContent=
-    balance.toLocaleString("ar-EG");
-
-  document.getElementById("homeLevel").textContent=
-    level;
-
-  document.getElementById("homePower").textContent=
-    20+((level-1)*5);
-
-  document.getElementById("profileName").textContent=
-    currentUser.username||"-";
-
-  document.getElementById("profileBalance").textContent=
-    balance.toLocaleString("ar-EG");
-
-  document.getElementById("profileLevel").textContent=
-    level;
-
-  document.getElementById("cityLevel").textContent=
-    city;
-
-  document.getElementById("cityPopulation").textContent=
-    city;
-
-  document.getElementById("characterHP").textContent=
-    100+((level-1)*10);
-
-  document.getElementById("characterAttack").textContent=
-    10+((level-1)*2);
-
-  document.getElementById("characterDefense").textContent=
-    10+((level-1)*2);
-
-}
-
-
-/* =========================
-   تحديث الرصيد
-========================= */
-
-async function refreshBalance(){
-
-  if(!currentUser)return;
-
-  try{
-
-    const data=await request(
-      "/api/balance",
-      {
-        userId:currentUser.id,
-        username:currentUser.username
-      }
-    );
-
-    if(data.user){
-
-      currentUser={
-        ...currentUser,
-        ...data.user
-      };
-
-      localStorage.setItem(
-        "sun_tokyo_user",
-        JSON.stringify(currentUser)
-      );
-
-      updateUI();
-
-    }
-
-  }catch(error){
-
-    console.warn(
-      "Balance refresh:",
-      error.message
-    );
-
-  }
-
-}
-
-
-/* =========================
-   الصفحات
-========================= */
-
-function page(name){
-
-  document
-    .querySelectorAll(".page")
-    .forEach(item=>{
-      item.classList.remove("active");
-    });
-
-  document
-    .querySelectorAll("nav button[data-page]")
-    .forEach(item=>{
-      item.classList.remove("active");
-    });
-
-  const target=
-    document.getElementById("page-"+name);
-
-  if(target){
-    target.classList.add("active");
-  }
-
-  const button=
-    document.querySelector(
-      'nav button[data-page="'+name+'"]'
-    );
-
-  if(button){
-    button.classList.add("active");
-  }
-
-  if(name==="inventory"){
-    loadInventory();
-  }
-
-  refreshBalance();
-
-}
-
-
-/* =========================
-   المتجر
-========================= */
-
-function renderProducts(){
-
-  const container=
-    document.getElementById("products");
-
-  container.innerHTML="";
-
-  products.forEach(product=>{
-
-    const [
-      id,
-      icon,
-      name,
-      description,
-      price
-    ]=product;
-
-    const card=
-      document.createElement("div");
-
-    card.className="card product";
-
-    card.innerHTML=`
-
-      <div>
-
-        <div class="product-icon">
-          ${icon}
+        <div class="user-pill">
+          👤 <span id="topUsername">---</span>
         </div>
 
-        <div class="product-name">
-          ${escapeHtml(name)}
-        </div>
-
-        <div class="product-description">
-          ${escapeHtml(description)}
-        </div>
-
-      </div>
-
-      <div>
-
-        <div class="product-price">
-          ${price.toLocaleString("ar-EG")} 💰
+        <div class="user-pill">
+          💰 <span id="topBalance">0</span>
         </div>
 
         <button
-          class="btn goldbtn full"
-          onclick="buyProduct('${escapeAttr(id)}')"
-        >
-          🛒 شراء
+          class="logout"
+          onclick="logout()">
+          خروج
         </button>
 
       </div>
-    `;
 
-    container.appendChild(card);
-
-  });
-
-}
-
-
-/* =========================
-   شراء المنتج
-========================= */
-
-async function buyProduct(productId){
-
-  if(!currentUser){
-
-    toast("❌ سجل الدخول أولًا.");
-
-    return;
-  }
-
-  const product=
-    products.find(
-      item=>item[0]===productId
-    );
-
-  if(!product)return;
-
-  const [
-    id,
-    icon,
-    name,
-    description,
-    price
-  ]=product;
-
-  const balance=
-    Number(currentUser.balance||0);
-
-  if(balance<price){
-
-    toast("❌ رصيدك غير كافٍ.");
-
-    return;
-  }
-
-  if(!confirm(
-    `شراء ${name} مقابل ${price.toLocaleString("ar-EG")} 💰؟`
-  )){
-    return;
-  }
-
-  try{
-
-    const data=await request(
-      "/api/purchase",
-      {
-        userId:currentUser.id,
-        username:currentUser.username,
-        productId:id,
-        productName:name,
-        price,
-        icon
-      }
-    );
-
-    if(data.user){
-
-      currentUser={
-        ...currentUser,
-        ...data.user
-      };
-
-    }else if(data.balance!==undefined){
-
-      currentUser.balance=
-        Number(data.balance);
-
-    }
-
-    localStorage.setItem(
-      "sun_tokyo_user",
-      JSON.stringify(currentUser)
-    );
-
-    updateUI();
-
-    toast(
-      `✅ تم شراء ${name}`
-    );
-
-    loadInventory();
-
-  }catch(error){
-
-    toast("❌ "+error.message);
-
-  }
-
-}
-
-
-/* =========================
-   المخزون
-========================= */
-
-async function loadInventory(){
-
-  if(!currentUser)return;
-
-  const container=
-    document.getElementById("inventoryList");
-
-  container.innerHTML=`
-    <div class="card">
-      <p class="description">
-        ⏳ جاري تحميل المخزون...
-      </p>
     </div>
-  `;
 
-  try{
+  </header>
 
-    const data=await request(
-      "/api/inventory",
-      {
-        action:"list",
-        userId:currentUser.id,
-        username:currentUser.username
-      }
-    );
 
-    renderInventory(
-      data.items||
-      data.inventory||
-      []
-    );
+  <!-- NAV -->
 
-  }catch(error){
+  <nav class="nav">
 
-    container.innerHTML=`
-      <div class="card">
-        <p class="description">
-          ❌ ${escapeHtml(error.message)}
-        </p>
+    <button
+      class="active"
+      data-page="home"
+      onclick="openPage('home',this)">
+      🏠 الرئيسية
+    </button>
+
+    <button
+      data-page="wallet"
+      onclick="openPage('wallet',this)">
+      💰 المحفظة
+    </button>
+
+    <button
+      data-page="games"
+      onclick="openPage('games',this)">
+      🎮 الألعاب
+    </button>
+
+    <button
+      data-page="profile"
+      onclick="openPage('profile',this)">
+      👤 حسابي
+    </button>
+
+    <button
+      id="adminNav"
+      class="hidden"
+      data-page="admin"
+      onclick="openPage('admin',this)">
+      👑 الإدارة
+    </button>
+
+  </nav>
+
+
+  <main class="container">
+
+    <!-- =====================
+         HOME
+    ====================== -->
+
+    <section
+      id="page-home"
+      class="page active">
+
+      <h1 class="page-title">
+        🏦 لوحة البنك
+      </h1>
+
+      <div class="grid">
+
+        <div class="card">
+          <div class="stat-label">
+            الرصيد
+          </div>
+
+          <div
+            id="homeBalance"
+            class="stat-value">
+            0
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="stat-label">
+            المستوى
+          </div>
+
+          <div
+            id="homeLevel"
+            class="stat-value">
+            1
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="stat-label">
+            القوة
+          </div>
+
+          <div
+            id="homePower"
+            class="stat-value">
+            100
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="stat-label">
+            المدينة
+          </div>
+
+          <div
+            id="homeCity"
+            class="stat-value">
+            1
+          </div>
+        </div>
+
       </div>
-    `;
-
-  }
-
-}
 
 
-/* =========================
-   عرض المخزون
-========================= */
+      <div class="card" style="margin-top:20px">
 
-function renderInventory(items){
+        <h3>
+          📊 تقدم المستوى
+        </h3>
 
-  const container=
-    document.getElementById("inventoryList");
+        <div
+          style="display:flex;justify-content:space-between;margin:10px 0">
+          <span>XP</span>
+          <span id="xpText">0 / 100</span>
+        </div>
 
-  container.innerHTML="";
+        <div class="progress">
+          <span
+            id="xpBar"
+            style="width:0%">
+          </span>
+        </div>
 
-  if(!items.length){
-
-    container.innerHTML=`
-      <div class="card">
-        <p class="description">
-          🎒 المخزون فارغ حاليًا.
-        </p>
       </div>
-    `;
 
-    return;
-  }
 
-  items.forEach(item=>{
+      <div class="actions">
 
-    const card=
-      document.createElement("div");
+        <button
+          class="action-btn"
+          onclick="openPage('wallet')">
+          💰 المحفظة
+        </button>
 
-    card.className="inventory-item";
+        <button
+          class="action-btn"
+          onclick="deposit()">
+          📥 إيداع
+        </button>
 
-    const count=
-      Number(
-        item.quantity||
-        item.count||
-        1
-      );
+        <button
+          class="action-btn"
+          onclick="withdraw()">
+          📤 سحب
+        </button>
 
-    const icon=
-      item.icon||
-      getProductIcon(
-        item.product_id
-      )||
-      "📦";
+        <button
+          class="action-btn"
+          onclick="transfer()">
+          🔄 تحويل
+        </button>
 
-    const name=
-      item.product_name||
-      item.productName||
-      item.item_name||
-      item.name||
-      "منتج";
+        <button
+          class="action-btn"
+          onclick="dailyReward()">
+          🎁 المكافأة اليومية
+        </button>
 
-    const id=
-      item.id||
-      item.product_id||
-      item.productId;
+        <button
+          class="action-btn"
+          onclick="openPage('games')">
+          🎮 الألعاب
+        </button>
 
-    card.innerHTML=`
+      </div>
 
-      <div class="inventory-info">
+    </section>
 
-        <div class="inventory-icon">
-          ${escapeHtml(icon)}
+
+    <!-- =====================
+         WALLET
+    ====================== -->
+
+    <section
+      id="page-wallet"
+      class="page">
+
+      <h1 class="page-title">
+        💰 المحفظة
+      </h1>
+
+      <div class="card">
+
+        <div class="stat-label">
+          الرصيد الحالي
+        </div>
+
+        <div
+          id="walletBalance"
+          class="stat-value"
+          style="font-size:40px">
+          0
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <button
+          class="action-btn"
+          onclick="deposit()">
+          📥 إيداع
+        </button>
+
+        <button
+          class="action-btn"
+          onclick="withdraw()">
+          📤 سحب
+        </button>
+
+        <button
+          class="action-btn"
+          onclick="transfer()">
+          🔄 تحويل
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================
+         GAMES
+    ====================== -->
+
+    <section
+      id="page-games"
+      class="page">
+
+      <h1 class="page-title">
+        🎮 الألعاب
+      </h1>
+
+      <div class="grid">
+
+        <div class="card">
+
+          <h3>🎲 النرد</h3>
+
+          <p style="color:#aaa;margin-bottom:15px">
+            التكلفة: 25
+          </p>
+
+          <button
+            class="main-btn"
+            onclick="diceGame()">
+            لعب
+          </button>
+
+        </div>
+
+        <div class="card">
+
+          <h3>📦 الصندوق</h3>
+
+          <p style="color:#aaa;margin-bottom:15px">
+            التكلفة: 50
+          </p>
+
+          <button
+            class="main-btn"
+            onclick="boxGame()">
+            فتح الصندوق
+          </button>
+
+        </div>
+
+        <div class="card">
+
+          <h3>🎡 عجلة الحظ</h3>
+
+          <p style="color:#aaa;margin-bottom:15px">
+            جرّب حظك
+          </p>
+
+          <button
+            class="main-btn"
+            onclick="wheelGame()">
+            تدوير
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================
+         PROFILE
+    ====================== -->
+
+    <section
+      id="page-profile"
+      class="page">
+
+      <h1 class="page-title">
+        👤 حسابي
+      </h1>
+
+      <div class="card profile">
+
+        <div class="avatar">
+          👤
         </div>
 
         <div>
 
-          <div class="inventory-name">
-            ${escapeHtml(name)}
+          <h2 id="profileUsername">
+            ---
+          </h2>
+
+          <p style="color:#aaa;margin-top:8px">
+            الدور:
+            <span id="profileRole">
+              مستخدم
+            </span>
+          </p>
+
+          <p style="color:#aaa;margin-top:8px">
+            المستوى:
+            <span id="profileLevel">
+              1
+            </span>
+          </p>
+
+          <p style="color:#aaa;margin-top:8px">
+            الرصيد:
+            <span id="profileBalance">
+              0
+            </span>
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================
+         ADMIN
+    ====================== -->
+
+    <section
+      id="page-admin"
+      class="page">
+
+      <div class="admin-header">
+
+        <div>
+          <h1 class="page-title">
+            👑 لوحة الإدارة
+          </h1>
+
+          <div class="admin-badge">
+            ADMINISTRATOR
+          </div>
+        </div>
+
+        <button
+          class="main-btn"
+          style="width:auto"
+          onclick="loadAdmin()">
+          🔄 تحديث
+        </button>
+
+      </div>
+
+
+      <!-- ADMIN STATS -->
+
+      <div class="stats-grid">
+
+        <div class="card">
+
+          <div class="stat-label">
+            إجمالي الأعضاء
           </div>
 
-          <div class="inventory-count">
-            الكمية: ${count}
+          <div
+            id="adminUsersCount"
+            class="stat-value">
+            0
+          </div>
+
+        </div>
+
+        <div class="card">
+
+          <div class="stat-label">
+            المديرون
+          </div>
+
+          <div
+            id="adminCount"
+            class="stat-value">
+            0
+          </div>
+
+        </div>
+
+        <div class="card">
+
+          <div class="stat-label">
+            المستخدمون
+          </div>
+
+          <div
+            id="normalUsersCount"
+            class="stat-value">
+            0
+          </div>
+
+        </div>
+
+        <div class="card">
+
+          <div class="stat-label">
+            مجموع الأرصدة
+          </div>
+
+          <div
+            id="totalBalance"
+            class="stat-value">
+            0
           </div>
 
         </div>
 
       </div>
 
-      <button
-        class="btn success"
-        onclick="useItem('${escapeAttr(id)}')"
-      >
-        🧪 استخدام
-      </button>
 
-    `;
+      <!-- SEARCH -->
 
-    container.appendChild(card);
+      <div class="admin-tools">
 
-  });
+        <input
+          id="adminSearch"
+          class="input"
+          placeholder="🔎 ابحث باسم المستخدم">
 
-}
-
-
-/* =========================
-   أيقونة المنتج
-========================= */
-
-function getProductIcon(productId){
-
-  const product=
-    products.find(
-      item=>item[0]===productId
-    );
-
-  return product?
-    product[1]:
-    "📦";
-
-}
-
-
-/* =========================
-   استخدام المنتج
-========================= */
-
-async function useItem(productId){
-
-  if(!productId){
-
-    toast("❌ المنتج غير صالح.");
-
-    return;
-  }
-
-  try{
-
-    const data=await request(
-      "/api/inventory",
-      {
-        action:"use",
-        userId:currentUser.id,
-        username:currentUser.username,
-        productId
-      }
-    );
-
-    if(data.user){
-
-      currentUser={
-        ...currentUser,
-        ...data.user
-      };
-
-      updateUI();
-
-    }
-
-    toast(
-      data.message||
-      "✅ تم استخدام المنتج."
-    );
-
-    loadInventory();
-
-  }catch(error){
-
-    toast("❌ "+error.message);
-
-  }
-
-}
-
-
-/* =========================
-   الألعاب
-========================= */
-
-function renderGames(){
-
-  const container=
-    document.getElementById("gamesList");
-
-  container.innerHTML="";
-
-  games.forEach(game=>{
-
-    const [
-      id,
-      icon,
-      name,
-      description
-    ]=game;
-
-    const card=
-      document.createElement("div");
-
-    card.className="card game-card";
-
-    card.innerHTML=`
-
-      <div>
-
-        <div class="game-icon">
-          ${icon}
-        </div>
-
-        <div class="game-title">
-          ${escapeHtml(name)}
-        </div>
-
-        <div class="game-desc">
-          ${escapeHtml(description)}
-        </div>
+        <button onclick="loadAdminUsers()">
+          بحث
+        </button>
 
       </div>
+
+
+      <!-- USERS TABLE -->
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>ID</th>
+
+              <th>المستخدم</th>
+
+              <th>الرصيد</th>
+
+              <th>الدور</th>
+
+              <th>الحالة</th>
+
+              <th>الإجراءات</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody id="adminUsersTable">
+
+            <tr>
+              <td colspan="6" style="text-align:center">
+                اضغط تحديث لتحميل الأعضاء
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<!-- =========================
+     ADMIN MODAL
+========================= -->
+
+<div
+  id="adminModal"
+  class="modal">
+
+  <div class="modal-box">
+
+    <div
+      id="adminModalTitle"
+      class="modal-title">
+      إدارة العضو
+    </div>
+
+    <div id="adminModalContent">
+
+    </div>
+
+    <div class="modal-actions">
 
       <button
-        class="btn goldbtn full"
-        onclick="playGame('${escapeAttr(id)}')"
-      >
-        🎮 لعب
+        class="cancel"
+        onclick="closeAdminModal()">
+        إلغاء
       </button>
-
-    `;
-
-    container.appendChild(card);
-
-  });
-
-}
-
-
-async function playGame(gameId){
-
-  try{
-
-    const data=await request(
-      "/api/game",
-      {
-        userId:currentUser.id,
-        username:currentUser.username,
-        game:gameId
-      }
-    );
-
-    if(data.user){
-
-      currentUser={
-        ...currentUser,
-        ...data.user
-      };
-
-      updateUI();
-
-    }
-
-    if(data.reward!==undefined){
-
-      toast(
-        `🎁 النتيجة: ${Number(data.reward).toLocaleString("ar-EG")} 💰`
-      );
-
-    }else{
-
-      toast(
-        data.message||
-        "🎮 تم لعب اللعبة."
-      );
-
-    }
-
-  }catch(error){
-
-    toast("❌ "+error.message);
-
-  }
-
-}
-
-
-/* =========================
-   الصناديق
-========================= */
-
-function renderBoxes(){
-
-  const container=
-    document.getElementById("boxesList");
-
-  container.innerHTML="";
-
-  boxes.forEach(box=>{
-
-    const card=
-      document.createElement("div");
-
-    card.className="box-card";
-
-    card.innerHTML=`
-
-      <div class="box-visual">
-        ${box.icon}
-      </div>
-
-      <div class="box-title">
-        ${escapeHtml(box.name)}
-      </div>
-
-      <div class="box-price">
-        السعر:
-        ${box.price.toLocaleString("ar-EG")}
-        💰
-      </div>
-
-      <div class="box-rewards">
-        🎁 حتى ${box.rewards} جوائز محتملة
-      </div>
 
       <button
-        class="btn goldbtn full"
-        onclick="openBox('${escapeAttr(box.id)}')"
-      >
-        📦 فتح الصندوق
+        id="adminModalConfirm"
+        class="confirm">
+        تأكيد
       </button>
 
-    `;
+    </div>
 
-    container.appendChild(card);
+  </div>
 
-  });
+</div>
 
+
+<!-- =========================
+     TOAST
+========================= -->
+
+<div
+  id="toast"
+  class="toast">
+</div>
+
+
+<script>
+
+/* =====================================================
+   STATE
+===================================================== */
+
+let currentUser = null;
+
+let adminCredentials = null;
+
+let adminUsers = [];
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function $(id){
+  return document.getElementById(id);
 }
 
-
-/* =========================
-   فتح صندوق
-========================= */
-
-async function openBox(boxId){
-
-  const box=
-    boxes.find(
-      item=>item.id===boxId
-    );
-
-  if(!box)return;
-
-  const balance=
-    Number(currentUser.balance||0);
-
-  if(balance<box.price){
-
-    toast(
-      "❌ رصيدك غير كافٍ لفتح هذا الصندوق."
-    );
-
-    return;
-  }
-
-  if(!confirm(
-    `فتح ${box.name} مقابل ${box.price.toLocaleString("ar-EG")} 💰؟`
-  )){
-    return;
-  }
-
-  showExplosion();
-
-  document
-    .getElementById("boxModal")
-    .classList
-    .remove("hidden");
-
-  document
-    .getElementById("boxResult")
-    .innerHTML=`
-
-      <div class="result-icon">
-        💥
-      </div>
-
-      <div class="result-name">
-        جاري فتح الصندوق...
-      </div>
-    `;
-
-  try{
-
-    const data=await request(
-      "/api/game",
-      {
-        userId:currentUser.id,
-        username:currentUser.username,
-        game:"box",
-        boxId:box.id,
-        price:box.price
-      }
-    );
-
-    if(data.user){
-
-      currentUser={
-        ...currentUser,
-        ...data.user
-      };
-
-    }else if(data.balance!==undefined){
-
-      currentUser.balance=
-        Number(data.balance);
-
-    }else{
-
-      currentUser.balance=
-        balance-box.price;
-
-    }
-
-    updateUI();
-
-    setTimeout(()=>{
-      showBoxReward(data);
-    },700);
-
-  }catch(error){
-
-    closeBoxModal();
-
-    toast("❌ "+error.message);
-
-  }
-
-}
-
-
-function showBoxReward(data){
-
-  const reward=
-    data.reward||
-    data.item||
-    {
-      icon:"🎁",
-      name:"جائزة عشوائية"
-    };
-
-  const icon=
-    reward.icon||
-    "🎁";
-
-  const name=
-    reward.name||
-    reward.productName||
-    "جائزة";
-
-  document
-    .getElementById("boxResult")
-    .innerHTML=`
-
-      <div class="result-icon">
-        ${escapeHtml(icon)}
-      </div>
-
-      <div class="result-name">
-        🎉 ${escapeHtml(name)}
-      </div>
-
-      <p class="description">
-        حصلت على الجائزة بنجاح!
-      </p>
-
-    `;
-
-  toast(
-    "🎉 مبروك! حصلت على "+name
-  );
-
-  loadInventory();
-
-}
-
-
-function closeBoxModal(){
-
-  document
-    .getElementById("boxModal")
-    .classList
-    .add("hidden");
-
-}
-
-
-/* =========================
-   الانفجار
-========================= */
-
-function showExplosion(){
-
-  const container=
-    document.getElementById("explosion");
-
-  container.innerHTML="";
-
-  const flash=
-    document.createElement("div");
-
-  flash.className="flash";
-
-  container.appendChild(flash);
-
-  for(
-    let i=0;
-    i<80;
-    i++
-  ){
-
-    const particle=
-      document.createElement("div");
-
-    particle.className="particle";
-
-    particle.style.left="50%";
-    particle.style.top="50%";
-
-    const angle=
-      Math.random()*Math.PI*2;
-
-    const distance=
-      150+Math.random()*700;
-
-    particle.style.setProperty(
-      "--x",
-      Math.cos(angle)*distance+"px"
-    );
-
-    particle.style.setProperty(
-      "--y",
-      Math.sin(angle)*distance+"px"
-    );
-
-    particle.style.width=
-      (4+Math.random()*10)+"px";
-
-    particle.style.height=
-      particle.style.width;
-
-    container.appendChild(
-      particle
-    );
-
-  }
-
-  container.classList.add("show");
-
-  setTimeout(()=>{
-    container.classList.remove("show");
-    container.innerHTML="";
-  },1300);
-
-}
-
-
-/* =========================
-   المدينة
-========================= */
-
-async function cityUpgrade(){
-
-  try{
-
-    const data=await request(
-      "/api/game",
-      {
-        userId:currentUser.id,
-        username:currentUser.username,
-        game:"city_upgrade"
-      }
-    );
-
-    if(data.user){
-
-      currentUser={
-        ...currentUser,
-        ...data.user
-      };
-
-      updateUI();
-
-    }
-
-    toast(
-      data.message||
-      "🏯 تم تطوير المدينة."
-    );
-
-  }catch(error){
-
-    toast("❌ "+error.message);
-
-  }
-
-}
-
-
-/* =========================
-   التحويل
-========================= */
-
-async function transferMoney(){
-
-  const username=document
-    .getElementById("transferUser")
-    .value
-    .trim();
-
-  const amount=Number(
-    document
-      .getElementById("transferAmount")
-      .value
-  );
-
-  if(!username||amount<=0){
-
-    toast(
-      "❌ أدخل المستلم والمبلغ."
-    );
-
-    return;
-  }
-
-  try{
-
-    const data=await request(
-      "/api/game",
-      {
-        userId:currentUser.id,
-        username:currentUser.username,
-        game:"transfer",
-        toUsername:username,
-        amount
-      }
-    );
-
-    if(data.user){
-
-      currentUser={
-        ...currentUser,
-        ...data.user
-      };
-
-      updateUI();
-
-    }
-
-    toast(
-      data.message||
-      "✅ تم التحويل."
-    );
-
-  }catch(error){
-
-    toast("❌ "+error.message);
-
-  }
-
-}
-
-
-/* =========================
-   المحفظة
-========================= */
-
-async function walletAction(action){
-
-  const id=
-    action==="deposit"
-      ?"depositAmount"
-      :"withdrawAmount";
-
-  const amount=Number(
-    document
-      .getElementById(id)
-      .value
-  );
-
-  if(amount<=0){
-
-    toast(
-      "❌ أدخل مبلغًا صحيحًا."
-    );
-
-    return;
-  }
-
-  try{
-
-    const data=await request(
-      "/api/game",
-      {
-        userId:currentUser.id,
-        username:currentUser.username,
-        game:action,
-        amount
-      }
-    );
-
-    if(data.user){
-
-      currentUser={
-        ...currentUser,
-        ...data.user
-      };
-
-      updateUI();
-
-    }
-
-    toast(
-      data.message||
-      "✅ تمت العملية."
-    );
-
-  }catch(error){
-
-    toast("❌ "+error.message);
-
-  }
-
-}
-
-
-/* =========================
-   الأمان
-========================= */
 
 function escapeHtml(value){
 
-  return String(value)
+  return String(value ?? "")
     .replaceAll("&","&amp;")
     .replaceAll("<","&lt;")
     .replaceAll(">","&gt;")
@@ -2771,112 +1358,1951 @@ function escapeHtml(value){
 }
 
 
-function escapeAttr(value){
+function formatMoney(value){
 
-  return escapeHtml(value);
+  const number = Number(value || 0);
+
+  if(!Number.isFinite(number)){
+    return "0";
+  }
+
+  if(number >= Number.MAX_SAFE_INTEGER){
+    return "∞";
+  }
+
+  return number.toLocaleString("en-US");
 
 }
 
 
-/* =========================
-   التشغيل
-========================= */
+function toast(message){
 
-document.addEventListener(
-  "DOMContentLoaded",
-  async function(){
+  const el = $("toast");
 
-    renderProducts();
-    renderGames();
-    renderBoxes();
+  el.textContent = message;
 
-    const saved=
-      localStorage.getItem(
-        "sun_tokyo_user"
+  el.classList.add("show");
+
+  setTimeout(()=>{
+    el.classList.remove("show");
+  },3000);
+
+}
+
+
+function authMessage(message,type="error"){
+
+  const el = $("authMessage");
+
+  el.textContent = message;
+
+  el.className =
+    "message show " + type;
+
+}
+
+
+/* =====================================================
+   AUTH TABS
+===================================================== */
+
+function showAuth(type){
+
+  const login =
+    type === "login";
+
+  $("loginForm")
+    .classList.toggle("hidden",!login);
+
+  $("registerForm")
+    .classList.toggle("hidden",login);
+
+  $("loginTab")
+    .classList.toggle("active",login);
+
+  $("registerTab")
+    .classList.toggle("active",!login);
+
+  $("authMessage")
+    .className = "message";
+
+}
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+async function login(event){
+
+  event.preventDefault();
+
+  const username =
+    $("loginUsername").value.trim();
+
+  const password =
+    $("loginPassword").value;
+
+  if(!username || !password){
+
+    authMessage(
+      "❌ أدخل اسم المستخدم وكلمة المرور"
+    );
+
+    return;
+  }
+
+  const button =
+    event.submitter;
+
+  if(button){
+    button.disabled = true;
+    button.textContent = "⏳ جاري الدخول...";
+  }
+
+  try{
+
+    const response =
+      await fetch("/api/login",{
+
+        method:"POST",
+
+        headers:{
+          "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+          username,
+          password
+        })
+
+      });
+
+    const data =
+      await response.json();
+
+    if(!response.ok || !data.success){
+
+      throw new Error(
+        data.message ||
+        "فشل تسجيل الدخول"
       );
 
-    if(saved){
+    }
+
+    currentUser =
+      data.user;
+
+    /*
+      نحفظ بيانات جلسة الواجهة.
+      كلمة مرور الأدمن تحفظ فقط في sessionStorage
+      لأنها مطلوبة لاستدعاء api/admin.js.
+    */
+
+    sessionStorage.setItem(
+      "sun_user",
+      JSON.stringify(currentUser)
+    );
+
+    if(currentUser.isAdmin){
+
+      adminCredentials = {
+        username,
+        password
+      };
+
+      sessionStorage.setItem(
+        "sun_admin",
+        JSON.stringify(adminCredentials)
+      );
+
+    }
+
+    showApp();
+
+    toast(
+      data.message ||
+      "✅ تم تسجيل الدخول"
+    );
+
+  }catch(error){
+
+    authMessage(
+      "❌ " + error.message
+    );
+
+  }finally{
+
+    if(button){
+
+      button.disabled = false;
+
+      button.textContent =
+        "🔐 تسجيل الدخول";
+
+    }
+
+  }
+
+}
+
+
+/* =====================================================
+   REGISTER
+===================================================== */
+
+async function register(event){
+
+  event.preventDefault();
+
+  const username =
+    $("registerUsername").value.trim();
+
+  const phone =
+    $("registerPhone").value.trim();
+
+  const password =
+    $("registerPassword").value;
+
+  const password2 =
+    $("registerPassword2").value;
+
+  if(!username || !phone || !password){
+
+    authMessage(
+      "❌ جميع الحقول مطلوبة"
+    );
+
+    return;
+  }
+
+  if(password !== password2){
+
+    authMessage(
+      "❌ كلمتا المرور غير متطابقتين"
+    );
+
+    return;
+  }
+
+  const button =
+    event.submitter;
+
+  if(button){
+
+    button.disabled = true;
+
+    button.textContent =
+      "⏳ جاري إنشاء الحساب...";
+
+  }
+
+  try{
+
+    const response =
+      await fetch("/api/register",{
+
+        method:"POST",
+
+        headers:{
+          "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+
+          username,
+
+          phone,
+
+          password
+
+        })
+
+      });
+
+    const data =
+      await response.json();
+
+    if(!response.ok || !data.success){
+
+      throw new Error(
+        data.message ||
+        "تعذر إنشاء الحساب"
+      );
+
+    }
+
+    authMessage(
+      data.message ||
+      "✅ تم إنشاء الحساب",
+      "success"
+    );
+
+    $("registerForm").reset();
+
+    setTimeout(()=>{
+
+      showAuth("login");
+
+      $("loginUsername").value =
+        username;
+
+    },1000);
+
+  }catch(error){
+
+    authMessage(
+      "❌ " + error.message
+    );
+
+  }finally{
+
+    if(button){
+
+      button.disabled = false;
+
+      button.textContent =
+        "📝 إنشاء الحساب";
+
+    }
+
+  }
+
+}
+
+
+/* =====================================================
+   SHOW APP
+===================================================== */
+
+function showApp(){
+
+  $("authScreen")
+    .classList.add("hidden");
+
+  $("app")
+    .classList.remove("hidden");
+
+  updateUserUI();
+
+  if(currentUser?.isAdmin){
+
+    $("adminNav")
+      .classList.remove("hidden");
+
+  }else{
+
+    $("adminNav")
+      .classList.add("hidden");
+
+  }
+
+}
+
+
+/* =====================================================
+   UPDATE USER UI
+===================================================== */
+
+function updateUserUI(){
+
+  if(!currentUser){
+    return;
+  }
+
+  $("topUsername").textContent =
+    currentUser.username || "---";
+
+  $("topBalance").textContent =
+    formatMoney(currentUser.balance);
+
+  $("homeBalance").textContent =
+    formatMoney(currentUser.balance);
+
+  $("walletBalance").textContent =
+    formatMoney(currentUser.balance);
+
+  $("profileUsername").textContent =
+    currentUser.username || "---";
+
+  $("profileRole").textContent =
+    currentUser.isAdmin
+      ? "👑 مدير"
+      : "👤 مستخدم";
+
+  $("profileLevel").textContent =
+    currentUser.level || 1;
+
+  $("profileBalance").textContent =
+    formatMoney(currentUser.balance);
+
+  $("homeLevel").textContent =
+    currentUser.level || 1;
+
+  $("homeCity").textContent =
+    currentUser.city || 1;
+
+  $("homePower").textContent =
+    currentUser.isAdmin
+      ? "∞"
+      : "100";
+
+  const xp =
+    Number(currentUser.xp || 0);
+
+  const percent =
+    Math.min(
+      100,
+      Math.max(0,xp)
+    );
+
+  $("xpText").textContent =
+    `${xp} / 100`;
+
+  $("xpBar").style.width =
+    percent + "%";
+
+}
+
+
+/* =====================================================
+   PAGE NAVIGATION
+===================================================== */
+
+function openPage(page,button){
+
+  if(
+    page === "admin" &&
+    !currentUser?.isAdmin
+  ){
+
+    toast("❌ لا تملك صلاحية الإدارة");
+
+    return;
+
+  }
+
+  document
+    .querySelectorAll(".page")
+    .forEach(el=>{
+      el.classList.remove("active");
+    });
+
+  const target =
+    $("page-" + page);
+
+  if(target){
+    target.classList.add("active");
+  }
+
+  document
+    .querySelectorAll(".nav button")
+    .forEach(el=>{
+      el.classList.remove("active");
+    });
+
+  if(button){
+    button.classList.add("active");
+  }
+
+  if(page === "admin"){
+    loadAdmin();
+  }
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout(){
+
+  currentUser = null;
+
+  adminCredentials = null;
+
+  sessionStorage.removeItem(
+    "sun_user"
+  );
+
+  sessionStorage.removeItem(
+    "sun_admin"
+  );
+
+  $("app")
+    .classList.add("hidden");
+
+  $("authScreen")
+    .classList.remove("hidden");
+
+  $("loginForm").reset();
+
+  showAuth("login");
+
+  toast("👋 تم تسجيل الخروج");
+
+}
+
+
+/* =====================================================
+   ADMIN API
+===================================================== */
+
+async function adminRequest(action,extra={}){
+
+  if(!currentUser?.isAdmin){
+
+    throw new Error(
+      "لا تملك صلاحية الإدارة"
+    );
+
+  }
+
+  if(!adminCredentials){
+
+    try{
+
+      adminCredentials =
+        JSON.parse(
+          sessionStorage.getItem(
+            "sun_admin"
+          )
+        );
+
+    }catch{
+
+      adminCredentials = null;
+
+    }
+
+  }
+
+  if(
+    !adminCredentials ||
+    !adminCredentials.username ||
+    !adminCredentials.password
+  ){
+
+    throw new Error(
+      "انتهت جلسة الإدارة، سجّل الدخول من جديد"
+    );
+
+  }
+
+  const response =
+    await fetch("/api/admin",{
+
+      method:"POST",
+
+      headers:{
+        "Content-Type":"application/json"
+      },
+
+      body:JSON.stringify({
+
+        action,
+
+        adminUsername:
+          adminCredentials.username,
+
+        adminPassword:
+          adminCredentials.password,
+
+        ...extra
+
+      })
+
+    });
+
+  const data =
+    await response.json();
+
+  if(!response.ok || !data.success){
+
+    throw new Error(
+      data.message ||
+      "فشل تنفيذ أمر الإدارة"
+    );
+
+  }
+
+  return data;
+
+}
+
+
+/* =====================================================
+   LOAD ADMIN
+===================================================== */
+
+async function loadAdmin(){
+
+  if(!currentUser?.isAdmin){
+    return;
+  }
+
+  try{
+
+    await Promise.all([
+      loadAdminStats(),
+      loadAdminUsers()
+    ]);
+
+  }catch(error){
+
+    toast(
+      "❌ " + error.message
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   ADMIN STATS
+===================================================== */
+
+async function loadAdminStats(){
+
+  const data =
+    await adminRequest("stats");
+
+  const stats =
+    data.stats || {};
+
+  $("adminUsersCount").textContent =
+    Number(stats.users || 0)
+      .toLocaleString();
+
+  $("adminCount").textContent =
+    Number(stats.admins || 0)
+      .toLocaleString();
+
+  $("normalUsersCount").textContent =
+    Number(stats.normalUsers || 0)
+      .toLocaleString();
+
+  $("totalBalance").textContent =
+    formatMoney(stats.totalBalance);
+
+}
+
+
+/* =====================================================
+   ADMIN USERS
+===================================================== */
+
+async function loadAdminUsers(){
+
+  const search =
+    $("adminSearch").value.trim();
+
+  try{
+
+    const data =
+      await adminRequest(
+        "users",
+        {search}
+      );
+
+    adminUsers =
+      Array.isArray(data.users)
+        ? data.users
+        : [];
+
+    renderAdminUsers();
+
+  }catch(error){
+
+    toast(
+      "❌ " + error.message
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   RENDER USERS
+===================================================== */
+
+function renderAdminUsers(){
+
+  const table =
+    $("adminUsersTable");
+
+  if(!adminUsers.length){
+
+    table.innerHTML = `
+      <tr>
+        <td colspan="6" style="text-align:center">
+          لا يوجد أعضاء
+        </td>
+      </tr>
+    `;
+
+    return;
+  }
+
+  table.innerHTML =
+    adminUsers.map(user=>{
+
+      const role =
+        String(
+          user.role || "user"
+        ).toLowerCase();
+
+      /*
+        api/users الحالية ترجع role فقط.
+        إذا أضفت banned وban_reason إلى select
+        سيظهران هنا أيضًا.
+      */
+
+      const banned =
+        user.banned === true;
+
+      return `
+
+        <tr>
+
+          <td>
+            ${escapeHtml(user.id)}
+          </td>
+
+          <td>
+            👤 ${escapeHtml(user.username)}
+          </td>
+
+          <td>
+            💰 ${formatMoney(user.balance)}
+          </td>
+
+          <td>
+
+            <span class="${
+              role === "admin"
+                ? "role-admin"
+                : "role-user"
+            }">
+
+              ${
+                role === "admin"
+                  ? "👑 Admin"
+                  : "👤 User"
+              }
+
+            </span>
+
+          </td>
+
+          <td>
+
+            ${
+              banned
+
+              ? `<span class="banned">
+                   🚫 محظور
+                 </span>`
+
+              : `<span class="online">
+                   ✅ نشط
+                 </span>`
+            }
+
+          </td>
+
+          <td>
+
+            <div class="user-actions">
+
+              <button
+                class="small-btn btn-add"
+                onclick="adminAddBalance('${escapeJs(user.id)}')">
+                + رصيد
+              </button>
+
+              <button
+                class="small-btn btn-remove"
+                onclick="adminRemoveBalance('${escapeJs(user.id)}')">
+                - رصيد
+              </button>
+
+              <button
+                class="small-btn btn-role"
+                onclick="adminChangeRole('${escapeJs(user.id)}','${escapeJs(role)}')">
+                الدور
+              </button>
+
+              ${
+                banned
+
+                ? `
+                  <button
+                    class="small-btn btn-unban"
+                    onclick="adminUnban('${escapeJs(user.id)}')">
+                    إلغاء الحظر
+                  </button>
+                `
+
+                : `
+                  <button
+                    class="small-btn btn-ban"
+                    onclick="adminBan('${escapeJs(user.id)}')">
+                    حظر
+                  </button>
+                `
+              }
+
+              <button
+                class="small-btn btn-delete"
+                onclick="adminDelete('${escapeJs(user.id)}')">
+                حذف
+              </button>
+
+            </div>
+
+          </td>
+
+        </tr>
+
+      `;
+
+    }).join("");
+
+}
+
+
+function escapeJs(value){
+
+  return String(value ?? "")
+    .replaceAll("\\","\\\\")
+    .replaceAll("'","\\'")
+    .replaceAll('"','\\"');
+
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+function openAdminModal(
+  title,
+  content,
+  confirmText,
+  callback
+){
+
+  $("adminModalTitle")
+    .textContent = title;
+
+  $("adminModalContent")
+    .innerHTML = content;
+
+  $("adminModalConfirm")
+    .textContent =
+      confirmText;
+
+  $("adminModalConfirm").onclick =
+    async ()=>{
 
       try{
 
-        const user=
-          JSON.parse(saved);
+        await callback();
 
-        if(user&&user.id){
+      }catch(error){
 
-          currentUser=user;
-
-          document
-            .getElementById("auth")
-            .classList
-            .add("hidden");
-
-          document
-            .getElementById("app")
-            .classList
-            .remove("hidden");
-
-          updateUI();
-
-          await refreshBalance();
-
-          loadInventory();
-
-        }
-
-      }catch{
-
-        localStorage.removeItem(
-          "sun_tokyo_user"
+        toast(
+          "❌ " + error.message
         );
 
       }
 
+    };
+
+  $("adminModal")
+    .classList.add("show");
+
+}
+
+
+function closeAdminModal(){
+
+  $("adminModal")
+    .classList.remove("show");
+
+  $("adminModalContent")
+    .innerHTML = "";
+
+}
+
+
+/* =====================================================
+   ADD BALANCE
+===================================================== */
+
+function adminAddBalance(userId){
+
+  const user =
+    adminUsers.find(
+      u=>String(u.id) === String(userId)
+    );
+
+  if(!user){
+    return;
+  }
+
+  openAdminModal(
+
+    "💰 إضافة رصيد",
+
+    `
+      <p style="color:#aaa;margin-bottom:12px">
+        العضو:
+        <b>${escapeHtml(user.username)}</b>
+      </p>
+
+      <input
+        id="modalAmount"
+        class="input"
+        type="number"
+        min="1"
+        placeholder="المبلغ">
+
+    `,
+
+    "إضافة",
+
+    async()=>{
+
+      const amount =
+        Number(
+          $("modalAmount").value
+        );
+
+      if(
+        !Number.isFinite(amount) ||
+        amount <= 0
+      ){
+
+        throw new Error(
+          "أدخل مبلغًا صحيحًا"
+        );
+
+      }
+
+      const data =
+        await adminRequest(
+          "add_balance",
+          {
+            userId,
+            amount
+          }
+        );
+
+      closeAdminModal();
+
+      toast(
+        data.message ||
+        "✅ تم إضافة الرصيد"
+      );
+
+      await loadAdmin();
+
     }
 
-    page("home");
+  );
+
+}
 
 
-    document
-      .getElementById("loginName")
-      .addEventListener(
-        "keydown",
-        event=>{
-          if(event.key==="Enter"){
-            login();
+/* =====================================================
+   REMOVE BALANCE
+===================================================== */
+
+function adminRemoveBalance(userId){
+
+  const user =
+    adminUsers.find(
+      u=>String(u.id) === String(userId)
+    );
+
+  if(!user){
+    return;
+  }
+
+  openAdminModal(
+
+    "💸 خصم رصيد",
+
+    `
+      <p style="color:#aaa;margin-bottom:12px">
+        العضو:
+        <b>${escapeHtml(user.username)}</b>
+      </p>
+
+      <p style="color:#aaa;margin-bottom:12px">
+        الرصيد الحالي:
+        <b>${formatMoney(user.balance)}</b>
+      </p>
+
+      <input
+        id="modalAmount"
+        class="input"
+        type="number"
+        min="1"
+        placeholder="المبلغ">
+
+    `,
+
+    "خصم",
+
+    async()=>{
+
+      const amount =
+        Number(
+          $("modalAmount").value
+        );
+
+      if(
+        !Number.isFinite(amount) ||
+        amount <= 0
+      ){
+
+        throw new Error(
+          "أدخل مبلغًا صحيحًا"
+        );
+
+      }
+
+      const data =
+        await adminRequest(
+          "remove_balance",
+          {
+            userId,
+            amount
           }
-        }
+        );
+
+      closeAdminModal();
+
+      toast(
+        data.message ||
+        "✅ تم خصم الرصيد"
       );
 
+      await loadAdmin();
 
-    document
-      .getElementById("loginPass")
-      .addEventListener(
-        "keydown",
-        event=>{
-          if(event.key==="Enter"){
-            login();
+    }
+
+  );
+
+}
+
+
+/* =====================================================
+   SET BALANCE
+===================================================== */
+
+function adminSetBalance(userId){
+
+  const user =
+    adminUsers.find(
+      u=>String(u.id) === String(userId)
+    );
+
+  if(!user){
+    return;
+  }
+
+  openAdminModal(
+
+    "💰 تحديد الرصيد",
+
+    `
+      <p style="color:#aaa;margin-bottom:12px">
+        العضو:
+        <b>${escapeHtml(user.username)}</b>
+      </p>
+
+      <input
+        id="modalAmount"
+        class="input"
+        type="number"
+        min="0"
+        value="${Number(user.balance || 0)}"
+        placeholder="الرصيد">
+
+    `,
+
+    "حفظ",
+
+    async()=>{
+
+      const balance =
+        Number(
+          $("modalAmount").value
+        );
+
+      if(
+        !Number.isFinite(balance) ||
+        balance < 0
+      ){
+
+        throw new Error(
+          "الرصيد غير صحيح"
+        );
+
+      }
+
+      const data =
+        await adminRequest(
+          "set_balance",
+          {
+            userId,
+            balance
           }
-        }
+        );
+
+      closeAdminModal();
+
+      toast(
+        data.message ||
+        "✅ تم تعديل الرصيد"
       );
 
+      await loadAdmin();
 
-    document
-      .getElementById("regPass2")
-      .addEventListener(
-        "keydown",
-        event=>{
-          if(event.key==="Enter"){
-            register();
+    }
+
+  );
+
+}
+
+
+/* =====================================================
+   CHANGE ROLE
+===================================================== */
+
+function adminChangeRole(
+  userId,
+  currentRole
+){
+
+  const user =
+    adminUsers.find(
+      u=>String(u.id) === String(userId)
+    );
+
+  if(!user){
+    return;
+  }
+
+  const newRole =
+    currentRole === "admin"
+      ? "user"
+      : "admin";
+
+  const actionText =
+    newRole === "admin"
+      ? "تحويله إلى مدير"
+      : "تحويله إلى مستخدم";
+
+  openAdminModal(
+
+    "👑 تغيير الدور",
+
+    `
+      <p style="margin-bottom:15px">
+        العضو:
+        <b>${escapeHtml(user.username)}</b>
+      </p>
+
+      <p style="color:#aaa">
+        الدور الحالي:
+        ${currentRole === "admin"
+          ? "👑 مدير"
+          : "👤 مستخدم"}
+      </p>
+
+      <p style="margin-top:10px">
+        الدور الجديد:
+        <b>
+          ${
+            newRole === "admin"
+              ? "👑 مدير"
+              : "👤 مستخدم"
           }
-        }
+        </b>
+      </p>
+    `,
+
+    actionText,
+
+    async()=>{
+
+      const data =
+        await adminRequest(
+          "set_role",
+          {
+            userId,
+            role:newRole
+          }
+        );
+
+      closeAdminModal();
+
+      toast(
+        data.message ||
+        "✅ تم تغيير الدور"
       );
+
+      await loadAdmin();
+
+    }
+
+  );
+
+}
+
+
+/* =====================================================
+   BAN
+===================================================== */
+
+function adminBan(userId){
+
+  const user =
+    adminUsers.find(
+      u=>String(u.id) === String(userId)
+    );
+
+  if(!user){
+    return;
+  }
+
+  openAdminModal(
+
+    "🚫 حظر العضو",
+
+    `
+      <p style="margin-bottom:15px">
+        العضو:
+        <b>${escapeHtml(user.username)}</b>
+      </p>
+
+      <input
+        id="banReason"
+        class="input"
+        placeholder="سبب الحظر"
+        maxlength="500">
+
+    `,
+
+    "🚫 حظر العضو",
+
+    async()=>{
+
+      const reason =
+        $("banReason")
+          .value
+          .trim();
+
+      const data =
+        await adminRequest(
+          "ban_user",
+          {
+            userId,
+            reason
+          }
+        );
+
+      closeAdminModal();
+
+      toast(
+        data.message ||
+        "🚫 تم حظر العضو"
+      );
+
+      await loadAdmin();
+
+    }
+
+  );
+
+}
+
+
+/* =====================================================
+   UNBAN
+===================================================== */
+
+function adminUnban(userId){
+
+  const user =
+    adminUsers.find(
+      u=>String(u.id) === String(userId)
+    );
+
+  if(!user){
+    return;
+  }
+
+  openAdminModal(
+
+    "✅ إلغاء الحظر",
+
+    `
+      <p>
+        هل تريد إلغاء حظر:
+        <b>${escapeHtml(user.username)}</b>؟
+      </p>
+    `,
+
+    "إلغاء الحظر",
+
+    async()=>{
+
+      const data =
+        await adminRequest(
+          "unban_user",
+          {
+            userId
+          }
+        );
+
+      closeAdminModal();
+
+      toast(
+        data.message ||
+        "✅ تم إلغاء الحظر"
+      );
+
+      await loadAdmin();
+
+    }
+
+  );
+
+}
+
+
+/* =====================================================
+   DELETE USER
+===================================================== */
+
+function adminDelete(userId){
+
+  const user =
+    adminUsers.find(
+      u=>String(u.id) === String(userId)
+    );
+
+  if(!user){
+    return;
+  }
+
+  openAdminModal(
+
+    "🗑️ حذف العضو",
+
+    `
+      <p style="color:#ff6b78">
+        ⚠️ تحذير
+      </p>
+
+      <p style="margin-top:10px">
+        سيتم حذف الحساب:
+        <b>${escapeHtml(user.username)}</b>
+      </p>
+
+      <p style="color:#aaa;margin-top:10px">
+        هذا الإجراء لا يمكن التراجع عنه.
+      </p>
+    `,
+
+    "حذف نهائي",
+
+    async()=>{
+
+      const data =
+        await adminRequest(
+          "delete_user",
+          {
+            userId
+          }
+        );
+
+      closeAdminModal();
+
+      toast(
+        data.message ||
+        "🗑️ تم حذف العضو"
+      );
+
+      await loadAdmin();
+
+    }
+
+  );
+
+}
+
+
+/* =====================================================
+   DEPOSIT
+===================================================== */
+
+function deposit(){
+
+  openAdminModal(
+
+    "📥 إيداع",
+
+    `
+      <input
+        id="depositAmount"
+        class="input"
+        type="number"
+        min="1"
+        placeholder="مبلغ الإيداع">
+    `,
+
+    "إيداع",
+
+    async()=>{
+
+      const amount =
+        Number(
+          $("depositAmount").value
+        );
+
+      if(
+        !Number.isFinite(amount) ||
+        amount <= 0
+      ){
+
+        throw new Error(
+          "أدخل مبلغًا صحيحًا"
+        );
+
+      }
+
+      /*
+        هنا نستخدم تحديثًا محليًا مؤقتًا.
+        عند إضافة api/deposit.js يمكنك استبداله
+        باستدعاء API حقيقي.
+      */
+
+      if(!currentUser.isAdmin){
+
+        if(
+          Number(currentUser.balance || 0) +
+          amount <
+          Number(currentUser.balance || 0)
+        ){
+
+          throw new Error(
+            "الرصيد غير صالح"
+          );
+
+        }
+
+      }
+
+      currentUser.balance =
+        Number(currentUser.balance || 0) +
+        amount;
+
+      saveCurrentUser();
+
+      closeAdminModal();
+
+      updateUserUI();
+
+      toast(
+        `📥 تم إيداع ${formatMoney(amount)}`
+      );
+
+    }
+
+  );
+
+}
+
+
+/* =====================================================
+   WITHDRAW
+===================================================== */
+
+function withdraw(){
+
+  openAdminModal(
+
+    "📤 سحب",
+
+    `
+      <p style="color:#aaa;margin-bottom:12px">
+        الرصيد الحالي:
+        <b>${formatMoney(currentUser.balance)}</b>
+      </p>
+
+      <input
+        id="withdrawAmount"
+        class="input"
+        type="number"
+        min="1"
+        placeholder="مبلغ السحب">
+    `,
+
+    "سحب",
+
+    async()=>{
+
+      const amount =
+        Number(
+          $("withdrawAmount").value
+        );
+
+      if(
+        !Number.isFinite(amount) ||
+        amount <= 0
+      ){
+
+        throw new Error(
+          "أدخل مبلغًا صحيحًا"
+        );
+
+      }
+
+      if(
+        !currentUser.isAdmin &&
+        Number(currentUser.balance || 0) < amount
+      ){
+
+        throw new Error(
+          "❌ رصيدك غير كافٍ"
+        );
+
+      }
+
+      if(!currentUser.isAdmin){
+
+        currentUser.balance =
+          Number(currentUser.balance || 0) -
+          amount;
+
+      }
+
+      saveCurrentUser();
+
+      closeAdminModal();
+
+      updateUserUI();
+
+      toast(
+        `📤 تم سحب ${formatMoney(amount)}`
+      );
+
+    }
+
+  );
+
+}
+
+
+/* =====================================================
+   TRANSFER
+===================================================== */
+
+function transfer(){
+
+  openAdminModal(
+
+    "🔄 تحويل",
+
+    `
+      <input
+        id="transferUsername"
+        class="input"
+        placeholder="اسم المستلم">
+
+      <input
+        id="transferAmount"
+        class="input"
+        type="number"
+        min="1"
+        placeholder="المبلغ"
+        style="margin-top:10px">
+    `,
+
+    "تحويل",
+
+    async()=>{
+
+      const username =
+        $("transferUsername")
+          .value
+          .trim();
+
+      const amount =
+        Number(
+          $("transferAmount").value
+        );
+
+      if(!username){
+
+        throw new Error(
+          "أدخل اسم المستلم"
+        );
+
+      }
+
+      if(
+        !Number.isFinite(amount) ||
+        amount <= 0
+      ){
+
+        throw new Error(
+          "أدخل مبلغًا صحيحًا"
+        );
+
+      }
+
+      if(
+        !currentUser.isAdmin &&
+        Number(currentUser.balance || 0) < amount
+      ){
+
+        throw new Error(
+          "❌ رصيدك غير كافٍ"
+        );
+
+      }
+
+      /*
+        هذه واجهة فقط حاليًا.
+        التحويل الحقيقي يحتاج api/transfer.js
+        حتى يتم تعديل قاعدة البيانات بأمان.
+      */
+
+      closeAdminModal();
+
+      toast(
+        "⚠️ التحويل يحتاج API التحويل الحقيقي"
+      );
+
+    }
+
+  );
+
+}
+
+
+/* =====================================================
+   DAILY REWARD
+===================================================== */
+
+function dailyReward(){
+
+  const key =
+    "sun_daily_" +
+    new Date().toISOString().slice(0,10);
+
+  if(localStorage.getItem(key)){
+
+    toast(
+      "🎁 استلمت المكافأة اليومية مسبقًا"
+    );
+
+    return;
 
   }
-);
+
+  const reward = 999;
+
+  if(!currentUser.isAdmin){
+
+    currentUser.balance =
+      Number(currentUser.balance || 0) +
+      reward;
+
+  }
+
+  localStorage.setItem(key,"1");
+
+  saveCurrentUser();
+
+  updateUserUI();
+
+  toast(
+    `🎁 حصلت على ${formatMoney(reward)}`
+  );
+
+}
+
+
+/* =====================================================
+   DICE
+===================================================== */
+
+function diceGame(){
+
+  const cost = 25;
+
+  if(
+    !currentUser.isAdmin &&
+    Number(currentUser.balance || 0) < cost
+  ){
+
+    toast(
+      "❌ رصيدك غير كافٍ"
+    );
+
+    return;
+
+  }
+
+  const result =
+    Math.floor(Math.random()*6)+1;
+
+  let reward = 0;
+
+  if(result >= 5){
+    reward = 100;
+  }else if(result >= 3){
+    reward = 30;
+  }
+
+  if(!currentUser.isAdmin){
+
+    currentUser.balance =
+      Number(currentUser.balance || 0) -
+      cost +
+      reward;
+
+  }
+
+  saveCurrentUser();
+
+  updateUserUI();
+
+  toast(
+    `🎲 النتيجة ${result} — ${
+      reward
+        ? "ربحت " + reward
+        : "لم تربح"
+    }`
+  );
+
+}
+
+
+/* =====================================================
+   BOX
+===================================================== */
+
+function boxGame(){
+
+  const cost = 50;
+
+  if(
+    !currentUser.isAdmin &&
+    Number(currentUser.balance || 0) < cost
+  ){
+
+    toast(
+      "❌ رصيدك غير كافٍ"
+    );
+
+    return;
+
+  }
+
+  const rewards =
+    [0,25,50,100,250,500];
+
+  const reward =
+    rewards[
+      Math.floor(
+        Math.random()*rewards.length
+      )
+    ];
+
+  if(!currentUser.isAdmin){
+
+    currentUser.balance =
+      Number(currentUser.balance || 0) -
+      cost +
+      reward;
+
+  }
+
+  saveCurrentUser();
+
+  updateUserUI();
+
+  toast(
+    `📦 فتحت الصندوق وربحت ${formatMoney(reward)}`
+  );
+
+}
+
+
+/* =====================================================
+   WHEEL
+===================================================== */
+
+function wheelGame(){
+
+  const rewards =
+    [0,25,50,100,250,500,999];
+
+  const reward =
+    rewards[
+      Math.floor(
+        Math.random()*rewards.length
+      )
+    ];
+
+  if(!currentUser.isAdmin){
+
+    currentUser.balance =
+      Number(currentUser.balance || 0) +
+      reward;
+
+  }
+
+  saveCurrentUser();
+
+  updateUserUI();
+
+  toast(
+    `🎡 العجلة توقفت على ${formatMoney(reward)}`
+  );
+
+}
+
+
+/* =====================================================
+   SAVE CURRENT USER
+===================================================== */
+
+function saveCurrentUser(){
+
+  sessionStorage.setItem(
+    "sun_user",
+    JSON.stringify(currentUser)
+  );
+
+}
+
+
+/* =====================================================
+   RESTORE SESSION
+===================================================== */
+
+function restoreSession(){
+
+  try{
+
+    const savedUser =
+      sessionStorage.getItem(
+        "sun_user"
+      );
+
+    if(savedUser){
+
+      currentUser =
+        JSON.parse(savedUser);
+
+    }
+
+    const savedAdmin =
+      sessionStorage.getItem(
+        "sun_admin"
+      );
+
+    if(savedAdmin){
+
+      adminCredentials =
+        JSON.parse(savedAdmin);
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Session restore error:",
+      error
+    );
+
+    currentUser = null;
+
+    adminCredentials = null;
+
+  }
+
+  if(currentUser){
+
+    showApp();
+
+  }
+
+}
+
+
+/* =====================================================
+   ADMIN SEARCH ENTER
+===================================================== */
+
+$("adminSearch")
+  .addEventListener(
+    "keydown",
+    event=>{
+
+      if(event.key === "Enter"){
+
+        loadAdminUsers();
+
+      }
+
+    }
+  );
+
+
+/* =====================================================
+   CLOSE MODAL ON BACKDROP
+===================================================== */
+
+$("adminModal")
+  .addEventListener(
+    "click",
+    event=>{
+
+      if(
+        event.target ===
+        $("adminModal")
+      ){
+
+        closeAdminModal();
+
+      }
+
+    }
+  );
+
+
+/* =====================================================
+   START
+===================================================== */
+
+restoreSession();
 
 </script>
 
 </body>
 </html>
-```
