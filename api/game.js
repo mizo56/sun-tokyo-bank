@@ -3,6 +3,8 @@ import crypto from "crypto";
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SECRET_KEY = process.env.SUPABASE_SECRET_KEY;
 
+const ADMIN_USERNAME = "admin";
+
 const BOXES = {
   box1: {
     price: 100,
@@ -89,6 +91,14 @@ const GAME_COSTS = {
 
 function json(res, status, data) {
   return res.status(status).json(data);
+}
+
+function isAdmin(user) {
+  return (
+    String(user?.username || "")
+      .trim()
+      .toLowerCase() === ADMIN_USERNAME
+  );
 }
 
 async function supabase(path, options = {}) {
@@ -242,10 +252,6 @@ async function addInventoryItem({
   icon
 }) {
 
-  /*
-   * يحاول أولًا زيادة كمية العنصر الموجود.
-   */
-
   try {
 
     const existing = await supabase(
@@ -280,10 +286,6 @@ async function addInventoryItem({
       return updated?.[0] || null;
     }
 
-    /*
-     * إذا لم يكن العنصر موجودًا يتم إنشاؤه.
-     */
-
     const created =
       await supabase(
         "/rest/v1/inventory",
@@ -312,11 +314,6 @@ async function addInventoryItem({
       error.message
     );
 
-    /*
-     * لا نوقف فتح الصندوق إذا كان جدول inventory
-     * يحتاج إلى ضبط منفصل.
-     */
-
     return null;
   }
 }
@@ -333,10 +330,18 @@ async function playNormalGame({
     throw new Error("اللعبة غير موجودة");
   }
 
+  const admin =
+    isAdmin(user);
+
   const balance =
     Number(user.balance || 0);
 
-  if (balance < cost) {
+  /*
+   * الأدمن لا يحتاج إلى رصيد فعلي.
+   * الحساب العادي يحتاج إلى الرصيد.
+   */
+
+  if (!admin && balance < cost) {
     throw new Error(
       `رصيدك غير كافٍ. تكلفة اللعبة ${cost} 💰`
     );
@@ -362,6 +367,7 @@ async function playNormalGame({
 
       message =
         `🎲 ظهرت النتيجة ${dice}`;
+
       break;
     }
 
@@ -377,6 +383,7 @@ async function playNormalGame({
         win
           ? "🪙 فزت في رمية العملة!"
           : "🪙 لم يحالفك الحظ.";
+
       break;
     }
 
@@ -391,10 +398,12 @@ async function playNormalGame({
         1000
       ];
 
-      reward = randomItem(rewards);
+      reward =
+        randomItem(rewards);
 
       message =
         "📦 حصلت على جائزة الصندوق السريع!";
+
       break;
     }
 
@@ -405,13 +414,19 @@ async function playNormalGame({
 
       reward =
         win
-          ? randomItem([150, 250, 400, 750])
+          ? randomItem([
+              150,
+              250,
+              400,
+              750
+            ])
           : 0;
 
       message =
         win
           ? "🎰 فزت في آلة الحظ!"
           : "🎰 لم تفز هذه المرة.";
+
       break;
     }
 
@@ -432,6 +447,7 @@ async function playNormalGame({
 
       message =
         "🎡 دارت عجلة الحظ!";
+
       break;
     }
 
@@ -442,13 +458,19 @@ async function playNormalGame({
 
       reward =
         win
-          ? randomItem([300, 500, 750, 1200])
+          ? randomItem([
+              300,
+              500,
+              750,
+              1200
+            ])
           : 0;
 
       message =
         win
           ? "🃏 اخترت البطاقة الرابحة!"
           : "🃏 البطاقة لم تكن رابحة.";
+
       break;
     }
 
@@ -468,6 +490,7 @@ async function playNormalGame({
 
       message =
         "💎 فتحت الكنز المخفي!";
+
       break;
     }
 
@@ -490,6 +513,7 @@ async function playNormalGame({
         win
           ? "🐉 هزمت التنين!"
           : "🐉 التنين هزمك!";
+
       break;
     }
 
@@ -497,14 +521,28 @@ async function playNormalGame({
       throw new Error("اللعبة غير مدعومة");
   }
 
-  const newBalance =
-    balance - cost + reward;
+  let updatedUser;
 
-  const updatedUser =
-    await updateBalance(
-      user.id,
-      newBalance
-    );
+  if (admin) {
+
+    /*
+     * الأدمن:
+     * لا يتم تعديل رصيده إطلاقًا.
+     */
+
+    updatedUser = user;
+
+  } else {
+
+    const newBalance =
+      balance - cost + reward;
+
+    updatedUser =
+      await updateBalance(
+        user.id,
+        newBalance
+      );
+  }
 
   await addTransaction({
     userId: user.id,
@@ -512,18 +550,33 @@ async function playNormalGame({
     type: "game",
     amount: reward - cost,
     description:
-      `${game}: تكلفة ${cost}، جائزة ${reward}`
+      `${game}: تكلفة ${cost}، جائزة ${reward}${admin ? "، حساب أدمن" : ""}`
   });
 
   return {
     user: {
       id: updatedUser.id,
       username: updatedUser.username,
-      balance: Number(updatedUser.balance || 0)
+
+      /*
+       * لا نضع Infinity في JSON.
+       * الواجهة يمكنها عرض الحساب كغير محدود
+       * إذا كان username = admin.
+       */
+      balance: admin
+        ? updatedUser.balance
+        : Number(updatedUser.balance || 0),
+
+      unlimited:
+        admin
     },
+
     reward,
     cost,
-    message
+    message:
+      admin
+        ? `${message} 👑 حساب الأدمن — الرصيد غير محدود.`
+        : message
   };
 }
 
@@ -539,10 +592,13 @@ async function openBox({
     throw new Error("الصندوق غير موجود");
   }
 
+  const admin =
+    isAdmin(user);
+
   const balance =
     Number(user.balance || 0);
 
-  if (balance < box.price) {
+  if (!admin && balance < box.price) {
     throw new Error(
       `رصيدك غير كافٍ. سعر الصندوق ${box.price} 💰`
     );
@@ -554,25 +610,30 @@ async function openBox({
   let newBalance =
     balance - box.price;
 
-  /*
-   * إذا كانت الجائزة مالية تضاف مباشرة.
-   */
-
   if (reward.balance) {
     newBalance +=
       Number(reward.balance);
   }
 
-  const updatedUser =
-    await updateBalance(
-      user.id,
-      newBalance
-    );
+  let updatedUser;
 
-  /*
-   * إذا كانت الجائزة عنصرًا، نحاول حفظها
-   * داخل جدول inventory.
-   */
+  if (admin) {
+
+    /*
+     * الأدمن يفتح الصندوق مجانًا
+     * من ناحية الرصيد.
+     */
+
+    updatedUser = user;
+
+  } else {
+
+    updatedUser =
+      await updateBalance(
+        user.id,
+        newBalance
+      );
+  }
 
   if (reward.item) {
 
@@ -595,18 +656,23 @@ async function openBox({
     username: user.username,
     type: "box",
     amount:
-      reward.balance
-        ? Number(reward.balance) - box.price
-        : -box.price,
+      admin
+        ? 0
+        : (
+            reward.balance
+              ? Number(reward.balance) - box.price
+              : -box.price
+          ),
     description:
-      `فتح ${boxId} وحصل على ${reward.name}`
+      `فتح ${boxId} وحصل على ${reward.name}${admin ? " — حساب أدمن" : ""}`
   });
 
   return {
     user: {
       id: updatedUser.id,
       username: updatedUser.username,
-      balance: Number(updatedUser.balance || 0)
+      balance: Number(updatedUser.balance || 0),
+      unlimited: admin
     },
 
     reward: {
@@ -615,7 +681,9 @@ async function openBox({
     },
 
     message:
-      `🎉 حصلت على ${reward.name}`
+      admin
+        ? `🎉 حصلت على ${reward.name} 👑`
+        : `🎉 حصلت على ${reward.name}`
   };
 }
 
@@ -651,10 +719,18 @@ async function transferMoney({
     );
   }
 
+  const admin =
+    isAdmin(user);
+
   const senderBalance =
     Number(user.balance || 0);
 
-  if (senderBalance < transferAmount) {
+  /*
+   * العضو العادي يجب أن يمتلك المبلغ.
+   * الأدمن يستطيع التحويل بدون حد.
+   */
+
+  if (!admin && senderBalance < transferAmount) {
     throw new Error("رصيدك غير كافٍ");
   }
 
@@ -680,11 +756,24 @@ async function transferMoney({
   const targetBalance =
     Number(target.balance || 0);
 
-  const sender =
-    await updateBalance(
-      user.id,
-      senderBalance - transferAmount
-    );
+  let sender;
+
+  if (admin) {
+
+    /*
+     * الأدمن لا يتم خصم المبلغ منه.
+     */
+
+    sender = user;
+
+  } else {
+
+    sender =
+      await updateBalance(
+        user.id,
+        senderBalance - transferAmount
+      );
+  }
 
   await updateBalance(
     target.id,
@@ -695,9 +784,9 @@ async function transferMoney({
     userId: user.id,
     username: user.username,
     type: "transfer",
-    amount: -transferAmount,
+    amount: admin ? 0 : -transferAmount,
     description:
-      `تحويل إلى ${target.username}`
+      `تحويل إلى ${target.username}${admin ? " — من حساب أدمن غير محدود" : ""}`
   });
 
   await addTransaction({
@@ -713,13 +802,18 @@ async function transferMoney({
     user: {
       id: sender.id,
       username: sender.username,
-      balance: Number(sender.balance || 0)
+      balance: Number(sender.balance || 0),
+      unlimited: admin
     },
 
     message:
       `✅ تم تحويل ${transferAmount.toLocaleString(
         "ar-EG"
-      )} 💰 إلى ${target.username}`
+      )} 💰 إلى ${target.username}${
+        admin
+          ? " 👑"
+          : ""
+      }`
   };
 }
 
@@ -739,68 +833,103 @@ async function walletAction({
     throw new Error("المبلغ غير صحيح");
   }
 
+  const admin =
+    isAdmin(user);
+
   const balance =
     Number(user.balance || 0);
 
   if (action === "withdraw") {
 
-    if (balance < value) {
+    if (!admin && balance < value) {
       throw new Error("رصيدك غير كافٍ");
     }
 
-    const updated =
-      await updateBalance(
-        user.id,
-        balance - value
-      );
+    let updated;
+
+    if (admin) {
+
+      /*
+       * الأدمن يسحب دون خصم فعلي من الحساب.
+       */
+
+      updated = user;
+
+    } else {
+
+      updated =
+        await updateBalance(
+          user.id,
+          balance - value
+        );
+    }
 
     await addTransaction({
       userId: user.id,
       username: user.username,
       type: "withdraw",
-      amount: -value,
-      description: "سحب من المحفظة"
+      amount: admin ? 0 : -value,
+      description:
+        `سحب من المحفظة${admin ? " — حساب أدمن غير محدود" : ""}`
     });
 
     return {
       user: {
         id: updated.id,
         username: updated.username,
-        balance: Number(updated.balance || 0)
+        balance: Number(updated.balance || 0),
+        unlimited: admin
       },
+
       message:
         `✅ تم سحب ${value.toLocaleString(
           "ar-EG"
-        )} 💰`
+        )} 💰${admin ? " 👑" : ""}`
     };
   }
 
   if (action === "deposit") {
 
-    const updated =
-      await updateBalance(
-        user.id,
-        balance + value
-      );
+    let updated;
+
+    if (admin) {
+
+      /*
+       * لا حاجة لتغيير رصيد الأدمن.
+       */
+
+      updated = user;
+
+    } else {
+
+      updated =
+        await updateBalance(
+          user.id,
+          balance + value
+        );
+    }
 
     await addTransaction({
       userId: user.id,
       username: user.username,
       type: "deposit",
       amount: value,
-      description: "إيداع في المحفظة"
+      description:
+        `إيداع في المحفظة${admin ? " — حساب أدمن" : ""}`
     });
 
     return {
       user: {
         id: updated.id,
         username: updated.username,
-        balance: Number(updated.balance || 0)
+        balance: Number(updated.balance || 0),
+        unlimited: admin
       },
+
       message:
         `✅ تم إيداع ${value.toLocaleString(
           "ar-EG"
-        )} 💰`
+        )} 💰${admin ? " 👑" : ""}`
     };
   }
 
@@ -813,61 +942,113 @@ async function cityUpgrade({
 
   const cost = 500;
 
+  const admin =
+    isAdmin(user);
+
   const balance =
     Number(user.balance || 0);
 
-  if (balance < cost) {
+  if (!admin && balance < cost) {
     throw new Error(
       `تحتاج إلى ${cost} 💰 لتطوير المدينة`
     );
   }
 
-  /*
-   * جدول users عندك يحتوي على balance،
-   * لكن قد لا يحتوي city.
-   * لذلك نحاول تحديث city، وإذا لم يكن موجودًا
-   * نكتفي بتحديث الرصيد.
-   */
-
   let updatedUser;
 
-  try {
+  if (admin) {
 
-    const result =
-      await supabase(
-        `/rest/v1/users?id=eq.${encodeURIComponent(
-          String(user.id)
-        )}`,
-        {
-          method: "PATCH",
-          headers: {
-            Prefer: "return=representation"
-          },
-          body: JSON.stringify({
-            balance: balance - cost,
-            city: Number(user.city || 1) + 1
-          })
-        }
-      );
+    /*
+     * الأدمن يطور المدينة بدون خصم.
+     */
 
-    updatedUser =
-      result?.[0];
+    try {
 
-  } catch {
+      const result =
+        await supabase(
+          `/rest/v1/users?id=eq.${encodeURIComponent(
+            String(user.id)
+          )}&select=id,username,balance,city`
+        );
 
-    updatedUser =
-      await updateBalance(
-        user.id,
-        balance - cost
-      );
+      const currentCity =
+        Number(
+          result?.[0]?.city ||
+          user.city ||
+          1
+        );
+
+      const updated =
+        await supabase(
+          `/rest/v1/users?id=eq.${encodeURIComponent(
+            String(user.id)
+          )}`,
+          {
+            method: "PATCH",
+            headers: {
+              Prefer: "return=representation"
+            },
+            body: JSON.stringify({
+              city: currentCity + 1
+            })
+          }
+        );
+
+      updatedUser =
+        updated?.[0] || {
+          ...user,
+          city: currentCity + 1
+        };
+
+    } catch {
+
+      updatedUser = {
+        ...user,
+        city: Number(user.city || 1) + 1
+      };
+    }
+
+  } else {
+
+    try {
+
+      const result =
+        await supabase(
+          `/rest/v1/users?id=eq.${encodeURIComponent(
+            String(user.id)
+          )}`,
+          {
+            method: "PATCH",
+            headers: {
+              Prefer: "return=representation"
+            },
+            body: JSON.stringify({
+              balance: balance - cost,
+              city: Number(user.city || 1) + 1
+            })
+          }
+        );
+
+      updatedUser =
+        result?.[0];
+
+    } catch {
+
+      updatedUser =
+        await updateBalance(
+          user.id,
+          balance - cost
+        );
+    }
   }
 
   await addTransaction({
     userId: user.id,
     username: user.username,
     type: "city",
-    amount: -cost,
-    description: "تطوير المدينة"
+    amount: admin ? 0 : -cost,
+    description:
+      `تطوير المدينة${admin ? " — حساب أدمن" : ""}`
   });
 
   return {
@@ -875,13 +1056,18 @@ async function cityUpgrade({
       id: updatedUser.id,
       username: updatedUser.username,
       balance: Number(updatedUser.balance || 0),
-      city: Number(updatedUser.city || user.city || 1) + (
-        updatedUser.city ? 0 : 0
-      )
+      city: Number(
+        updatedUser.city ||
+        user.city ||
+        1
+      ),
+      unlimited: admin
     },
 
     message:
-      "🏯 تم تطوير المدينة بنجاح."
+      admin
+        ? "🏯 تم تطوير المدينة بدون خصم 👑"
+        : "🏯 تم تطوير المدينة بنجاح."
   };
 }
 
@@ -930,9 +1116,8 @@ export default async function handler(req, res) {
     } = body;
 
     /*
-     * مهم:
-     * لا نعتمد على الرصيد المرسل من المتصفح.
-     * نقرأ الرصيد الحقيقي من Supabase.
+     * لا نعتمد على الرصيد القادم من المتصفح.
+     * نقرأ المستخدم من Supabase.
      */
 
     const user =
@@ -1019,7 +1204,8 @@ export default async function handler(req, res) {
 
     return json(
       res,
-      error.status >= 400 && error.status < 500
+      error.status >= 400 &&
+      error.status < 500
         ? error.status
         : 500,
       {
