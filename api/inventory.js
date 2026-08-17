@@ -1,8 +1,9 @@
-
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SECRET_KEY = process.env.SUPABASE_SECRET_KEY;
 
 export default async function handler(req, res) {
+  res.setHeader("Content-Type", "application/json; charset=utf-8");
+
   if (req.method !== "POST") {
     return res.status(405).json({
       success: false,
@@ -18,12 +19,12 @@ export default async function handler(req, res) {
       });
     }
 
-    const {
-      action,
-      userId,
-      username,
-      productId
-    } = req.body || {};
+    const body = req.body || {};
+
+    const userId = body.userId;
+    const username = body.username;
+    const action = body.action || "list";
+    const productId = body.productId;
 
     if (!userId && !username) {
       return res.status(400).json({
@@ -33,107 +34,72 @@ export default async function handler(req, res) {
     }
 
     const headers = {
-      "apikey": SUPABASE_SECRET_KEY,
-      "Authorization": `Bearer ${SUPABASE_SECRET_KEY}`,
+      apikey: SUPABASE_SECRET_KEY,
+      Authorization: `Bearer ${SUPABASE_SECRET_KEY}`,
       "Content-Type": "application/json"
     };
 
     /* =========================
-       تحديد المستخدم
+       البحث عن المستخدم
     ========================= */
 
-    let user;
+    let userUrl;
 
     if (userId) {
-      const userResponse = await fetch(
-        `${SUPABASE_URL}/rest/v1/users?id=eq.${encodeURIComponent(userId)}&select=id,username,balance`,
-        {
-          method: "GET",
-          headers
-        }
-      );
-
-      const userText = await userResponse.text();
-
-      if (!userResponse.ok) {
-        console.error("User lookup error:", userText);
-
-        return res.status(500).json({
-          success: false,
-          message: "تعذر الوصول إلى بيانات المستخدم"
-        });
-      }
-
-      let users;
-
-      try {
-        users = JSON.parse(userText);
-      } catch {
-        return res.status(500).json({
-          success: false,
-          message: "استجابة غير صحيحة من قاعدة البيانات"
-        });
-      }
-
-      if (!Array.isArray(users) || users.length === 0) {
-        return res.status(404).json({
-          success: false,
-          message: "المستخدم غير موجود"
-        });
-      }
-
-      user = users[0];
-
+      userUrl =
+        `${SUPABASE_URL}/rest/v1/users` +
+        `?id=eq.${encodeURIComponent(userId)}` +
+        `&select=id,username,balance`;
     } else {
-
-      const cleanUsername = String(username).trim();
-
-      const userResponse = await fetch(
-        `${SUPABASE_URL}/rest/v1/users?username=eq.${encodeURIComponent(cleanUsername)}&select=id,username,balance`,
-        {
-          method: "GET",
-          headers
-        }
-      );
-
-      const userText = await userResponse.text();
-
-      if (!userResponse.ok) {
-        console.error("User lookup error:", userText);
-
-        return res.status(500).json({
-          success: false,
-          message: "تعذر الوصول إلى بيانات المستخدم"
-        });
-      }
-
-      let users;
-
-      try {
-        users = JSON.parse(userText);
-      } catch {
-        return res.status(500).json({
-          success: false,
-          message: "استجابة غير صحيحة من قاعدة البيانات"
-        });
-      }
-
-      if (!Array.isArray(users) || users.length === 0) {
-        return res.status(404).json({
-          success: false,
-          message: "المستخدم غير موجود"
-        });
-      }
-
-      user = users[0];
+      userUrl =
+        `${SUPABASE_URL}/rest/v1/users` +
+        `?username=eq.${encodeURIComponent(String(username).trim())}` +
+        `&select=id,username,balance`;
     }
 
+    const userResponse = await fetch(userUrl, {
+      method: "GET",
+      headers
+    });
+
+    const userText = await userResponse.text();
+
+    if (!userResponse.ok) {
+      console.error("Supabase user error:", userText);
+
+      return res.status(500).json({
+        success: false,
+        message: "تعذر الوصول إلى بيانات المستخدم"
+      });
+    }
+
+    let users;
+
+    try {
+      users = JSON.parse(userText);
+    } catch (error) {
+      console.error("User JSON error:", userText);
+
+      return res.status(500).json({
+        success: false,
+        message: "استجابة المستخدم من Supabase غير صحيحة"
+      });
+    }
+
+    if (!Array.isArray(users) || users.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "المستخدم غير موجود"
+      });
+    }
+
+    const user = users[0];
+
     /* =========================
-       استخدام منتج
+       استخدام المنتج
     ========================= */
 
     if (action === "use") {
-
       if (!productId) {
         return res.status(400).json({
           success: false,
@@ -141,29 +107,32 @@ export default async function handler(req, res) {
         });
       }
 
-      const inventoryResponse = await fetch(
-        `${SUPABASE_URL}/rest/v1/inventory?id=eq.${encodeURIComponent(productId)}&user_id=eq.${encodeURIComponent(user.id)}&select=id,user_id,item_name,item_type,quantity`,
-        {
-          method: "GET",
-          headers
-        }
-      );
+      const itemUrl =
+        `${SUPABASE_URL}/rest/v1/inventory` +
+        `?id=eq.${encodeURIComponent(productId)}` +
+        `&user_id=eq.${encodeURIComponent(user.id)}` +
+        `&select=id,user_id,item_name,item_type,quantity`;
 
-      const inventoryText = await inventoryResponse.text();
+      const itemResponse = await fetch(itemUrl, {
+        method: "GET",
+        headers
+      });
 
-      if (!inventoryResponse.ok) {
-        console.error("Inventory lookup error:", inventoryText);
+      const itemText = await itemResponse.text();
+
+      if (!itemResponse.ok) {
+        console.error("Inventory item error:", itemText);
 
         return res.status(500).json({
           success: false,
-          message: "تعذر الوصول إلى المخزون"
+          message: "تعذر الوصول إلى المنتج"
         });
       }
 
-      let items;
+      let itemRows;
 
       try {
-        items = JSON.parse(inventoryText);
+        itemRows = JSON.parse(itemText);
       } catch {
         return res.status(500).json({
           success: false,
@@ -171,27 +140,26 @@ export default async function handler(req, res) {
         });
       }
 
-      if (!Array.isArray(items) || items.length === 0) {
+      if (!Array.isArray(itemRows) || itemRows.length === 0) {
         return res.status(404).json({
           success: false,
           message: "المنتج غير موجود في المخزون"
         });
       }
 
-      const item = items[0];
+      const item = itemRows[0];
       const quantity = Number(item.quantity || 0);
 
       if (quantity <= 0) {
         return res.status(400).json({
           success: false,
-          message: "لا توجد كمية كافية من المنتج"
+          message: "كمية المنتج غير كافية"
         });
       }
 
-      /* تقليل الكمية */
+      /* إذا كانت الكمية 1 نحذف السجل */
 
       if (quantity === 1) {
-
         const deleteResponse = await fetch(
           `${SUPABASE_URL}/rest/v1/inventory?id=eq.${encodeURIComponent(item.id)}&user_id=eq.${encodeURIComponent(user.id)}`,
           {
@@ -203,15 +171,15 @@ export default async function handler(req, res) {
         const deleteText = await deleteResponse.text();
 
         if (!deleteResponse.ok) {
-          console.error("Inventory delete error:", deleteText);
+          console.error("Delete inventory error:", deleteText);
 
           return res.status(500).json({
             success: false,
             message: "تعذر استخدام المنتج"
           });
         }
-
       } else {
+        /* تقليل الكمية */
 
         const updateResponse = await fetch(
           `${SUPABASE_URL}/rest/v1/inventory?id=eq.${encodeURIComponent(item.id)}&user_id=eq.${encodeURIComponent(user.id)}`,
@@ -219,7 +187,7 @@ export default async function handler(req, res) {
             method: "PATCH",
             headers: {
               ...headers,
-              "Prefer": "return=representation"
+              Prefer: "return=representation"
             },
             body: JSON.stringify({
               quantity: quantity - 1
@@ -230,7 +198,7 @@ export default async function handler(req, res) {
         const updateText = await updateResponse.text();
 
         if (!updateResponse.ok) {
-          console.error("Inventory update error:", updateText);
+          console.error("Update inventory error:", updateText);
 
           return res.status(500).json({
             success: false,
@@ -244,8 +212,8 @@ export default async function handler(req, res) {
         message: `✅ تم استخدام ${item.item_name}`,
         item: {
           id: item.id,
-          name: item.item_name,
-          type: item.item_type
+          item_name: item.item_name,
+          item_type: item.item_type
         }
       });
     }
@@ -254,18 +222,21 @@ export default async function handler(req, res) {
        عرض المخزون
     ========================= */
 
-    const inventoryResponse = await fetch(
-      `${SUPABASE_URL}/rest/v1/inventory?user_id=eq.${encodeURIComponent(user.id)}&select=id,user_id,item_name,item_type,quantity,created_at&order=created_at.desc`,
-      {
-        method: "GET",
-        headers
-      }
-    );
+    const inventoryUrl =
+      `${SUPABASE_URL}/rest/v1/inventory` +
+      `?user_id=eq.${encodeURIComponent(user.id)}` +
+      `&select=id,user_id,item_name,item_type,quantity,created_at` +
+      `&order=created_at.desc`;
+
+    const inventoryResponse = await fetch(inventoryUrl, {
+      method: "GET",
+      headers
+    });
 
     const inventoryText = await inventoryResponse.text();
 
     if (!inventoryResponse.ok) {
-      console.error("Inventory error:", inventoryText);
+      console.error("Supabase inventory error:", inventoryText);
 
       return res.status(500).json({
         success: false,
@@ -273,29 +244,40 @@ export default async function handler(req, res) {
       });
     }
 
-    let items;
+    let inventory;
 
     try {
-      items = JSON.parse(inventoryText);
+      inventory = JSON.parse(inventoryText);
     } catch {
+      console.error("Inventory JSON error:", inventoryText);
+
       return res.status(500).json({
         success: false,
-        message: "استجابة المخزون غير صحيحة"
+        message: "استجابة المخزون من Supabase غير صحيحة"
       });
     }
 
+    if (!Array.isArray(inventory)) {
+      inventory = [];
+    }
+
+    /* =========================
+       النتيجة
+    ========================= */
+
     return res.status(200).json({
       success: true,
+
       user: {
         id: user.id,
         username: user.username,
         balance: Number(user.balance || 0)
       },
-      items: Array.isArray(items) ? items : []
+
+      items: inventory
     });
 
   } catch (error) {
-
     console.error("Inventory API error:", error);
 
     return res.status(500).json({
