@@ -1,247 +1,181 @@
+// api/register.js
+
+import { createClient } from "@supabase/supabase-js";
 import crypto from "crypto";
 
-const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_SECRET_KEY = process.env.SUPABASE_SECRET_KEY;
 
-function hashPassword(password) {
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_KEY
+);
+
+
+
+function hashPassword(password){
+
   return crypto
-    .createHash("sha256")
-    .update(password)
-    .digest("hex");
+  .createHash("sha256")
+  .update(password)
+  .digest("hex");
+
 }
 
-export default async function handler(req, res) {
 
-  // السماح بـ POST فقط
-  if (req.method !== "POST") {
+
+export default async function handler(req,res){
+
+
+  if(req.method !== "POST"){
+
     return res.status(405).json({
-      success: false,
-      message: "Method Not Allowed"
+
+      success:false,
+      message:"Method not allowed"
+
     });
+
   }
 
-  try {
 
-    // التأكد من وجود إعدادات Supabase
-    if (!SUPABASE_URL || !SUPABASE_SECRET_KEY) {
-      return res.status(500).json({
-        success: false,
-        message: "إعدادات Supabase غير موجودة في Vercel"
-      });
-    }
 
-    // قراءة البيانات القادمة من الموقع
-    const { username, password } = req.body || {};
+  try{
 
-    // التحقق من البيانات
-    if (!username || !password) {
-      return res.status(400).json({
-        success: false,
-        message: "أدخل اسم المستخدم وكلمة المرور"
-      });
-    }
 
-    const cleanUsername = String(username).trim();
+    const {
+      username,
+      password
+    } = req.body;
 
-    // التحقق من اسم المستخدم
-    if (cleanUsername.length < 3) {
-      return res.status(400).json({
-        success: false,
-        message: "اسم المستخدم يجب أن يكون 3 أحرف على الأقل"
-      });
-    }
 
-    // التحقق من كلمة المرور
-    if (String(password).length < 6) {
-      return res.status(400).json({
-        success: false,
-        message: "كلمة المرور يجب أن تكون 6 أحرف على الأقل"
-      });
-    }
 
-    // Headers الخاصة بـ Supabase
-    const headers = {
-      "apikey": SUPABASE_SECRET_KEY,
-      "Authorization": `Bearer ${SUPABASE_SECRET_KEY}`,
-      "Content-Type": "application/json"
-    };
+    if(!username || !password){
 
-    // =====================================================
-    // البحث عن اسم المستخدم
-    // =====================================================
+      return res.json({
 
-    const checkResponse = await fetch(
-      `${SUPABASE_URL}/rest/v1/users?username=eq.${encodeURIComponent(cleanUsername)}&select=id,username`,
-      {
-        method: "GET",
-        headers
-      }
-    );
+        success:false,
+        message:"أدخل اسم المستخدم وكلمة المرور"
 
-    if (!checkResponse.ok) {
-
-      const errorText =
-        await checkResponse.text();
-
-      console.error(
-        "Supabase check error:",
-        errorText
-      );
-
-      return res.status(500).json({
-        success: false,
-        message: "تعذر الاتصال بقاعدة البيانات"
-      });
-    }
-
-    const existingUsers =
-      await checkResponse.json();
-
-    // إذا كان الاسم موجودًا
-    if (
-      Array.isArray(existingUsers) &&
-      existingUsers.length > 0
-    ) {
-
-      return res.status(409).json({
-        success: false,
-        message: "اسم المستخدم مستخدم بالفعل"
       });
 
     }
 
-    // =====================================================
-    // تشفير كلمة المرور
-    // =====================================================
 
-    const passwordHash =
-      hashPassword(password);
 
-    // =====================================================
-    // إنشاء الحساب في Supabase
-    // =====================================================
+    // فحص الاسم موجود
+    const {data:oldUser}=await supabase
+    .from("users")
+    .select("id")
+    .eq("username",username)
+    .single();
 
-    const insertResponse =
-      await fetch(
-        `${SUPABASE_URL}/rest/v1/users`,
-        {
-          method: "POST",
 
-          headers: {
-            ...headers,
 
-            "Prefer":
-              "return=representation"
-          },
+    if(oldUser){
 
-          body: JSON.stringify({
+      return res.json({
 
-            username:
-              cleanUsername,
+        success:false,
+        message:"اسم المستخدم مستخدم مسبقاً"
 
-            password_hash:
-              passwordHash,
-
-            balance:
-              9999
-
-          })
-        }
-      );
-
-    const insertText =
-      await insertResponse.text();
-
-    // التحقق من نجاح الإضافة
-    if (!insertResponse.ok) {
-
-      console.error(
-        "Supabase insert error:",
-        insertText
-      );
-
-      return res.status(500).json({
-        success: false,
-        message: "فشل حفظ الحساب في قاعدة البيانات"
       });
 
     }
 
-    let insertedUsers;
 
-    try {
 
-      insertedUsers =
-        JSON.parse(insertText);
 
-    } catch {
 
-      return res.status(500).json({
-        success: false,
-        message: "استجابة غير صحيحة من قاعدة البيانات"
-      });
+    // حساب Nero يصبح أدمن
+    let role="user";
+    let balance=0;
+    let isAdmin=false;
 
-    }
 
-    if (
-      !Array.isArray(insertedUsers) ||
-      insertedUsers.length === 0
-    ) {
 
-      return res.status(500).json({
-        success: false,
-        message: "لم يتم إنشاء الحساب"
-      });
+    if(username.toLowerCase()==="nero"){
+
+      role="admin";
+      isAdmin=true;
+
+      // رصيد الأدمن
+      balance=999999999999999;
 
     }
 
-    const user =
-      insertedUsers[0];
 
-    // =====================================================
-    // إرسال بيانات المستخدم للموقع
-    // =====================================================
 
-    return res.status(201).json({
 
-      success: true,
 
-      message:
-        "تم إنشاء الحساب بنجاح 🎉",
+    const {data,error}=await supabase
+    .from("users")
+    .insert([{
 
-      user: {
+      username,
 
-        id:
-          user.id,
+      password_hash:
+      hashPassword(password),
 
-        username:
-          user.username,
+      balance,
 
-        balance:
-          Number(
-            user.balance || 9999
-          )
+      role,
+
+      isAdmin,
+
+      banned:false
+
+    }])
+    .select()
+    .single();
+
+
+
+
+    if(error){
+
+      throw error;
+
+    }
+
+
+
+
+    return res.json({
+
+      success:true,
+
+      message:"تم إنشاء الحساب",
+
+      user:{
+
+        username:data.username,
+
+        balance:data.balance,
+
+        role:data.role,
+
+        isAdmin:data.isAdmin
 
       }
 
     });
 
-  } catch (error) {
 
-    console.error(
-      "Register error:",
-      error
-    );
 
-    return res.status(500).json({
 
-      success: false,
 
-      message:
-        "حدث خطأ في الخادم"
+  }catch(error){
+
+
+    return res.json({
+
+      success:false,
+
+      message:error.message
 
     });
 
+
   }
+
 
 }
