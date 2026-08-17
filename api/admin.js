@@ -2,109 +2,58 @@
 
 import { createClient } from "@supabase/supabase-js";
 
+
 const supabase = createClient(
   process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_KEY
+  process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
 
-// حساب الأدمن الرئيسي
-const ADMIN_USERNAME = "Nero";
-const ADMIN_PASSWORD = "92264989226498";
+
+export default async function handler(req,res){
 
 
-export default async function handler(req, res) {
+  if(req.method !== "POST"){
 
-  if (req.method !== "POST") {
     return res.status(405).json({
+
       success:false,
       message:"Method not allowed"
+
     });
+
   }
 
 
-  try {
+
+  try{
+
 
     const {
       action,
-      username,
-      password,
       userId,
       amount,
-      role
+      role,
+      ban_reason
     } = req.body;
 
 
 
-    // تسجيل دخول الأدمن
-    if(action === "admin_login"){
-
-      if(
-        username === ADMIN_USERNAME &&
-        password === ADMIN_PASSWORD
-      ){
-
-        return res.json({
-
-          success:true,
-
-          admin:{
-            username:ADMIN_USERNAME,
-            isAdmin:true,
-            balance:"∞"
-          }
-
-        });
-
-      }
-
-
-      return res.json({
-
-        success:false,
-
-        message:"بيانات الأدمن غير صحيحة"
-
-      });
-
-    }
-
-
-
-
-    // التحقق من صلاحية الأدمن
-    if(action !== "admin_login"){
-
-      if(
-        username !== ADMIN_USERNAME
-      ){
-
-        return res.json({
-
-          success:false,
-
-          message:"لا توجد صلاحية"
-
-        });
-
-      }
-
-    }
-
-
-
-
-    // جلب جميع المستخدمين
-    if(action==="users"){
+    if(action === "users"){
 
 
       const {data,error}=await supabase
+
       .from("users")
+
       .select("*")
-      .order("created_at",{ascending:false});
+
+      .order("id",{ascending:false});
+
 
 
       if(error) throw error;
+
 
 
       return res.json({
@@ -115,33 +64,39 @@ export default async function handler(req, res) {
 
       });
 
+
     }
 
 
 
-
-
-    // إضافة رصيد
-    if(action==="add_balance"){
+    if(action === "add_balance"){
 
 
       const {data:user}=await supabase
+
       .from("users")
+
       .select("balance")
+
       .eq("id",userId)
+
       .single();
 
 
+
       await supabase
+
       .from("users")
+
       .update({
 
         balance:
-        Number(user.balance||0)
+        Number(user.balance || 0)
         +
         Number(amount)
 
       })
+
       .eq("id",userId);
 
 
@@ -154,50 +109,72 @@ export default async function handler(req, res) {
 
       });
 
+
     }
 
 
 
+    if(action === "remove_balance"){
 
 
+      const {data:user}=await supabase
 
-    // حذف عضو
-    if(action==="delete_user"){
+      .from("users")
+
+      .select("balance")
+
+      .eq("id",userId)
+
+      .single();
+
 
 
       await supabase
+
       .from("users")
-      .delete()
+
+      .update({
+
+        balance:
+        Math.max(
+          0,
+          Number(user.balance || 0)
+          -
+          Number(amount)
+        )
+
+      })
+
       .eq("id",userId);
+
 
 
       return res.json({
 
         success:true,
 
-        message:"تم حذف المستخدم"
+        message:"تم خصم الرصيد"
 
       });
+
 
     }
 
 
 
-
-
-
-
-    // تغيير الصلاحية
-    if(action==="set_role"){
+    if(action === "set_role"){
 
 
       await supabase
+
       .from("users")
+
       .update({
 
         role:role || "admin"
 
       })
+
       .eq("id",userId);
 
 
@@ -206,30 +183,30 @@ export default async function handler(req, res) {
 
         success:true,
 
-        message:"تم تغيير الصلاحية"
+        message:"تم تغيير الرتبة"
 
       });
+
 
     }
 
 
 
-
-
-
-    // حظر عضو
-    if(action==="ban_user"){
+    if(action === "ban_user"){
 
 
       await supabase
+
       .from("users")
+
       .update({
 
         banned:true,
 
-        ban_reason:req.body.ban_reason || "مخالفة"
+        ban_reason:ban_reason || "مخالفة"
 
       })
+
       .eq("id",userId);
 
 
@@ -238,7 +215,7 @@ export default async function handler(req, res) {
 
         success:true,
 
-        message:"تم حظر المستخدم"
+        message:"تم الحظر"
 
       });
 
@@ -247,14 +224,13 @@ export default async function handler(req, res) {
 
 
 
-
-
-    // فك الحظر
-    if(action==="unban_user"){
+    if(action === "unban_user"){
 
 
       await supabase
+
       .from("users")
+
       .update({
 
         banned:false,
@@ -262,6 +238,7 @@ export default async function handler(req, res) {
         ban_reason:null
 
       })
+
       .eq("id",userId);
 
 
@@ -274,8 +251,34 @@ export default async function handler(req, res) {
 
       });
 
+
     }
 
+
+
+    if(action === "delete_user"){
+
+
+      await supabase
+
+      .from("users")
+
+      .delete()
+
+      .eq("id",userId);
+
+
+
+      return res.json({
+
+        success:true,
+
+        message:"تم حذف الحساب"
+
+      });
+
+
+    }
 
 
 
@@ -289,10 +292,14 @@ export default async function handler(req, res) {
 
 
 
-  } catch(error){
+  }catch(error){
 
 
-    return res.status(500).json({
+    console.log("ADMIN ERROR:",error);
+
+
+
+    return res.json({
 
       success:false,
 
